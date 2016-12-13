@@ -1,0 +1,55 @@
+BackBundle\Entity\Anexo:
+    type: entity
+    table: anexo
+    indexes:
+        ane_sol_fk:
+            columns:
+                - estsol_id
+    uniqueConstraints:
+        anexo_pk:
+            columns:
+                - solanex_id
+    id:
+        solanexId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: solanex_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        solanexTitulo:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: true
+            column: solanex_titulo
+        solanexDescripcion:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: solanex_descripcion
+        solanexRuta:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: solanex_ruta
+    manyToOne:
+        estsol:
+            targetEntity: EstadoSolicitud
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                estsol_id:
+                    referencedColumnName: estsol_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

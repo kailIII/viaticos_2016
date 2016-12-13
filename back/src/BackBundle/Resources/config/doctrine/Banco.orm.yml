@@ -1,0 +1,26 @@
+BackBundle\Entity\Banco:
+    type: entity
+    table: banco
+    uniqueConstraints:
+        banco_pk:
+            columns:
+                - ban_id
+    id:
+        banId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: ban_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        banNombre:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: ban_nombre
+    lifecycleCallbacks: {  }

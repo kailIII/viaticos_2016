@@ -1,0 +1,51 @@
+BackBundle\Entity\Fondo:
+    type: entity
+    table: fondo
+    indexes:
+        sol_val_fk:
+            columns:
+                - sol_id
+    uniqueConstraints:
+        fondo_pk:
+            columns:
+                - fon_id
+    id:
+        fonId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: fon_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        fonValor:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            column: fon_valor
+        fonFecha:
+            type: date
+            nullable: true
+            column: fon_fecha
+        fonObservacion:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: fon_observacion
+    manyToOne:
+        sol:
+            targetEntity: Solicitud
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sol_id:
+                    referencedColumnName: sol_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

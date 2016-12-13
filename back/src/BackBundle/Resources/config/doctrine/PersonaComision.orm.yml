@@ -1,0 +1,59 @@
+BackBundle\Entity\PersonaComision:
+    type: entity
+    table: persona_comision
+    indexes:
+        com_percom_fk:
+            columns:
+                - com_id
+        sol_percom_fk:
+            columns:
+                - sol_id
+        per_percom_fk:
+            columns:
+                - per_id
+    uniqueConstraints:
+        persona_comision_pk:
+            columns:
+                - percom_id
+    id:
+        percomId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: percom_id
+            generator:
+                strategy: SEQUENCE
+    manyToOne:
+        com:
+            targetEntity: Comision
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                com_id:
+                    referencedColumnName: com_id
+            orphanRemoval: false
+        per:
+            targetEntity: Persona
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                per_id:
+                    referencedColumnName: per_id
+            orphanRemoval: false
+        sol:
+            targetEntity: Solicitud
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sol_id:
+                    referencedColumnName: sol_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

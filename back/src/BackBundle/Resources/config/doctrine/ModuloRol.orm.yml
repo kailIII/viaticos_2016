@@ -1,0 +1,62 @@
+BackBundle\Entity\ModuloRol:
+    type: entity
+    table: modulo_rol
+    indexes:
+        mod_modrol_fk:
+            columns:
+                - mod_id
+        rol_modrol_fk:
+            columns:
+                - rol_id
+    uniqueConstraints:
+        modulo_rol_pk:
+            columns:
+                - modrol_id
+    id:
+        modrolId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: modrol_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        modrolDesde:
+            type: date
+            nullable: true
+            column: modrol_desde
+        modrolHasta:
+            type: date
+            nullable: true
+            column: modrol_hasta
+        modrolObservaciones:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: modrol_observaciones
+    manyToOne:
+        mod:
+            targetEntity: Modulo
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                mod_id:
+                    referencedColumnName: mod_id
+            orphanRemoval: false
+        rol:
+            targetEntity: Rol
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                rol_id:
+                    referencedColumnName: rol_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

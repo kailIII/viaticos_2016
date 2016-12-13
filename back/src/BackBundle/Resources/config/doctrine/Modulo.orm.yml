@@ -1,0 +1,60 @@
+BackBundle\Entity\Modulo:
+    type: entity
+    table: modulo
+    uniqueConstraints:
+        modulo_pk:
+            columns:
+                - mod_id
+    id:
+        modId:
+            type: smallint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: mod_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        modNombre:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: true
+            column: mod_nombre
+        modDescripcion:
+            type: string
+            nullable: true
+            length: 200
+            options:
+                fixed: false
+            column: mod_descripcion
+        modUbicacion:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: mod_ubicacion
+        modPadre:
+            type: smallint
+            nullable: true
+            options:
+                unsigned: false
+            column: mod_padre
+        modEstado:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: mod_estado
+        modNombremostrar:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: true
+            column: mod_nombremostrar
+    lifecycleCallbacks: {  }

@@ -1,0 +1,78 @@
+BackBundle\Entity\EstadoSolicitud:
+    type: entity
+    table: estado_solicitud
+    indexes:
+        sol_estsol_fk:
+            columns:
+                - sol_id
+    uniqueConstraints:
+        estado_solicitud_pk:
+            columns:
+                - estsol_id
+    id:
+        estsolId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: estsol_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        estsolFechasalida:
+            type: date
+            nullable: true
+            column: estsol_fechasalida
+        estsolHorasalida:
+            type: time
+            nullable: true
+            column: estsol_horasalida
+        estsolFechallegada:
+            type: date
+            nullable: true
+            column: estsol_fechallegada
+        estsolHorallegada:
+            type: time
+            nullable: true
+            column: estsol_horallegada
+        estsolActividades:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: estsol_actividades
+        estsolEstado:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: estsol_estado
+        estsolRutapdf:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: estsol_rutapdf
+        estsolObservacion:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: estsol_observacion
+    manyToOne:
+        sol:
+            targetEntity: Solicitud
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sol_id:
+                    referencedColumnName: sol_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,54 @@
+BackBundle\Entity\ModrolCarper:
+    type: entity
+    table: modrol_carper
+    indexes:
+        Modrol_Carper_carper_fk:
+            columns:
+                - carper_id
+        Modrol_Carper_modrol_fk:
+            columns:
+                - modrol_id
+    uniqueConstraints:
+        pk_Modrol_Carper:
+            columns:
+                - mrcp_id
+    id:
+        mrcpId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: mrcp_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        mrcpObservacion:
+            type: string
+            nullable: true
+            length: 150
+            options:
+                fixed: false
+            column: mrcp_observacion
+    manyToOne:
+        carper:
+            targetEntity: CargoPersona
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                carper_id:
+                    referencedColumnName: carper_id
+            orphanRemoval: false
+        modrol:
+            targetEntity: ModuloRol
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                modrol_id:
+                    referencedColumnName: modrol_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,42 @@
+BackBundle\Entity\AccesoPersona:
+    type: entity
+    table: acceso_persona
+    indexes:
+        accper_per_fk:
+            columns:
+                - per_id
+    uniqueConstraints:
+        acceso_persona_pk:
+            columns:
+                - aper_usuario
+    id:
+        aperUsuario:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            id: true
+            column: aper_usuario
+            generator:
+                strategy: SEQUENCE
+    fields:
+        aperClave:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: aper_clave
+    manyToOne:
+        per:
+            targetEntity: Persona
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                per_id:
+                    referencedColumnName: per_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

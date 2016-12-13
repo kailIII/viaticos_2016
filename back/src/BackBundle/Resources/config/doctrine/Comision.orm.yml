@@ -1,0 +1,56 @@
+BackBundle\Entity\Comision:
+    type: entity
+    table: comision
+    uniqueConstraints:
+        comision_pk:
+            columns:
+                - com_id
+    id:
+        comId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: com_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        comNombre:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: true
+            column: com_nombre
+        comObservacion:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: com_observacion
+        comFechadesde:
+            type: date
+            nullable: true
+            column: com_fechadesde
+        comHoradesde:
+            type: time
+            nullable: true
+            column: com_horadesde
+        comFechahasta:
+            type: date
+            nullable: true
+            column: com_fechahasta
+        comHorahasta:
+            type: time
+            nullable: true
+            column: com_horahasta
+        comEstado:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: com_estado
+    lifecycleCallbacks: {  }

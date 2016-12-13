@@ -1,0 +1,47 @@
+BackBundle\Entity\Institucion:
+    type: entity
+    table: institucion
+    uniqueConstraints:
+        institucion_pk:
+            columns:
+                - ins_id
+    id:
+        insId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: ins_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        insNombre:
+            type: string
+            nullable: true
+            length: 150
+            options:
+                fixed: true
+            column: ins_nombre
+        insDireccion:
+            type: string
+            nullable: true
+            length: 200
+            options:
+                fixed: true
+            column: ins_direccion
+        insLogo:
+            type: string
+            nullable: true
+            length: 250
+            options:
+                fixed: true
+            column: ins_logo
+        insEstado:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: ins_estado
+    lifecycleCallbacks: {  }

@@ -1,0 +1,9 @@
+departamento_nuevo:
+    path:   /nuevo
+    defaults: { _controller: "AppBundle:Departamento:nuevo"}
+    methods:  POST
+    
+departamento_editar:
+    path:   /editar
+    defaults: { _controller: "AppBundle:Departamento:editar"}
+    methods:  POST

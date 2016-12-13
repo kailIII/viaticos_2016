@@ -1,0 +1,78 @@
+BackBundle\Entity\AutorizadoSolicitud:
+    type: entity
+    table: autorizado_solicitud
+    indexes:
+        aut_autsol_fk:
+            columns:
+                - aut_id
+        per_autsol_fk:
+            columns:
+                - per_id
+        sol_aut_fk:
+            columns:
+                - estsol_id
+    uniqueConstraints:
+        autorizado_solicitud_pk:
+            columns:
+                - solaut_id
+    id:
+        solautId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: solaut_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        solautFechaautorizado:
+            type: date
+            nullable: true
+            column: solaut_fechaautorizado
+        solautComentario:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: solaut_comentario
+        colautMacaddress:
+            type: string
+            nullable: true
+            length: 15
+            options:
+                fixed: true
+            column: colaut_macaddress
+    manyToOne:
+        aut:
+            targetEntity: Autorizacion
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                aut_id:
+                    referencedColumnName: aut_id
+            orphanRemoval: false
+        per:
+            targetEntity: Persona
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                per_id:
+                    referencedColumnName: per_id
+            orphanRemoval: false
+        estsol:
+            targetEntity: EstadoSolicitud
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                estsol_id:
+                    referencedColumnName: estsol_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

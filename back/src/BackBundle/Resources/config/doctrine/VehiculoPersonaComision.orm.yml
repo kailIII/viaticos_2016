@@ -1,0 +1,76 @@
+BackBundle\Entity\VehiculoPersonaComision:
+    type: entity
+    table: vehiculo_persona_comision
+    indexes:
+        per_vps_fk:
+            columns:
+                - per_id
+        veh_vps_fk:
+            columns:
+                - veh_id
+        com_vps_fk:
+            columns:
+                - com_id
+    uniqueConstraints:
+        vehiculo_persona_comision_pk:
+            columns:
+                - vps_id
+    id:
+        vpsId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: vps_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        vpsFechainicio:
+            type: date
+            nullable: true
+            column: vps_fechainicio
+        vpsHorainicio:
+            type: time
+            nullable: true
+            column: vps_horainicio
+        vpsFechafin:
+            type: date
+            nullable: true
+            column: vps_fechafin
+        vpsHorafin:
+            type: time
+            nullable: true
+            column: vps_horafin
+    manyToOne:
+        com:
+            targetEntity: Comision
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                com_id:
+                    referencedColumnName: com_id
+            orphanRemoval: false
+        per:
+            targetEntity: Persona
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                per_id:
+                    referencedColumnName: per_id
+            orphanRemoval: false
+        veh:
+            targetEntity: Vehiculo
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                veh_id:
+                    referencedColumnName: veh_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

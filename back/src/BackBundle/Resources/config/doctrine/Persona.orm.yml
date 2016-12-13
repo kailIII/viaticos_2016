@@ -1,0 +1,72 @@
+BackBundle\Entity\Persona:
+    type: entity
+    table: persona
+    uniqueConstraints:
+        persona_pk:
+            columns:
+                - per_id
+    id:
+        perId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: per_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        perNombre:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: per_nombre
+        perApellido:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: per_apellido
+        perIdentificacion:
+            type: string
+            nullable: true
+            length: 13
+            options:
+                fixed: true
+            column: per_identificacion
+        perEstado:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: per_estado
+        perCorreoelectronico:
+            type: string
+            nullable: true
+            length: 70
+            options:
+                fixed: true
+            column: per_correoelectronico
+        perIniciales:
+            type: string
+            nullable: true
+            length: 4
+            options:
+                fixed: true
+            column: per_iniciales
+        perCreado:
+            type: date
+            nullable: true
+            column: per_creado
+        perNombrecompleto:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: per_nombrecompleto
+    lifecycleCallbacks: {  }

@@ -1,0 +1,65 @@
+BackBundle\Entity\AutorizadoInforme:
+    type: entity
+    table: autorizado_informe
+    indexes:
+        inf_aut_fk:
+            columns:
+                - inf_id
+        aut_autinf_fk:
+            columns:
+                - aut_id
+    uniqueConstraints:
+        autorizado_informe_pk:
+            columns:
+                - infaut_id
+    id:
+        infautId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: infaut_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        infautFechaautorizado:
+            type: date
+            nullable: true
+            column: infaut_fechaautorizado
+        infautComentario:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: infaut_comentario
+        infautMacaddress:
+            type: string
+            nullable: true
+            length: 15
+            options:
+                fixed: true
+            column: infaut_macaddress
+    manyToOne:
+        aut:
+            targetEntity: Autorizacion
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                aut_id:
+                    referencedColumnName: aut_id
+            orphanRemoval: false
+        inf:
+            targetEntity: Informe
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                inf_id:
+                    referencedColumnName: inf_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,55 @@
+BackBundle\Entity\AnexoInforme:
+    type: entity
+    table: anexo_informe
+    indexes:
+        inf_aneinf_fk:
+            columns:
+                - inf_id
+    uniqueConstraints:
+        anexo_informe_pk:
+            columns:
+                - infanex_id
+    id:
+        infanexId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: infanex_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        infanexTitulo:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: true
+            column: infanex_titulo
+        infanexDescripcion:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: infanex_descripcion
+        infanexRuta:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: infanex_ruta
+    manyToOne:
+        inf:
+            targetEntity: Informe
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                inf_id:
+                    referencedColumnName: inf_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

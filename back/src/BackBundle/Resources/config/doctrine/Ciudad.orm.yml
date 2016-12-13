@@ -1,0 +1,48 @@
+BackBundle\Entity\Ciudad:
+    type: entity
+    table: ciudad
+    indexes:
+        pro_ciu_fk:
+            columns:
+                - prov_id
+    uniqueConstraints:
+        ciudad_pk:
+            columns:
+                - ciu_id
+    id:
+        ciuId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: ciu_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        ciuNombre:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: ciu_nombre
+        ciuCanton:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: true
+            column: ciu_canton
+    manyToOne:
+        prov:
+            targetEntity: Provincia
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                prov_id:
+                    referencedColumnName: prov_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

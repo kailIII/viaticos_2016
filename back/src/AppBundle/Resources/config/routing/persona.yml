@@ -1,0 +1,29 @@
+persona_nuevo:
+    path:   /nuevo
+    defaults: { _controller: "AppBundle:Persona:nuevo"}
+    methods:  POST
+    
+persona_editar:
+    path:   /editar
+    defaults: { _controller: "AppBundle:Persona:editar"}
+    methods:  POST
+    
+persona_cambiar:
+    path:   /cambiar
+    defaults: { _controller: "AppBundle:Persona:cambiar"}
+    methods:  POST
+    
+persona_editarbanco:
+    path:   /editarbanco
+    defaults: { _controller: "AppBundle:Persona:editarbanco"}
+    methods:  POST
+
+persona_agregarbanco:
+    path:   /agregarbanco
+    defaults: { _controller: "AppBundle:Persona:agregarbanco"}
+    methods:  POST
+
+persona_ver:
+    path:   /ver
+    defaults: { _controller: "AppBundle:Persona:ver"}
+    methods:  POST

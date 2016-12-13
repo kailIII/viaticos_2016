@@ -1,0 +1,39 @@
+app_default:
+  resource: "@AppBundle/Resources/config/routing/default.yml"
+  prefix: /
+
+app_persona:
+  resource: "@AppBundle/Resources/config/routing/persona.yml"
+  prefix: /persona
+
+app_banco:
+  resource: "@AppBundle/Resources/config/routing/banco.yml"
+  prefix: /banco
+
+app_departamento:
+  resource: "@AppBundle/Resources/config/routing/departamento.yml"
+  prefix: /departamento
+
+app_rol:
+  resource: "@AppBundle/Resources/config/routing/rol.yml"
+  prefix: /rol
+
+app_modulo:
+  resource: "@AppBundle/Resources/config/routing/modulo.yml"
+  prefix: /modulo
+
+app_modulorol:
+  resource: "@AppBundle/Resources/config/routing/modulorol.yml"
+  prefix: /modulo_rol
+
+app_solicitud:
+  resource: "@AppBundle/Resources/config/routing/solicitud.yml"
+  prefix: /solicitud
+
+app_comision:
+  resource: "@AppBundle/Resources/config/routing/comision.yml"
+  prefix: /comision
+
+app_transporte:
+  resource: "@AppBundle/Resources/config/routing/transporte.yml"
+  prefix: /transporte

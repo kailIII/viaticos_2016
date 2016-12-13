@@ -1,0 +1,33 @@
+BackBundle\Entity\Rol:
+    type: entity
+    table: rol
+    uniqueConstraints:
+        rol_pk:
+            columns:
+                - rol_id
+    id:
+        rolId:
+            type: smallint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: rol_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        rolNombre:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+            column: rol_nombre
+        rolEstado:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: rol_estado
+    lifecycleCallbacks: {  }

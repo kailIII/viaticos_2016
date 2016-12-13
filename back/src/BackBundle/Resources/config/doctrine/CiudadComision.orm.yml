@@ -1,0 +1,63 @@
+BackBundle\Entity\CiudadComision:
+    type: entity
+    table: ciudad_comision
+    indexes:
+        com_ciucom_fk:
+            columns:
+                - com_id
+        ciu_ciucom_fk:
+            columns:
+                - ciu_id
+    uniqueConstraints:
+        ciudad_comision_pk:
+            columns:
+                - ciucom_id
+    id:
+        ciucomId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: ciucom_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        ciucomFechadesde:
+            type: date
+            nullable: true
+            column: ciucom_fechadesde
+        ciucomHoradesde:
+            type: time
+            nullable: true
+            column: ciucom_horadesde
+        ciucomFechahasta:
+            type: date
+            nullable: true
+            column: ciucom_fechahasta
+        ciucomHorahasta:
+            type: time
+            nullable: true
+            column: ciucom_horahasta
+    manyToOne:
+        ciu:
+            targetEntity: Ciudad
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ciu_id:
+                    referencedColumnName: ciu_id
+            orphanRemoval: false
+        com:
+            targetEntity: Comision
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                com_id:
+                    referencedColumnName: com_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

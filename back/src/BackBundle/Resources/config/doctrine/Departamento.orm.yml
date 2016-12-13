@@ -1,0 +1,61 @@
+BackBundle\Entity\Departamento:
+    type: entity
+    table: departamento
+    indexes:
+        ins_dep_fk:
+            columns:
+                - ins_id
+    uniqueConstraints:
+        departamento_pk:
+            columns:
+                - dep_id
+    id:
+        depId:
+            type: smallint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: dep_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        depNombre:
+            type: string
+            nullable: true
+            length: 200
+            options:
+                fixed: false
+            column: dep_nombre
+        depSiglas:
+            type: string
+            nullable: true
+            length: 8
+            options:
+                fixed: true
+            column: dep_siglas
+        depPadre:
+            type: smallint
+            nullable: true
+            options:
+                unsigned: false
+            column: dep_padre
+        depEstado:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: dep_estado
+    manyToOne:
+        ins:
+            targetEntity: Institucion
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ins_id:
+                    referencedColumnName: ins_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

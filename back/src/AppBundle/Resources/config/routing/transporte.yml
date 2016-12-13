@@ -1,0 +1,5 @@
+solicitud_buscar:
+    path:   /buscar
+    defaults: { _controller: "AppBundle:Transporte:buscar"}
+    methods:  POST
+    

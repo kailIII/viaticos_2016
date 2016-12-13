@@ -1,0 +1,33 @@
+BackBundle\Entity\Provincia:
+    type: entity
+    table: provincia
+    uniqueConstraints:
+        provincia_pk:
+            columns:
+                - prov_id
+    id:
+        provId:
+            type: smallint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: prov_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        provNombre:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: true
+            column: prov_nombre
+        provRegion:
+            type: string
+            nullable: true
+            length: 10
+            options:
+                fixed: true
+            column: prov_region
+    lifecycleCallbacks: {  }

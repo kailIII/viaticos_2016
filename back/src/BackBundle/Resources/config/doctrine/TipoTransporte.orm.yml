@@ -1,0 +1,40 @@
+BackBundle\Entity\TipoTransporte:
+    type: entity
+    table: tipo_transporte
+    uniqueConstraints:
+        tipo_transporte_pk:
+            columns:
+                - tiptra_id
+    id:
+        tiptraId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: tiptra_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        tiptraNombre:
+            type: string
+            nullable: true
+            length: 40
+            options:
+                fixed: true
+            column: tiptra_nombre
+        tiptraTipo:
+            type: string
+            nullable: true
+            length: 15
+            options:
+                fixed: true
+            column: tiptra_tipo
+        tiptraSigla:
+            type: string
+            nullable: true
+            length: 4
+            options:
+                fixed: true
+            column: tiptra_sigla
+    lifecycleCallbacks: {  }

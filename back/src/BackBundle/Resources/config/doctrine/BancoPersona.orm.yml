@@ -1,0 +1,68 @@
+BackBundle\Entity\BancoPersona:
+    type: entity
+    table: banco_persona
+    indexes:
+        banper_per_fk:
+            columns:
+                - per_id
+        ban_banper_fk:
+            columns:
+                - ban_id
+    uniqueConstraints:
+        banco_persona_pk:
+            columns:
+                - banper_id
+    id:
+        banperId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: banper_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        banperTipocuenta:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: banper_tipocuenta
+        banperNumerocuenta:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: true
+            column: banper_numerocuenta
+        banperEstado:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: banper_estado
+    manyToOne:
+        per:
+            targetEntity: Persona
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                per_id:
+                    referencedColumnName: per_id
+            orphanRemoval: false
+        ban:
+            targetEntity: Banco
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ban_id:
+                    referencedColumnName: ban_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

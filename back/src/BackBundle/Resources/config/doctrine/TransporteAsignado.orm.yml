@@ -1,0 +1,124 @@
+BackBundle\Entity\TransporteAsignado:
+    type: entity
+    table: transporte_asignado
+    indexes:
+        sol_traasi_fk:
+            columns:
+                - estsol_id
+        tsolext_traasi_fk:
+            columns:
+                - trasol_id2
+        vps_traasi_fk:
+            columns:
+                - vps_id
+        tiptra_traasi_fk:
+            columns:
+                - tiptra_id
+    uniqueConstraints:
+        transporte_asignado_pk:
+            columns:
+                - traasi_id
+    id:
+        traasiId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: traasi_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        traasiRutainicio:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+            column: traasi_rutainicio
+        traasiRutafin:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+            column: traasi_rutafin
+        traasiFechasalida:
+            type: date
+            nullable: true
+            column: traasi_fechasalida
+        traasiHorasalida:
+            type: time
+            nullable: true
+            column: traasi_horasalida
+        traasiFechallegada:
+            type: date
+            nullable: true
+            column: traasi_fechallegada
+        traasiHorallegada:
+            type: time
+            nullable: true
+            column: traasi_horallegada
+        traasiTicketelectronico:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: traasi_ticketelectronico
+        traasiEstado:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: traasi_estado
+        traasiObservacion:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: traasi_observacion
+    manyToOne:
+        estsol:
+            targetEntity: EstadoSolicitud
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                estsol_id:
+                    referencedColumnName: estsol_id
+            orphanRemoval: false
+        tiptra:
+            targetEntity: TipoTransporte
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tiptra_id:
+                    referencedColumnName: tiptra_id
+            orphanRemoval: false
+        trasol2:
+            targetEntity: TransporteSolicitadoextra
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                trasol_id2:
+                    referencedColumnName: trasol_id2
+            orphanRemoval: false
+        vps:
+            targetEntity: VehiculoPersonaComision
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                vps_id:
+                    referencedColumnName: vps_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

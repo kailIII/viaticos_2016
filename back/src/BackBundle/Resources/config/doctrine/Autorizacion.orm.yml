@@ -1,0 +1,41 @@
+BackBundle\Entity\Autorizacion:
+    type: entity
+    table: autorizacion
+    indexes:
+        per_aut_fk:
+            columns:
+                - per_id
+    uniqueConstraints:
+        autorizacion_pk:
+            columns:
+                - aut_id
+    id:
+        autId:
+            type: smallint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: aut_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        autClave:
+            type: string
+            nullable: true
+            length: 20
+            options:
+                fixed: false
+            column: aut_clave
+    manyToOne:
+        per:
+            targetEntity: Persona
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                per_id:
+                    referencedColumnName: per_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

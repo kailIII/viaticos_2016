@@ -1,0 +1,14 @@
+<form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+				<div>
+					<label>Correo electrónico:</label>
+					<input type="text" id="email" name="email" #email="ngModel" [(ngModel)]="user.email" required autocomplete="on" />
+					<div *ngIf="!email.valid && email.touched">El email es necesario</div>
+				</div>
+				<div>
+					<label>Contraseña:</label>
+					<input type="password" id="password" name="password" #password="ngModel" [(ngModel)]="user.password" required/>
+					<div *ngIf="!password.valid && password.touched">La contraseña es necesaria</div>
+				</div>
+				<input type="submit" value="Enviar" class="btn btn-primary"/>
+				<!-- <button type="submit" class="btn btn-primary"/>Enviar</button> -->
+			</form>

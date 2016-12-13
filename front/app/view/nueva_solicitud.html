@@ -1,0 +1,310 @@
+<div class="menuActivo">
+	<div class="collapse navbar-collapse">
+		<ul class="nav navbar-nav">
+			<button (click)="OnbotonAtras()">Atrás</button>
+			<!-- <button><li><a [routerLink]="['/nueva_solicitud']">Generar una Nueva Solicitud</a></li></button> -->
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<p>Módulo actual: <span>{{titulo}}</span></p>
+		</ul>
+	</div>
+</div>
+<div class="FormularioActivo">
+	<form (ngSubmit)="onEnviarSol()" #ComisionForm="ngForm">
+		<div *ngIf="inicial == false">
+			<table id="mytable" class="table2">
+				<thead>
+					<p>Fechas de la Comisión</p>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="td2">Fecha Inicio:</td>
+						<td class="td2"><input type="date" min="2016-01-01" class="cuadros" name="FechaDesde_sol" #FechaDesde_sol="ngModel" [(ngModel)]="comision.FechaDesde_sol"></td>
+						<td class="td2">Hora Inicio:</td>
+						<td class="td2"><input type="time" class="cuadros" name="HoraDesde_sol" #HoraDesde_sol="ngModel" [(ngModel)]="comision.HoraDesde_sol"></td>
+						<td>-</td> 
+						<td class="td2">Fecha Fin:</td>
+						<td class="td2"><input type="date" min="2016-01-01" class="cuadros" name="FechaHasta_sol" #FechaHasta_sol="ngModel" [(ngModel)]="comision.FechaHasta_sol"></td>
+						<td class="td2">Hora Fin:</td>
+						<td class="td2"><input type="time" class="cuadros" name="HoraHasta_sol" #HoraHasta_sol="ngModel" [(ngModel)]="comision.HoraHasta_sol"></td>
+					</tr>
+				</tbody>
+			</table>
+			<table id="mytable" class="table2">
+				<thead>
+					<p><ins>Lugares de Comisión</ins></p>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="td2">
+							<form>
+								<input id="ingresarCiudad" class="cuadros1" type="text" size="30" placeholder="Agregar ciudad" #ciudadSol required>
+								<button class="btn1" (click)="OnAgregarCiudad(ciudadSol.value)" >Agregar</button>
+							</form> 
+						</td>
+						<td class="td2"> <p>Listado Ciudades</p> 
+							<textarea id="ciudades_solicitud" name="ciudades_sol" #ciudades_sol rows="2" cols="50">{{ciudadComision}}</textarea>  
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<table id="mytable" class="table2">
+				<thead>
+					<p><ins>Comisionados</ins></p>
+				</thead>
+
+				<tbody>
+
+					<tr>
+						<td class="td2">
+							<form>
+								<input id="ingresarComisionado"  class="cuadros1" type="texto" size="30" placeholder="Agregar Comisionados" #comisionadoSol required>
+								<button class="btn1" (click)="OnAgregarComisionado(comisionadoSol.value)" >Agregar</button>
+							</form> 
+						</td>
+						<td class="td2"> 
+							<ins>Listado Comisionados</ins> 
+							<textarea id="comisionados_solicitud" name="comisionados_sol" #comisionados_sol rows="2" cols="50">{{comisionadoComision}}</textarea>
+						</td>
+					</tr>
+				</tbody>
+			</table> 
+			<button (click)="Onpaso2()">Actividades a Realizar</button>
+		</div>
+		<div *ngIf="inicial == true && paso2 == false">
+			<table id="mytable" class="table2">
+				<thead>
+					<p><ins>Actividades a realizar</ins></p>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<textarea #actividadessol="ngModel" [(ngModel)]="comision.actividadessol" [ngModelOptions]="{standalone: true}" rows="20" cols="120"></textarea> 
+						</td>
+						<p>{{drop}}</p>
+					</tr>
+				</tbody>
+			</table> 
+			<button (click)="Onpaso3()">Escoger Transporte</button>
+		</div>
+		<div *ngIf="inicial == true && paso2 == true && paso3 == false">
+			<table id="mytable" class="table2">
+				<thead>
+					<p><ins>Escoger los transportes a requerir</ins></p>
+				</thead>
+				<tbody id="tbody_trareq">
+					<tr>
+						<td class="td2">
+							<p>Tipo</p>
+							<select id="combo_tiptra">
+								<option [value]="">Escoja uno</option>
+								<option *ngFor="let tipodetransporte of tipotra" [value]="tipodetransporte.val">
+									{{tipodetransporte.name}}
+								</option>
+							</select>
+						</td>
+						<td class="td2">
+							<p><ins>Modelo</ins></p>
+							<select id="combo_vehiculo" >
+								<option [value]="">Escoja uno</option>
+								<option *ngFor="let tipodetransporte of tipotra" [value]="tipodetransporte.val">
+									{{tipodetransporte.name}}
+								</option>
+							</select> 
+						</td>
+						<td class="td2">
+							<p><ins>Ruta Inicio</ins></p>
+							<input type="text" id="RinicioTrans">
+						</td>
+						<td class="td2">
+							<p><ins>Ruta Fin</ins></p>
+							<input type="text" id="RfinTrans" >
+						</td>
+						<td class="td2">
+							<p><ins>Fecha Inicio</ins></p>
+							<input type="date" min="2016-01-01" max="2050-12-31" class="cuadros3" id="FinicioTrans" >
+						</td>
+						<td class="td2">
+							<p><ins>Hora Inicio</ins></p>
+							<input type="time" class="cuadros3" id="HinicioTrans">
+						</td>
+						<td class="td2">
+							<p><ins>Fecha Fin</ins></p>
+							<input type="date" min="2016-01-01" max="2050-12-31" class="cuadros3" id="FfinTrans" >
+						</td>
+						<td class="td2">
+							<p><ins>Hora Fin</ins></p>
+							<input type="time"  class="cuadros3" id="HfinTrans">
+						</td>
+						<td class="td2">
+							<!-- <a class="btn btn-success btn-xs glyphicon glyphicon-plus" (click)="showDialogToAdd()"> -->
+							<a class="btn btn-success btn-xs glyphicon glyphicon-plus" (click)="OnAgregarTraReq()">
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div>
+				<p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="3" [responsive]="true">
+					<header>VEHICULOS REQUERIDOS</header>
+					<p-column field="tipo" header="Tipo" [sortable]="true"></p-column>
+					<p-column field="modelo" header="Modelo" [sortable]="true"></p-column>
+					<p-column field="rutainicio" header="Ruta Inicio" [sortable]="true"></p-column>
+					<p-column field="rutafin" header="Ruta Fin" [sortable]="true"></p-column>
+					<p-column field="fechainicio" header="Fecha Inicio" [sortable]="true"></p-column>
+					<p-column field="horainicio" header="Hora Inicio" [sortable]="true"></p-column>
+					<p-column field="fechafin" header="Fecha Fin" [sortable]="true"></p-column>
+					<p-column field="horafin" header="Hora Fin" [sortable]="true"></p-column>
+					<p-column field="eliminar" header="Eliminar" [sortable]="false"></p-column>
+					<!-- <footer><div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Add"></button></div></footer> -->
+				</p-dataTable>
+
+				<p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" id="tbody_trareq_dialog">
+					<div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="car">
+						<div class="ui-grid-row">
+							<div class="ui-grid-col-4"><label for="tipo">Tipo</label></div>
+							<div class="ui-grid-col-8"><input pInputText id="tipo" /></div>
+						</div>
+						<div class="ui-grid-row">
+							<div class="ui-grid-col-4"><label for="modelo">Modelo</label></div>
+							<div class="ui-grid-col-8"><input pInputText id="modelo"/></div>
+						</div>
+						<div class="ui-grid-row">
+							<div class="ui-grid-col-4"><label for="rutainicio">Ruta Inicio</label></div>
+							<div class="ui-grid-col-8"><input pInputText id="rutainicio" /></div>
+						</div>
+						<div class="ui-grid-row">
+							<div class="ui-grid-col-4"><label for="rutafin">Ruta Fin</label></div>
+							<div class="ui-grid-col-8"><input pInputText id="rutafin" /></div>
+						</div>
+						<div class="ui-grid-row">
+							<div class="ui-grid-col-4"><label for="fechainicio">Fecha Inicio</label></div>
+							<div class="ui-grid-col-8"><input pInputText id="fechainicio" /></div>
+						</div>
+						<div class="ui-grid-row">
+							<div class="ui-grid-col-4"><label for="horainicio">Hora Inicio</label></div>
+							<div class="ui-grid-col-8"><input pInputText id="horainicio" /></div>
+						</div>
+						<div class="ui-grid-row">
+							<div class="ui-grid-col-4"><label for="fechafin">Fecha Fin</label></div>
+							<div class="ui-grid-col-8"><input pInputText id="fechafin" /></div>
+						</div>
+						<div class="ui-grid-row">
+							<div class="ui-grid-col-4"><label for="horafin">Hora Fin</label></div>
+							<div class="ui-grid-col-8"><input pInputText id="horafin" /></div>
+						</div>
+						<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+							<!-- <button type="button" pButton icon="fa-close" (click)="delete()" label="Delete"></button> -->
+							<button class="btn btn-danger btn-xs glyphicon glyphicon-minus" (click)="OnEliminarTraReq()"></button>
+							<!-- <button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button> -->
+						</div>
+					</div>
+				</p-dialog>
+			</div>
+
+
+
+<!-- 
+<table class="table table-striped" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5">
+    <thead>
+    <tr>
+        <th style="width: 20%">
+            <mfDefaultSorter by="name">Name</mfDefaultSorter>
+        </th>
+        <th style="width: 50%">
+            <mfDefaultSorter by="email">Email</mfDefaultSorter>
+        </th>
+        <th style="width: 10%">
+            <mfDefaultSorter by="age">Age</mfDefaultSorter>
+        </th>
+        <th style="width: 20%">
+            <mfDefaultSorter by="city">City</mfDefaultSorter>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of mf.data">
+        <td>{{item.name}}</td>
+        <td>{{item.email}}</td>
+        <td class="text-right">{{item.age}}</td>
+        <td>{{item.city | uppercase}}</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="4">
+            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+        </td>
+    </tr>
+    </tfoot>
+</table> -->
+
+
+
+
+
+			<!-- <ng2-smart-table [settings]="settings"></ng2-smart-table> -->
+			<!-- <table id="mytable" class="table2">
+				<thead>
+					<p>Transporte extra (Solo institucional)</p>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="td2">
+							<p>Tipo</p>
+							<select id="tipoTrans">
+								<option value="aereo">Aereo</option>
+								<option value="terrestre">Terrestre</option>
+								<option value="marítimo">Marítimo</option>
+								<option value="ferreo">Ferreo</option>
+								<option value="otro">Otro</option>
+							</select>
+						</td>
+						<td class="td2"><p><ins>Modelo</ins></p>
+							<select id="modeloTrans" >
+								<option value="aereo">SZ</option>
+								<option value="terrestre">Camioneta</option>
+							</select></td>
+							<td class="td2">
+								<p><ins>Ruta Inicio</ins></p>
+								<input type="text" id="RinicioTrans" >
+							</td>
+							<td class="td2">
+								<p><ins>Ruta Fin</ins></p>
+								<input type="text" id="RfinTrans" >
+							</td>
+							<td class="td2">
+								<p><ins>Fecha Inicio</ins></p>
+								<input type="date" min="2016-01-01" max="2050-12-31" class="cuadros3" id="FinicioTrans" >
+							</td>
+							<td class="td2">
+								<p><ins>Hora Inicio</ins></p>
+								<input type="time" class="cuadros3" id="HinicioTrans">
+							</td>
+							<td class="td2">
+								<p><ins>Fecha Fin</ins></p>
+								<input type="date" min="2016-01-01" max="2050-12-31" class="cuadros3" id="FfinTrans" >
+							</td>
+							<td class="td2">
+								<p><ins>Hora Fin</ins></p>
+								<input type="time"  class="cuadros3" id="HfinTrans">
+							</td>
+							<td class="td2">
+								<button class="btn btn-success btn-xs glyphicon glyphicon-plus">
+								</button>
+							</td>
+
+						</tr>
+						<tr>
+						</tr>
+					</tbody>
+				</table> -->
+				<ul class="pagination pull-CENTER">
+					<button (click)="onGuardarSol()">GUARDAR</button>
+					<button (click)="onpaso4()">ENVIAR</button>
+					<button (click)="onImprimirSol()">IMPRIMIR</button>
+					<button (click)="OnCancelarSol()">CANCELAR</button>
+				</ul>
+			</div>
+		</form>
+	</div>

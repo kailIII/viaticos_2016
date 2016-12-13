@@ -1,0 +1,45 @@
+BackBundle\Entity\Nousado:
+    type: entity
+    table: nousado
+    indexes:
+        trainf_nousa_fk:
+            columns:
+                - trainf_id
+    uniqueConstraints:
+        nousado_pk:
+            columns:
+                - nousa_id
+    id:
+        nousaId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: nousa_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        nousaFechajustificativo:
+            type: date
+            nullable: true
+            column: nousa_fechajustificativo
+        nousaJustificativo:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: nousa_justificativo
+    manyToOne:
+        trainf:
+            targetEntity: TransporteInforme
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                trainf_id:
+                    referencedColumnName: trainf_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

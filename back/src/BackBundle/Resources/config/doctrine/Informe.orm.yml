@@ -1,0 +1,88 @@
+BackBundle\Entity\Informe:
+    type: entity
+    table: informe
+    indexes:
+        ciu_inf_fk:
+            columns:
+                - ciusol_id
+        sol_inf_fk:
+            columns:
+                - sol_id
+    uniqueConstraints:
+        informe_pk:
+            columns:
+                - inf_id
+    id:
+        infId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: inf_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        infFecharealizado:
+            type: date
+            nullable: true
+            column: inf_fecharealizado
+        infFechasalida:
+            type: date
+            nullable: true
+            column: inf_fechasalida
+        infHorasalida:
+            type: time
+            nullable: true
+            column: inf_horasalida
+        infFechallegada:
+            type: date
+            nullable: true
+            column: inf_fechallegada
+        infHorallegada:
+            type: time
+            nullable: true
+            column: inf_horallegada
+        infActividades:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: inf_actividades
+        infEstado:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: inf_estado
+        infRutapdf:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: inf_rutapdf
+    manyToOne:
+        ciusol:
+            targetEntity: CiudadSolicitud
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ciusol_id:
+                    referencedColumnName: ciusol_id
+            orphanRemoval: false
+        sol:
+            targetEntity: Solicitud
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sol_id:
+                    referencedColumnName: sol_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

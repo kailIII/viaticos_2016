@@ -1,0 +1,46 @@
+<div class="menuActivo">
+	<div class="collapse navbar-collapse"  id="bs-example-navbar-collapse-1">
+		<ul class="nav navbar-nav">
+			<button [routerLink]="['/nuevo_usuario']">Crear Nuevo Usuario</button>
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<p>Módulo actual: <span>{{titulo}}</span></p>
+		</ul>
+	</div>
+</div>
+<hr>
+<div class="formulario_solicitud">
+	<!-- comienzo de la tabla -->
+	<article id="contenido">
+		<table cellpadding="0" cellspacing="0" border="0" class="display" id="muestra_datos" width="1">
+			<thead>
+				<tr><tr>
+					<th>NOMBRE</th>
+					<th>APELLIDO</th>
+					<th>IDENTIFICACION</th>
+					<th>CORREO ELECTRONICO</th>
+					<th width="65px">EDITAR - ELIMINAR</th>
+				</tr>
+			</thead>
+			<tbody *ngFor="let datoUsuario of datoUsuarioMostrar">
+				<tr>
+					<td>{{datoUsuario.perNombre}}</td>
+					<td>{{datoUsuario.perApellido}}</td>
+					<td>{{datoUsuario.perIdentificacion}}</td>
+					<td>{{datoUsuario.perCorreoelectronico}}</td>
+					<td>
+						<!--<a href="<?php echo site_url('cliente/cliente/ver_cliente/' . $datos->FUN_ID); ?>" class="btn btn-primary btn-xs"><i class="icon-search"></i></a>-->
+						<a class="btn btn-warning btn-xs glyphicon glyphicon-edit"></a>
+						<!-- <a href="<?php echo site_url('cliente/cliente/editar_cliente/' . $datos->FUN_ID); ?>" class="btn btn-warning btn-xs"><i class="icon-edit"></i></a>
+						<a href="<?php echo site_url('cliente/cliente/borrar_cliente/' . $datos->FUN_ID); ?>" class="btn btn-danger btn-xs"><i class="icon-trash"></i></a> -->
+						<a class="btn btn-danger btn-xs glyphicon glyphicon-trash"></a>
+					</td>
+</tr>
+			</tbody>
+		</table>
+	</article>
+	<!-- fin de la tabla -->
+<!-- 	<ul *ngFor="let usuario of datoUsuarioMostrar">
+		<li>{{usuario.perNombre}} {{usuario.perApellido}}</li>
+	</ul> -->
+</div>

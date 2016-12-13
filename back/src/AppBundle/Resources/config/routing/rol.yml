@@ -1,0 +1,9 @@
+rol_nuevo:
+    path:   /nuevo
+    defaults: { _controller: "AppBundle:Rol:nuevo"}
+    methods:  POST
+    
+rol_editar:
+    path:   /editar
+    defaults: { _controller: "AppBundle:Rol:editar"}
+    methods:  POST

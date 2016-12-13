@@ -1,0 +1,66 @@
+BackBundle\Entity\Cargo:
+    type: entity
+    table: cargo
+    indexes:
+        dep_car_fk:
+            columns:
+                - dep_id
+        rol_car_fk:
+            columns:
+                - rol_id
+    uniqueConstraints:
+        cargo_pk:
+            columns:
+                - car_id
+    id:
+        carId:
+            type: smallint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: car_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        carNombre:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: car_nombre
+        carCategorizacion:
+            type: smallint
+            nullable: true
+            options:
+                unsigned: false
+            column: car_categorizacion
+        carJefe:
+            type: smallint
+            nullable: true
+            options:
+                unsigned: false
+            column: car_jefe
+    manyToOne:
+        dep:
+            targetEntity: Departamento
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                dep_id:
+                    referencedColumnName: dep_id
+            orphanRemoval: false
+        rol:
+            targetEntity: Rol
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                rol_id:
+                    referencedColumnName: rol_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

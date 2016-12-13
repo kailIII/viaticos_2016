@@ -1,0 +1,47 @@
+BackBundle\Entity\Vehiculo:
+    type: entity
+    table: vehiculo
+    uniqueConstraints:
+        vehiculo_pk:
+            columns:
+                - veh_id
+    id:
+        vehId:
+            type: smallint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: veh_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        vehModelo:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: true
+            column: veh_modelo
+        vehMarca:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: true
+            column: veh_marca
+        vehPlaca:
+            type: string
+            nullable: true
+            length: 11
+            options:
+                fixed: true
+            column: veh_placa
+        vehEstado:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: veh_estado
+    lifecycleCallbacks: {  }

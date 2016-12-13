@@ -1,0 +1,84 @@
+BackBundle\Entity\TransporteInforme:
+    type: entity
+    table: transporte_informe
+    indexes:
+        inf_trainf_fk:
+            columns:
+                - inf_id
+        traext_trainf_fk:
+            columns:
+                - traasi_id
+    uniqueConstraints:
+        transporte_informe_pk:
+            columns:
+                - trainf_id
+    id:
+        trainfId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: trainf_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        trainfRutainicio:
+            type: string
+            nullable: true
+            length: 70
+            options:
+                fixed: true
+            column: trainf_rutainicio
+        trainfRutafin:
+            type: string
+            nullable: true
+            length: 70
+            options:
+                fixed: true
+            column: trainf_rutafin
+        trainfFechasalida:
+            type: date
+            nullable: true
+            column: trainf_fechasalida
+        trainfHorasalida:
+            type: time
+            nullable: true
+            column: trainf_horasalida
+        trainfFechallegada:
+            type: date
+            nullable: true
+            column: trainf_fechallegada
+        trainfHorallegada:
+            type: time
+            nullable: true
+            column: trainf_horallegada
+        trainfSeuso:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: trainf_seuso
+    manyToOne:
+        inf:
+            targetEntity: Informe
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                inf_id:
+                    referencedColumnName: inf_id
+            orphanRemoval: false
+        traasi:
+            targetEntity: TransporteAsignado
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                traasi_id:
+                    referencedColumnName: traasi_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

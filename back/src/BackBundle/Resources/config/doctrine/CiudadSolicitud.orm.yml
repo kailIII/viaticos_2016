@@ -1,0 +1,63 @@
+BackBundle\Entity\CiudadSolicitud:
+    type: entity
+    table: ciudad_solicitud
+    indexes:
+        ciu_ciusol_fk:
+            columns:
+                - ciu_id
+        ciu_sol_fk:
+            columns:
+                - estsol_id
+    uniqueConstraints:
+        ciudad_solicitud_pk:
+            columns:
+                - ciusol_id
+    id:
+        ciusolId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: ciusol_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        ciusolFechadesde:
+            type: date
+            nullable: true
+            column: ciusol_fechadesde
+        ciusolHoradesde:
+            type: time
+            nullable: true
+            column: ciusol_horadesde
+        ciusolFechahasta:
+            type: date
+            nullable: true
+            column: ciusol_fechahasta
+        ciusolHorahasta:
+            type: time
+            nullable: true
+            column: ciusol_horahasta
+    manyToOne:
+        ciu:
+            targetEntity: Ciudad
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ciu_id:
+                    referencedColumnName: ciu_id
+            orphanRemoval: false
+        estsol:
+            targetEntity: EstadoSolicitud
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                estsol_id:
+                    referencedColumnName: estsol_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,85 @@
+BackBundle\Entity\Gasto:
+    type: entity
+    table: gasto
+    indexes:
+        ciu_gas_fk:
+            columns:
+                - ciusol_id
+        inf_gas_fk:
+            columns:
+                - inf_id
+    uniqueConstraints:
+        gasto_pk:
+            columns:
+                - gas_id
+    id:
+        gasId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: gas_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        gasFecha:
+            type: date
+            nullable: true
+            column: gas_fecha
+        gasValor:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            column: gas_valor
+        gasLocal:
+            type: string
+            nullable: true
+            length: 150
+            options:
+                fixed: true
+            column: gas_local
+        gasTipodocumento:
+            type: string
+            nullable: true
+            length: 3
+            options:
+                fixed: true
+            column: gas_tipodocumento
+        gasNumerodocumento:
+            type: string
+            nullable: true
+            length: 20
+            options:
+                fixed: true
+            column: gas_numerodocumento
+        gasConcepto:
+            type: string
+            nullable: true
+            length: 200
+            options:
+                fixed: true
+            column: gas_concepto
+    manyToOne:
+        ciusol:
+            targetEntity: CiudadSolicitud
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ciusol_id:
+                    referencedColumnName: ciusol_id
+            orphanRemoval: false
+        inf:
+            targetEntity: Informe
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                inf_id:
+                    referencedColumnName: inf_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

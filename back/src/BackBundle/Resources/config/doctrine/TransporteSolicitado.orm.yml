@@ -1,0 +1,77 @@
+BackBundle\Entity\TransporteSolicitado:
+    type: entity
+    table: transporte_solicitado
+    indexes:
+        tiptra_trasol_fk:
+            columns:
+                - tiptra_id
+        tra_sol_fk:
+            columns:
+                - estsol_id
+    uniqueConstraints:
+        transporte_solicitado_pk:
+            columns:
+                - trasol_id
+    id:
+        trasolId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: trasol_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        trasolRutainicio:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: true
+            column: trasol_rutainicio
+        trasolRutafin:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: true
+            column: trasol_rutafin
+        trasolFechasalida:
+            type: date
+            nullable: true
+            column: trasol_fechasalida
+        trasolHorasalida:
+            type: time
+            nullable: true
+            column: trasol_horasalida
+        trasolFechallegada:
+            type: date
+            nullable: true
+            column: trasol_fechallegada
+        trasolHorallegada:
+            type: time
+            nullable: true
+            column: trasol_horallegada
+    manyToOne:
+        tiptra:
+            targetEntity: TipoTransporte
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tiptra_id:
+                    referencedColumnName: tiptra_id
+            orphanRemoval: false
+        estsol:
+            targetEntity: EstadoSolicitud
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                estsol_id:
+                    referencedColumnName: estsol_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

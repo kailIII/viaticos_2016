@@ -1,0 +1,69 @@
+BackBundle\Entity\CargoPersona:
+    type: entity
+    table: cargo_persona
+    indexes:
+        per_carper_fk:
+            columns:
+                - per_id
+        carper_car_fk:
+            columns:
+                - car_id
+    uniqueConstraints:
+        cargo_persona_pk:
+            columns:
+                - carper_id
+    id:
+        carperId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: carper_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        carperDesde:
+            type: date
+            nullable: true
+            column: carper_desde
+        carperHasta:
+            type: date
+            nullable: true
+            column: carper_hasta
+        carperTipo:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: carper_tipo
+        carperEstado:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: carper_estado
+    manyToOne:
+        per:
+            targetEntity: Persona
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                per_id:
+                    referencedColumnName: per_id
+            orphanRemoval: false
+        car:
+            targetEntity: Cargo
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                car_id:
+                    referencedColumnName: car_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

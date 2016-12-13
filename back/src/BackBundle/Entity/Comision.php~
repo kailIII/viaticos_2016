@@ -1,0 +1,254 @@
+<?php
+
+namespace BackBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Comision
+ *
+ * @ORM\Table(name="comision", uniqueConstraints={@ORM\UniqueConstraint(name="comision_pk", columns={"com_id"})})
+ * @ORM\Entity
+ */
+class Comision
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="com_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="comision_com_id_seq", allocationSize=1, initialValue=1)
+     */
+    private $comId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="com_nombre", type="string", length=50, nullable=true)
+     */
+    private $comNombre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="com_observacion", type="text", nullable=true)
+     */
+    private $comObservacion;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="com_fechadesda", type="date", nullable=true)
+     */
+    private $comFechadesde;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="com_horadesde", type="time", nullable=true)
+     */
+    private $comHoradesde;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="com_fechahasta", type="date", nullable=true)
+     */
+    private $comFechahasta;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="com_horahasta", type="time", nullable=true)
+     */
+    private $comHorahasta;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="com_estado", type="string", length=1, nullable=true)
+     */
+    private $comEstado;
+
+
+
+    /**
+     * Get comId
+     *
+     * @return integer
+     */
+    public function getComId()
+    {
+        return $this->comId;
+    }
+
+    /**
+     * Set comNombre
+     *
+     * @param string $comNombre
+     *
+     * @return Comision
+     */
+    public function setComNombre($comNombre)
+    {
+        $this->comNombre = $comNombre;
+
+        return $this;
+    }
+
+    /**
+     * Get comNombre
+     *
+     * @return string
+     */
+    public function getComNombre()
+    {
+        return $this->comNombre;
+    }
+
+    /**
+     * Set comObservacion
+     *
+     * @param string $comObservacion
+     *
+     * @return Comision
+     */
+    public function setComObservacion($comObservacion)
+    {
+        $this->comObservacion = $comObservacion;
+
+        return $this;
+    }
+
+    /**
+     * Get comObservacion
+     *
+     * @return string
+     */
+    public function getComObservacion()
+    {
+        return $this->comObservacion;
+    }
+
+    /**
+     * Set comFechadesde
+     *
+     * @param \DateTime $comFechadesde
+     *
+     * @return Comision
+     */
+    public function setComFechadesde($comFechadesde)
+    {
+        $this->comFechadesde = $comFechadesde;
+
+        return $this;
+    }
+
+    /**
+     * Get comFechadesde
+     *
+     * @return \DateTime
+     */
+    public function getComFechadesde()
+    {
+        return $this->comFechadesde;
+    }
+
+    /**
+     * Set comHoradesde
+     *
+     * @param \DateTime $comHoradesde
+     *
+     * @return Comision
+     */
+    public function setComHoradesde($comHoradesde)
+    {
+        $this->comHoradesde = $comHoradesde;
+
+        return $this;
+    }
+
+    /**
+     * Get comHoradesde
+     *
+     * @return \DateTime
+     */
+    public function getComHoradesde()
+    {
+        return $this->comHoradesde;
+    }
+
+    /**
+     * Set comFechahasta
+     *
+     * @param \DateTime $comFechahasta
+     *
+     * @return Comision
+     */
+    public function setComFechahasta($comFechahasta)
+    {
+        $this->comFechahasta = $comFechahasta;
+
+        return $this;
+    }
+
+    /**
+     * Get comFechahasta
+     *
+     * @return \DateTime
+     */
+    public function getComFechahasta()
+    {
+        return $this->comFechahasta;
+    }
+
+    /**
+     * Set comHorahasta
+     *
+     * @param \DateTime $comHorahasta
+     *
+     * @return Comision
+     */
+    public function setComHorahasta($comHorahasta)
+    {
+        $this->comHorahasta = $comHorahasta;
+
+        return $this;
+    }
+
+    /**
+     * Get comHorahasta
+     *
+     * @return \DateTime
+     */
+    public function getComHorahasta()
+    {
+        return $this->comHorahasta;
+    }
+
+    /**
+     * Set comEstado
+     *
+     * @param string $comEstado
+     *
+     * @return Comision
+     */
+    public function setComEstado($comEstado)
+    {
+        $this->comEstado = $comEstado;
+
+        return $this;
+    }
+
+    /**
+     * Get comEstado
+     *
+     * @return string
+     */
+    public function getComEstado()
+    {
+        return $this->comEstado;
+    }
+
+}

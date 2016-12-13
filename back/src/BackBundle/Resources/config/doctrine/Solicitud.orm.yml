@@ -1,0 +1,69 @@
+BackBundle\Entity\Solicitud:
+    type: entity
+    table: solicitud
+    indexes:
+        per_sol_fk:
+            columns:
+                - per_id
+    uniqueConstraints:
+        solicitud_pk:
+            columns:
+                - sol_id
+    id:
+        solId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: sol_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        solSecuencial:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: sol_secuencial
+        solIdsolicitud:
+            type: string
+            nullable: true
+            length: 40
+            options:
+                fixed: true
+            column: sol_idsolicitud
+        solFecharealizacion:
+            type: date
+            nullable: true
+            column: sol_fecharealizacion
+        solNumeroactualizacion:
+            type: smallint
+            nullable: true
+            options:
+                unsigned: false
+            column: sol_numeroactualizacion
+        solEstado:
+            type: string
+            nullable: true
+            options:
+                fixed: true
+            column: sol_estado
+        solAnio:
+            type: string
+            nullable: true
+            options:
+                fixed: true
+            column: sol_anio
+    manyToOne:
+        per:
+            targetEntity: Persona
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                per_id:
+                    referencedColumnName: per_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,228 @@
+#table_action_header
+{
+	position:relative;
+	width:100%;
+	background-color:#efefef;	
+	height:30px;					
+	padding:5px 0px 5px 0px;
+        margin-bottom: 10px;
+}
+
+#table_action_header ul
+{
+	list-style:none;
+	padding:0px;
+	margin:0px;
+}
+
+#table_action_header ul li
+{
+	margin-left:8px;
+	margin-right:4px;
+}
+
+#table_action_header ul li span
+{
+	background-color:#0a6184;
+	border:2px solid #ddd;
+	font-size:14px;
+	padding:2px 5px 2px 5px;
+}
+
+#table_action_header a
+{
+	text-decoration:none;
+	color:#FFF;	
+}
+
+#table_holder
+{
+	position:relative;
+	margin-bottom:auto;
+}
+
+table.tablesorter 
+{
+	position:relative;
+	width:100%;	
+}
+
+table.tablesorter thead tr th, table.tablesorter tfoot tr th 
+{
+	color:#FFFFFF;
+	text-align:center;
+	background:  #FAAD3F;
+	padding: 0px 5px 0px 5px;
+}
+
+table.tablesorter thead tr .header 
+{
+	background-image: url(../images/tables/bg.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+
+table.tablesorter tbody td 
+{
+	color: #3D3D3D;
+	background-color: #FFF;
+	vertical-align: top;
+	padding: 0px 5px 0px 5px;
+	
+}
+
+table.tablesorter tbody td 
+{
+	border-bottom:1px solid #DDDDDD;
+}
+
+table.tablesorter tbody td.over
+{
+	background-color:#efefef;
+}
+
+table.tablesorter tbody td.selected
+{
+	background-color:#efefef;
+}
+
+table.tablesorter thead tr .headerSortUp 
+{
+	background-image: url(../images/tables/asc.gif);
+}
+
+table.tablesorter thead tr .headerSortDown 
+{
+	background-image: url(../images/tables/desc.gif);
+}
+
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp 
+{
+	background-color: #007FCC;
+}
+
+table.innertable
+{
+	display: none;
+}
+
+table.innertable thead tr th 
+{
+	background-color: #0a6184;
+}
+
+table.innertable tbody tr td 
+{
+	background-color: #DDD;
+}
+
+.botones_registro{
+    width: 25%;
+    float: left;
+    /*padding-top: 1%;*/
+    padding-right: 10px;
+    vertical-align: middle;
+    /*text-align: right;*/
+}
+
+.label_modal{
+    width: 25%;
+    float: left;
+    padding-top: 1%;
+    padding-right: 10px;
+    vertical-align: middle;
+    text-align: right;
+}
+.dos_puntos{
+    width: 7px;
+    float: left;
+    padding-top: 1%;
+    vertical-align: middle;
+    padding-right: 1%;
+    padding-left: 1%;
+}
+.texto_modal{
+    /*width: 25%;*/
+    float: left;
+    padding-top: 6px;
+    padding-bottom: 3px;
+    vertical-align: middle;
+    padding-right: 17px;
+}
+
+.label_valores{
+    width: 40%;
+    float: left;
+    padding-top: 1%;
+    padding-left: 2%;
+    vertical-align: middle;
+}
+.dos_puntos_valores{
+    width: 5%;
+    float: left;
+    padding-top: 1%;
+    vertical-align: middle;
+}
+.texto_valores{
+    /*width: 25%;*/
+    float: left;
+    /*padding-top: 6px;*/
+    padding-bottom: 3px;
+    vertical-align: middle;
+    width: 130px;
+}
+
+
+.boton_radio {
+    border-radius: 5px;
+    border: 1px solid #CCCCCC;
+    float: left;
+    width: 45%;
+    padding-left: 3%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+glyphicon{
+    position:relative;
+    top:1px;
+    display:inline-block;
+    font-family:'Glyphicons Halflings';
+    font-style:normal;
+    font-weight:400;
+    line-height:1;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+}
+.glyphicon-pencil:before{
+    content:"\270f";
+}
+.glyphicon-trash:before{
+    content:"\e020";
+}
+
+.glyphicon-open:before{
+    content:"\e105";
+}
+
+.glyphicon-search:before{
+    content:"\e003";
+}
+
+.btn-xs{
+    padding:1px 3px;
+    font-size:15px;
+    line-height:1.5;
+    border-radius:3px;
+}
+
+.tabla_venta{
+border-radius:3px;
+border: 1px solid #CCCCCC;
+}
+
+.label_productos{
+    width: 10%;
+    padding-left: 2%;
+}
