@@ -88,55 +88,84 @@
 			<button (click)="Onpaso3()">Escoger Transporte</button>
 		</div>
 		<div *ngIf="inicial == true && paso2 == true && paso3 == false">
-			<table id="mytable" class="table2">
+			<p><ins>Escoger los transportes a requerir</ins></p>
+			<table class="table table-striped">
 				<thead>
-					<p><ins>Escoger los transportes a requerir</ins></p>
+					<tr>
+						<th style="width: 10%">Tipo
+							<!-- <mfDefaultSorter by="tipo">Tipo</mfDefaultSorter> -->
+						</th>
+						<th style="width: 10%">Modelo
+							<!-- <mfDefaultSorter by="modelo">Modelo</mfDefaultSorter> -->
+						</th>
+						<th style="width: 20%">Ruta Inicio
+							<!-- <mfDefaultSorter by="rutInicio">Ruta Inicio</mfDefaultSorter> -->
+						</th>
+						<th style="width: 20%">Ruta Fin
+							<!-- <mfDefaultSorter by="rurFin">Ruta Fin</mfDefaultSorter> -->
+						</th>
+						<th style="width: 10%">Fecha Inicio
+							<!-- <mfDefaultSorter by="fInicio">Fecha Inicio</mfDefaultSorter> -->
+						</th>
+						<th style="width: 10%">Hora Inicio
+							<!-- <mfDefaultSorter by="hInicio">Hora Inicio</mfDefaultSorter> -->
+						</th>
+						<th style="width: 10%">Fecha Fin
+							<!-- <mfDefaultSorter by="fFin">Fecha Fin</mfDefaultSorter> -->
+						</th>
+						<th style="width: 10%">Hora Fin
+							<!-- <mfDefaultSorter by="hFin">Hora Fin</mfDefaultSorter> -->
+						</th>
+						<th style="width: 10%">Eliminar
+							<!-- <mfDefaultSorter by="botonEliminarTras">Eliminar</mfDefaultSorter> -->
+						</th>
+					</tr>
 				</thead>
 				<tbody id="tbody_trareq">
 					<tr>
-						<td class="td2">
-							<p>Tipo</p>
-							<select id="combo_tiptra">
-								<option [value]="">Escoja uno</option>
+						<td style="width: 10%; height: auto;">
+							<!--<p>Tipo</p> -->
+							<select id="combo_tiptra" (change)="onSelect()">
+								<option [value]="0">Escoja uno</option>
 								<option *ngFor="let tipodetransporte of tipotra" [value]="tipodetransporte.val">
 									{{tipodetransporte.name}}
 								</option>
 							</select>
 						</td>
-						<td class="td2">
-							<p><ins>Modelo</ins></p>
-							<select id="combo_vehiculo" >
-								<option [value]="">Escoja uno</option>
-								<option *ngFor="let tipodetransporte of tipotra" [value]="tipodetransporte.val">
-									{{tipodetransporte.name}}
+						<td style="width: 10%; height: auto;">
+							<!-- <p><ins>Modelo</ins></p> -->
+							<select id="combo_vehiculo" (change)="OnTipoTransporte()" >
+								<option [value]="0">Escoja uno</option>
+								<option *ngFor="let modelotransporte of modeltra" [value]="modelotransporte.tiptraId">
+									{{modelotransporte.tiptraNombre}}
 								</option>
 							</select> 
 						</td>
-						<td class="td2">
-							<p><ins>Ruta Inicio</ins></p>
+						<td style="width: 20%">
+							<!-- <p><ins>Ruta Inicio</ins></p> -->
 							<input type="text" id="RinicioTrans">
 						</td>
-						<td class="td2">
-							<p><ins>Ruta Fin</ins></p>
+						<td style="width: 20%">
+							<!-- <p><ins>Ruta Fin</ins></p> -->
 							<input type="text" id="RfinTrans" >
 						</td>
-						<td class="td2">
-							<p><ins>Fecha Inicio</ins></p>
+						<td style="width: 10%">
+							<!-- <p><ins>Fecha Inicio</ins></p> -->
 							<input type="date" min="2016-01-01" max="2050-12-31" class="cuadros3" id="FinicioTrans" >
 						</td>
-						<td class="td2">
-							<p><ins>Hora Inicio</ins></p>
+						<td style="width: 10%">
+							<!-- <p><ins>Hora Inicio</ins></p> -->
 							<input type="time" class="cuadros3" id="HinicioTrans">
 						</td>
-						<td class="td2">
-							<p><ins>Fecha Fin</ins></p>
+						<td style="width: 10%">
+							<!-- <p><ins>Fecha Fin</ins></p> -->
 							<input type="date" min="2016-01-01" max="2050-12-31" class="cuadros3" id="FfinTrans" >
 						</td>
-						<td class="td2">
-							<p><ins>Hora Fin</ins></p>
+						<td style="width: 10%">
+							<!-- <p><ins>Hora Fin</ins></p> -->
 							<input type="time"  class="cuadros3" id="HfinTrans">
 						</td>
-						<td class="td2">
+						<td >
 							<!-- <a class="btn btn-success btn-xs glyphicon glyphicon-plus" (click)="showDialogToAdd()"> -->
 							<a class="btn btn-success btn-xs glyphicon glyphicon-plus" (click)="OnAgregarTraReq()">
 							</a>
@@ -144,8 +173,8 @@
 					</tr>
 				</tbody>
 			</table>
-			<div>
-				<p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="3" [responsive]="true">
+			<!-- <div> -->
+				<!-- <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="3" [responsive]="true">
 					<header>VEHICULOS REQUERIDOS</header>
 					<p-column field="tipo" header="Tipo" [sortable]="true"></p-column>
 					<p-column field="modelo" header="Modelo" [sortable]="true"></p-column>
@@ -155,11 +184,11 @@
 					<p-column field="horainicio" header="Hora Inicio" [sortable]="true"></p-column>
 					<p-column field="fechafin" header="Fecha Fin" [sortable]="true"></p-column>
 					<p-column field="horafin" header="Hora Fin" [sortable]="true"></p-column>
-					<p-column field="eliminar" header="Eliminar" [sortable]="false"></p-column>
+					<p-column field="eliminar" header="Eliminar" [sortable]="false"></p-column> -->
 					<!-- <footer><div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Add"></button></div></footer> -->
-				</p-dataTable>
+					<!-- </p-dataTable> -->
 
-				<p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" id="tbody_trareq_dialog">
+				<!-- <p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" id="tbody_trareq_dialog">
 					<div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="car">
 						<div class="ui-grid-row">
 							<div class="ui-grid-col-4"><label for="tipo">Tipo</label></div>
@@ -195,13 +224,62 @@
 						</div>
 						<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
 							<!-- <button type="button" pButton icon="fa-close" (click)="delete()" label="Delete"></button> -->
-							<button class="btn btn-danger btn-xs glyphicon glyphicon-minus" (click)="OnEliminarTraReq()"></button>
+							<!-- <button class="btn btn-danger btn-xs glyphicon glyphicon-minus" (click)="OnEliminarTraReq()"></button> -->
 							<!-- <button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button> -->
-						</div>
+						<!--</div>
 					</div>
-				</p-dialog>
-			</div>
+				</p-dialog> -->
+				<!-- </div> -->
 
+				<!-- <table class="table table-striped" [mfData]="comision" #mf="mfDataTable" [mfRowsOnPage]="5"> -->
+				<table class="table table-striped">
+					<!-- <thead>
+						<tr>
+							<th style="width: 10%">Tipo -->
+								<!-- <mfDefaultSorter by="tipo">Tipo</mfDefaultSorter> -->
+							<!-- </th>
+							 <th style="width: 10%">Modelo-->
+								<!-- <mfDefaultSorter by="modelo">Modelo</mfDefaultSorter> -->
+							<!-- </th>
+							<th style="width: 20%">Ruta Inicio -->
+								<!-- <mfDefaultSorter by="rutInicio">Ruta Inicio</mfDefaultSorter> -->
+							<!-- </th>
+							<th style="width: 20%">Ruta Fin -->
+								<!-- <mfDefaultSorter by="rurFin">Ruta Fin</mfDefaultSorter> -->
+							<!-- </th>
+							<th style="width: 10%">Fecha Inicio -->
+								<!-- <mfDefaultSorter by="fInicio">Fecha Inicio</mfDefaultSorter> -->
+							<!-- </th>
+							<th style="width: 10%">Hora Inicio -->
+								<!-- <mfDefaultSorter by="hInicio">Hora Inicio</mfDefaultSorter> -->
+							<!-- </th>
+							<th style="width: 10%">Fecha Fin -->
+								<!-- <mfDefaultSorter by="fFin">Fecha Fin</mfDefaultSorter> -->
+							<!-- </th>
+							<th style="width: 10%">Hora Fin -->
+								<!-- <mfDefaultSorter by="hFin">Hora Fin</mfDefaultSorter> -->
+							<!-- </th>
+							<th style="width: 10%">Eliminar -->
+								<!-- <mfDefaultSorter by="botonEliminarTras">Eliminar</mfDefaultSorter> -->
+							<!-- </th>
+						</tr>
+					</thead> -->
+					<tbody id="tbody_trareq_dialog">
+   <!--  <tr *ngFor="let item of mf.data">
+        <td>{{item.name}}</td>
+        <td>{{item.email}}</td>
+        <td class="text-right">{{item.age}}</td>
+        <td>{{item.city | uppercase}}</td>
+    </tr> -->
+</tbody>
+    <!-- <tfoot>
+    <tr>
+        <td colspan="4">
+            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+        </td>
+    </tr>
+</tfoot> -->
+</table>
 
 
 <!-- 
@@ -243,7 +321,7 @@
 
 
 
-			<!-- <ng2-smart-table [settings]="settings"></ng2-smart-table> -->
+<!-- <ng2-smart-table [settings]="settings"></ng2-smart-table> -->
 			<!-- <table id="mytable" class="table2">
 				<thead>
 					<p>Transporte extra (Solo institucional)</p>
@@ -302,7 +380,7 @@
 				<ul class="pagination pull-CENTER">
 					<button (click)="onGuardarSol()">GUARDAR</button>
 					<button (click)="onpaso4()">ENVIAR</button>
-					<button (click)="onImprimirSol()">IMPRIMIR</button>
+					<button [routerLink]="['/imprimir_solicitud']">IMPRIMIR</button>
 					<button (click)="OnCancelarSol()">CANCELAR</button>
 				</ul>
 			</div>

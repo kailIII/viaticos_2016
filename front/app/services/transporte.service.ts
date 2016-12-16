@@ -12,9 +12,20 @@ export class TransporteService{
 
 	constructor(private _http: Http){}
 
-	getTipoTransporte(trans_to_search){
+	GetTransporte(){
+		var tipotransporte = [
+		{val: "Aereo", name: "Aereo"},
+		{val: "Terrestre", name: "Terrestre"},
+		{val: "Maritimo", name: "Marítimo"},
+		{val: "Ferreo", name: "Ferreo"}
+		];
+		return tipotransporte;
+	}
+
+	GetModeloTransporte(trans_to_search){
 		let json = JSON.stringify(trans_to_search);
-		let token = sessionStorage.getItem('token');
+		// console.log(json);
+		let token = localStorage.getItem('token');
 		let params = "json="+json+"&authorization="+token;
 		let headers = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
 

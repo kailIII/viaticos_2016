@@ -16,9 +16,19 @@ var TransporteService = (function () {
         this._http = _http;
         this.url = "http://localhost/sistema_viaticos/back/web/app_dev.php";
     }
-    TransporteService.prototype.getTipoTransporte = function (trans_to_search) {
+    TransporteService.prototype.GetTransporte = function () {
+        var tipotransporte = [
+            { val: "Aereo", name: "Aereo" },
+            { val: "Terrestre", name: "Terrestre" },
+            { val: "Maritimo", name: "Marítimo" },
+            { val: "Ferreo", name: "Ferreo" }
+        ];
+        return tipotransporte;
+    };
+    TransporteService.prototype.GetModeloTransporte = function (trans_to_search) {
         var json = JSON.stringify(trans_to_search);
-        var token = sessionStorage.getItem('token');
+        // console.log(json);
+        var token = localStorage.getItem('token');
         var params = "json=" + json + "&authorization=" + token;
         var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         return this._http.post(this.url + "/transporte/buscar", params, { headers: headers })

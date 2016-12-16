@@ -11,10 +11,12 @@ import {SolicitudComponent} from "./components/solicitud.component";
 import {LoginComponent} from "./components/login.component";
 import {UsuarioComponent} from "./components/usuario.component";
 import { AppComponent }  from './app.component';
+import {ImprimirsolicitudComponent} from "./components/imprimirsolicitud.component";
 
 import { routing, appRoutingProviders } from './app.routing';
-import {InputTextModule, DataTableModule, ButtonModule, DialogModule} from 'primeng/primeng';
-// import {DataTableModule} from "angular2-datatable";
+// import {InputTextModule, DataTableModule, ButtonModule, DialogModule} from 'primeng/primeng';
+import {DataTableModule} from "angular2-datatable";
+import { PdfViewerComponent } from 'ng2-pdf-viewer';
 // import { Ng2SmartTableModule } from 'ng2-smart-table';
 // import {InputTextModule} from 'primeng/components/inputtext/inputtext';
 // import {DataTableModule} from 'primeng/components/datatable/datatable';
@@ -33,10 +35,11 @@ import {InputTextModule, DataTableModule, ButtonModule, DialogModule} from 'prim
               HttpModule, 
               FormsModule, 
               routing, 
-              InputTextModule, 
-              DataTableModule, 
-              ButtonModule, 
-              DialogModule 
+              // InputTextModule, 
+              // DataTableModule, 
+              // ButtonModule, 
+              // DialogModule 
+              DataTableModule
   ],
   declarations: [ 
               AppComponent,
@@ -46,7 +49,9 @@ import {InputTextModule, DataTableModule, ButtonModule, DialogModule} from 'prim
               InformeComponent,
               PasajesComponent,
               NuevasolicitudComponent,
-              UsuarioComponent
+              UsuarioComponent,
+              PdfViewerComponent,
+              ImprimirsolicitudComponent
               
   ],
   providers:    [ appRoutingProviders ],

@@ -10,42 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-// import { Ng2TableModule } from 'ng2-table/ng2-table';
-// class Trans implements Transporte{
-// 	constructor(
-// 		public combo_tiptra?,
-// 		public combo_vehiculo?,
-// 		public RinicioTrans?,
-// 		public RfinTrans?,
-// 		public FinicioTrans?,
-// 		public HinicioTrans?,
-// 		public FfinTrans?,
-// 		public HfinTrans?,
-// 		){}
-// }
+var transporte_service_1 = require("../services/transporte.service");
 var NuevasolicitudComponent = (function () {
-    // settings = {
-    //    columns: {
-    //      id: {
-    //        title: 'ID'
-    //      },
-    //      name: {
-    //        title: 'Full Name'
-    //      },
-    //      username: {
-    //        title: 'User Name'
-    //      },
-    //      email: {
-    //        title: 'Email'
-    //      }
-    //    }
-    //  };
-    // displayDialog: boolean;
-    // car: Transporte = new Trans();
-    // selectedCar: Transporte;
-    // newCar: boolean;
-    // cars: Transporte[];
-    function NuevasolicitudComponent(_router, _route) {
+    function NuevasolicitudComponent(_TransporteService, _router, _route) {
+        this._TransporteService = _TransporteService;
         this._router = _router;
         this._route = _route;
         this.titulo = "Nueva Solicitud";
@@ -80,18 +48,23 @@ var NuevasolicitudComponent = (function () {
             'trahoraInicio': "",
             'trahoraFin': ""
         };
-        this.tipotra = this.OnTipoTransporte();
+        this.tipotra = this._TransporteService.GetTransporte();
+        // console.log("this.tipotra:"+this.tipotra);
+    };
+    NuevasolicitudComponent.prototype.OnTipoTransporte = function () {
+        var tipotransporte = document.createTextNode(document.getElementById("combo_tiptra").value);
+        return tipotransporte;
     };
     NuevasolicitudComponent.prototype.Onpaso2 = function () {
-        console.log(JSON.stringify(this.comision));
+        // console.log(JSON.stringify(this.comision));
         this.inicial = true;
     };
     NuevasolicitudComponent.prototype.Onpaso3 = function () {
-        console.log(JSON.stringify(this.comision));
+        // console.log(JSON.stringify(this.comision));
         this.paso2 = true;
     };
     NuevasolicitudComponent.prototype.Onpaso4 = function () {
-        console.log(JSON.stringify(this.comision));
+        // console.log(JSON.stringify(this.comision));
         this.paso3 = true;
     };
     NuevasolicitudComponent.prototype.OnbotonAtras = function () {
@@ -108,15 +81,15 @@ var NuevasolicitudComponent = (function () {
             this.paso3 = false;
         }
     };
-    NuevasolicitudComponent.prototype.OnTipoTransporte = function () {
-        var tipotransporte = [
-            { val: "Aereo", name: "Aereo" },
-            { val: "Terrestre", name: "Terrestre" },
-            { val: "Marítimo", name: "Marítimo" },
-            { val: "Ferreo", name: "Ferreo" }
-        ];
-        return tipotransporte;
-    };
+    // OnTipoTransporte(){
+    // 	var tipotransporte = [
+    // 	{val: "Aereo", name: "Aereo"},
+    // 	{val: "Terrestre", name: "Terrestre"},
+    // 	{val: "Marítimo", name: "Marítimo"},
+    // 	{val: "Ferreo", name: "Ferreo"}
+    // 	];
+    // 	return tipotransporte;
+    // }
     NuevasolicitudComponent.prototype.OnAgregarCiudad = function (title) {
         this.valor_textarea = document.getElementById("ciudades_solicitud").value;
         this.ciudadComision = this.valor_textarea;
@@ -148,22 +121,8 @@ var NuevasolicitudComponent = (function () {
         this.OnAgregarbtnEliminar();
     };
     NuevasolicitudComponent.prototype.OnEliminarTraReq = function () {
-        alert("Eliminar vehiculo");
-        // this.pedidovehiculo = {
-        // 	'trafechaSalida' : "",
-        // 	'trahoraSalida' : "",
-        // 	'trafechaLlegada' : "",
-        // 	'trahoraLlegada' : "",
-        // 	'vehiculo_solicitud' : "",
-        // 	'trarutaInicio' : "",
-        // 	'trarutaFin' : "",
-        // 	'trahoraInicio' : "",
-        // 	'trahoraFin' : ""
-        // };
-        // document.removeChild(hilera.indexOf(),1);
-        // <HTMLElement>document.getElementById("TransporteReqDet").deleteRow(0);
-        // var filaborrar = (<HTMLElement>document.getElementById("TransporteReqDet"));
-        // this.pedidovehiculo.splice(1, 1);
+        var hilera = document.getElementById("TransporteReqDet");
+        hilera.remove();
     };
     NuevasolicitudComponent.prototype.OnAgregarbtnEliminar = function () {
         var tblBody = document.getElementById("tbody_trareq_dialog");
@@ -196,9 +155,6 @@ var NuevasolicitudComponent = (function () {
         hFin.appendChild(hFin_trareq);
         tdboton.appendChild(aboton);
         aboton.setAttribute("class", "btn btn-danger btn-xs glyphicon glyphicon-minus");
-        // aboton.addEventListener('click', function() {
-        // 	alert("Eliminar vehiculo");
-        // });
         aboton.addEventListener('click', this.OnEliminarTraReq);
         tipo.setAttribute("id", "tipo_trareq");
         modelo.setAttribute("id", "modelo_trareq");
@@ -221,14 +177,45 @@ var NuevasolicitudComponent = (function () {
         hilera.setAttribute("id", "TransporteReqDet");
         tblBody.appendChild(hilera);
     };
+    NuevasolicitudComponent.prototype.onSelect = function () {
+        var _this = this;
+        var tipotransporte = document.getElementById("combo_tiptra").value;
+        // a = this.tipotra.name;
+        // console.log(a);
+        // console.log("this.tipotra:"+this.tipotra)
+        // console.log("tipotransporte:"+JSON.stringify(tipotransporte));
+        this.moltra = {
+            'tritra': tipotransporte
+        };
+        // console.log("this.moltra:"+JSON.stringify(this.moltra));
+        // this.modelotrans = this._TransporteService.GetModeloTransporte(this.moltra).filter((item)=> item.tiptraNombre == tipotransporte	);
+        this._TransporteService.GetModeloTransporte(this.moltra).subscribe(function (response) {
+            // this.modeltra = response;
+            var modeltra = response;
+            _this.modeltra = modeltra;
+        }, function (error) {
+            _this.errorMessage = error;
+            if (_this.errorMessage != null) {
+                console.log(_this.errorMessage);
+                alert("Error en la petición 2");
+            }
+        });
+    };
+    NuevasolicitudComponent.prototype.onImprimirSol = function () {
+        // this._router.navigate(['/imprimir_solicitud']);
+        this.imprimirsol = true;
+        window.location.href = '/imprimir_solicitud';
+    };
     return NuevasolicitudComponent;
 }());
 NuevasolicitudComponent = __decorate([
     core_1.Component({
         selector: 'nueva_solicitud',
-        templateUrl: 'app/view/nueva_solicitud.html'
+        templateUrl: 'app/view/nueva_solicitud.html',
+        providers: [transporte_service_1.TransporteService]
     }),
-    __metadata("design:paramtypes", [router_1.Router,
+    __metadata("design:paramtypes", [transporte_service_1.TransporteService,
+        router_1.Router,
         router_1.ActivatedRoute])
 ], NuevasolicitudComponent);
 exports.NuevasolicitudComponent = NuevasolicitudComponent;

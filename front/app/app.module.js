@@ -20,9 +20,11 @@ var solicitud_component_1 = require("./components/solicitud.component");
 var login_component_1 = require("./components/login.component");
 var usuario_component_1 = require("./components/usuario.component");
 var app_component_1 = require("./app.component");
+var imprimirsolicitud_component_1 = require("./components/imprimirsolicitud.component");
 var app_routing_1 = require("./app.routing");
-var primeng_1 = require("primeng/primeng");
-// import {DataTableModule} from "angular2-datatable";
+// import {InputTextModule, DataTableModule, ButtonModule, DialogModule} from 'primeng/primeng';
+var angular2_datatable_1 = require("angular2-datatable");
+var ng2_pdf_viewer_1 = require("ng2-pdf-viewer");
 // import { Ng2SmartTableModule } from 'ng2-smart-table';
 // import {InputTextModule} from 'primeng/components/inputtext/inputtext';
 // import {DataTableModule} from 'primeng/components/datatable/datatable';
@@ -43,10 +45,11 @@ AppModule = __decorate([
             http_1.HttpModule,
             forms_1.FormsModule,
             app_routing_1.routing,
-            primeng_1.InputTextModule,
-            primeng_1.DataTableModule,
-            primeng_1.ButtonModule,
-            primeng_1.DialogModule
+            // InputTextModule, 
+            // DataTableModule, 
+            // ButtonModule, 
+            // DialogModule 
+            angular2_datatable_1.DataTableModule
         ],
         declarations: [
             app_component_1.AppComponent,
@@ -56,7 +59,9 @@ AppModule = __decorate([
             informe_component_1.InformeComponent,
             pasajes_component_1.PasajesComponent,
             nuevasolicitud_component_1.NuevasolicitudComponent,
-            usuario_component_1.UsuarioComponent
+            usuario_component_1.UsuarioComponent,
+            ng2_pdf_viewer_1.PdfViewerComponent,
+            imprimirsolicitud_component_1.ImprimirsolicitudComponent
         ],
         providers: [app_routing_1.appRoutingProviders],
         bootstrap: [app_component_1.AppComponent],

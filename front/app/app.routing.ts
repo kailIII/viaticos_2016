@@ -8,6 +8,8 @@ import {SolicitudComponent} from "./components/solicitud.component";
 import {UsuarioComponent} from "./components/usuario.component";
 import {NuevasolicitudComponent} from "./components/nuevasolicitud.component";
 import {LoginComponent} from "./components/login.component";
+import {ImprimirsolicitudComponent} from "./components/imprimirsolicitud.component";
+
 // import {AppComponent} from "./app.component";
 
 const appRoutes: Routes = [
@@ -24,6 +26,7 @@ const appRoutes: Routes = [
 	{path: "pasajes", component: PasajesComponent},
 	{path: "nueva_solicitud", component: NuevasolicitudComponent},
 	{path: "usuario", component: UsuarioComponent},
+	{path: "imprimir_solicitud", component: ImprimirsolicitudComponent},
 
 	// {path: "crear-restaurante", component: RestauranteAddComponent},
 	// {path: "editar-restaurante/:id", component: RestauranteEditComponent},

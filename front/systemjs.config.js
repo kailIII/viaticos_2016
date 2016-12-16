@@ -2,7 +2,7 @@
  * System configuration for Angular 2 samples
  * Adjust as necessary for your application needs.
  */
-(function (global) {
+ (function (global) {
   System.config({
     paths: {
       // paths serve as alias
@@ -25,7 +25,11 @@
       // other libraries
       'rxjs':                       'npm:rxjs',
       'angular2-in-memory-web-api': 'npm:angular2-in-memory-web-api',
-      'primeng':                   'npm:primeng'
+      'primeng':                   'npm:primeng',
+      'angular2-datatable': 'npm:angular2-datatable',
+      'lodash': 'npm:lodash/lodash.js',
+      'ng2-pdf-viewer': 'npm:ng2-pdf-viewer',
+      'pdfjs-dist': 'npm:pdfjs-dist'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -42,6 +46,17 @@
       },
       primeng: {
         defaultExtension: 'js'
+      },
+      'angular2-datatable': {
+        main: 'index.js',
+        defaultExtension: 'js'
+      },
+      'ng2-pdf-viewer': { 
+        main: 'dist/index.js', 
+        defaultExtension: 'js' 
+      },
+      'pdfjs-dist': { 
+        defaultExtension: 'js' 
       }
     }
   });
