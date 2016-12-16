@@ -47,6 +47,7 @@ export class NuevasolicitudComponent implements OnInit{
 	public TransporteInicial;
 	public datoTransporteMostrar;
 	public imprimirsol;
+	public modeltrans;
 
 	constructor(
 		private _TransporteService: TransporteService,
@@ -64,6 +65,7 @@ export class NuevasolicitudComponent implements OnInit{
 		this.inicial = false;
 		this.paso2 = false;
 		this.paso3 = false;
+		this.modeltrans = false;
 		this.transporte = {
 			'tritra': ""
 		};
@@ -232,23 +234,19 @@ export class NuevasolicitudComponent implements OnInit{
 		}
 
 		onSelect() {
-
 			let tipotransporte = (<HTMLInputElement>document.getElementById("combo_tiptra")).value;
-			
-			// a = this.tipotra.name;
-			// console.log(a);
-			// console.log("this.tipotra:"+this.tipotra)
-			// console.log("tipotransporte:"+JSON.stringify(tipotransporte));
 			this.moltra = {
 				'tritra' : tipotransporte
 			};
 			// console.log("this.moltra:"+JSON.stringify(this.moltra));
-			// this.modelotrans = this._TransporteService.GetModeloTransporte(this.moltra).filter((item)=> item.tiptraNombre == tipotransporte	);
 			this._TransporteService.GetModeloTransporte(this.moltra).subscribe(
 				response => {
-					// this.modeltra = response;
+					// console.log(response);
 					let modeltra = response;
 					this.modeltra = modeltra;
+
+					this.modeltrans = true;
+					// console.log("this.modeltra:"+JSON.stringify(this.modeltra));
 				},
 				error =>{
 					this.errorMessage = <any>error;
@@ -264,6 +262,10 @@ export class NuevasolicitudComponent implements OnInit{
 			// this._router.navigate(['/imprimir_solicitud']);
 			this.imprimirsol = true;
 			window.location.href='/imprimir_solicitud';
+		}
+
+		onCambiarModelTra(){
+			this.modeltrans = false;
 		}
 
 	}

@@ -8,6 +8,7 @@ var usuario_component_1 = require("./components/usuario.component");
 var nuevasolicitud_component_1 = require("./components/nuevasolicitud.component");
 var login_component_1 = require("./components/login.component");
 var imprimirsolicitud_component_1 = require("./components/imprimirsolicitud.component");
+// import { AppComponent }  from './app.component';
 // import {AppComponent} from "./app.component";
 var appRoutes = [
     {

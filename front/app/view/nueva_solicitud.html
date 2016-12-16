@@ -123,19 +123,28 @@
 				</thead>
 				<tbody id="tbody_trareq">
 					<tr>
-						<td style="width: 10%; height: auto;">
+						<td style="width: 10%">
 							<!--<p>Tipo</p> -->
-							<select id="combo_tiptra" (change)="onSelect()">
+							<select id="combo_tiptra" (change)="onSelect()" (change)="onCambiarModelTra()">
 								<option [value]="0">Escoja uno</option>
 								<option *ngFor="let tipodetransporte of tipotra" [value]="tipodetransporte.val">
 									{{tipodetransporte.name}}
 								</option>
 							</select>
 						</td>
-						<td style="width: 10%; height: auto;">
+						<td style="width: 10%">
 							<!-- <p><ins>Modelo</ins></p> -->
-							<select id="combo_vehiculo" (change)="OnTipoTransporte()" >
+							<select id="combo_vehiculo" *ngIf="modeltrans == false" >
 								<option [value]="0">Escoja uno</option>
+								<!-- <option *ngFor="let modelotransporte of modeltra" [value]="modelotransporte.tiptraId">
+									{{modelotransporte.tiptraNombre}}
+								</option> -->
+							</select> 
+						<!-- </td>
+						<td style="width: 10%; height: auto;"> -->
+							<!-- <p><ins>Modelo</ins></p> -->
+							<select id="combo_vehiculo" *ngIf="modeltrans == true" >
+								<!-- <option [value]="0">Escoja uno</option> -->
 								<option *ngFor="let modelotransporte of modeltra" [value]="modelotransporte.tiptraId">
 									{{modelotransporte.tiptraNombre}}
 								</option>

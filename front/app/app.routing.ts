@@ -9,6 +9,7 @@ import {UsuarioComponent} from "./components/usuario.component";
 import {NuevasolicitudComponent} from "./components/nuevasolicitud.component";
 import {LoginComponent} from "./components/login.component";
 import {ImprimirsolicitudComponent} from "./components/imprimirsolicitud.component";
+// import { AppComponent }  from './app.component';
 
 // import {AppComponent} from "./app.component";
 

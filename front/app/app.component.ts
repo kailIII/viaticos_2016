@@ -19,6 +19,7 @@ export class AppComponent implements OnInit{
 	public datoMenu;
 	public datoMenuIteracion;
 	public datoMenuMostrar: Array<any>;
+	public user;
 
 	constructor(
 		private _loginService: LoginService,
@@ -28,8 +29,17 @@ export class AppComponent implements OnInit{
 	}
 
 	ngOnInit(){
+		this.user = {
+			'email': "",
+			'password': "",
+			'gethash': "false"
+		};
 		this.identity = this._loginService.getIdentity();
 		if(this.identity){
+			// this.Onloguearse();
+			this.menuUsuario();
+		}else{
+			this.Onloguearse();
 			this.menuUsuario();
 		}
 	}
@@ -60,18 +70,75 @@ export class AppComponent implements OnInit{
 							};  
 							this.datoMenuMostrar = JSON.parse("["+this.datoMenu+"]");  
 							return this.datoMenuMostrar;
-						
+
 						}
 					}
 				},error => {
-					this.errorMessage = <any>error;
+					// this.errorMessage = <any>error;
 
+					// if(this.errorMessage != null){
+					// 	console.log(this.errorMessage);
+					// 	alert("Error en la peticion de OnMenu");
+						// window.location.href='/principal';
+						window.location.reload();
+					// }
+				});
+		}
+	}
+
+	Onloguearse(){
+		if(!this._loginService.checkCredentials(this._loginService.getToken())){
+			this._loginService.signup(this.user).subscribe(
+				response => {
+					let identity = response;
+					this.identity = identity;
+					if(this.identity.length <= 1){
+						alert("Error en el servidor 4");
+					}else{ 	
+						if(!this.identity.status){
+							localStorage.setItem('identity', JSON.stringify(identity));
+							// sessionStorage.setItem('identity', JSON.stringify(identity));
+							this.user.gethash = "true";
+							this._loginService.signup(this.user).subscribe(
+								response => {
+									let token = response;
+									this.token = token;
+									if(this.token.length <= 0){
+										alert("Error en el servidor 3");
+									}else{
+										if(!this.token.status){
+											localStorage.setItem('token',token);
+											// sessionStorage.setItem('token',token);
+											if(this._loginService.checkCredentials(this._loginService.getToken())){
+												// this._router.navigate(['/principal']);
+												window.location.href='/principal';
+
+											}else{
+												// this._router.navigate(['/']);
+												window.location.href='/';
+											}
+										}
+									}
+								},
+								error =>{
+									this.errorMessage = <any>error;
+									if(this.errorMessage != null){
+										console.log(this.errorMessage);
+										alert("Error en la petición 2");
+									}
+								}
+								);
+						}
+					}
+				},
+				error => {
+					this.errorMessage = <any>error;
 					if(this.errorMessage != null){
 						console.log(this.errorMessage);
-						alert("Error en la peticion de OnMenu");
-						// window.location.href='/principal';
+						alert("Error en la petición 1");
 					}
-				});
+				}
+				);
 		}
 	}
 

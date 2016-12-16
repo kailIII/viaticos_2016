@@ -25,6 +25,7 @@ var NuevasolicitudComponent = (function () {
         this.inicial = false;
         this.paso2 = false;
         this.paso3 = false;
+        this.modeltrans = false;
         this.transporte = {
             'tritra': ""
         };
@@ -180,19 +181,16 @@ var NuevasolicitudComponent = (function () {
     NuevasolicitudComponent.prototype.onSelect = function () {
         var _this = this;
         var tipotransporte = document.getElementById("combo_tiptra").value;
-        // a = this.tipotra.name;
-        // console.log(a);
-        // console.log("this.tipotra:"+this.tipotra)
-        // console.log("tipotransporte:"+JSON.stringify(tipotransporte));
         this.moltra = {
             'tritra': tipotransporte
         };
         // console.log("this.moltra:"+JSON.stringify(this.moltra));
-        // this.modelotrans = this._TransporteService.GetModeloTransporte(this.moltra).filter((item)=> item.tiptraNombre == tipotransporte	);
         this._TransporteService.GetModeloTransporte(this.moltra).subscribe(function (response) {
-            // this.modeltra = response;
+            // console.log(response);
             var modeltra = response;
             _this.modeltra = modeltra;
+            _this.modeltrans = true;
+            // console.log("this.modeltra:"+JSON.stringify(this.modeltra));
         }, function (error) {
             _this.errorMessage = error;
             if (_this.errorMessage != null) {
@@ -205,6 +203,9 @@ var NuevasolicitudComponent = (function () {
         // this._router.navigate(['/imprimir_solicitud']);
         this.imprimirsol = true;
         window.location.href = '/imprimir_solicitud';
+    };
+    NuevasolicitudComponent.prototype.onCambiarModelTra = function () {
+        this.modeltrans = false;
     };
     return NuevasolicitudComponent;
 }());

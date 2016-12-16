@@ -19,8 +19,18 @@ var AppComponent = (function () {
         this.errorMsg = '';
     }
     AppComponent.prototype.ngOnInit = function () {
+        this.user = {
+            'email': "",
+            'password': "",
+            'gethash': "false"
+        };
         this.identity = this._loginService.getIdentity();
         if (this.identity) {
+            // this.Onloguearse();
+            this.menuUsuario();
+        }
+        else {
+            this.Onloguearse();
             this.menuUsuario();
         }
     };
@@ -57,10 +67,64 @@ var AppComponent = (function () {
                     }
                 }
             }, function (error) {
+                // this.errorMessage = <any>error;
+                // if(this.errorMessage != null){
+                // 	console.log(this.errorMessage);
+                // 	alert("Error en la peticion de OnMenu");
+                // window.location.href='/principal';
+                window.location.reload();
+                // }
+            });
+        }
+    };
+    AppComponent.prototype.Onloguearse = function () {
+        var _this = this;
+        if (!this._loginService.checkCredentials(this._loginService.getToken())) {
+            this._loginService.signup(this.user).subscribe(function (response) {
+                var identity = response;
+                _this.identity = identity;
+                if (_this.identity.length <= 1) {
+                    alert("Error en el servidor 4");
+                }
+                else {
+                    if (!_this.identity.status) {
+                        localStorage.setItem('identity', JSON.stringify(identity));
+                        // sessionStorage.setItem('identity', JSON.stringify(identity));
+                        _this.user.gethash = "true";
+                        _this._loginService.signup(_this.user).subscribe(function (response) {
+                            var token = response;
+                            _this.token = token;
+                            if (_this.token.length <= 0) {
+                                alert("Error en el servidor 3");
+                            }
+                            else {
+                                if (!_this.token.status) {
+                                    localStorage.setItem('token', token);
+                                    // sessionStorage.setItem('token',token);
+                                    if (_this._loginService.checkCredentials(_this._loginService.getToken())) {
+                                        // this._router.navigate(['/principal']);
+                                        window.location.href = '/principal';
+                                    }
+                                    else {
+                                        // this._router.navigate(['/']);
+                                        window.location.href = '/';
+                                    }
+                                }
+                            }
+                        }, function (error) {
+                            _this.errorMessage = error;
+                            if (_this.errorMessage != null) {
+                                console.log(_this.errorMessage);
+                                alert("Error en la petición 2");
+                            }
+                        });
+                    }
+                }
+            }, function (error) {
                 _this.errorMessage = error;
                 if (_this.errorMessage != null) {
                     console.log(_this.errorMessage);
-                    alert("Error en la peticion de OnMenu");
+                    alert("Error en la petición 1");
                 }
             });
         }
