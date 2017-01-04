@@ -16,7 +16,10 @@ import {ImprimirsolicitudComponent} from "./components/imprimirsolicitud.compone
 import { routing, appRoutingProviders } from './app.routing';
 // import {InputTextModule, DataTableModule, ButtonModule, DialogModule} from 'primeng/primeng';
 import {DataTableModule} from "angular2-datatable";
+import {EditorModule, SharedModule, MultiSelectModule,CalendarModule, DropdownModule} from 'primeng/primeng';
+// import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
+// import { DatepickerModule } from 'ng2-bootstrap';
 // import { Ng2SmartTableModule } from 'ng2-smart-table';
 // import {InputTextModule} from 'primeng/components/inputtext/inputtext';
 // import {DataTableModule} from 'primeng/components/datatable/datatable';
@@ -39,7 +42,14 @@ import { PdfViewerComponent } from 'ng2-pdf-viewer';
               // DataTableModule, 
               // ButtonModule, 
               // DialogModule 
-              DataTableModule
+              DataTableModule/*,
+              DatepickerModule*/
+              ,
+              EditorModule,
+              SharedModule,
+              MultiSelectModule,
+              CalendarModule,
+              DropdownModule
   ],
   declarations: [ 
               AppComponent,
@@ -52,7 +62,6 @@ import { PdfViewerComponent } from 'ng2-pdf-viewer';
               UsuarioComponent,
               PdfViewerComponent,
               ImprimirsolicitudComponent
-              
   ],
   providers:    [ appRoutingProviders ],
   bootstrap:    [ AppComponent ],

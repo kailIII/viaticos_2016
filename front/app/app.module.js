@@ -24,7 +24,10 @@ var imprimirsolicitud_component_1 = require("./components/imprimirsolicitud.comp
 var app_routing_1 = require("./app.routing");
 // import {InputTextModule, DataTableModule, ButtonModule, DialogModule} from 'primeng/primeng';
 var angular2_datatable_1 = require("angular2-datatable");
+var primeng_1 = require("primeng/primeng");
+// import { PdfViewerComponent } from 'ng2-pdf-viewer';
 var ng2_pdf_viewer_1 = require("ng2-pdf-viewer");
+// import { DatepickerModule } from 'ng2-bootstrap';
 // import { Ng2SmartTableModule } from 'ng2-smart-table';
 // import {InputTextModule} from 'primeng/components/inputtext/inputtext';
 // import {DataTableModule} from 'primeng/components/datatable/datatable';
@@ -49,7 +52,13 @@ AppModule = __decorate([
             // DataTableModule, 
             // ButtonModule, 
             // DialogModule 
-            angular2_datatable_1.DataTableModule
+            angular2_datatable_1.DataTableModule /*,
+            DatepickerModule*/,
+            primeng_1.EditorModule,
+            primeng_1.SharedModule,
+            primeng_1.MultiSelectModule,
+            primeng_1.CalendarModule,
+            primeng_1.DropdownModule
         ],
         declarations: [
             app_component_1.AppComponent,

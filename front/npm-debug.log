@@ -25,490 +25,420 @@
 13 silly mapToRegistry uri https://registry.npmjs.org/jspdf
 14 verbose request uri https://registry.npmjs.org/jspdf
 15 verbose request no auth needed
-16 info attempt registry request try #1 at 16:41:20
-17 verbose request id 62a57b4cab30ea1c
-18 http request GET https://registry.npmjs.org/jspdf
-19 http 200 https://registry.npmjs.org/jspdf
-20 verbose headers { server: 'nginx/1.10.1',
-20 verbose headers   'content-type': 'application/json',
-20 verbose headers   'last-modified': 'Fri, 30 Sep 2016 20:34:13 GMT',
-20 verbose headers   etag: 'W/"57eecc45-2d34"',
-20 verbose headers   'content-encoding': 'gzip',
-20 verbose headers   'cache-control': 'max-age=300',
-20 verbose headers   'content-length': '3051',
-20 verbose headers   'accept-ranges': 'bytes',
-20 verbose headers   date: 'Thu, 15 Dec 2016 21:41:24 GMT',
-20 verbose headers   via: '1.1 varnish',
-20 verbose headers   age: '0',
-20 verbose headers   connection: 'keep-alive',
-20 verbose headers   'x-served-by': 'cache-iad2146-IAD',
-20 verbose headers   'x-cache': 'HIT',
-20 verbose headers   'x-cache-hits': '1',
-20 verbose headers   'x-timer': 'S1481838084.060641,VS0,VE1',
-20 verbose headers   vary: 'Accept-Encoding' }
-21 silly get cb [ 200,
-21 silly get   { server: 'nginx/1.10.1',
-21 silly get     'content-type': 'application/json',
-21 silly get     'last-modified': 'Fri, 30 Sep 2016 20:34:13 GMT',
-21 silly get     etag: 'W/"57eecc45-2d34"',
-21 silly get     'content-encoding': 'gzip',
-21 silly get     'cache-control': 'max-age=300',
-21 silly get     'content-length': '3051',
-21 silly get     'accept-ranges': 'bytes',
-21 silly get     date: 'Thu, 15 Dec 2016 21:41:24 GMT',
-21 silly get     via: '1.1 varnish',
-21 silly get     age: '0',
-21 silly get     connection: 'keep-alive',
-21 silly get     'x-served-by': 'cache-iad2146-IAD',
-21 silly get     'x-cache': 'HIT',
-21 silly get     'x-cache-hits': '1',
-21 silly get     'x-timer': 'S1481838084.060641,VS0,VE1',
-21 silly get     vary: 'Accept-Encoding' } ]
-22 verbose get saving jspdf to C:\Users\sant1\AppData\Roaming\npm-cache\registry.npmjs.org\jspdf\.cache.json
-23 verbose correctMkdir C:\Users\sant1\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
-24 silly install normalizeTree
-25 silly loadCurrentTree Finishing
-26 silly loadIdealTree Starting
-27 silly install loadIdealTree
-28 silly cloneCurrentTree Starting
-29 silly install cloneCurrentTreeToIdealTree
-30 silly cloneCurrentTree Finishing
-31 silly loadShrinkwrap Starting
-32 silly install loadShrinkwrap
-33 silly loadShrinkwrap Finishing
-34 silly loadAllDepsIntoIdealTree Starting
-35 silly install loadAllDepsIntoIdealTree
-36 silly resolveWithNewModule jspdf@1.3.2 checking installable status
-37 silly cache add args [ 'jspdf', null ]
-38 verbose cache add spec jspdf
-39 silly cache add parsed spec Result {
-39 silly cache add   raw: 'jspdf',
-39 silly cache add   scope: null,
-39 silly cache add   escapedName: 'jspdf',
-39 silly cache add   name: 'jspdf',
-39 silly cache add   rawSpec: '',
-39 silly cache add   spec: 'latest',
-39 silly cache add   type: 'tag' }
-40 silly addNamed jspdf@latest
-41 verbose addNamed "latest" is being treated as a dist-tag for jspdf
-42 info addNameTag [ 'jspdf', 'latest' ]
-43 silly mapToRegistry name jspdf
-44 silly mapToRegistry using default registry
-45 silly mapToRegistry registry https://registry.npmjs.org/
-46 silly mapToRegistry data Result {
-46 silly mapToRegistry   raw: 'jspdf',
-46 silly mapToRegistry   scope: null,
-46 silly mapToRegistry   escapedName: 'jspdf',
-46 silly mapToRegistry   name: 'jspdf',
-46 silly mapToRegistry   rawSpec: '',
-46 silly mapToRegistry   spec: 'latest',
-46 silly mapToRegistry   type: 'tag' }
-47 silly mapToRegistry uri https://registry.npmjs.org/jspdf
-48 verbose addNameTag registry:https://registry.npmjs.org/jspdf not in flight; fetching
-49 verbose get https://registry.npmjs.org/jspdf not expired, no request
-50 silly addNameTag next cb for jspdf with tag latest
-51 silly addNamed jspdf@1.3.2
-52 verbose addNamed "1.3.2" is a plain semver version for jspdf
-53 silly mapToRegistry name jspdf
-54 silly mapToRegistry using default registry
-55 silly mapToRegistry registry https://registry.npmjs.org/
-56 silly mapToRegistry data Result {
-56 silly mapToRegistry   raw: 'jspdf',
-56 silly mapToRegistry   scope: null,
-56 silly mapToRegistry   escapedName: 'jspdf',
-56 silly mapToRegistry   name: 'jspdf',
-56 silly mapToRegistry   rawSpec: '',
-56 silly mapToRegistry   spec: 'latest',
-56 silly mapToRegistry   type: 'tag' }
-57 silly mapToRegistry uri https://registry.npmjs.org/jspdf
-58 verbose addRemoteTarball https://registry.npmjs.org/jspdf/-/jspdf-1.3.2.tgz not in flight; adding
-59 verbose addRemoteTarball [ 'https://registry.npmjs.org/jspdf/-/jspdf-1.3.2.tgz',
-59 verbose addRemoteTarball   'c9b10e53d1dd0a989b901ac9867db48a93380390' ]
-60 info retry fetch attempt 1 at 16:41:21
-61 info attempt registry request try #1 at 16:41:21
-62 http fetch GET https://registry.npmjs.org/jspdf/-/jspdf-1.3.2.tgz
-63 http fetch 200 https://registry.npmjs.org/jspdf/-/jspdf-1.3.2.tgz
-64 silly fetchAndShaCheck shasum c9b10e53d1dd0a989b901ac9867db48a93380390
-65 verbose addTmpTarball C:\cygwin64\tmp\npm-10708-99543102\registry.npmjs.org\jspdf\-\jspdf-1.3.2.tgz not in flight; adding
-66 verbose addTmpTarball already have metadata; skipping unpack for jspdf@1.3.2
-67 verbose correctMkdir C:\Users\sant1\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
-68 silly cache afterAdd jspdf@1.3.2
-69 verbose afterAdd C:\Users\sant1\AppData\Roaming\npm-cache\jspdf\1.3.2\package\package.json not in flight; writing
-70 verbose correctMkdir C:\Users\sant1\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
-71 verbose afterAdd C:\Users\sant1\AppData\Roaming\npm-cache\jspdf\1.3.2\package\package.json written
-72 silly fetchNamedPackageData cf-blob.js
-73 silly mapToRegistry name cf-blob.js
-74 silly mapToRegistry using default registry
-75 silly mapToRegistry registry https://registry.npmjs.org/
-76 silly mapToRegistry data Result {
-76 silly mapToRegistry   raw: 'cf-blob.js',
-76 silly mapToRegistry   scope: null,
-76 silly mapToRegistry   escapedName: 'cf-blob.js',
-76 silly mapToRegistry   name: 'cf-blob.js',
-76 silly mapToRegistry   rawSpec: '',
-76 silly mapToRegistry   spec: 'latest',
-76 silly mapToRegistry   type: 'tag' }
-77 silly mapToRegistry uri https://registry.npmjs.org/cf-blob.js
-78 silly fetchOtherPackageData adler32cs@github:chick307/adler32cs.js
-79 silly cache add args [ 'adler32cs@github:chick307/adler32cs.js', null ]
-80 verbose cache add spec adler32cs@github:chick307/adler32cs.js
-81 silly fetchOtherPackageData filesaver.js@github:andyinabox/FileSaver.js
-82 silly cache add args [ 'filesaver.js@github:andyinabox/FileSaver.js', null ]
-83 verbose cache add spec filesaver.js@github:andyinabox/FileSaver.js
-84 verbose request uri https://registry.npmjs.org/cf-blob.js
-85 verbose request no auth needed
-86 info attempt registry request try #1 at 16:41:22
-87 http request GET https://registry.npmjs.org/cf-blob.js
-88 silly cache add parsed spec Result {
-88 silly cache add   raw: 'adler32cs@github:chick307/adler32cs.js',
-88 silly cache add   scope: null,
-88 silly cache add   escapedName: 'adler32cs',
-88 silly cache add   name: 'adler32cs',
-88 silly cache add   rawSpec: 'github:chick307/adler32cs.js',
-88 silly cache add   spec: 'github:chick307/adler32cs.js',
-88 silly cache add   type: 'hosted',
-88 silly cache add   hosted:
-88 silly cache add    { type: 'github',
-88 silly cache add      ssh: 'git@github.com:chick307/adler32cs.js.git',
-88 silly cache add      sshUrl: 'git+ssh://git@github.com/chick307/adler32cs.js.git',
-88 silly cache add      httpsUrl: 'git+https://github.com/chick307/adler32cs.js.git',
-88 silly cache add      gitUrl: 'git://github.com/chick307/adler32cs.js.git',
-88 silly cache add      shortcut: 'github:chick307/adler32cs.js',
-88 silly cache add      directUrl: 'https://raw.githubusercontent.com/chick307/adler32cs.js/master/package.json' } }
-89 verbose addRemoteGit caching github:chick307/adler32cs.js
-90 verbose addRemoteGit chick307/adler32cs.js is a repository hosted by github
-91 silly tryGitProto attempting to clone git://github.com/chick307/adler32cs.js.git
-92 silly tryClone cloning chick307/adler32cs.js via git://github.com/chick307/adler32cs.js.git
-93 verbose tryClone git-github-com-chick307-adler32cs-js-git-428b6691 not in flight; caching
-94 verbose correctMkdir C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes correctMkdir not in flight; initializing
-95 silly cache add parsed spec Result {
-95 silly cache add   raw: 'filesaver.js@github:andyinabox/FileSaver.js',
-95 silly cache add   scope: null,
-95 silly cache add   escapedName: 'filesaver.js',
-95 silly cache add   name: 'filesaver.js',
-95 silly cache add   rawSpec: 'github:andyinabox/FileSaver.js',
-95 silly cache add   spec: 'github:andyinabox/FileSaver.js',
-95 silly cache add   type: 'hosted',
-95 silly cache add   hosted:
-95 silly cache add    { type: 'github',
-95 silly cache add      ssh: 'git@github.com:andyinabox/FileSaver.js.git',
-95 silly cache add      sshUrl: 'git+ssh://git@github.com/andyinabox/FileSaver.js.git',
-95 silly cache add      httpsUrl: 'git+https://github.com/andyinabox/FileSaver.js.git',
-95 silly cache add      gitUrl: 'git://github.com/andyinabox/FileSaver.js.git',
-95 silly cache add      shortcut: 'github:andyinabox/FileSaver.js',
-95 silly cache add      directUrl: 'https://raw.githubusercontent.com/andyinabox/FileSaver.js/master/package.json' } }
-96 verbose addRemoteGit caching github:andyinabox/FileSaver.js
-97 verbose addRemoteGit andyinabox/FileSaver.js is a repository hosted by github
-98 silly tryGitProto attempting to clone git://github.com/andyinabox/FileSaver.js.git
-99 silly tryClone cloning andyinabox/FileSaver.js via git://github.com/andyinabox/FileSaver.js.git
-100 verbose tryClone git-github-com-andyinabox-FileSaver-js-git-01d3ff96 not in flight; caching
-101 verbose correctMkdir C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes correctMkdir already in flight; waiting
-102 verbose makeDirectory C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes creation not in flight; initializing
-103 verbose makeCacheDir UID & GID are irrelevant on win32
-104 info git [ 'clone',
-104 info git   '--template=C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\_templates',
-104 info git   '--mirror',
-104 info git   'git://github.com/andyinabox/FileSaver.js.git',
-104 info git   'C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-github-com-andyinabox-FileSaver-js-git-01d3ff96' ]
-105 info git [ 'clone',
-105 info git   '--template=C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\_templates',
-105 info git   '--mirror',
-105 info git   'git://github.com/chick307/adler32cs.js.git',
-105 info git   'C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-github-com-chick307-adler32cs-js-git-428b6691' ]
-106 http 200 https://registry.npmjs.org/cf-blob.js
-107 verbose headers { server: 'nginx/1.10.1',
-107 verbose headers   'content-type': 'application/json',
-107 verbose headers   'last-modified': 'Sun, 06 Dec 2015 19:47:35 GMT',
-107 verbose headers   etag: 'W/"566490d7-6e6"',
-107 verbose headers   'content-encoding': 'gzip',
-107 verbose headers   'cache-control': 'max-age=300',
-107 verbose headers   'content-length': '739',
-107 verbose headers   'accept-ranges': 'bytes',
-107 verbose headers   date: 'Thu, 15 Dec 2016 21:41:25 GMT',
-107 verbose headers   via: '1.1 varnish',
-107 verbose headers   age: '0',
-107 verbose headers   connection: 'keep-alive',
-107 verbose headers   'x-served-by': 'cache-iad2146-IAD',
-107 verbose headers   'x-cache': 'HIT',
-107 verbose headers   'x-cache-hits': '1',
-107 verbose headers   'x-timer': 'S1481838085.153376,VS0,VE1',
-107 verbose headers   vary: 'Accept-Encoding' }
-108 silly get cb [ 200,
-108 silly get   { server: 'nginx/1.10.1',
-108 silly get     'content-type': 'application/json',
-108 silly get     'last-modified': 'Sun, 06 Dec 2015 19:47:35 GMT',
-108 silly get     etag: 'W/"566490d7-6e6"',
-108 silly get     'content-encoding': 'gzip',
-108 silly get     'cache-control': 'max-age=300',
-108 silly get     'content-length': '739',
-108 silly get     'accept-ranges': 'bytes',
-108 silly get     date: 'Thu, 15 Dec 2016 21:41:25 GMT',
-108 silly get     via: '1.1 varnish',
-108 silly get     age: '0',
-108 silly get     connection: 'keep-alive',
-108 silly get     'x-served-by': 'cache-iad2146-IAD',
-108 silly get     'x-cache': 'HIT',
-108 silly get     'x-cache-hits': '1',
-108 silly get     'x-timer': 'S1481838085.153376,VS0,VE1',
-108 silly get     vary: 'Accept-Encoding' } ]
-109 verbose get saving cf-blob.js to C:\Users\sant1\AppData\Roaming\npm-cache\registry.npmjs.org\cf-blob.js\.cache.json
-110 verbose correctMkdir C:\Users\sant1\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
-111 silly resolveWithNewModule cf-blob.js@0.0.1 checking installable status
-112 silly cache add args [ 'cf-blob.js@0.0.1', null ]
-113 verbose cache add spec cf-blob.js@0.0.1
-114 silly cache add parsed spec Result {
-114 silly cache add   raw: 'cf-blob.js@0.0.1',
-114 silly cache add   scope: null,
-114 silly cache add   escapedName: 'cf-blob.js',
-114 silly cache add   name: 'cf-blob.js',
-114 silly cache add   rawSpec: '0.0.1',
-114 silly cache add   spec: '0.0.1',
-114 silly cache add   type: 'version' }
-115 silly addNamed cf-blob.js@0.0.1
-116 verbose addNamed "0.0.1" is a plain semver version for cf-blob.js
-117 silly mapToRegistry name cf-blob.js
-118 silly mapToRegistry using default registry
-119 silly mapToRegistry registry https://registry.npmjs.org/
-120 silly mapToRegistry data Result {
-120 silly mapToRegistry   raw: 'cf-blob.js',
-120 silly mapToRegistry   scope: null,
-120 silly mapToRegistry   escapedName: 'cf-blob.js',
-120 silly mapToRegistry   name: 'cf-blob.js',
-120 silly mapToRegistry   rawSpec: '',
-120 silly mapToRegistry   spec: 'latest',
-120 silly mapToRegistry   type: 'tag' }
-121 silly mapToRegistry uri https://registry.npmjs.org/cf-blob.js
-122 verbose addNameVersion registry:https://registry.npmjs.org/cf-blob.js not in flight; fetching
-123 verbose get https://registry.npmjs.org/cf-blob.js not expired, no request
-124 silly mapToRegistry name cf-blob.js
-125 silly mapToRegistry using default registry
-126 silly mapToRegistry registry https://registry.npmjs.org/
-127 silly mapToRegistry data Result {
-127 silly mapToRegistry   raw: 'cf-blob.js',
-127 silly mapToRegistry   scope: null,
-127 silly mapToRegistry   escapedName: 'cf-blob.js',
-127 silly mapToRegistry   name: 'cf-blob.js',
-127 silly mapToRegistry   rawSpec: '',
-127 silly mapToRegistry   spec: 'latest',
-127 silly mapToRegistry   type: 'tag' }
-128 silly mapToRegistry uri https://registry.npmjs.org/cf-blob.js
-129 verbose addRemoteTarball https://registry.npmjs.org/cf-blob.js/-/cf-blob.js-0.0.1.tgz not in flight; adding
-130 verbose addRemoteTarball [ 'https://registry.npmjs.org/cf-blob.js/-/cf-blob.js-0.0.1.tgz',
-130 verbose addRemoteTarball   'f5ab7e12e798caf08ccf828c69aba0f063d83f99' ]
-131 info retry fetch attempt 1 at 16:41:22
-132 info attempt registry request try #1 at 16:41:22
-133 http fetch GET https://registry.npmjs.org/cf-blob.js/-/cf-blob.js-0.0.1.tgz
-134 http fetch 200 https://registry.npmjs.org/cf-blob.js/-/cf-blob.js-0.0.1.tgz
-135 silly fetchAndShaCheck shasum f5ab7e12e798caf08ccf828c69aba0f063d83f99
-136 verbose addTmpTarball C:\cygwin64\tmp\npm-10708-99543102\registry.npmjs.org\cf-blob.js\-\cf-blob.js-0.0.1.tgz not in flight; adding
-137 verbose addTmpTarball already have metadata; skipping unpack for cf-blob.js@0.0.1
-138 verbose correctMkdir C:\Users\sant1\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
-139 silly cache afterAdd cf-blob.js@0.0.1
-140 verbose afterAdd C:\Users\sant1\AppData\Roaming\npm-cache\cf-blob.js\0.0.1\package\package.json not in flight; writing
-141 verbose correctMkdir C:\Users\sant1\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
-142 verbose afterAdd C:\Users\sant1\AppData\Roaming\npm-cache\cf-blob.js\0.0.1\package\package.json written
-143 verbose mirrorRemote chick307/adler32cs.js git clone git://github.com/chick307/adler32cs.js.git
-144 verbose setPermissions chick307/adler32cs.js skipping chownr on Windows
-145 verbose resolveHead chick307/adler32cs.js original treeish: master
-146 info git [ 'rev-list', '-n1', 'master' ]
-147 silly resolveHead chick307/adler32cs.js resolved treeish: c6576b4ed91b4216973bf85d8478a49970934515
-148 verbose resolveHead chick307/adler32cs.js resolved Git URL: git://github.com/chick307/adler32cs.js.git#c6576b4ed91b4216973bf85d8478a49970934515
-149 silly resolveHead Git working directory: C:\cygwin64\tmp\npm-10708-99543102\git-cache-022d99b0\c6576b4ed91b4216973bf85d8478a49970934515
-150 info git [ 'clone',
-150 info git   'C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-github-com-chick307-adler32cs-js-git-428b6691',
-150 info git   'C:\\cygwin64\\tmp\\npm-10708-99543102\\git-cache-022d99b0\\c6576b4ed91b4216973bf85d8478a49970934515' ]
-151 verbose mirrorRemote andyinabox/FileSaver.js git clone git://github.com/andyinabox/FileSaver.js.git
-152 verbose setPermissions andyinabox/FileSaver.js skipping chownr on Windows
-153 verbose resolveHead andyinabox/FileSaver.js original treeish: master
-154 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-428b6691 C:\cygwin64\tmp\npm-10708-99543102\git-cache-022d99b0\c6576b4ed91b4216973bf85d8478a49970934515: Cloning into 'C:\cygwin64\tmp\npm-10708-99543102\git-cache-022d99b0\c6576b4ed91b4216973bf85d8478a49970934515'...
-154 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-428b6691 C:\cygwin64\tmp\npm-10708-99543102\git-cache-022d99b0\c6576b4ed91b4216973bf85d8478a49970934515: fatal: '/cygdrive/c/Users/sant1/AppData/Roaming/npm-cache/_git-remotes/git-github-com-chick307-adler32cs-js-git-428b6691/C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-428b6691' does not appear to be a git repository
-154 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-428b6691 C:\cygwin64\tmp\npm-10708-99543102\git-cache-022d99b0\c6576b4ed91b4216973bf85d8478a49970934515: fatal: Could not read from remote repository.
-154 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-428b6691 C:\cygwin64\tmp\npm-10708-99543102\git-cache-022d99b0\c6576b4ed91b4216973bf85d8478a49970934515:
-154 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-428b6691 C:\cygwin64\tmp\npm-10708-99543102\git-cache-022d99b0\c6576b4ed91b4216973bf85d8478a49970934515: Please make sure you have the correct access rights
-154 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-428b6691 C:\cygwin64\tmp\npm-10708-99543102\git-cache-022d99b0\c6576b4ed91b4216973bf85d8478a49970934515: and the repository exists.
-155 silly tryHTTPS attempting to clone git+https://github.com/chick307/adler32cs.js.git
-156 silly tryClone cloning chick307/adler32cs.js via git+https://github.com/chick307/adler32cs.js.git
-157 verbose tryClone git-https-github-com-chick307-adler32cs-js-git-574a3cb0 not in flight; caching
-158 verbose correctMkdir C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes correctMkdir not in flight; initializing
-159 info git [ 'rev-list', '-n1', 'master' ]
-160 info git [ 'clone',
-160 info git   '--template=C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\_templates',
-160 info git   '--mirror',
-160 info git   'https://github.com/chick307/adler32cs.js.git',
-160 info git   'C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-https-github-com-chick307-adler32cs-js-git-574a3cb0' ]
-161 silly resolveHead andyinabox/FileSaver.js resolved treeish: 973b433b8fbaee9a11d53b9ae423b046742cfe32
-162 verbose resolveHead andyinabox/FileSaver.js resolved Git URL: git://github.com/andyinabox/FileSaver.js.git#973b433b8fbaee9a11d53b9ae423b046742cfe32
-163 silly resolveHead Git working directory: C:\cygwin64\tmp\npm-10708-99543102\git-cache-1581b552\973b433b8fbaee9a11d53b9ae423b046742cfe32
-164 info git [ 'clone',
-164 info git   'C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-github-com-andyinabox-FileSaver-js-git-01d3ff96',
-164 info git   'C:\\cygwin64\\tmp\\npm-10708-99543102\\git-cache-1581b552\\973b433b8fbaee9a11d53b9ae423b046742cfe32' ]
-165 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-01d3ff96 C:\cygwin64\tmp\npm-10708-99543102\git-cache-1581b552\973b433b8fbaee9a11d53b9ae423b046742cfe32: Cloning into 'C:\cygwin64\tmp\npm-10708-99543102\git-cache-1581b552\973b433b8fbaee9a11d53b9ae423b046742cfe32'...
-165 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-01d3ff96 C:\cygwin64\tmp\npm-10708-99543102\git-cache-1581b552\973b433b8fbaee9a11d53b9ae423b046742cfe32: fatal: '/cygdrive/c/Users/sant1/AppData/Roaming/npm-cache/_git-remotes/git-github-com-andyinabox-FileSaver-js-git-01d3ff96/C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-01d3ff96' does not appear to be a git repository
-165 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-01d3ff96 C:\cygwin64\tmp\npm-10708-99543102\git-cache-1581b552\973b433b8fbaee9a11d53b9ae423b046742cfe32: fatal: Could not read from remote repository.
-165 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-01d3ff96 C:\cygwin64\tmp\npm-10708-99543102\git-cache-1581b552\973b433b8fbaee9a11d53b9ae423b046742cfe32:
-165 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-01d3ff96 C:\cygwin64\tmp\npm-10708-99543102\git-cache-1581b552\973b433b8fbaee9a11d53b9ae423b046742cfe32: Please make sure you have the correct access rights
-165 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-01d3ff96 C:\cygwin64\tmp\npm-10708-99543102\git-cache-1581b552\973b433b8fbaee9a11d53b9ae423b046742cfe32: and the repository exists.
-166 silly tryHTTPS attempting to clone git+https://github.com/andyinabox/FileSaver.js.git
-167 silly tryClone cloning andyinabox/FileSaver.js via git+https://github.com/andyinabox/FileSaver.js.git
-168 verbose tryClone git-https-github-com-andyinabox-FileSaver-js-git-f13f0ce3 not in flight; caching
-169 verbose correctMkdir C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes correctMkdir not in flight; initializing
-170 info git [ 'clone',
-170 info git   '--template=C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\_templates',
-170 info git   '--mirror',
-170 info git   'https://github.com/andyinabox/FileSaver.js.git',
-170 info git   'C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-https-github-com-andyinabox-FileSaver-js-git-f13f0ce3' ]
-171 verbose mirrorRemote chick307/adler32cs.js git clone https://github.com/chick307/adler32cs.js.git
-172 verbose setPermissions chick307/adler32cs.js skipping chownr on Windows
-173 verbose resolveHead chick307/adler32cs.js original treeish: master
-174 info git [ 'rev-list', '-n1', 'master' ]
-175 silly resolveHead chick307/adler32cs.js resolved treeish: c6576b4ed91b4216973bf85d8478a49970934515
-176 verbose resolveHead chick307/adler32cs.js resolved Git URL: git+https://github.com/chick307/adler32cs.js.git#c6576b4ed91b4216973bf85d8478a49970934515
-177 silly resolveHead Git working directory: C:\cygwin64\tmp\npm-10708-99543102\git-cache-1e947c1c\c6576b4ed91b4216973bf85d8478a49970934515
-178 info git [ 'clone',
-178 info git   'C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-https-github-com-chick307-adler32cs-js-git-574a3cb0',
-178 info git   'C:\\cygwin64\\tmp\\npm-10708-99543102\\git-cache-1e947c1c\\c6576b4ed91b4216973bf85d8478a49970934515' ]
-179 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-chick307-adler32cs-js-git-574a3cb0 C:\cygwin64\tmp\npm-10708-99543102\git-cache-1e947c1c\c6576b4ed91b4216973bf85d8478a49970934515: Cloning into 'C:\cygwin64\tmp\npm-10708-99543102\git-cache-1e947c1c\c6576b4ed91b4216973bf85d8478a49970934515'...
-179 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-chick307-adler32cs-js-git-574a3cb0 C:\cygwin64\tmp\npm-10708-99543102\git-cache-1e947c1c\c6576b4ed91b4216973bf85d8478a49970934515: fatal: '/cygdrive/c/Users/sant1/AppData/Roaming/npm-cache/_git-remotes/git-https-github-com-chick307-adler32cs-js-git-574a3cb0/C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-chick307-adler32cs-js-git-574a3cb0' does not appear to be a git repository
-179 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-chick307-adler32cs-js-git-574a3cb0 C:\cygwin64\tmp\npm-10708-99543102\git-cache-1e947c1c\c6576b4ed91b4216973bf85d8478a49970934515: fatal: Could not read from remote repository.
-179 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-chick307-adler32cs-js-git-574a3cb0 C:\cygwin64\tmp\npm-10708-99543102\git-cache-1e947c1c\c6576b4ed91b4216973bf85d8478a49970934515:
-179 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-chick307-adler32cs-js-git-574a3cb0 C:\cygwin64\tmp\npm-10708-99543102\git-cache-1e947c1c\c6576b4ed91b4216973bf85d8478a49970934515: Please make sure you have the correct access rights
-179 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-chick307-adler32cs-js-git-574a3cb0 C:\cygwin64\tmp\npm-10708-99543102\git-cache-1e947c1c\c6576b4ed91b4216973bf85d8478a49970934515: and the repository exists.
-180 silly trySSH attempting to clone git@github.com:chick307/adler32cs.js.git
-181 silly tryClone cloning chick307/adler32cs.js via git@github.com:chick307/adler32cs.js.git
-182 verbose tryClone git-github-com-chick307-adler32cs-js-git-de4a87bb not in flight; caching
-183 verbose correctMkdir C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes correctMkdir not in flight; initializing
+16 info attempt registry request try #1 at 16:19:12
+17 verbose request id add2918783115f00
+18 verbose etag W/"57eecc45-2d34"
+19 verbose lastModified Fri, 30 Sep 2016 20:34:13 GMT
+20 http request GET https://registry.npmjs.org/jspdf
+21 http 304 https://registry.npmjs.org/jspdf
+22 verbose headers { date: 'Wed, 04 Jan 2017 21:19:15 GMT',
+22 verbose headers   via: '1.1 varnish',
+22 verbose headers   'cache-control': 'max-age=300',
+22 verbose headers   etag: 'W/"57eecc45-2d34"',
+22 verbose headers   age: '66',
+22 verbose headers   connection: 'keep-alive',
+22 verbose headers   'x-served-by': 'cache-mia1321-MIA',
+22 verbose headers   'x-cache': 'HIT',
+22 verbose headers   'x-cache-hits': '1',
+22 verbose headers   'x-timer': 'S1483564755.391532,VS0,VE0',
+22 verbose headers   vary: 'Accept-Encoding' }
+23 silly get cb [ 304,
+23 silly get   { date: 'Wed, 04 Jan 2017 21:19:15 GMT',
+23 silly get     via: '1.1 varnish',
+23 silly get     'cache-control': 'max-age=300',
+23 silly get     etag: 'W/"57eecc45-2d34"',
+23 silly get     age: '66',
+23 silly get     connection: 'keep-alive',
+23 silly get     'x-served-by': 'cache-mia1321-MIA',
+23 silly get     'x-cache': 'HIT',
+23 silly get     'x-cache-hits': '1',
+23 silly get     'x-timer': 'S1483564755.391532,VS0,VE0',
+23 silly get     vary: 'Accept-Encoding' } ]
+24 verbose etag https://registry.npmjs.org/jspdf from cache
+25 verbose get saving jspdf to C:\Users\sant1\AppData\Roaming\npm-cache\registry.npmjs.org\jspdf\.cache.json
+26 verbose correctMkdir C:\Users\sant1\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+27 silly install normalizeTree
+28 silly loadCurrentTree Finishing
+29 silly loadIdealTree Starting
+30 silly install loadIdealTree
+31 silly cloneCurrentTree Starting
+32 silly install cloneCurrentTreeToIdealTree
+33 silly cloneCurrentTree Finishing
+34 silly loadShrinkwrap Starting
+35 silly install loadShrinkwrap
+36 silly loadShrinkwrap Finishing
+37 silly loadAllDepsIntoIdealTree Starting
+38 silly install loadAllDepsIntoIdealTree
+39 silly resolveWithNewModule jspdf@1.3.2 checking installable status
+40 silly cache add args [ 'jspdf', null ]
+41 verbose cache add spec jspdf
+42 silly cache add parsed spec Result {
+42 silly cache add   raw: 'jspdf',
+42 silly cache add   scope: null,
+42 silly cache add   escapedName: 'jspdf',
+42 silly cache add   name: 'jspdf',
+42 silly cache add   rawSpec: '',
+42 silly cache add   spec: 'latest',
+42 silly cache add   type: 'tag' }
+43 silly addNamed jspdf@latest
+44 verbose addNamed "latest" is being treated as a dist-tag for jspdf
+45 info addNameTag [ 'jspdf', 'latest' ]
+46 silly mapToRegistry name jspdf
+47 silly mapToRegistry using default registry
+48 silly mapToRegistry registry https://registry.npmjs.org/
+49 silly mapToRegistry data Result {
+49 silly mapToRegistry   raw: 'jspdf',
+49 silly mapToRegistry   scope: null,
+49 silly mapToRegistry   escapedName: 'jspdf',
+49 silly mapToRegistry   name: 'jspdf',
+49 silly mapToRegistry   rawSpec: '',
+49 silly mapToRegistry   spec: 'latest',
+49 silly mapToRegistry   type: 'tag' }
+50 silly mapToRegistry uri https://registry.npmjs.org/jspdf
+51 verbose addNameTag registry:https://registry.npmjs.org/jspdf not in flight; fetching
+52 verbose get https://registry.npmjs.org/jspdf not expired, no request
+53 silly addNameTag next cb for jspdf with tag latest
+54 silly addNamed jspdf@1.3.2
+55 verbose addNamed "1.3.2" is a plain semver version for jspdf
+56 silly cache afterAdd jspdf@1.3.2
+57 verbose afterAdd C:\Users\sant1\AppData\Roaming\npm-cache\jspdf\1.3.2\package\package.json not in flight; writing
+58 verbose correctMkdir C:\Users\sant1\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+59 verbose afterAdd C:\Users\sant1\AppData\Roaming\npm-cache\jspdf\1.3.2\package\package.json written
+60 silly fetchNamedPackageData cf-blob.js
+61 silly mapToRegistry name cf-blob.js
+62 silly mapToRegistry using default registry
+63 silly mapToRegistry registry https://registry.npmjs.org/
+64 silly mapToRegistry data Result {
+64 silly mapToRegistry   raw: 'cf-blob.js',
+64 silly mapToRegistry   scope: null,
+64 silly mapToRegistry   escapedName: 'cf-blob.js',
+64 silly mapToRegistry   name: 'cf-blob.js',
+64 silly mapToRegistry   rawSpec: '',
+64 silly mapToRegistry   spec: 'latest',
+64 silly mapToRegistry   type: 'tag' }
+65 silly mapToRegistry uri https://registry.npmjs.org/cf-blob.js
+66 silly fetchOtherPackageData adler32cs@github:chick307/adler32cs.js
+67 silly cache add args [ 'adler32cs@github:chick307/adler32cs.js', null ]
+68 verbose cache add spec adler32cs@github:chick307/adler32cs.js
+69 silly fetchOtherPackageData filesaver.js@github:andyinabox/FileSaver.js
+70 silly cache add args [ 'filesaver.js@github:andyinabox/FileSaver.js', null ]
+71 verbose cache add spec filesaver.js@github:andyinabox/FileSaver.js
+72 silly cache add parsed spec Result {
+72 silly cache add   raw: 'adler32cs@github:chick307/adler32cs.js',
+72 silly cache add   scope: null,
+72 silly cache add   escapedName: 'adler32cs',
+72 silly cache add   name: 'adler32cs',
+72 silly cache add   rawSpec: 'github:chick307/adler32cs.js',
+72 silly cache add   spec: 'github:chick307/adler32cs.js',
+72 silly cache add   type: 'hosted',
+72 silly cache add   hosted:
+72 silly cache add    { type: 'github',
+72 silly cache add      ssh: 'git@github.com:chick307/adler32cs.js.git',
+72 silly cache add      sshUrl: 'git+ssh://git@github.com/chick307/adler32cs.js.git',
+72 silly cache add      httpsUrl: 'git+https://github.com/chick307/adler32cs.js.git',
+72 silly cache add      gitUrl: 'git://github.com/chick307/adler32cs.js.git',
+72 silly cache add      shortcut: 'github:chick307/adler32cs.js',
+72 silly cache add      directUrl: 'https://raw.githubusercontent.com/chick307/adler32cs.js/master/package.json' } }
+73 verbose addRemoteGit caching github:chick307/adler32cs.js
+74 verbose addRemoteGit chick307/adler32cs.js is a repository hosted by github
+75 silly tryGitProto attempting to clone git://github.com/chick307/adler32cs.js.git
+76 silly tryClone cloning chick307/adler32cs.js via git://github.com/chick307/adler32cs.js.git
+77 verbose tryClone git-github-com-chick307-adler32cs-js-git-428b6691 not in flight; caching
+78 verbose correctMkdir C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes correctMkdir not in flight; initializing
+79 silly cache add parsed spec Result {
+79 silly cache add   raw: 'filesaver.js@github:andyinabox/FileSaver.js',
+79 silly cache add   scope: null,
+79 silly cache add   escapedName: 'filesaver.js',
+79 silly cache add   name: 'filesaver.js',
+79 silly cache add   rawSpec: 'github:andyinabox/FileSaver.js',
+79 silly cache add   spec: 'github:andyinabox/FileSaver.js',
+79 silly cache add   type: 'hosted',
+79 silly cache add   hosted:
+79 silly cache add    { type: 'github',
+79 silly cache add      ssh: 'git@github.com:andyinabox/FileSaver.js.git',
+79 silly cache add      sshUrl: 'git+ssh://git@github.com/andyinabox/FileSaver.js.git',
+79 silly cache add      httpsUrl: 'git+https://github.com/andyinabox/FileSaver.js.git',
+79 silly cache add      gitUrl: 'git://github.com/andyinabox/FileSaver.js.git',
+79 silly cache add      shortcut: 'github:andyinabox/FileSaver.js',
+79 silly cache add      directUrl: 'https://raw.githubusercontent.com/andyinabox/FileSaver.js/master/package.json' } }
+80 verbose addRemoteGit caching github:andyinabox/FileSaver.js
+81 verbose addRemoteGit andyinabox/FileSaver.js is a repository hosted by github
+82 silly tryGitProto attempting to clone git://github.com/andyinabox/FileSaver.js.git
+83 silly tryClone cloning andyinabox/FileSaver.js via git://github.com/andyinabox/FileSaver.js.git
+84 verbose tryClone git-github-com-andyinabox-FileSaver-js-git-01d3ff96 not in flight; caching
+85 verbose correctMkdir C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes correctMkdir already in flight; waiting
+86 verbose request uri https://registry.npmjs.org/cf-blob.js
+87 verbose request no auth needed
+88 info attempt registry request try #1 at 16:19:13
+89 verbose etag W/"566490d7-6e6"
+90 verbose lastModified Sun, 06 Dec 2015 19:47:35 GMT
+91 http request GET https://registry.npmjs.org/cf-blob.js
+92 info git [ 'config', '--get', 'remote.origin.url' ]
+93 info git [ 'config', '--get', 'remote.origin.url' ]
+94 silly validateExistingRemote andyinabox/FileSaver.js remote.origin.url: git://github.com/andyinabox/FileSaver.js.git
+95 verbose validateExistingRemote andyinabox/FileSaver.js is updating existing cached remote C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-01d3ff96
+96 silly validateExistingRemote chick307/adler32cs.js remote.origin.url: git://github.com/chick307/adler32cs.js.git
+97 verbose validateExistingRemote chick307/adler32cs.js is updating existing cached remote C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-428b6691
+98 info git [ 'fetch', '-a', 'origin' ]
+99 info git [ 'fetch', '-a', 'origin' ]
+100 http 304 https://registry.npmjs.org/cf-blob.js
+101 verbose headers { date: 'Wed, 04 Jan 2017 21:19:15 GMT',
+101 verbose headers   via: '1.1 varnish',
+101 verbose headers   'cache-control': 'max-age=300',
+101 verbose headers   etag: 'W/"566490d7-6e6"',
+101 verbose headers   age: '66',
+101 verbose headers   connection: 'keep-alive',
+101 verbose headers   'x-served-by': 'cache-mia1321-MIA',
+101 verbose headers   'x-cache': 'HIT',
+101 verbose headers   'x-cache-hits': '1',
+101 verbose headers   'x-timer': 'S1483564755.897340,VS0,VE0',
+101 verbose headers   vary: 'Accept-Encoding' }
+102 silly get cb [ 304,
+102 silly get   { date: 'Wed, 04 Jan 2017 21:19:15 GMT',
+102 silly get     via: '1.1 varnish',
+102 silly get     'cache-control': 'max-age=300',
+102 silly get     etag: 'W/"566490d7-6e6"',
+102 silly get     age: '66',
+102 silly get     connection: 'keep-alive',
+102 silly get     'x-served-by': 'cache-mia1321-MIA',
+102 silly get     'x-cache': 'HIT',
+102 silly get     'x-cache-hits': '1',
+102 silly get     'x-timer': 'S1483564755.897340,VS0,VE0',
+102 silly get     vary: 'Accept-Encoding' } ]
+103 verbose etag https://registry.npmjs.org/cf-blob.js from cache
+104 verbose get saving cf-blob.js to C:\Users\sant1\AppData\Roaming\npm-cache\registry.npmjs.org\cf-blob.js\.cache.json
+105 verbose correctMkdir C:\Users\sant1\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+106 silly resolveWithNewModule cf-blob.js@0.0.1 checking installable status
+107 silly cache add args [ 'cf-blob.js@0.0.1', null ]
+108 verbose cache add spec cf-blob.js@0.0.1
+109 silly cache add parsed spec Result {
+109 silly cache add   raw: 'cf-blob.js@0.0.1',
+109 silly cache add   scope: null,
+109 silly cache add   escapedName: 'cf-blob.js',
+109 silly cache add   name: 'cf-blob.js',
+109 silly cache add   rawSpec: '0.0.1',
+109 silly cache add   spec: '0.0.1',
+109 silly cache add   type: 'version' }
+110 silly addNamed cf-blob.js@0.0.1
+111 verbose addNamed "0.0.1" is a plain semver version for cf-blob.js
+112 silly mapToRegistry name cf-blob.js
+113 silly mapToRegistry using default registry
+114 silly mapToRegistry registry https://registry.npmjs.org/
+115 silly mapToRegistry data Result {
+115 silly mapToRegistry   raw: 'cf-blob.js',
+115 silly mapToRegistry   scope: null,
+115 silly mapToRegistry   escapedName: 'cf-blob.js',
+115 silly mapToRegistry   name: 'cf-blob.js',
+115 silly mapToRegistry   rawSpec: '',
+115 silly mapToRegistry   spec: 'latest',
+115 silly mapToRegistry   type: 'tag' }
+116 silly mapToRegistry uri https://registry.npmjs.org/cf-blob.js
+117 verbose addNameVersion registry:https://registry.npmjs.org/cf-blob.js not in flight; fetching
+118 verbose get https://registry.npmjs.org/cf-blob.js not expired, no request
+119 silly cache afterAdd cf-blob.js@0.0.1
+120 verbose afterAdd C:\Users\sant1\AppData\Roaming\npm-cache\cf-blob.js\0.0.1\package\package.json not in flight; writing
+121 verbose correctMkdir C:\Users\sant1\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+122 verbose afterAdd C:\Users\sant1\AppData\Roaming\npm-cache\cf-blob.js\0.0.1\package\package.json written
+123 verbose updateRemote git fetch -a origin (git://github.com/chick307/adler32cs.js.git)
+124 verbose setPermissions chick307/adler32cs.js skipping chownr on Windows
+125 verbose resolveHead chick307/adler32cs.js original treeish: master
+126 info git [ 'rev-list', '-n1', 'master' ]
+127 verbose updateRemote git fetch -a origin (git://github.com/andyinabox/FileSaver.js.git)
+128 verbose setPermissions andyinabox/FileSaver.js skipping chownr on Windows
+129 verbose resolveHead andyinabox/FileSaver.js original treeish: master
+130 info git [ 'rev-list', '-n1', 'master' ]
+131 silly resolveHead chick307/adler32cs.js resolved treeish: c6576b4ed91b4216973bf85d8478a49970934515
+132 verbose resolveHead chick307/adler32cs.js resolved Git URL: git://github.com/chick307/adler32cs.js.git#c6576b4ed91b4216973bf85d8478a49970934515
+133 silly resolveHead Git working directory: C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-8c86a7da\c6576b4ed91b4216973bf85d8478a49970934515
+134 info git [ 'clone',
+134 info git   'C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-github-com-chick307-adler32cs-js-git-428b6691',
+134 info git   'C:\\cygwin64\\tmp\\npm-11224-73df8f5f\\git-cache-8c86a7da\\c6576b4ed91b4216973bf85d8478a49970934515' ]
+135 silly resolveHead andyinabox/FileSaver.js resolved treeish: 973b433b8fbaee9a11d53b9ae423b046742cfe32
+136 verbose resolveHead andyinabox/FileSaver.js resolved Git URL: git://github.com/andyinabox/FileSaver.js.git#973b433b8fbaee9a11d53b9ae423b046742cfe32
+137 silly resolveHead Git working directory: C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-5ef5962f\973b433b8fbaee9a11d53b9ae423b046742cfe32
+138 info git [ 'clone',
+138 info git   'C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-github-com-andyinabox-FileSaver-js-git-01d3ff96',
+138 info git   'C:\\cygwin64\\tmp\\npm-11224-73df8f5f\\git-cache-5ef5962f\\973b433b8fbaee9a11d53b9ae423b046742cfe32' ]
+139 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-428b6691 C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-8c86a7da\c6576b4ed91b4216973bf85d8478a49970934515: Cloning into 'C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-8c86a7da\c6576b4ed91b4216973bf85d8478a49970934515'...
+139 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-428b6691 C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-8c86a7da\c6576b4ed91b4216973bf85d8478a49970934515: fatal: '/cygdrive/c/Users/sant1/AppData/Roaming/npm-cache/_git-remotes/git-github-com-chick307-adler32cs-js-git-428b6691/C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-428b6691' does not appear to be a git repository
+139 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-428b6691 C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-8c86a7da\c6576b4ed91b4216973bf85d8478a49970934515: fatal: Could not read from remote repository.
+139 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-428b6691 C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-8c86a7da\c6576b4ed91b4216973bf85d8478a49970934515:
+139 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-428b6691 C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-8c86a7da\c6576b4ed91b4216973bf85d8478a49970934515: Please make sure you have the correct access rights
+139 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-428b6691 C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-8c86a7da\c6576b4ed91b4216973bf85d8478a49970934515: and the repository exists.
+140 silly tryHTTPS attempting to clone git+https://github.com/chick307/adler32cs.js.git
+141 silly tryClone cloning chick307/adler32cs.js via git+https://github.com/chick307/adler32cs.js.git
+142 verbose tryClone git-https-github-com-chick307-adler32cs-js-git-574a3cb0 not in flight; caching
+143 verbose correctMkdir C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes correctMkdir not in flight; initializing
+144 info git [ 'config', '--get', 'remote.origin.url' ]
+145 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-01d3ff96 C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-5ef5962f\973b433b8fbaee9a11d53b9ae423b046742cfe32: Cloning into 'C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-5ef5962f\973b433b8fbaee9a11d53b9ae423b046742cfe32'...
+145 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-01d3ff96 C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-5ef5962f\973b433b8fbaee9a11d53b9ae423b046742cfe32: fatal: '/cygdrive/c/Users/sant1/AppData/Roaming/npm-cache/_git-remotes/git-github-com-andyinabox-FileSaver-js-git-01d3ff96/C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-01d3ff96' does not appear to be a git repository
+145 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-01d3ff96 C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-5ef5962f\973b433b8fbaee9a11d53b9ae423b046742cfe32: fatal: Could not read from remote repository.
+145 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-01d3ff96 C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-5ef5962f\973b433b8fbaee9a11d53b9ae423b046742cfe32:
+145 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-01d3ff96 C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-5ef5962f\973b433b8fbaee9a11d53b9ae423b046742cfe32: Please make sure you have the correct access rights
+145 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-01d3ff96 C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-5ef5962f\973b433b8fbaee9a11d53b9ae423b046742cfe32: and the repository exists.
+146 silly tryHTTPS attempting to clone git+https://github.com/andyinabox/FileSaver.js.git
+147 silly tryClone cloning andyinabox/FileSaver.js via git+https://github.com/andyinabox/FileSaver.js.git
+148 verbose tryClone git-https-github-com-andyinabox-FileSaver-js-git-f13f0ce3 not in flight; caching
+149 verbose correctMkdir C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes correctMkdir not in flight; initializing
+150 info git [ 'config', '--get', 'remote.origin.url' ]
+151 silly validateExistingRemote chick307/adler32cs.js remote.origin.url: https://github.com/chick307/adler32cs.js.git
+152 verbose validateExistingRemote chick307/adler32cs.js is updating existing cached remote C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-chick307-adler32cs-js-git-574a3cb0
+153 info git [ 'fetch', '-a', 'origin' ]
+154 silly validateExistingRemote andyinabox/FileSaver.js remote.origin.url: https://github.com/andyinabox/FileSaver.js.git
+155 verbose validateExistingRemote andyinabox/FileSaver.js is updating existing cached remote C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-andyinabox-FileSaver-js-git-f13f0ce3
+156 info git [ 'fetch', '-a', 'origin' ]
+157 verbose updateRemote git fetch -a origin (https://github.com/andyinabox/FileSaver.js.git)
+158 verbose setPermissions andyinabox/FileSaver.js skipping chownr on Windows
+159 verbose resolveHead andyinabox/FileSaver.js original treeish: master
+160 info git [ 'rev-list', '-n1', 'master' ]
+161 verbose updateRemote git fetch -a origin (https://github.com/chick307/adler32cs.js.git)
+162 verbose setPermissions chick307/adler32cs.js skipping chownr on Windows
+163 verbose resolveHead chick307/adler32cs.js original treeish: master
+164 info git [ 'rev-list', '-n1', 'master' ]
+165 silly resolveHead andyinabox/FileSaver.js resolved treeish: 973b433b8fbaee9a11d53b9ae423b046742cfe32
+166 verbose resolveHead andyinabox/FileSaver.js resolved Git URL: git+https://github.com/andyinabox/FileSaver.js.git#973b433b8fbaee9a11d53b9ae423b046742cfe32
+167 silly resolveHead Git working directory: C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-d916864b\973b433b8fbaee9a11d53b9ae423b046742cfe32
+168 info git [ 'clone',
+168 info git   'C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-https-github-com-andyinabox-FileSaver-js-git-f13f0ce3',
+168 info git   'C:\\cygwin64\\tmp\\npm-11224-73df8f5f\\git-cache-d916864b\\973b433b8fbaee9a11d53b9ae423b046742cfe32' ]
+169 silly resolveHead chick307/adler32cs.js resolved treeish: c6576b4ed91b4216973bf85d8478a49970934515
+170 verbose resolveHead chick307/adler32cs.js resolved Git URL: git+https://github.com/chick307/adler32cs.js.git#c6576b4ed91b4216973bf85d8478a49970934515
+171 silly resolveHead Git working directory: C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-c44024ab\c6576b4ed91b4216973bf85d8478a49970934515
+172 info git [ 'clone',
+172 info git   'C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-https-github-com-chick307-adler32cs-js-git-574a3cb0',
+172 info git   'C:\\cygwin64\\tmp\\npm-11224-73df8f5f\\git-cache-c44024ab\\c6576b4ed91b4216973bf85d8478a49970934515' ]
+173 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-chick307-adler32cs-js-git-574a3cb0 C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-c44024ab\c6576b4ed91b4216973bf85d8478a49970934515: Cloning into 'C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-c44024ab\c6576b4ed91b4216973bf85d8478a49970934515'...
+173 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-chick307-adler32cs-js-git-574a3cb0 C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-c44024ab\c6576b4ed91b4216973bf85d8478a49970934515: fatal: '/cygdrive/c/Users/sant1/AppData/Roaming/npm-cache/_git-remotes/git-https-github-com-chick307-adler32cs-js-git-574a3cb0/C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-chick307-adler32cs-js-git-574a3cb0' does not appear to be a git repository
+173 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-chick307-adler32cs-js-git-574a3cb0 C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-c44024ab\c6576b4ed91b4216973bf85d8478a49970934515: fatal: Could not read from remote repository.
+173 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-chick307-adler32cs-js-git-574a3cb0 C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-c44024ab\c6576b4ed91b4216973bf85d8478a49970934515:
+173 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-chick307-adler32cs-js-git-574a3cb0 C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-c44024ab\c6576b4ed91b4216973bf85d8478a49970934515: Please make sure you have the correct access rights
+173 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-chick307-adler32cs-js-git-574a3cb0 C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-c44024ab\c6576b4ed91b4216973bf85d8478a49970934515: and the repository exists.
+174 silly trySSH attempting to clone git@github.com:chick307/adler32cs.js.git
+175 silly tryClone cloning chick307/adler32cs.js via git@github.com:chick307/adler32cs.js.git
+176 verbose tryClone git-github-com-chick307-adler32cs-js-git-de4a87bb not in flight; caching
+177 verbose correctMkdir C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes correctMkdir not in flight; initializing
+178 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-andyinabox-FileSaver-js-git-f13f0ce3 C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-d916864b\973b433b8fbaee9a11d53b9ae423b046742cfe32: Cloning into 'C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-d916864b\973b433b8fbaee9a11d53b9ae423b046742cfe32'...
+178 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-andyinabox-FileSaver-js-git-f13f0ce3 C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-d916864b\973b433b8fbaee9a11d53b9ae423b046742cfe32: fatal: '/cygdrive/c/Users/sant1/AppData/Roaming/npm-cache/_git-remotes/git-https-github-com-andyinabox-FileSaver-js-git-f13f0ce3/C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-andyinabox-FileSaver-js-git-f13f0ce3' does not appear to be a git repository
+178 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-andyinabox-FileSaver-js-git-f13f0ce3 C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-d916864b\973b433b8fbaee9a11d53b9ae423b046742cfe32: fatal: Could not read from remote repository.
+178 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-andyinabox-FileSaver-js-git-f13f0ce3 C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-d916864b\973b433b8fbaee9a11d53b9ae423b046742cfe32:
+178 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-andyinabox-FileSaver-js-git-f13f0ce3 C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-d916864b\973b433b8fbaee9a11d53b9ae423b046742cfe32: Please make sure you have the correct access rights
+178 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-andyinabox-FileSaver-js-git-f13f0ce3 C:\cygwin64\tmp\npm-11224-73df8f5f\git-cache-d916864b\973b433b8fbaee9a11d53b9ae423b046742cfe32: and the repository exists.
+179 silly trySSH attempting to clone git@github.com:andyinabox/FileSaver.js.git
+180 silly tryClone cloning andyinabox/FileSaver.js via git@github.com:andyinabox/FileSaver.js.git
+181 verbose tryClone git-github-com-andyinabox-FileSaver-js-git-e433c213 not in flight; caching
+182 verbose correctMkdir C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes correctMkdir not in flight; initializing
+183 info git [ 'clone',
+183 info git   '--template=C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\_templates',
+183 info git   '--mirror',
+183 info git   'git@github.com:chick307/adler32cs.js.git',
+183 info git   'C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-github-com-chick307-adler32cs-js-git-de4a87bb' ]
 184 info git [ 'clone',
 184 info git   '--template=C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\_templates',
 184 info git   '--mirror',
-184 info git   'git@github.com:chick307/adler32cs.js.git',
-184 info git   'C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-github-com-chick307-adler32cs-js-git-de4a87bb' ]
-185 verbose mirrorRemote andyinabox/FileSaver.js git clone https://github.com/andyinabox/FileSaver.js.git
-186 verbose setPermissions andyinabox/FileSaver.js skipping chownr on Windows
-187 verbose resolveHead andyinabox/FileSaver.js original treeish: master
-188 info git [ 'rev-list', '-n1', 'master' ]
-189 silly resolveHead andyinabox/FileSaver.js resolved treeish: 973b433b8fbaee9a11d53b9ae423b046742cfe32
-190 verbose resolveHead andyinabox/FileSaver.js resolved Git URL: git+https://github.com/andyinabox/FileSaver.js.git#973b433b8fbaee9a11d53b9ae423b046742cfe32
-191 silly resolveHead Git working directory: C:\cygwin64\tmp\npm-10708-99543102\git-cache-17b314f1\973b433b8fbaee9a11d53b9ae423b046742cfe32
-192 info git [ 'clone',
-192 info git   'C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-https-github-com-andyinabox-FileSaver-js-git-f13f0ce3',
-192 info git   'C:\\cygwin64\\tmp\\npm-10708-99543102\\git-cache-17b314f1\\973b433b8fbaee9a11d53b9ae423b046742cfe32' ]
-193 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-andyinabox-FileSaver-js-git-f13f0ce3 C:\cygwin64\tmp\npm-10708-99543102\git-cache-17b314f1\973b433b8fbaee9a11d53b9ae423b046742cfe32: Cloning into 'C:\cygwin64\tmp\npm-10708-99543102\git-cache-17b314f1\973b433b8fbaee9a11d53b9ae423b046742cfe32'...
-193 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-andyinabox-FileSaver-js-git-f13f0ce3 C:\cygwin64\tmp\npm-10708-99543102\git-cache-17b314f1\973b433b8fbaee9a11d53b9ae423b046742cfe32: fatal: '/cygdrive/c/Users/sant1/AppData/Roaming/npm-cache/_git-remotes/git-https-github-com-andyinabox-FileSaver-js-git-f13f0ce3/C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-andyinabox-FileSaver-js-git-f13f0ce3' does not appear to be a git repository
-193 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-andyinabox-FileSaver-js-git-f13f0ce3 C:\cygwin64\tmp\npm-10708-99543102\git-cache-17b314f1\973b433b8fbaee9a11d53b9ae423b046742cfe32: fatal: Could not read from remote repository.
-193 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-andyinabox-FileSaver-js-git-f13f0ce3 C:\cygwin64\tmp\npm-10708-99543102\git-cache-17b314f1\973b433b8fbaee9a11d53b9ae423b046742cfe32:
-193 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-andyinabox-FileSaver-js-git-f13f0ce3 C:\cygwin64\tmp\npm-10708-99543102\git-cache-17b314f1\973b433b8fbaee9a11d53b9ae423b046742cfe32: Please make sure you have the correct access rights
-193 error git clone C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-https-github-com-andyinabox-FileSaver-js-git-f13f0ce3 C:\cygwin64\tmp\npm-10708-99543102\git-cache-17b314f1\973b433b8fbaee9a11d53b9ae423b046742cfe32: and the repository exists.
-194 silly trySSH attempting to clone git@github.com:andyinabox/FileSaver.js.git
-195 silly tryClone cloning andyinabox/FileSaver.js via git@github.com:andyinabox/FileSaver.js.git
-196 verbose tryClone git-github-com-andyinabox-FileSaver-js-git-e433c213 not in flight; caching
-197 verbose correctMkdir C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes correctMkdir not in flight; initializing
-198 info git [ 'clone',
-198 info git   '--template=C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\_templates',
-198 info git   '--mirror',
-198 info git   'git@github.com:andyinabox/FileSaver.js.git',
-198 info git   'C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-github-com-andyinabox-FileSaver-js-git-e433c213' ]
-199 error git clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:chick307/adler32cs.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-de4a87bb: Cloning into bare repository 'C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-de4a87bb'...
-199 error git clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:chick307/adler32cs.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-de4a87bb: Permission denied (publickey).
-199 error git clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:chick307/adler32cs.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-de4a87bb: fatal: Could not read from remote repository.
-199 error git clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:chick307/adler32cs.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-de4a87bb:
-199 error git clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:chick307/adler32cs.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-de4a87bb: Please make sure you have the correct access rights
-199 error git clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:chick307/adler32cs.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-de4a87bb: and the repository exists.
-200 silly fetchPackageMetaData Error: Command failed: git -c core.longpaths=true clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:chick307/adler32cs.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-de4a87bb
-200 silly fetchPackageMetaData Cloning into bare repository 'C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-de4a87bb'...
-200 silly fetchPackageMetaData Permission denied (publickey).
-200 silly fetchPackageMetaData fatal: Could not read from remote repository.
-200 silly fetchPackageMetaData
-200 silly fetchPackageMetaData Please make sure you have the correct access rights
-200 silly fetchPackageMetaData and the repository exists.
-200 silly fetchPackageMetaData
-200 silly fetchPackageMetaData     at ChildProcess.exithandler (child_process.js:206:12)
-200 silly fetchPackageMetaData     at emitTwo (events.js:106:13)
-200 silly fetchPackageMetaData     at ChildProcess.emit (events.js:191:7)
-200 silly fetchPackageMetaData     at maybeClose (internal/child_process.js:877:16)
-200 silly fetchPackageMetaData     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
-200 silly fetchPackageMetaData  error for adler32cs@github:chick307/adler32cs.js { Error: Command failed: git -c core.longpaths=true clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:chick307/adler32cs.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-de4a87bb
-200 silly fetchPackageMetaData Cloning into bare repository 'C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-de4a87bb'...
-200 silly fetchPackageMetaData Permission denied (publickey).
-200 silly fetchPackageMetaData fatal: Could not read from remote repository.
-200 silly fetchPackageMetaData
-200 silly fetchPackageMetaData Please make sure you have the correct access rights
-200 silly fetchPackageMetaData and the repository exists.
-200 silly fetchPackageMetaData
-200 silly fetchPackageMetaData     at ChildProcess.exithandler (child_process.js:206:12)
-200 silly fetchPackageMetaData     at emitTwo (events.js:106:13)
-200 silly fetchPackageMetaData     at ChildProcess.emit (events.js:191:7)
-200 silly fetchPackageMetaData     at maybeClose (internal/child_process.js:877:16)
-200 silly fetchPackageMetaData     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
-200 silly fetchPackageMetaData   killed: false,
-200 silly fetchPackageMetaData   code: 128,
-200 silly fetchPackageMetaData   signal: null,
-200 silly fetchPackageMetaData   cmd: 'git -c core.longpaths=true clone --template=C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\_templates --mirror git@github.com:chick307/adler32cs.js.git C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-github-com-chick307-adler32cs-js-git-de4a87bb' }
-201 error git clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:andyinabox/FileSaver.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-e433c213: Cloning into bare repository 'C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-e433c213'...
-201 error git clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:andyinabox/FileSaver.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-e433c213: Permission denied (publickey).
-201 error git clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:andyinabox/FileSaver.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-e433c213: fatal: Could not read from remote repository.
-201 error git clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:andyinabox/FileSaver.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-e433c213:
-201 error git clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:andyinabox/FileSaver.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-e433c213: Please make sure you have the correct access rights
-201 error git clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:andyinabox/FileSaver.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-e433c213: and the repository exists.
-202 silly fetchPackageMetaData Error: Command failed: git -c core.longpaths=true clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:andyinabox/FileSaver.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-e433c213
-202 silly fetchPackageMetaData Cloning into bare repository 'C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-e433c213'...
-202 silly fetchPackageMetaData Permission denied (publickey).
-202 silly fetchPackageMetaData fatal: Could not read from remote repository.
-202 silly fetchPackageMetaData
-202 silly fetchPackageMetaData Please make sure you have the correct access rights
-202 silly fetchPackageMetaData and the repository exists.
-202 silly fetchPackageMetaData
-202 silly fetchPackageMetaData     at ChildProcess.exithandler (child_process.js:206:12)
-202 silly fetchPackageMetaData     at emitTwo (events.js:106:13)
-202 silly fetchPackageMetaData     at ChildProcess.emit (events.js:191:7)
-202 silly fetchPackageMetaData     at maybeClose (internal/child_process.js:877:16)
-202 silly fetchPackageMetaData     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
-202 silly fetchPackageMetaData  error for filesaver.js@github:andyinabox/FileSaver.js { Error: Command failed: git -c core.longpaths=true clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:andyinabox/FileSaver.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-e433c213
-202 silly fetchPackageMetaData Cloning into bare repository 'C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-e433c213'...
-202 silly fetchPackageMetaData Permission denied (publickey).
-202 silly fetchPackageMetaData fatal: Could not read from remote repository.
-202 silly fetchPackageMetaData
-202 silly fetchPackageMetaData Please make sure you have the correct access rights
-202 silly fetchPackageMetaData and the repository exists.
-202 silly fetchPackageMetaData
-202 silly fetchPackageMetaData     at ChildProcess.exithandler (child_process.js:206:12)
-202 silly fetchPackageMetaData     at emitTwo (events.js:106:13)
-202 silly fetchPackageMetaData     at ChildProcess.emit (events.js:191:7)
-202 silly fetchPackageMetaData     at maybeClose (internal/child_process.js:877:16)
-202 silly fetchPackageMetaData     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
-202 silly fetchPackageMetaData   killed: false,
-202 silly fetchPackageMetaData   code: 128,
-202 silly fetchPackageMetaData   signal: null,
-202 silly fetchPackageMetaData   cmd: 'git -c core.longpaths=true clone --template=C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\_templates --mirror git@github.com:andyinabox/FileSaver.js.git C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-github-com-andyinabox-FileSaver-js-git-e433c213' }
-203 silly rollbackFailedOptional Starting
-204 silly rollbackFailedOptional Finishing
-205 silly runTopLevelLifecycles Finishing
-206 silly install printInstalled
-207 verbose stack Error: Command failed: git -c core.longpaths=true clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:chick307/adler32cs.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-de4a87bb
-207 verbose stack Cloning into bare repository 'C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-de4a87bb'...
-207 verbose stack Permission denied (publickey).
-207 verbose stack fatal: Could not read from remote repository.
-207 verbose stack
-207 verbose stack Please make sure you have the correct access rights
-207 verbose stack and the repository exists.
-207 verbose stack
-207 verbose stack     at ChildProcess.exithandler (child_process.js:206:12)
-207 verbose stack     at emitTwo (events.js:106:13)
-207 verbose stack     at ChildProcess.emit (events.js:191:7)
-207 verbose stack     at maybeClose (internal/child_process.js:877:16)
-207 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
-208 verbose cwd C:\xampp\htdocs\sistema_viaticos\front
-209 error Windows_NT 10.0.14393
-210 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "jspdf" "--save"
-211 error node v6.9.1
-212 error npm  v3.10.8
-213 error code 128
-214 error Command failed: git -c core.longpaths=true clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:chick307/adler32cs.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-de4a87bb
-214 error Cloning into bare repository 'C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-de4a87bb'...
-214 error Permission denied (publickey).
-214 error fatal: Could not read from remote repository.
-214 error
-214 error Please make sure you have the correct access rights
-214 error and the repository exists.
-215 error If you need help, you may report this error at:
-215 error     <https://github.com/npm/npm/issues>
-216 verbose exit [ 1, true ]
+184 info git   'git@github.com:andyinabox/FileSaver.js.git',
+184 info git   'C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-github-com-andyinabox-FileSaver-js-git-e433c213' ]
+185 error git clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:andyinabox/FileSaver.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-e433c213: Cloning into bare repository 'C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-e433c213'...
+185 error git clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:andyinabox/FileSaver.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-e433c213: Permission denied (publickey).
+185 error git clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:andyinabox/FileSaver.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-e433c213: fatal: Could not read from remote repository.
+185 error git clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:andyinabox/FileSaver.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-e433c213:
+185 error git clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:andyinabox/FileSaver.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-e433c213: Please make sure you have the correct access rights
+185 error git clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:andyinabox/FileSaver.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-e433c213: and the repository exists.
+186 silly fetchPackageMetaData Error: Command failed: git -c core.longpaths=true clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:andyinabox/FileSaver.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-e433c213
+186 silly fetchPackageMetaData Cloning into bare repository 'C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-e433c213'...
+186 silly fetchPackageMetaData Permission denied (publickey).
+186 silly fetchPackageMetaData fatal: Could not read from remote repository.
+186 silly fetchPackageMetaData
+186 silly fetchPackageMetaData Please make sure you have the correct access rights
+186 silly fetchPackageMetaData and the repository exists.
+186 silly fetchPackageMetaData
+186 silly fetchPackageMetaData     at ChildProcess.exithandler (child_process.js:206:12)
+186 silly fetchPackageMetaData     at emitTwo (events.js:106:13)
+186 silly fetchPackageMetaData     at ChildProcess.emit (events.js:191:7)
+186 silly fetchPackageMetaData     at maybeClose (internal/child_process.js:877:16)
+186 silly fetchPackageMetaData     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
+186 silly fetchPackageMetaData  error for filesaver.js@github:andyinabox/FileSaver.js { Error: Command failed: git -c core.longpaths=true clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:andyinabox/FileSaver.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-e433c213
+186 silly fetchPackageMetaData Cloning into bare repository 'C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-e433c213'...
+186 silly fetchPackageMetaData Permission denied (publickey).
+186 silly fetchPackageMetaData fatal: Could not read from remote repository.
+186 silly fetchPackageMetaData
+186 silly fetchPackageMetaData Please make sure you have the correct access rights
+186 silly fetchPackageMetaData and the repository exists.
+186 silly fetchPackageMetaData
+186 silly fetchPackageMetaData     at ChildProcess.exithandler (child_process.js:206:12)
+186 silly fetchPackageMetaData     at emitTwo (events.js:106:13)
+186 silly fetchPackageMetaData     at ChildProcess.emit (events.js:191:7)
+186 silly fetchPackageMetaData     at maybeClose (internal/child_process.js:877:16)
+186 silly fetchPackageMetaData     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
+186 silly fetchPackageMetaData   killed: false,
+186 silly fetchPackageMetaData   code: 128,
+186 silly fetchPackageMetaData   signal: null,
+186 silly fetchPackageMetaData   cmd: 'git -c core.longpaths=true clone --template=C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\_templates --mirror git@github.com:andyinabox/FileSaver.js.git C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-github-com-andyinabox-FileSaver-js-git-e433c213' }
+187 error git clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:chick307/adler32cs.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-de4a87bb: Cloning into bare repository 'C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-de4a87bb'...
+187 error git clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:chick307/adler32cs.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-de4a87bb: Permission denied (publickey).
+187 error git clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:chick307/adler32cs.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-de4a87bb: fatal: Could not read from remote repository.
+187 error git clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:chick307/adler32cs.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-de4a87bb:
+187 error git clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:chick307/adler32cs.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-de4a87bb: Please make sure you have the correct access rights
+187 error git clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:chick307/adler32cs.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-de4a87bb: and the repository exists.
+188 silly fetchPackageMetaData Error: Command failed: git -c core.longpaths=true clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:chick307/adler32cs.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-de4a87bb
+188 silly fetchPackageMetaData Cloning into bare repository 'C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-de4a87bb'...
+188 silly fetchPackageMetaData Permission denied (publickey).
+188 silly fetchPackageMetaData fatal: Could not read from remote repository.
+188 silly fetchPackageMetaData
+188 silly fetchPackageMetaData Please make sure you have the correct access rights
+188 silly fetchPackageMetaData and the repository exists.
+188 silly fetchPackageMetaData
+188 silly fetchPackageMetaData     at ChildProcess.exithandler (child_process.js:206:12)
+188 silly fetchPackageMetaData     at emitTwo (events.js:106:13)
+188 silly fetchPackageMetaData     at ChildProcess.emit (events.js:191:7)
+188 silly fetchPackageMetaData     at maybeClose (internal/child_process.js:877:16)
+188 silly fetchPackageMetaData     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
+188 silly fetchPackageMetaData  error for adler32cs@github:chick307/adler32cs.js { Error: Command failed: git -c core.longpaths=true clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:chick307/adler32cs.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-de4a87bb
+188 silly fetchPackageMetaData Cloning into bare repository 'C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-chick307-adler32cs-js-git-de4a87bb'...
+188 silly fetchPackageMetaData Permission denied (publickey).
+188 silly fetchPackageMetaData fatal: Could not read from remote repository.
+188 silly fetchPackageMetaData
+188 silly fetchPackageMetaData Please make sure you have the correct access rights
+188 silly fetchPackageMetaData and the repository exists.
+188 silly fetchPackageMetaData
+188 silly fetchPackageMetaData     at ChildProcess.exithandler (child_process.js:206:12)
+188 silly fetchPackageMetaData     at emitTwo (events.js:106:13)
+188 silly fetchPackageMetaData     at ChildProcess.emit (events.js:191:7)
+188 silly fetchPackageMetaData     at maybeClose (internal/child_process.js:877:16)
+188 silly fetchPackageMetaData     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
+188 silly fetchPackageMetaData   killed: false,
+188 silly fetchPackageMetaData   code: 128,
+188 silly fetchPackageMetaData   signal: null,
+188 silly fetchPackageMetaData   cmd: 'git -c core.longpaths=true clone --template=C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\_templates --mirror git@github.com:chick307/adler32cs.js.git C:\\Users\\sant1\\AppData\\Roaming\\npm-cache\\_git-remotes\\git-github-com-chick307-adler32cs-js-git-de4a87bb' }
+189 silly rollbackFailedOptional Starting
+190 silly rollbackFailedOptional Finishing
+191 silly runTopLevelLifecycles Finishing
+192 silly install printInstalled
+193 verbose stack Error: Command failed: git -c core.longpaths=true clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:andyinabox/FileSaver.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-e433c213
+193 verbose stack Cloning into bare repository 'C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-e433c213'...
+193 verbose stack Permission denied (publickey).
+193 verbose stack fatal: Could not read from remote repository.
+193 verbose stack
+193 verbose stack Please make sure you have the correct access rights
+193 verbose stack and the repository exists.
+193 verbose stack
+193 verbose stack     at ChildProcess.exithandler (child_process.js:206:12)
+193 verbose stack     at emitTwo (events.js:106:13)
+193 verbose stack     at ChildProcess.emit (events.js:191:7)
+193 verbose stack     at maybeClose (internal/child_process.js:877:16)
+193 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
+194 verbose cwd C:\xampp\htdocs\sistema_viaticos\front
+195 error Windows_NT 10.0.14393
+196 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "jspdf" "--save"
+197 error node v6.9.1
+198 error npm  v3.10.8
+199 error code 128
+200 error Command failed: git -c core.longpaths=true clone --template=C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\_templates --mirror git@github.com:andyinabox/FileSaver.js.git C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-e433c213
+200 error Cloning into bare repository 'C:\Users\sant1\AppData\Roaming\npm-cache\_git-remotes\git-github-com-andyinabox-FileSaver-js-git-e433c213'...
+200 error Permission denied (publickey).
+200 error fatal: Could not read from remote repository.
+200 error
+200 error Please make sure you have the correct access rights
+200 error and the repository exists.
+201 error If you need help, you may report this error at:
+201 error     <https://github.com/npm/npm/issues>
+202 verbose exit [ 1, true ]

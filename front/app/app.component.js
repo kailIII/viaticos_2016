@@ -25,13 +25,14 @@ var AppComponent = (function () {
             'gethash': "false"
         };
         this.identity = this._loginService.getIdentity();
+        this.token = this._loginService.getToken();
+        this.verificacion = this._loginService.checkCredentials(this.token);
         if (this.identity) {
             // this.Onloguearse();
             this.menuUsuario();
         }
         else {
             this.Onloguearse();
-            this.menuUsuario();
         }
     };
     AppComponent.prototype.menuUsuario = function () {
@@ -49,22 +50,21 @@ var AppComponent = (function () {
                     alert("Error en el servidor 5");
                 }
                 else {
-                    if (!_this.info.status) {
-                        _this.datoMenu = "";
-                        var length = _this.info.length;
-                        for (var i = 0; i < length; i++) {
-                            _this.datoMenuIteracion = JSON.stringify(_this.info[i].mod);
-                            if (_this.datoMenu == "") {
-                                _this.datoMenu = _this.datoMenuIteracion;
-                            }
-                            else {
-                                _this.datoMenu = _this.datoMenu + "," + _this.datoMenuIteracion;
-                            }
+                    // if(!this.info.status){
+                    _this.datoMenu = "";
+                    var length = _this.info.length;
+                    for (var i = 0; i < length; i++) {
+                        _this.datoMenuIteracion = JSON.stringify(_this.info[i].mod);
+                        if (_this.datoMenu == "") {
+                            _this.datoMenu = _this.datoMenuIteracion;
                         }
-                        ;
-                        _this.datoMenuMostrar = JSON.parse("[" + _this.datoMenu + "]");
-                        return _this.datoMenuMostrar;
+                        else {
+                            _this.datoMenu = _this.datoMenu + "," + _this.datoMenuIteracion;
+                        }
                     }
+                    ;
+                    _this.datoMenuMostrar = JSON.parse("[" + _this.datoMenu + "]");
+                    return _this.datoMenuMostrar;
                 }
             }, function (error) {
                 // this.errorMessage = <any>error;
@@ -75,6 +75,10 @@ var AppComponent = (function () {
                 window.location.reload();
                 // }
             });
+        }
+        else {
+            alert("Su sesión ha expirado, por favor ingrese nuevamente sus credenciales");
+            this.logout();
         }
     };
     AppComponent.prototype.Onloguearse = function () {
@@ -124,7 +128,7 @@ var AppComponent = (function () {
                 _this.errorMessage = error;
                 if (_this.errorMessage != null) {
                     console.log(_this.errorMessage);
-                    alert("Error en la petición 1");
+                    alert("Error en al iniciar Apache");
                 }
             });
         }

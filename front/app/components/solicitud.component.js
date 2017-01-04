@@ -16,44 +16,6 @@ var SolicitudComponent = (function () {
         this._loginService = _loginService;
         this.titulo = "Solicitud";
     }
-    SolicitudComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.identity = this._loginService.getIdentity();
-        this.funcionario = {
-            'id_fun': this.identity.sub
-        };
-        this._loginService.menuUsuario(this.funcionario).subscribe(function (response) {
-            var info = response;
-            _this.info = info;
-            if (_this.info.length <= 0) {
-                alert("Error en el servidor 5");
-            }
-            else {
-                if (!_this.info.status) {
-                    _this.datoMenu = "";
-                    var length = _this.info.length;
-                    for (var i = 0; i < length; i++) {
-                        _this.datoMenuIteracion = JSON.stringify(_this.info[i].mod);
-                        if (_this.datoMenu == "") {
-                            _this.datoMenu = _this.datoMenuIteracion;
-                        }
-                        else {
-                            _this.datoMenu = _this.datoMenu + "," + _this.datoMenuIteracion;
-                        }
-                    }
-                    ;
-                    _this.datoMenuMostrar = JSON.parse("[" + _this.datoMenu + "]");
-                    return _this.datoMenuMostrar;
-                }
-            }
-        }, function (error) {
-            _this.errorMessage = error;
-            if (_this.errorMessage != null) {
-                console.log(_this.errorMessage);
-                alert("Error en la peticion de OnMenu");
-            }
-        });
-    };
     return SolicitudComponent;
 }());
 SolicitudComponent = __decorate([

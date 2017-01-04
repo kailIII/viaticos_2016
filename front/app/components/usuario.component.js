@@ -67,7 +67,7 @@ var UsuarioComponent = (function () {
                 _this.errorMessage = error;
                 if (_this.errorMessage != null) {
                     console.log(_this.errorMessage);
-                    alert("Error en la peticion de OnMenu");
+                    alert("Error en la peticion de OnMenu usuario");
                 }
             });
         }

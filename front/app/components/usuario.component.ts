@@ -88,7 +88,7 @@ export class UsuarioComponent implements OnInit {
 
 								if(this.errorMessage != null){
 									console.log(this.errorMessage);
-									alert("Error en la peticion de OnMenu")
+									alert("Error en la peticion de OnMenu usuario");
 								}
 							});
 		}

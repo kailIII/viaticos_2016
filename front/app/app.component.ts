@@ -20,6 +20,11 @@ export class AppComponent implements OnInit{
 	public datoMenuIteracion;
 	public datoMenuMostrar: Array<any>;
 	public user;
+	public verificacion;
+	public dias;
+    public horas;
+    public minutos;
+    public segundos;
 
 	constructor(
 		private _loginService: LoginService,
@@ -34,13 +39,17 @@ export class AppComponent implements OnInit{
 			'password': "",
 			'gethash': "false"
 		};
+
 		this.identity = this._loginService.getIdentity();
+		this.token = this._loginService.getToken();
+		this.verificacion = this._loginService.checkCredentials(this.token);
 		if(this.identity){
 			// this.Onloguearse();
 			this.menuUsuario();
+			// this.OnTiempoSesion();
 		}else{
 			this.Onloguearse();
-			this.menuUsuario();
+			// this.menuUsuario();
 		}
 	}
 	menuUsuario(){
@@ -57,7 +66,7 @@ export class AppComponent implements OnInit{
 					if(this.info.length <=0){
 						alert("Error en el servidor 5");
 					}else{ 	
-						if(!this.info.status){
+						// if(!this.info.status){
 							this.datoMenu = "";
 							var length = this.info.length;
 							for (var i = 0; i < length; i++) {
@@ -71,7 +80,7 @@ export class AppComponent implements OnInit{
 							this.datoMenuMostrar = JSON.parse("["+this.datoMenu+"]");  
 							return this.datoMenuMostrar;
 
-						}
+						// }
 					}
 				},error => {
 					// this.errorMessage = <any>error;
@@ -83,10 +92,14 @@ export class AppComponent implements OnInit{
 						window.location.reload();
 					// }
 				});
+		}else{
+			alert("Su sesión ha expirado, por favor ingrese nuevamente sus credenciales");
+			this.logout();
 		}
 	}
 
 	Onloguearse(){
+
 		if(!this._loginService.checkCredentials(this._loginService.getToken())){
 			this._loginService.signup(this.user).subscribe(
 				response => {
@@ -135,7 +148,7 @@ export class AppComponent implements OnInit{
 					this.errorMessage = <any>error;
 					if(this.errorMessage != null){
 						console.log(this.errorMessage);
-						alert("Error en la petición 1");
+						alert("Error en al iniciar Apache");
 					}
 				}
 				);
@@ -151,4 +164,41 @@ export class AppComponent implements OnInit{
 		this.token = null;
 		window.location.href='/';
 	}
+
+// 	OnTiempoSesion(){
+//     let fecha=new Date(this.identity.exp).getTime();
+//     console.log(this.identity.exp);
+//     console.log(fecha);
+//     // var fecha=new Date(2012,1,10,21,1,1);
+//     let hoy=new Date();
+
+//     console.log(hoy);
+//     this.dias=0;
+//     this.horas=0;
+//     this.minutos=0;
+//     this.segundos=0;
+
+//     // if (fecha>hoy){
+//     //     var diferencia=(fecha.getTime()-hoy.getTime())/1000;
+//     //     this.dias=Math.floor(diferencia/86400);
+//     //     diferencia=diferencia-(86400*this.dias);
+//     //     this.horas=Math.floor(diferencia/3600);
+//     //     diferencia=diferencia-(3600*this.horas);
+//     //     this.minutos=Math.floor(diferencia/60);
+//     //     diferencia=diferencia-(60*this.minutos);
+//     //     this.segundos=Math.floor(diferencia);
+
+//     //     document.getElementById("tiemposesion").innerHTML='Quedan ' + this.dias + ' D&iacute;as, ' + this.horas + ' Horas, ' + this.minutos + ' Minutos, ' + this.segundos + ' Segundos'
+
+//     //     if (this.dias>0 || this.horas>0 || this.minutos>0 || this.segundos>0){
+//     //         setTimeout("countdown(\"" + id + "\")",1000)
+//     //     }
+//     // }
+//     // else{
+//     // 	document.getElementById("tiemposesion").innerHTML='Quedan ' + this.dias + ' D&iacute;as, ' + this.horas + ' Horas, ' + this.minutos + ' Minutos, ' + this.segundos + ' Segundos'
+//     //     // document.getElementById('restante').innerHTML='Quedan ' + dias + ' D&iacute;as, ' + horas + ' Horas, ' + minutos + ' Minutos, ' + segundos + ' Segundos'
+//     //     // this.logout();
+//     // }
+// }
+	
 }

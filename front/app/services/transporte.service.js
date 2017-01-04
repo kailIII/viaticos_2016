@@ -18,6 +18,7 @@ var TransporteService = (function () {
     }
     TransporteService.prototype.GetTransporte = function () {
         var tipotransporte = [
+            // {val: "NA", name: "Escoja uno"},
             { val: "Aereo", name: "Aereo" },
             { val: "Terrestre", name: "Terrestre" },
             { val: "Maritimo", name: "Marítimo" },

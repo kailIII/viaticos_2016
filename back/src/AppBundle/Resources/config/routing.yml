@@ -37,3 +37,7 @@ app_comision:
 app_transporte:
   resource: "@AppBundle/Resources/config/routing/transporte.yml"
   prefix: /transporte
+
+app_buscar:
+  resource: "@AppBundle/Resources/config/routing/buscar.yml"
+  prefix: /buscar

@@ -14,6 +14,7 @@ export class TransporteService{
 
 	GetTransporte(){
 		var tipotransporte = [
+		// {val: "NA", name: "Escoja uno"},
 		{val: "Aereo", name: "Aereo"},
 		{val: "Terrestre", name: "Terrestre"},
 		{val: "Maritimo", name: "Marítimo"},

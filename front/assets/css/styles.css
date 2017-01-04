@@ -146,10 +146,15 @@
 
 .td2 {    
 	padding: 9px;     
-	background: #D8D8D8;     
-	border-bottom: 1px solid #fff;
+	/*background: #D8D8D8;     */
+	border-bottom: 1px solid #000;
     color: #000;    
     border-top: 1px solid transparent; 
+}
+.td2der {    
+	position: absolute;
+    right: 9px;
+	width: auto;
 }
 
 .td21 {    
@@ -165,7 +170,7 @@
 	/*font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;*/
     font-size: 12px;    
     /*margin: 10px;     */
-    width: 780px; 
+    width: 100%; 
     text-align: left;    
     border-collapse: collapse; 
 }
