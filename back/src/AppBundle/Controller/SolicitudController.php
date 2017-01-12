@@ -237,15 +237,16 @@ class SolicitudController extends Controller {
 												$em->persist($transporte_solicitud);
 												$em->flush();
 											}
+										}
 											$data["status"] = "success";
 											$data["msg"] = "Solicitud creada satisfactoriamente";
-										}else {
-											$data = array(
-												"status" => "error",
-												"code" => 400,
-												"msg" => "Solicitud no existe, por favor ingrese la solicitud"
-												);
-										}
+											// else {
+										// 	$data = array(
+										// 		"status" => "error",
+										// 		"code" => 400,
+										// 		"msg" => "Solicitud no existe, por favor ingrese la solicitud"
+										// 		);
+										// }
 //fin crear transporte solicitud
 									}else {
 										$data = array(
