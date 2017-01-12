@@ -36,15 +36,7 @@ var NuevasolicitudComponent = (function () {
         this.paso2 = false;
         this.paso3 = false;
         this.modeltrans = false;
-        // this.fechaActual = {
-        // 	'FActual' : new Date()
-        // };
         this.transporte = {
-            // 'solicitudid': "",
-            // 'trarutaInicio' : "",
-            // 'trarutaFin' : "",
-            // 'trahoraInicio' : "",
-            // 'trahoraFin' : "",
             'tritra': ""
         };
         this.tipotra = this._TransporteService.GetTransporte();
@@ -70,25 +62,26 @@ var NuevasolicitudComponent = (function () {
         this.minDate.setMonth(prevMonth);
         this.maxDate = new Date();
         this.maxDate.setMonth(nextMonth);
+        this.Fecha_sol = new Date();
         this.comision = {
-            'Fecha_sol': this.fechahoy,
+            'correo': "",
+            'Fecha_sol': "",
             'FechaDesde_sol': "",
             'HoraDesde_sol': "",
             'FechaHasta_sol': "",
             'HoraHasta_sol': "",
-            // 'ciudades_sol' : "",
-            // 'funcionarios_sol' : "",
             'actividadessol': "",
-            'trafechaSalida': "",
-            'trahoraSalida': "",
-            'trafechaLlegada': "",
-            'trahoraLlegada': "",
-            'vehiculo_solicitud': "",
-            'valorFondo': "",
-            // 'trarutaInicio' : "",
-            // 'trarutaFin' : "",
+            'trarutaInicio': "",
+            'trarutaFin': "",
+            'trafechaInicio': "",
+            'trafechaFin': "",
             'trahoraInicio': "",
-            'trahoraFin': ""
+            'trahoraFin': "",
+            'valorFondo': "",
+            'ciudades_sol': "",
+            'vehiculo_solicitud': "",
+            'funcionarios_sol': "",
+            "solotransporteSol": ""
         };
     };
     NuevasolicitudComponent.prototype.OnCiudad = function () {
@@ -170,10 +163,10 @@ var NuevasolicitudComponent = (function () {
                     var length = _this.persona_mostrar.length;
                     for (var i = 0; i < length; i++) {
                         _this.personaparte1 = _this.persona_mostrar[i].perNombrecompleto;
-                        _this.perid1 = _this.persona_mostrar[i].perId;
+                        // this.perid1 = this.persona_mostrar[i].perId;
                         _this.personajson = {
                             'label': _this.personaparte1,
-                            'value': _this.perid1
+                            'value': _this.personaparte1
                         };
                         _this.persona.push(_this.personajson);
                     }
@@ -209,8 +202,19 @@ var NuevasolicitudComponent = (function () {
         }
         ;
     };
+    // 	OnAgregarVehiculoSol(){
+    // 		// let tblBody = NodeListOf(<HTMLInputElement>document.getElementsByName("tbody_trareq_dialog"));
+    // 		let tblBody = (<HTMLInputElement>document.getElementById("tbody_trareq_dialog")).rows.length;
+    // 		var yea=tblBody;
+    // alert(yea);
+    // 	}
     NuevasolicitudComponent.prototype.Onpaso2 = function () {
-        this.OnDiferenciaFechas(this.comision.FechaDesde_sol, this.comision.FechaHasta_sol);
+        this.comision.Fecha_sol = new Date(this.Fecha_sol).toLocaleDateString('en-US');
+        this.comision.FechaDesde_sol = new Date(this.FechaDesde_solicitud).toLocaleDateString('en-US');
+        this.comision.HoraDesde_sol = new Date(this.HoraDesde_sol).toLocaleTimeString();
+        this.comision.FechaHasta_sol = new Date(this.FechaHasta_solicitud).toLocaleDateString('en-US');
+        this.comision.HoraHasta_sol = new Date(this.HoraHasta_sol).toLocaleTimeString();
+        this.OnDiferenciaFechas(this.FechaDesde_solicitud, this.FechaHasta_solicitud);
         var fechaactividades;
         var length = this.dias.length;
         fechaactividades = '';
@@ -220,15 +224,70 @@ var NuevasolicitudComponent = (function () {
         }
         ;
         this.comision.actividadessol = fechaactividades;
+        this.comision.correo = this._loginService.getIdentity().aperUsuario;
+        // 	this.comision.Fecha_sol  = new Date(this.Fecha_sol_ini).toLocaleDateString();
+        // 	this.comision.FechaDesde_sol  = new Date(this.FechaDesde_sol_ini).toLocaleDateString();
+        // 	this.comision.HoraDesde_sol  = new Date(this.HoraDesde_sol_ini).toLocaleTimeString();
+        // 	this.comision.FechaHasta_sol  = new Date(this.FechaHasta_sol_ini).toLocaleDateString();
+        // 	this.comision.HoraHasta_sol  = new Date(this.HoraHasta_sol_ini).toLocaleTimeString();
+        // console.log("this.funcionarios_sol_ini:"+this.funcionarios_sol_ini);
+        if (this.funcionarios_sol_ini !== undefined) {
+            this.comision.funcionarios_sol = ((JSON.stringify(this.funcionarios_sol_ini).replace('["', '')).replace('"]', '')).replace('","', ',');
+        }
+        // this.comision.funcionarios_sol  = JSON.stringify(this.funcionarios_sol_ini);
+        if (this.ciudades_sol_ini !== undefined) {
+            this.comision.ciudades_sol = (JSON.stringify(this.ciudades_sol_ini).replace('[', '')).replace(']', '');
+        }
+        console.log(this.comision);
         this.inicial = true;
     };
     NuevasolicitudComponent.prototype.Onpaso3 = function () {
+        // this.comision.actividadessol = this.comisionInicial.actividadessol;
+        // console.log(this.comision.actividadessol);
         this.paso2 = true;
-        // console.log(this.comision);
     };
     NuevasolicitudComponent.prototype.Onpaso4 = function () {
-        // this.paso3 = true;
-        console.log(this.comision);
+        var tblBody = document.getElementById("tbody_trareq_dialog");
+        // let fila = tblBody.getElementById("TransporteReqDet");
+        var hilera = tblBody.getElementsByTagName("tr");
+        var filas = hilera.length;
+        // alert("filas:"+filas);
+        var vehiculo_solicitud;
+        var ciudades_solicitud;
+        var trahoraFin;
+        var trahoraInicio;
+        var trarutaFin;
+        var trarutaInicio;
+        // alert("columna:"+columna);
+        for (var i = 0; i < filas; i++) {
+            var datos = hilera[i].getElementsByTagName("td");
+            var columna = datos.length;
+            var data1;
+            var data2;
+            if (data1 !== undefined) {
+                data1 = data1 + ";";
+            }
+            for (var j = 0; j < columna - 1; j++) {
+                var informaciontra = datos[j].firstChild.nodeValue;
+                if (data1 == undefined) {
+                    data1 = informaciontra;
+                }
+                else {
+                    data1 = data1.replace(";,", ";") + "," + informaciontra;
+                    // console.log(data1);
+                    data2 = data1;
+                }
+            }
+        }
+        // console.log("data2:"+data2);
+        // console.log("data2:"+data2.replace(";,",";"));
+        this.comision.solotransporteSol = data2;
+        // for (var i = 0; i < filas; i++) {
+        // }
+        // console.log(data1);
+        // var data3;
+        // this.comision.solotransporteSol = data2;
+        // console.log(data3);
     };
     NuevasolicitudComponent.prototype.OnbotonAtras = function () {
         if (this.inicial == false && this.paso2 == false && this.paso3 == false) {
@@ -298,12 +357,7 @@ var NuevasolicitudComponent = (function () {
         var aboton = document.createElement("a");
         var rutInicio_trareq;
         var tipo_trareq = document.createTextNode(document.getElementById("combo_tiptra").value);
-        // console.log("tipo_trareq:"+(tipo_trareq));
         var modelo_trareq = document.createTextNode(document.getElementById("combo_vehiculo").value);
-        // console.log("modelo_trareq:"+(modelo_trareq));
-        // console.log("this.RinicioTran:"+(this.RinicioTrans));
-        // let rutInicio_trareq = document.createTextNode((<HTMLInputElement>document.getElementById("RinicioTrans")).value);
-        // console.log("this.RinicioTrans:"+this.RinicioTrans);
         if (this.RinicioTrans === undefined || this.RinicioTrans == "") {
             this.RinicioTrans = "Cuenca-Azuay";
             rutInicio_trareq = document.createTextNode(this.RinicioTrans);
@@ -311,8 +365,6 @@ var NuevasolicitudComponent = (function () {
         else {
             rutInicio_trareq = document.createTextNode(this.RinicioTrans);
         }
-        // console.log("rutInicio_trareq:"+(rutInicio_trareq));
-        // let rurFin_trareq = document.createTextNode((<HTMLInputElement>document.getElementById("RfinTrans")).value);
         var rurFin_trareq;
         if (this.RfinTrans === undefined || this.RfinTrans == "") {
             this.RfinTrans = "Cuenca-Azuay";
@@ -321,46 +373,16 @@ var NuevasolicitudComponent = (function () {
         else {
             rurFin_trareq = document.createTextNode(this.RfinTrans);
         }
-        // console.log("rurFin_trareq:"+(rurFin_trareq));
-        // let fInicio_trareq = document.createTextNode((<HTMLInputElement>document.getElementById("FinicioTrans")).value);
         var nuevafechaIniciotransformar = new Date(this.FinicioTrans).toLocaleString();
         var fechaIniciotransformar = new Date(this.FinicioTrans).toLocaleDateString();
         var horaIniciotransformar = new Date(this.FinicioTrans).toLocaleTimeString();
-        // console.log("nuevafechatransformar:"+nuevafechaIniciotransformar);
-        // console.log("fechatransformar:"+fechaIniciotransformar);
-        // console.log("horatransformar:"+horaIniciotransformar);
-        // let fechaInicio = nuevafechatransformar;
-        // console.log("fechaInicio:"+fechaInicio);
         var fInicio_trareq = document.createTextNode(fechaIniciotransformar);
-        // let hInicio_trareq = document.createTextNode((<HTMLInputElement>document.getElementById("HinicioTrans")).value);
         var hInicio_trareq = document.createTextNode(horaIniciotransformar);
-        // console.log("hInicio_trareq:"+(hInicio_trareq));
-        // let fFin_trareq = document.createTextNode((<HTMLInputElement>document.getElementById("FfinTrans")).value);
         var nuevafechaFintransformar = new Date(this.FfinTrans).toLocaleString();
         var fechaFintransformar = new Date(this.FfinTrans).toLocaleDateString();
         var horaFintransformar = new Date(this.FfinTrans).toLocaleTimeString();
         var fFin_trareq = document.createTextNode(fechaFintransformar);
-        // console.log("fFin_trareq:"+(fFin_trareq));
-        // let hFin_trareq = document.createTextNode((<HTMLInputElement>document.getElementById("HfinTrans")).value);
         var hFin_trareq = document.createTextNode(horaFintransformar);
-        // console.log("hFin_trareq:"+(hFin_trareq));
-        // console.log(new Date(JSON.stringify((<HTMLInputElement>document.getElementById("FinicioTrans")).value)));
-        // console.log(new Date((<HTMLInputElement>document.getElementById("FfinTrans")).value));
-        // let condiciontipo_trareq = (<HTMLInputElement>document.getElementById("combo_tiptra")).value;
-        // let condicionfInicio_trareq = new Date((<HTMLInputElement>document.getElementById("FinicioTrans")).value);
-        // let condicionfFin_trareq = new Date((<HTMLInputElement>document.getElementById("FfinTrans")).value);
-        // // this.RinicioTrans = [];
-        // // this.RfinTrans = [];
-        // let condicionhInicio_trareq = (<HTMLInputElement>document.getElementById("HinicioTrans")).value;
-        // let condicionhFin_trareq = (<HTMLInputElement>document.getElementById("HfinTrans")).value;
-        // let condicionfInicio_tra = (<HTMLInputElement>document.getElementById("FinicioTrans")).value = "";
-        // let condicionfFin_tra = (<HTMLInputElement>document.getElementById("FfinTrans")).value = "";
-        // if(condiciontipo_trareq !== "0" && condicionfInicio_trareq >= condicionfFin_trareq && this.RinicioTrans !== [] && this.RfinTrans !== [] && condicionhInicio_trareq !== "" && condicionhFin_trareq !== "" && condicionfInicio_tra !== "" && condicionfFin_tra !== "" &&
-        // 	/*JSON.stringify(this.RinicioTrans) !== JSON.stringify(this.RfinTrans)*/ condicionhInicio_trareq !== condicionhFin_trareq){
-        // 	alert("cumple todo");
-        // }else{
-        // 	alert("no cumple");
-        // }
         tipo.appendChild(tipo_trareq);
         modelo.appendChild(modelo_trareq);
         rutInicio.appendChild(rutInicio_trareq);
@@ -392,33 +414,18 @@ var NuevasolicitudComponent = (function () {
         hilera.appendChild(tdboton);
         hilera.setAttribute("id", "TransporteReqDet");
         tblBody.appendChild(hilera);
-        // console.log(this.comision);
-        // console.log(this.RfinTrans);
-        // console.log(this.RinicioTrans);
         document.getElementById("combo_tiptra").value = "0";
         this.modeltrans = false;
         document.getElementById("combo_vehiculo").value = "Escoja uno";
-        // let rutInicio_trareq = document.createTextNode((<HTMLInputElement>document.getElementById("RinicioTrans")).value);
-        // (<HTMLInputElement>document.getElementById("RinicioTrans")).value = "Escoja";
         this.RinicioTrans = "";
-        // let rurFin_trareq = document.createTextNode((<HTMLInputElement>document.getElementById("RfinTrans")).value);
-        // (<HTMLInputElement>document.getElementById("RfinTrans")).value ="Escoja";
         this.RfinTrans = "";
         this.FinicioTrans = "";
-        // this.HinicioTrans = "";
         this.FfinTrans = "";
-        // this.HfinTrans = "";
-        // (<HTMLInputElement>document.getElementById("FinicioTrans")).value = "";
-        // (<HTMLInputElement>document.getElementById("HinicioTrans")).value = "";
-        // (<HTMLInputElement>document.getElementById("FfinTrans")).value = "";
-        // (<HTMLInputElement>document.getElementById("HfinTrans")).value = "";
     };
     NuevasolicitudComponent.prototype.onSelect = function () {
         var _this = this;
         var tipotransporte = document.getElementById("combo_tiptra").value;
-        // console.log(tipotransporte);
         if (tipotransporte === "0") {
-            // console.log("ESTA EN 0");
             this.modeltra = {
                 "tiptraId": 0,
                 "tiptraNombre": "Escoja un",
@@ -427,7 +434,6 @@ var NuevasolicitudComponent = (function () {
             };
         }
         else {
-            // console.log("ESTA CON VALORES");
             this.moltra = {
                 'tritra': tipotransporte
             };
@@ -450,6 +456,25 @@ var NuevasolicitudComponent = (function () {
     NuevasolicitudComponent.prototype.OnImprimirSol = function () {
         this._router.navigate(['/imprimir_solicitud']);
         // window.location.href='/principal';
+    };
+    NuevasolicitudComponent.prototype.onEnviarSol = function () {
+        var _this = this;
+        // console.log(this.comision);
+        var token = this._loginService.getToken();
+        this._SolicitudService.AddSolicitud(token, this.comision).subscribe(function (response) {
+            _this.status = response.status;
+            if (_this.status != "success") {
+                _this.status = "error";
+            }
+            else {
+            }
+        }, function (error) {
+            _this.errorMessage = error;
+            if (_this.errorMessage != null) {
+                console.log(_this.errorMessage);
+                alert("Error al guardar datos");
+            }
+        });
     };
     return NuevasolicitudComponent;
 }());

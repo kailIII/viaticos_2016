@@ -32,4 +32,16 @@ export class SolicitudService{
 		.map(res => res.json());
 
 	}
+
+	AddSolicitud(token,data){
+		let json = JSON.stringify(data);
+		// console.log(json);
+		// let token = localStorage.getItem('token');
+		let params = "json="+json+"&authorization="+token;
+		let headers = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
+
+		return this._http.post(this.url+"/solicitud/nuevo", params, {headers: headers})
+		.map(res => res.json());
+
+	}
 }

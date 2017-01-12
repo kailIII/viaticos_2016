@@ -63,7 +63,7 @@ import { PdfViewerComponent } from 'ng2-pdf-viewer';
               PdfViewerComponent,
               ImprimirsolicitudComponent
   ],
-  providers:    [ appRoutingProviders ],
+  providers:    [ appRoutingProviders],
   bootstrap:    [ AppComponent ],
 
 })

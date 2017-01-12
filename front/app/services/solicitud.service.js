@@ -32,6 +32,15 @@ var SolicitudService = (function () {
         return this._http.get(this.url + "/buscar/persona")
             .map(function (res) { return res.json(); });
     };
+    SolicitudService.prototype.AddSolicitud = function (token, data) {
+        var json = JSON.stringify(data);
+        // console.log(json);
+        // let token = localStorage.getItem('token');
+        var params = "json=" + json + "&authorization=" + token;
+        var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+        return this._http.post(this.url + "/solicitud/nuevo", params, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
     return SolicitudService;
 }());
 SolicitudService = __decorate([

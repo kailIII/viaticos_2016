@@ -35,9 +35,17 @@ class SolicitudController extends Controller {
 			$identity = $helpers->authCheck($hash, true);
 			if ($json != null) {
 				$correo = (isset($params->correo)) ? $params->correo : null;
-				$fecha = (new \DateTime());
+				// $fechahoy = (new \DateTime());
+				$Fecha_sol = (isset($params->Fecha_sol)) ? $params->Fecha_sol : null;
+				$fecha = new \DateTime($Fecha_sol);
+				// $fecha = \DateTime::createFromFormat('m/d/Y', $Fecha_sol);
+				// $fechabusqueda = (\DateTime::createFromFormat('d/m/Y', $fecha));
+
+				// return $helpers->json($fecha);
+				// return $helpers->json($fecha);
 
 				$em = $this->getDoctrine()->getManager();
+//inicio crear solicitud
 				$isset_persona = $em->getRepository('BackBundle:Persona')->findOneBy(
 					array(
 						"perCorreoelectronico" => $correo,
@@ -46,7 +54,7 @@ class SolicitudController extends Controller {
 					);
 				$isset_solicitud = $em->getRepository('BackBundle:Solicitud')->findBy(
 					array(
-						"solFecharealizacion" => $fecha,
+						"solFecharealizacion" => $fecha, 
 						"per" => $isset_persona,
 						"solEstado" => "A"
 						)
@@ -82,7 +90,7 @@ class SolicitudController extends Controller {
 						$idsecuencial = count($secuencial)+1;
 					}
 					$numsol = trim($cargo_persona[0]->getCar()->getDep()->getDepSiglas())."-".date('Y')."-SAPCSI-".trim($isset_persona->getPerIniciales())."-".$idsecuencial;
-//inicio crear solicitud
+
 					$solicitud = new Solicitud();
 					$solicitud->setSolSecuencial($idsecuencial);
 					$solicitud->setSolIdsolicitud($numsol);
@@ -93,29 +101,7 @@ class SolicitudController extends Controller {
 					$solicitud->setPer($isset_persona);
 					$em->persist($solicitud);
 					$em->flush();
-
-//fin crear solicitud
-//crear personas que integran la solicitud
-					$PersonasComision = (isset($params->PersonasComision)) ? $params->PersonasComision : null;
-					$funcionarios = Array();
-					$funcionarios = explode(',', $PersonasComision);
-					foreach ($funcionarios as $sol_persona) {
-						$hay_persona = $em->getRepository('BackBundle:Persona')->findOneBy(
-							array(
-								"perNombrecompleto" => trim($sol_persona),
-								"perEstado"=> "A"
-								)
-							);
-						if (count($hay_persona) !== 0){
-							$personacomision = new PersonaComision();
-							$personacomision->setPer($hay_persona);
-							$personacomision->setSol($solicitud);
-							$em->persist($personacomision);
-							$em->flush();
-						}
-					}
-//fin crear personas que integran la solicitud
-// inicio crear de estado solicitud
+//inicio crear estado solicitud
 					$FechaDesde_sol = (isset($params->FechaDesde_sol)) ? $params->FechaDesde_sol : null;
 					$HoraDesde_sol = (isset($params->HoraDesde_sol)) ? $params->HoraDesde_sol : null;
 					$FechaHasta_sol = (isset($params->FechaHasta_sol)) ? $params->FechaHasta_sol : null;
@@ -147,20 +133,20 @@ class SolicitudController extends Controller {
 						$estado_solicitud->setSol($solicitud);
 						$em->persist($estado_solicitud);
 						$em->flush();
-// inicio crear ciudad solicitud
+// inicio crear ciudad solicitud		
 						$existe_solicitud_ciudad = $em->getRepository('BackBundle:CiudadSolicitud')->findBy(
 							array(
 								"estsol" => $estado_solicitud
 								)
 							);
 						if (count($existe_solicitud_ciudad) == 0){
-							$ciudades_solicitud = (isset($params->ciudades_solicitud)) ? $params->ciudades_solicitud : null;
+							$ciudades_sol = (isset($params->ciudades_sol)) ? $params->ciudades_sol : null;
 							$ciudad_sol = Array();
-							$ciudad_sol = explode(',', $ciudades_solicitud);
+							$ciudad_sol = explode(',', $ciudades_sol);
 							foreach ($ciudad_sol as $isset_ciudad) {
 								$ciudad = $em->getRepository('BackBundle:Ciudad')->findOneBy(
 									array(
-										"ciuNombre" => $isset_ciudad
+										"ciuId" => $isset_ciudad
 										)
 									);
 								if (count($ciudad) !== 0){
@@ -173,86 +159,159 @@ class SolicitudController extends Controller {
 									$data = array(
 										"status" => "error",
 										"code" => 400,
-										"msg" => "No existe la ciudad, por favor ingrese correctamente la ciudad"
+										"msg" => "Ciudad no existe, por favor ingrese los datos correctos"
 										);
 								}
 							}
-//inicio crear transporte solicitud
-							$trarutaInicio = (isset($params->trarutaInicio)) ? $params->trarutaInicio : null;
-							$trarutaFin = (isset($params->trarutaFin)) ? $params->trarutaFin : null;
-							$trahoraInicio = (isset($params->trahoraInicio)) ? $params->trahoraInicio : null;
-							$trahoraFin = (isset($params->trahoraFin)) ? $params->trahoraFin : null;
-							$trafechaSalida = (isset($params->trafechaSalida)) ? $params->trafechaSalida : null;
-							$trahoraSalida = (isset($params->trahoraSalida)) ? $params->trahoraSalida : null;
-							$trafechaLlegada = (isset($params->trafechaLlegada)) ? $params->trafechaLlegada : null;
-							$trahoraLlegada = (isset($params->trahoraLlegada)) ? $params->trahoraLlegada : null;
-							$vehiculo_solicitud = (isset($params->vehiculo_solicitud)) ? $params->vehiculo_solicitud : null;
-
-							$fechaSalida = new \DateTime($trafechaSalida);
-							$horaSalida = new \DateTime($trahoraSalida);
-							$fechaLlegada = new \DateTime($trafechaLlegada);
-							$horaLlegada = new \DateTime($trahoraLlegada);
-
-							$transporte_solu = Array();
-							$transporte_solu = explode(',', $vehiculo_solicitud);
-
-							foreach ($transporte_solu as $isset_tipotransporte) {
-								$tipotransporte = $em->getRepository('BackBundle:TipoTransporte')->findOneBy(
-									array(
-										"tiptraNombre" => $isset_tipotransporte
-										)
-									);
-								// return $helpers->json($tipotransporte);
-								if(count($tipotransporte)!==0){
-									$transporte_solicitud = new TransporteSolicitado();
-									$transporte_solicitud->setTrasolRutainicio($trarutaInicio);
-									$transporte_solicitud->setTrasolRutafin($trarutaFin);
-									$transporte_solicitud->setTrasolFechasalida($fechaSalida);
-									$transporte_solicitud->setTrasolHorasalida($horaSalida);
-									$transporte_solicitud->setTrasolFechallegada($fechaLlegada);
-									$transporte_solicitud->setTrasolHorallegada($horaLlegada);
-									$transporte_solicitud->setTiptra($tipotransporte);
-									$transporte_solicitud->setEstsol($estado_solicitud);
-									$em->persist($transporte_solicitud);
-									$em->flush();
-								}
-							}
-
-// fin crear transporte solicitud
-// inicio fondo solicitud
-							$valorFondo = (isset($params->valorFondo)) ? $params->valorFondo : null;
-							$existe_fondo_solicitud = $em->getRepository('BackBundle:Fondo')->findBy(
+//crear personas que integran la solicitud
+							$existe_solicitud_comisionados = $em->getRepository('BackBundle:PersonaComision')->findBy(
 								array(
 									"sol" => $solicitud
 									)
 								);
+							if (count($existe_solicitud_comisionados) == 0){
+								$funcionarios_sol = (isset($params->funcionarios_sol)) ? $params->funcionarios_sol : null;
+								$funcionarios = Array();
+								$funcionarios = explode(',', $funcionarios_sol);
+								foreach ($funcionarios as $sol_persona) {
+									$hay_persona = $em->getRepository('BackBundle:Persona')->findOneBy(
+										array(
+											"perNombrecompleto" => trim($sol_persona),
+								// "perId" => $sol_persona,
+											"perEstado"=> "A"
+											)
+										);
+									if (count($hay_persona) !== 0){
+										$personacomision = new PersonaComision();
+										$personacomision->setPer($hay_persona);
+										$personacomision->setSol($solicitud);
+										$em->persist($personacomision);
+										$em->flush();
+										
+//inicio crear transporte solicitud
+										$transportesolicitado1 = $em->getRepository('BackBundle:TransporteSolicitado')->findBy(
+											array(
+												"estsol" => $estado_solicitud
+												)
+											);
+										if(count($transportesolicitado1)==0){
+											$solotransporteSol = (isset($params->solotransporteSol)) ? $params->solotransporteSol : null;
 
-							if (count($existe_fondo_solicitud) == 0){
-								$fondosol = new Fondo();
-								$fondosol->setFonValor($valorFondo);
-								$fondosol->setFonFecha(new \DateTime());
-								$fondosol->setSol($solicitud);
-								$em->persist($fondosol);
-								$em->flush();
-								$data["status"] = "success";
-								$data["msg"] = "Solicitud creada satisfactoriamente";
+											$traruta_sol = Array();
+											$traruta_sol = explode(';', $solotransporteSol);
+												// var_dump($traruta_sol);
+											foreach ($traruta_sol as $existe_transporte) {
+												// $existe_transporte1 = "";
+												// $existe_transporte1 = $helpers->json($existe_transporte);
 
+											$isset_transporte = Array();
+												// $isset_transporte.length=0;
+												$isset_transporte = explode(',', $existe_transporte);
+												// var_dump($isset_transporte);
+												
+												$Tiptramod = $isset_transporte[1];
+												$TrasolRutainicio = $isset_transporte[2];
+												$TrasolRutafin = $isset_transporte[3];
+												// $TrasolFechasalida = (new \DateTime($isset_transporte[4]))->format('m/d/Y');
+												$TrasolFechasalida = \DateTime::createFromFormat('d/m/Y', $isset_transporte[4]);
+												$TrasolHorasalida = new \DateTime($isset_transporte[5]);
+												// $TrasolFechallegada = (new \DateTime($isset_transporte[6]))->format('m/d/Y');
+												$TrasolFechallegada = \DateTime::createFromFormat('d/m/Y', $isset_transporte[6]);
+												$TrasolHorallegada = new \DateTime($isset_transporte[7]);
+// var_dump($TrasolFechasalida);
+					// return $helpers->json($TrasolFechasalida);
+												$tiptra = $em->getRepository('BackBundle:TipoTransporte')->findOneBy(
+													array(
+														"tiptraNombre" => $Tiptramod
+														)
+													);
+												$transporte_solicitud = new TransporteSolicitado();
+												$transporte_solicitud->setTrasolRutainicio($TrasolRutainicio);
+												$transporte_solicitud->setTrasolRutafin($TrasolRutafin);
+												$transporte_solicitud->setTrasolFechasalida($TrasolFechasalida);
+												$transporte_solicitud->setTrasolHorasalida($TrasolHorasalida);
+												$transporte_solicitud->setTrasolFechallegada($TrasolFechallegada);
+												$transporte_solicitud->setTrasolHorallegada($TrasolHorallegada);
+												$transporte_solicitud->setTiptra($tiptra);
+												$transporte_solicitud->setEstsol($estado_solicitud);
+												$em->persist($transporte_solicitud);
+												$em->flush();
+											}
+											$data["status"] = "success";
+											$data["msg"] = "Solicitud creada satisfactoriamente";
+										}else {
+											$data = array(
+												"status" => "error",
+												"code" => 400,
+												"msg" => "Solicitud no existe, por favor ingrese la solicitud"
+												);
+										}
+//fin crear transporte solicitud
+									}else {
+										$data = array(
+											"status" => "error",
+											"code" => 400,
+											"msg" => "Funcionario no existe, por favor ingrese los datos correctos"
+											);
+									}
+								}
+
+
+//inicio crear transporte solicitud
+								// $solotransporteSol = (isset($params->solotransporteSol)) ? $params->solotransporteSol : null;
+
+								// $traruta_sol = Array();
+								// $traruta_sol = explode(';', $solotransporteSol);
+								// $transportesolicitado1 = $em->getRepository('BackBundle:TransporteSolicitado')->findBy(
+								// 	array(
+								// 		"estsol" => $estado_solicitud
+								// 		)
+								// 	);
+// if(count($transportesolicitado1)==0){
+// 										foreach ($transporte_solu as $isset_tipotransporte) {
+// 											$tipotransporte = $em->getRepository('BackBundle:TipoTransporte')->findOneBy(
+// 												array(
+// 													"tiptraNombre" => $isset_tipotransporte
+// 													)
+// 												);
+// 											foreach ($trarutaInicio_sol as $trarutaInicio_sol_ini) {
+// 												foreach ($trarutaFin_sol as $trarutaFin_sol_ini) {
+// 													foreach ($trahoraInicio_sol as $trahoraInicio_sol_ini) {
+// 														foreach ($trahoraFin_sol as $trahoraFin_sol_ini) {
+// 															foreach ($trafechaInicio_sol as $trafechaInicio_sol_ini) {
+// 																foreach ($trafechaFin_sol as $trafechaFin_sol_ini) {
+// 																	$transporte_solicitud = new TransporteSolicitado();
+// 																	$transporte_solicitud->setTrasolRutainicio($trarutaInicio_sol_ini);
+// 																	$transporte_solicitud->setTrasolRutafin($trarutaFin_sol_ini);
+// 																	$transporte_solicitud->setTrasolFechasalida($trafechaInicio_sol_ini);
+// 																	$transporte_solicitud->setTrasolHorasalida($trahoraInicio_sol_ini);
+// 																	$transporte_solicitud->setTrasolFechallegada($trafechaFin_sol_ini);
+// 																	$transporte_solicitud->setTrasolHorallegada($trahoraFin_sol_ini);
+// 																	$transporte_solicitud->setTiptra($tipotransporte);
+// 																	$transporte_solicitud->setEstsol($estado_solicitud);
+// 																	$em->persist($transporte_solicitud);
+// 																	$em->flush();
+// 																}
+// 															}
+// 														}
+// 													}
+// 												}
+// 											}
+// 										}
+// //fin crear transporte solicitud
 							}else {
 								$data = array(
 									"status" => "error",
 									"code" => 400,
-									"msg" => "No existe asignadas la o las ciudades en la solicitud, por favor ingrese las ciudades"
+									"msg" => "Funcionario no existe, por favor ingrese los datos correctos"
 									);
 							}
-					// fin fondo solicitud
-
-
-
+// fin crear comisionados solicitud
 						}else {
 							$data = array(
 								"status" => "error",
 								"code" => 400,
-								"msg" => "No existe la solicitud, por favor ingrese la solicitud"
+								"msg" => "Ya existe la o las ciudades asignadas a la solicitud"
 								);
 						}
 // fin crear ciudad solicitud
@@ -260,22 +319,23 @@ class SolicitudController extends Controller {
 						$data = array(
 							"status" => "error",
 							"code" => 400,
-							"msg" => "No existe la solicitud"
+							"msg" => "No existe la solicitud, por favor cree una solicitud para poder continuar"
 							);
 					}
-// fin crear de estado solicitud
+//fin crear estado solicitud
 				}else {
 					$data = array(
 						"status" => "error",
 						"code" => 400,
-						"msg" => "Solicitud duplicada, no se puedo crear nueva solicitud"
+						"msg" => "La solicitud ya existe, por favor ingrese una nueva solicitud"
 						);
 				}
+//fin crear solicitud
 			} else {
 				$data = array(
 					"status" => "error",
 					"code" => 400,
-					"msg" => "Por favor faltan datos"
+					"msg" => "No existen datos, por favor ingrese los datos"
 					);
 			}
 		} else {
@@ -287,5 +347,4 @@ class SolicitudController extends Controller {
 		}
 		return $helpers->json($data);
 	}
-
 }

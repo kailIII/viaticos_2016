@@ -120,6 +120,7 @@ var AppComponent = (function () {
                             if (_this.errorMessage != null) {
                                 console.log(_this.errorMessage);
                                 alert("Error en la petición 2");
+                                _this.logout();
                             }
                         });
                     }

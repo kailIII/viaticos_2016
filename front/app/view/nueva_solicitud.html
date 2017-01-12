@@ -17,7 +17,7 @@
 		<td><!-- <input type="datetime-local" [value]="2016-01-01" 
 			(change)="date=$event.target.value" /> -->
 			<!-- <datepicker [(ngModel)]="dt" [minDate]="minDate" [showWeeks]="true"></datepicker> -->
-			<p-calendar [showIcon]="true" [locale]="es" [(ngModel)]="comision.Fecha_sol" [ngModelOptions]="{standalone: true}"></p-calendar>
+			<p-calendar [showIcon]="true" [locale]="es" [(ngModel)]="Fecha_sol" [ngModelOptions]="{standalone: true}" dateFormat="dd/mm/yy"></p-calendar>
 			<!-- <input type="date" min="2016-01-01"  class="cuadros" name="Fecha_sol" > -->
 		</td>
 	</div>
@@ -29,53 +29,53 @@
 			<tr>
 				<td class="td2">Fecha Inicio:</td>
 				<td class="td2">
-				<!-- <input type="date"> -->
+					<!-- <input type="date"> -->
 
 				<!-- <div class="ui-g-12 ui-md-4">
-        <h3>Icon</h3> -->
-        <p-calendar [style]="{'width':'auto'}" [showIcon]="true" [locale]="es" [(ngModel)]="comision.FechaDesde_sol" [ngModelOptions]="{standalone: true}"></p-calendar> <!-- <span style="margin-left:35px">{{fechas|date}}</span> -->
-    <!-- </div> -->
+				<h3>Icon</h3> -->
+				<p-calendar [style]="{'width':'auto'}" [showIcon]="true" [locale]="es" [(ngModel)]="FechaDesde_solicitud" [ngModelOptions]="{standalone: true}" dateFormat="dd/mm/yy"></p-calendar> <!-- <span style="margin-left:35px">{{fechas|date}}</span> -->
+				<!-- </div> -->
 				<!-- <p-calendar [(ngModel)]="comision.FechaDesde_sol" dateFormat="dd.mm.yy" showTime="showTime" hourFormat="24" [locale]="en"></p-calendar> -->
 				<!-- <input id="FechaDesde_sol" type="date" min="2016-01-01" class="cuadros" name="FechaDesde_sol" #FechaDesde_sol="ngModel" [(ngModel)]="comision.FechaDesde_sol"> -->
 				<!-- <p-calendar [(ngModel)]="FechaDesde_sol" dateFormat="dd/mm/yyyy" [ngModelOptions]="{standalone: true}"></p-calendar> -->
-				</td>
-				<td class="td2">Hora Inicio:</td>
-				<td class="td2">
-				<p-calendar [style]="{'width':'auto'}" [(ngModel)]="comision.HoraDesde_sol" [timeOnly]="true" hourFormat="24" [ngModelOptions]="{standalone: true}"></p-calendar>
+			</td>
+			<td class="td2">Hora Inicio:</td>
+			<td class="td2">
+				<p-calendar [style]="{'width':'auto'}" [(ngModel)]="HoraDesde_sol" [timeOnly]="true" hourFormat="24" [ngModelOptions]="{standalone: true}" timeFormat="hh:mm"></p-calendar>
 				<!-- <input type="time" class="cuadros" id="HoraDesde_sol" name="HoraDesde_sol" #HoraDesde_sol="ngModel" [(ngModel)]="comision.HoraDesde_sol"> -->
-				</td>
-				<td>-</td> 
-				<td class="td2">Fecha Fin:</td>
-				<td class="td2">
+			</td>
+			<td>-</td> 
+			<td class="td2">Fecha Fin:</td>
+			<td class="td2">
 				<!-- <input type="date" id="FechaHasta_sol" [(ngModel)]="comision.FechaHasta_sol"> -->
 				<!-- <input type="date" min="2016-01-01" class="cuadros" name="FechaHasta_sol" id="FechaHasta_sol" #FechaHasta_sol="ngModel" [(ngModel)]="comision.FechaHasta_sol"> -->
-				<p-calendar [style]="{'width':'auto'}" [showIcon]="true" [locale]="es" [(ngModel)]="comision.FechaHasta_sol" [ngModelOptions]="{standalone: true}"></p-calendar>
+				<p-calendar [style]="{'width':'auto'}" [showIcon]="true" [locale]="es" [(ngModel)]="FechaHasta_solicitud" [ngModelOptions]="{standalone: true}" dateFormat="dd/mm/yy"></p-calendar>
 				<!-- <p-calendar [(ngModel)]="FechaHasta_sol" dateFormat="dd/mm/yyyy" [ngModelOptions]="{standalone: true}"></p-calendar> -->
-				</td>
-				<td class="td2">Hora Fin:</td>
-				<td class="td2">
-<p-calendar [style]="{'width':'auto'}" [(ngModel)]="comision.HoraHasta_sol" [timeOnly]="true" hourFormat="24" [ngModelOptions]="{standalone: true}"></p-calendar>
-				 <!-- <input type="time" class="cuadros" name="HoraHasta_sol" id="HoraHasta_sol" #HoraHasta_sol="ngModel" [(ngModel)]="comision.HoraHasta_sol"> -->
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	<table id="mytable" class="table2">
-		<thead>
-			<p><ins>Lugares de Comisión</ins></p>
-		</thead>
-		<tbody>
-			<tr>
-				<td class="td2">
-					<form>
-						
-						<p-multiSelect id="ingresarCiudad" [options]="ciudad" [(ngModel)]="comision.ciudades_sol" [ngModelOptions]="{standalone: true}"></p-multiSelect>
-						<!-- <p-multiSelect id="ingresarCiudad" [options]="ciudad" #ciudades_sol="ngModel" [(ngModel)]="comision.ciudades_sol" [ngModelOptions]="{standalone: true}"></p-multiSelect> -->
-						<!-- <p>Selected Cars: {{selectedCars}}</p> -->
-						<!-- <input id="ingresarCiudad" class="cuadros1" type="text" size="30" placeholder="Agregar ciudad" #ciudadSol required> -->
-						<!-- <button class="btn1" (click)="OnAgregarCiudad(ciudadSol.value)" >Agregar</button> -->
-					</form> 
-				</td>
+			</td>
+			<td class="td2">Hora Fin:</td>
+			<td class="td2">
+				<p-calendar [style]="{'width':'auto'}" [(ngModel)]="HoraHasta_sol" [timeOnly]="true" hourFormat="24" [ngModelOptions]="{standalone: true}" timeFormat="hh:mm"></p-calendar>
+				<!-- <input type="time" class="cuadros" name="HoraHasta_sol" id="HoraHasta_sol" #HoraHasta_sol="ngModel" [(ngModel)]="comision.HoraHasta_sol"> -->
+			</td>
+		</tr>
+	</tbody>
+</table>
+<table id="mytable" class="table2">
+	<thead>
+		<p><ins>Lugares de Comisión</ins></p>
+	</thead>
+	<tbody>
+		<tr>
+			<td class="td2">
+				<form>
+
+				<p-multiSelect id="ingresarCiudad" [options]="ciudad" [(ngModel)]="ciudades_sol_ini" [ngModelOptions]="{standalone: true}" dataType="string"></p-multiSelect>
+					<!-- <p-multiSelect id="ingresarCiudad" [options]="ciudad" #ciudades_sol="ngModel" [(ngModel)]="comision.ciudades_sol" [ngModelOptions]="{standalone: true}"></p-multiSelect> -->
+					<!-- <p>Selected Cars: {{selectedCars}}</p> -->
+					<!-- <input id="ingresarCiudad" class="cuadros1" type="text" size="30" placeholder="Agregar ciudad" #ciudadSol required> -->
+					<!-- <button class="btn1" (click)="OnAgregarCiudad(ciudadSol.value)" >Agregar</button> -->
+				</form> 
+			</td>
 				<!-- <td class="td2"> <p>Listado Ciudades</p> 
 				<textarea id="ciudades_solicitud" name="ciudades_sol" #ciudades_sol rows="2" cols="50">{{selectedCars}}</textarea>    -->
 				<!-- <textarea id="ciudades_solicitud" name="ciudades_sol" #ciudades_sol rows="2" cols="50">{{ciudades_sol}}</textarea>  -->
@@ -96,7 +96,7 @@
 		<tr>
 			<td class="td2">
 				<form>
-					<p-multiSelect id="ingresarComisionado" [options]="persona" [(ngModel)]="comision.funcionarios_sol" [ngModelOptions]="{standalone: true}"></p-multiSelect>
+					<p-multiSelect id="ingresarComisionado" [options]="persona" [(ngModel)]="funcionarios_sol_ini" [ngModelOptions]="{standalone: true}" dataType="string"></p-multiSelect>
 					<!-- <p-multiSelect id="ingresarComisionado" [options]="persona" #funcionarios_solicitud="ngModel" [(ngModel)]="comision.funcionarios_solicitud" [ngModelOptions]="{standalone: true}"></p-multiSelect> -->
 						<!-- <input id="ingresarComisionado"  class="cuadros1" type="texto" size="30" placeholder="Agregar Comisionados" #comisionadoSol required>
 						<button class="btn1" (click)="OnAgregarComisionado(comisionadoSol.value)" >Agregar</button> -->
@@ -355,29 +355,29 @@
 
 							<!-- <p-multiSelect id="RinicioTrans" [options]="ciudadtra" [(ngModel)]="RinicioTrans" [ngModelOptions]="{standalone: true}"></p-multiSelect> -->
 
-<p-dropdown [style]="{'width':'auto'}" [options]="ciudadtra" [(ngModel)]="RinicioTrans" [filter]="true" [ngModelOptions]="{standalone: true}">
-   <!--  <template let-car>-->
-        <!-- <div class="ui-helper-clearfix" style="position: relative;height: 12px;"> -->
-            <!-- <img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:5px"/> -->
-            <!-- <div id="RinicioTrans" style="font-size:10px;float:right;margin-top:1px;">{{ciudadtra.label}}</div> -->
-        <!-- </div> -->
-    <!--</template> -->
-    <!-- {{ciudadtra.label}} -->
-</p-dropdown>
+							<p-dropdown [style]="{'width':'auto'}" [options]="ciudadtra" [(ngModel)]="RinicioTrans" [filter]="true" [ngModelOptions]="{standalone: true}">
+								<!--  <template let-car>-->
+								<!-- <div class="ui-helper-clearfix" style="position: relative;height: 12px;"> -->
+								<!-- <img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:5px"/> -->
+								<!-- <div id="RinicioTrans" style="font-size:10px;float:right;margin-top:1px;">{{ciudadtra.label}}</div> -->
+								<!-- </div> -->
+								<!--</template> -->
+								<!-- {{ciudadtra.label}} -->
+							</p-dropdown>
 						</td>
 						<td style="width: 20%">
 							<!-- <p><ins>Ruta Fin</ins></p> -->
 							<!-- <input type="text" id="RfinTrans" > -->
 							<!-- <p-multiSelect id="RfinTrans" [options]="ciudad" #trarutaFin="ngModel" [(ngModel)]="transporte.trarutaFin" [ngModelOptions]="{standalone: true}"></p-multiSelect> -->
-<p-dropdown [style]="{'width':'auto'}" [options]="ciudadtra" [(ngModel)]="RfinTrans" [filter]="true" [ngModelOptions]="{standalone: true}">
-   <!--  <template let-car>-->
-        <div class="ui-helper-clearfix" style="position: relative;height: 12px;">
-            <!-- <img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:5px"/> -->
-            <div id="RfinTrans" style="font-size:10px;float:right;margin-top:1px">{{ciudadtra.label}}</div>
-        </div>
-    <!--</template> -->
-    <!-- {{ciudadtra.label}} -->
-</p-dropdown>
+							<p-dropdown [style]="{'width':'auto'}" [options]="ciudadtra" [(ngModel)]="RfinTrans" [filter]="true" [ngModelOptions]="{standalone: true}">
+								<!--  <template let-car>-->
+								<div class="ui-helper-clearfix" style="position: relative;height: 12px;">
+									<!-- <img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:5px"/> -->
+									<div id="RfinTrans" style="font-size:10px;float:right;margin-top:1px">{{ciudadtra.label}}</div>
+								</div>
+								<!--</template> -->
+								<!-- {{ciudadtra.label}} -->
+							</p-dropdown>
 
 							<!-- <p-multiSelect id="RfinTrans" [options]="ciudadtra" [(ngModel)]="RfinTrans" [ngModelOptions]="{standalone: true}"></p-multiSelect> -->
 						</td>
@@ -385,7 +385,7 @@
 							<!-- <p><ins>Fecha Inicio</ins></p> -->
 							<!-- <p-calendar [style]="{'width':'auto'}" [showIcon]="true" [locale]="es" [showTime]="true" [(
 							ngModel)]="FinicioTrans" [ngModelOptions]="{standalone: true}"></p-calendar> -->
-							<p-calendar [style]="{'width':'100%'}" [showIcon]="true" [locale]="es" [showTime]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030" [(ngModel)]="FinicioTrans" [ngModelOptions]="{standalone: true}"></p-calendar>
+							<p-calendar [style]="{'width':'100%'}" [showIcon]="true" [locale]="es" [showTime]="true" [(ngModel)]="FinicioTrans" [ngModelOptions]="{standalone: true}"></p-calendar>
 							<!-- <p-calendar  [(ngModel)]="FinicioTrans" [showTime]="true" [ngModelOptions]="{standalone: true}"></p-calendar> -->
 							<!-- <input type="date" min="2016-01-01" max="2050-12-31" class="cuadros3" id="FinicioTrans" > -->
 						</td>
@@ -396,7 +396,7 @@
 							<!-- <p><ins>Fecha Fin</ins></p> -->
 							<!-- <p-calendar [style]="{'width':'auto'}" [showIcon]="true" showTime="showTime" hourFormat="24" [locale]="es"  [(ngModel)]="FfinTrans" [ngModelOptions]="{standalone: true}" dataType="string" ></p-calendar> -->
 							<p-calendar [style]="{'width':'100%'}" [showIcon]="true" [locale]="es" [showTime]="true"  [(ngModel)]="FfinTrans" [ngModelOptions]="{standalone: true}"></p-calendar>
-<!-- dateFormat="dd/mm/yy" [showTime]="true" -->
+							<!-- dateFormat="dd/mm/yy" [showTime]="true" -->
 							<!-- <input type="date" min="2016-01-01" max="2050-12-31" class="cuadros3" id="FfinTrans" > -->
 						</td>
 						<!-- <td style="width: 10%">
@@ -649,7 +649,7 @@
 				</table> -->
 				<ul class="pagination pull-CENTER">
 					<button (click)="onGuardarSol()">GUARDAR</button>
-					<button (click)="onpaso4()">ENVIAR</button>
+					<button (click)="Onpaso4()">ENVIAR</button>
 					<!-- <button [routerLink]="['/imprimir_solicitud']">IMPRIMIR</button> -->
 					<button (click)="OnImprimirSol()">IMPRIMIR</button>
 					<button (click)="OnCancelarSol()">CANCELAR</button>

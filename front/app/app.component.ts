@@ -138,6 +138,7 @@ export class AppComponent implements OnInit{
 									if(this.errorMessage != null){
 										console.log(this.errorMessage);
 										alert("Error en la petición 2");
+										this.logout();
 									}
 								}
 								);
