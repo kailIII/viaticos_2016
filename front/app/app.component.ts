@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {LoginService} from './services/login.service';
 
@@ -22,36 +22,34 @@ export class AppComponent implements OnInit{
 	public user;
 	public verificacion;
 	public dias;
-    public horas;
-    public minutos;
-    public segundos;
+	public horas;
+	public minutos;
+	public segundos;
+	public contador;
+	@Output() progress: EventEmitter<any> = new EventEmitter();
 
 	constructor(
 		private _loginService: LoginService,
 		private _router: Router,
 		private _route: ActivatedRoute
 		){
-	}
 
+	}
 	ngOnInit(){
 		this.user = {
 			'email': "",
 			'password': "",
 			'gethash': "false"
 		};
-
 		this.identity = this._loginService.getIdentity();
-		this.token = this._loginService.getToken();
-		this.verificacion = this._loginService.checkCredentials(this.token);
 		if(this.identity){
-			// this.Onloguearse();
 			this.menuUsuario();
-			// this.OnTiempoSesion();
+			this.OnCuenta();
 		}else{
 			this.Onloguearse();
-			// this.menuUsuario();
 		}
 	}
+
 	menuUsuario(){
 		this.identity = this._loginService.getIdentity();
 		this.token = this._loginService.getToken();
@@ -80,18 +78,11 @@ export class AppComponent implements OnInit{
 							this.datoMenuMostrar = JSON.parse("["+this.datoMenu+"]");  
 							return this.datoMenuMostrar;
 
-						// }
-					}
-				},error => {
-					// this.errorMessage = <any>error;
-
-					// if(this.errorMessage != null){
-					// 	console.log(this.errorMessage);
-					// 	alert("Error en la peticion de OnMenu");
-						// window.location.href='/principal';
+							// }
+						}
+					},error => {
 						window.location.reload();
-					// }
-				});
+					});
 		}else{
 			alert("Su sesión ha expirado, por favor ingrese nuevamente sus credenciales");
 			this.logout();
@@ -166,40 +157,47 @@ export class AppComponent implements OnInit{
 		window.location.href='/';
 	}
 
-// 	OnTiempoSesion(){
-//     let fecha=new Date(this.identity.exp).getTime();
-//     console.log(this.identity.exp);
-//     console.log(fecha);
-//     // var fecha=new Date(2012,1,10,21,1,1);
-//     let hoy=new Date();
+	Oncuentaregresiva(){
+		// var fechasesioninicio = this._loginService.identity.iat;
+		var fechasesionfin = this._loginService.identity.exp;
 
-//     console.log(hoy);
-//     this.dias=0;
-//     this.horas=0;
-//     this.minutos=0;
-//     this.segundos=0;
+		var hoyini=new Date(new Date().toLocaleString("en-US")).getTime();
+		var hoy = hoyini/1000; 
+		var dias=0;
+		var horas=0;
+		var minutos=0;
+		var segundos=0;
 
-//     // if (fecha>hoy){
-//     //     var diferencia=(fecha.getTime()-hoy.getTime())/1000;
-//     //     this.dias=Math.floor(diferencia/86400);
-//     //     diferencia=diferencia-(86400*this.dias);
-//     //     this.horas=Math.floor(diferencia/3600);
-//     //     diferencia=diferencia-(3600*this.horas);
-//     //     this.minutos=Math.floor(diferencia/60);
-//     //     diferencia=diferencia-(60*this.minutos);
-//     //     this.segundos=Math.floor(diferencia);
+		var diferencia=(fechasesionfin-hoy)
 
-//     //     document.getElementById("tiemposesion").innerHTML='Quedan ' + this.dias + ' D&iacute;as, ' + this.horas + ' Horas, ' + this.minutos + ' Minutos, ' + this.segundos + ' Segundos'
+		if (--diferencia > 0) {
+			dias=Math.floor(diferencia/86400)
+			diferencia=diferencia-(86400*dias)
+			horas=Math.floor(diferencia/3600)
+			diferencia=diferencia-(3600*horas)
+			minutos=Math.floor(diferencia/60)
+			diferencia=diferencia-(60*minutos)
+			segundos=Math.floor(diferencia);
 
-//     //     if (this.dias>0 || this.horas>0 || this.minutos>0 || this.segundos>0){
-//     //         setTimeout("countdown(\"" + id + "\")",1000)
-//     //     }
-//     // }
-//     // else{
-//     // 	document.getElementById("tiemposesion").innerHTML='Quedan ' + this.dias + ' D&iacute;as, ' + this.horas + ' Horas, ' + this.minutos + ' Minutos, ' + this.segundos + ' Segundos'
-//     //     // document.getElementById('restante').innerHTML='Quedan ' + dias + ' D&iacute;as, ' + horas + ' Horas, ' + minutos + ' Minutos, ' + segundos + ' Segundos'
-//     //     // this.logout();
-//     // }
-// }
-	
+			if(horas > 0){
+				this.contador =/*'Restan ' + dias + ' D&iacute;as, ' +*/ horas + ' Hora, ' + minutos + ' Minutos, ' + segundos + ' Segundos'
+			}else if(minutos > 0){
+				this.contador =/*'Restan ' + dias + ' D&iacute;as, ' + horas + ' Hora, ' +*/ minutos + ' Minutos, ' + segundos + ' Segundos'
+			}else{
+				this.contador =/*'Restan ' + dias + ' D&iacute;as, ' + horas + ' Hora, ' + minutos + ' Minutos, ' +*/ segundos + ' Segundos'
+			}
+
+			this.progress.emit(diferencia);
+		}
+		else{
+			alert("Su sesión ha expirado, por favor ingresar nuevamente al sistema");
+			this.logout();
+		}
+
+	}
+
+	OnCuenta(){
+		setInterval(() => this.Oncuentaregresiva(), 1000);
+	}
 }
+// }

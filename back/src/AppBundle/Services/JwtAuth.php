@@ -3,6 +3,8 @@
 namespace AppBundle\Services;
 
 use Firebase\JWT\JWT;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class JwtAuth {
 
@@ -27,14 +29,25 @@ class JwtAuth {
             $signup = true;
         }
         if ($signup == true) {
+            
+            // var_dump(date_timestamp_get(new \DateTime(date('Y-m-d H:i:s'))));
+
+
+// var_dump(new \DateTime(date('Y-m-d H:i:s')));
+            // var_dump(new \DateTime(date('Y-m-d H:i:s') + (1 * 2 * 60 * 60)));
+            // var_dump(date_timestamp_get(new \DateTime(date('Y-m-d H:i:s')))+ (1 * 2 * 60 * 60));
+            // var_dump(time());
+
             $token = array(
                 "sub" => $user->getPer()->getPerId(),
                 "aperUsuario" => $user->getAperUsuario(),
                 "perNombre" => $user->getPer()->getPerNombre(),
                 "perApellido" => $user->getPer()->getPerApellido(),
                 "aperClave" => $user->getAperClave(),
-                "iat" => time(),
-                "exp" => time() + (1 * 2 * 60 * 60)
+                // "iat" => time(),
+                // "exp" => time()+ (1 * 2 * 60 * 60)
+                "iat" => date_timestamp_get(new \DateTime(date('Y-m-d H:i:s'))),
+                "exp" => date_timestamp_get(new \DateTime(date('Y-m-d H:i:s')))+ (1 * 2 * 60 * 60)
             );
             $jwt = JWT::encode($token, $key, 'HS256');
             $decoded = JWT::decode($jwt, $key, array('HS256'));

@@ -17,6 +17,7 @@ var AppComponent = (function () {
         this._router = _router;
         this._route = _route;
         this.errorMsg = '';
+        this.progress = new core_1.EventEmitter();
     }
     AppComponent.prototype.ngOnInit = function () {
         this.user = {
@@ -25,11 +26,9 @@ var AppComponent = (function () {
             'gethash': "false"
         };
         this.identity = this._loginService.getIdentity();
-        this.token = this._loginService.getToken();
-        this.verificacion = this._loginService.checkCredentials(this.token);
         if (this.identity) {
-            // this.Onloguearse();
             this.menuUsuario();
+            this.OnCuenta();
         }
         else {
             this.Onloguearse();
@@ -67,13 +66,7 @@ var AppComponent = (function () {
                     return _this.datoMenuMostrar;
                 }
             }, function (error) {
-                // this.errorMessage = <any>error;
-                // if(this.errorMessage != null){
-                // 	console.log(this.errorMessage);
-                // 	alert("Error en la peticion de OnMenu");
-                // window.location.href='/principal';
                 window.location.reload();
-                // }
             });
         }
         else {
@@ -143,8 +136,50 @@ var AppComponent = (function () {
         this.token = null;
         window.location.href = '/';
     };
+    AppComponent.prototype.Oncuentaregresiva = function () {
+        // var fechasesioninicio = this._loginService.identity.iat;
+        var fechasesionfin = this._loginService.identity.exp;
+        var hoyini = new Date(new Date().toLocaleString("en-US")).getTime();
+        var hoy = hoyini / 1000;
+        var dias = 0;
+        var horas = 0;
+        var minutos = 0;
+        var segundos = 0;
+        var diferencia = (fechasesionfin - hoy);
+        if (--diferencia > 0) {
+            dias = Math.floor(diferencia / 86400);
+            diferencia = diferencia - (86400 * dias);
+            horas = Math.floor(diferencia / 3600);
+            diferencia = diferencia - (3600 * horas);
+            minutos = Math.floor(diferencia / 60);
+            diferencia = diferencia - (60 * minutos);
+            segundos = Math.floor(diferencia);
+            if (horas > 0) {
+                this.contador = horas + ' Hora, ' + minutos + ' Minutos, ' + segundos + ' Segundos';
+            }
+            else if (minutos > 0) {
+                this.contador = minutos + ' Minutos, ' + segundos + ' Segundos';
+            }
+            else {
+                this.contador = segundos + ' Segundos';
+            }
+            this.progress.emit(diferencia);
+        }
+        else {
+            alert("Su sesión ha expirado, por favor ingresar nuevamente al sistema");
+            this.logout();
+        }
+    };
+    AppComponent.prototype.OnCuenta = function () {
+        var _this = this;
+        setInterval(function () { return _this.Oncuentaregresiva(); }, 1000);
+    };
     return AppComponent;
 }());
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", core_1.EventEmitter)
+], AppComponent.prototype, "progress", void 0);
 AppComponent = __decorate([
     core_1.Component({
         selector: "mi-app",
@@ -156,4 +191,5 @@ AppComponent = __decorate([
         router_1.ActivatedRoute])
 ], AppComponent);
 exports.AppComponent = AppComponent;
+// }
 //# sourceMappingURL=app.component.js.map
