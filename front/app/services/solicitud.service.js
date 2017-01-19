@@ -41,6 +41,13 @@ var SolicitudService = (function () {
         return this._http.post(this.url + "/solicitud/nuevo", params, { headers: headers })
             .map(function (res) { return res.json(); });
     };
+    SolicitudService.prototype.reporteSolicitud = function (token, data) {
+        var json = JSON.stringify(data);
+        var params = "json=" + json + "&authorization=" + token;
+        var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+        return this._http.post(this.url + "/solicitud/reporte", params, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
     return SolicitudService;
 }());
 SolicitudService = __decorate([

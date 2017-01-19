@@ -1,80 +1,81 @@
- <div *ngIf="!identity">
- 	<header id="header_login">
- 		<img src="assets/images/logo.png"  width="300" height="100" />
- 	</header>
+<div *ngIf="salida == false">
+	<div *ngIf="!identity">
+		<header id="header_login">
+			<img src="assets/images/logo.png"  width="300" height="100" />
+		</header>
 
- 	<div class="login">
- 		<div class="slogan">
- 			<h1>SISTEMA</h1>   
- 			<h1>DE</h1> 
- 			<h1>GESTIÓN </h1> 
- 			<h1>DE</h1> 
- 			<h1>VIATICOS</h1> 
- 		</div>
- 		<div class="barra">
- 			<table border="0" cellpadding="0" cellspacing="0"> 
- 				<tr><td bgcolor="#01A9DB" width="2" height="350"></td> 
- 				</tr> 
- 			</table> 
- 		</div>
- 		<div class="formulario">
- 			<router-outlet></router-outlet>
- 		</div>
- 	</div>
- </div> 
- <div *ngIf="identity">
- 	<section class="main">
- 		<div id="header_principal">
- 			<div class="logo">
- 				<a routerLink="/principal"><img src="./assets/images/viajes.jpg" height="100" width="150" /></a>
- 			</div>
- 			<div class="logo_cabecera">
- 				<img src="assets/images/logo.png"  width="300" height="100" />
- 			</div>
- 			<div class="nombre">
- 				<span>
- 					Funcionario(a):<br>
- 				</span>
- 				{{identity.perNombre}}<br>
- 				{{identity.perApellido}}
- 				<br/>
- 				<a (click)="logout()">Salir de sistema</a>
- 			</div>
- 			<!-- <hr> -->
- 		</div>
- 		<div class="contenedor" >
- 			<div class="cuerpo">
- 				<div class="menu">
- 					<div class="modulo">
- 						<div *ngFor="let menu of datoMenuMostrar">
- 							<div *ngIf="menu.modPadre == 1">
- 								<div id="menu">
- 									<li><a [routerLink]="[menu.modUbicacion]">{{menu.modNombremostrar}}</a></li>
- 								</div>
- 							</div>
- 						</div>
- 					</div>
- 					<div id="tiemporestante">
- 						Tiempo restante de sesión
- 						<!-- <input>{{contador}}</input> -->
- 						<div id='contador'>{{contador}}</div>
- 					</div>
- 				</div>
- 				<div class="barra_gris">
- 					<table border="0" cellpadding="0" cellspacing="0"> 
- 						<tr><td bgcolor="#d3d1d1" width="1" height="100%"></td> 
- 						</tr> 
- 					</table> 
- 				</div>
- 				<div class="informacion">
- 					<router-outlet></router-outlet>
- 				</div>
- 			</div>
- 		</div>
- 	</section>
- </div>
- <div id="footer"> 
- 	<hr>
+		<div class="login">
+			<div class="slogan">
+				<h1>SISTEMA</h1>   
+				<h1>DE</h1> 
+				<h1>GESTIÓN </h1> 
+				<h1>DE</h1> 
+				<h1>VIATICOS</h1> 
+			</div>
+			<div class="barra">
+				<table border="0" cellpadding="0" cellspacing="0"> 
+					<tr><td bgcolor="#01A9DB" width="2" height="350"></td> 
+					</tr> 
+				</table> 
+			</div>
+			<div class="formulario">
+				<router-outlet></router-outlet>
+			</div>
+		</div>
+	</div> 
+	<div *ngIf="identity">
+		<section class="main">
+			<div id="header_principal">
+				<div class="logo">
+					<a routerLink="/principal"><img src="./assets/images/viajes.jpg" height="100" width="150" /></a>
+				</div>
+				<div class="logo_cabecera">
+					<img src="assets/images/logo.png"  width="300" height="100" />
+				</div>
+				<div class="nombre">
+					<span>
+						Funcionario(a):<br>
+					</span>
+					{{identity.perNombre}}<br>
+					{{identity.perApellido}}
+					<br/>
+					<a (click)="logout()">Salir de sistema</a>
+				</div>
+				<!-- <hr> -->
+			</div>
+			<div class="contenedor" >
+				<div class="cuerpo">
+					<div class="menu">
+						<div class="modulo">
+							<div *ngFor="let menu of datoMenuMostrar">
+								<div *ngIf="menu.modPadre == 1">
+									<div id="menu">
+										<li><a [routerLink]="[menu.modUbicacion]">{{menu.modNombremostrar}}</a></li>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="tiemporestante">
+							Tiempo restante de sesión
+							<!-- <input>{{contador}}</input> -->
+							<div id='contador'>{{contador}}</div>
+						</div>
+					</div>
+					<div class="barra_gris">
+						<table border="0" cellpadding="0" cellspacing="0"> 
+							<tr><td bgcolor="#d3d1d1" width="1" height="100%"></td> 
+							</tr> 
+						</table> 
+					</div>
+					<div class="informacion">
+						<router-outlet></router-outlet>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+	<div id="footer"> 
+		<hr>
  	<!-- <div id="tiemporestante">
  		Tiempo restante de sesión
  		<div id='contador'></div>
@@ -84,3 +85,7 @@
  		<img src="assets/images/logo_pie.png" width="100" height=auto />
  	</div>
  </div>
+</div>
+<div *ngIf="salida == true">
+	<p>Saliendo del Sistema</p>
+</div>

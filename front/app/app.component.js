@@ -20,6 +20,7 @@ var AppComponent = (function () {
         this.progress = new core_1.EventEmitter();
     }
     AppComponent.prototype.ngOnInit = function () {
+        this.salida = false;
         this.user = {
             'email': "",
             'password': "",
@@ -128,12 +129,14 @@ var AppComponent = (function () {
         }
     };
     AppComponent.prototype.logout = function () {
+        this.salida = true;
         localStorage.removeItem('identity');
         localStorage.removeItem('token');
         sessionStorage.removeItem('identity');
         sessionStorage.removeItem('token');
         this.identity = null;
         this.token = null;
+        this.salida = false;
         window.location.href = '/';
     };
     AppComponent.prototype.Oncuentaregresiva = function () {

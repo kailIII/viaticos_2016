@@ -19,6 +19,7 @@ import {DataTableModule} from "angular2-datatable";
 import {EditorModule, SharedModule, MultiSelectModule,CalendarModule, DropdownModule} from 'primeng/primeng';
 // import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
+import { DatePipe } from './pipes/formatDate.pipe';
 // import { DatepickerModule } from 'ng2-bootstrap';
 // import { Ng2SmartTableModule } from 'ng2-smart-table';
 // import {InputTextModule} from 'primeng/components/inputtext/inputtext';
@@ -61,7 +62,8 @@ import { PdfViewerComponent } from 'ng2-pdf-viewer';
               NuevasolicitudComponent,
               UsuarioComponent,
               PdfViewerComponent,
-              ImprimirsolicitudComponent
+              ImprimirsolicitudComponent,
+              DatePipe
   ],
   providers:    [ appRoutingProviders],
   bootstrap:    [ AppComponent ],

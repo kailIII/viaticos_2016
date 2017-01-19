@@ -27,6 +27,7 @@ var angular2_datatable_1 = require("angular2-datatable");
 var primeng_1 = require("primeng/primeng");
 // import { PdfViewerComponent } from 'ng2-pdf-viewer';
 var ng2_pdf_viewer_1 = require("ng2-pdf-viewer");
+var formatDate_pipe_1 = require("./pipes/formatDate.pipe");
 // import { DatepickerModule } from 'ng2-bootstrap';
 // import { Ng2SmartTableModule } from 'ng2-smart-table';
 // import {InputTextModule} from 'primeng/components/inputtext/inputtext';
@@ -70,7 +71,8 @@ AppModule = __decorate([
             nuevasolicitud_component_1.NuevasolicitudComponent,
             usuario_component_1.UsuarioComponent,
             ng2_pdf_viewer_1.PdfViewerComponent,
-            imprimirsolicitud_component_1.ImprimirsolicitudComponent
+            imprimirsolicitud_component_1.ImprimirsolicitudComponent,
+            formatDate_pipe_1.DatePipe
         ],
         providers: [app_routing_1.appRoutingProviders],
         bootstrap: [app_component_1.AppComponent],

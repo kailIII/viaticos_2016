@@ -29,8 +29,8 @@
       'angular2-datatable': 'npm:angular2-datatable',
       'lodash': 'npm:lodash/lodash.js',
       'ng2-pdf-viewer': 'npm:ng2-pdf-viewer',
-      'pdfjs-dist': 'npm:pdfjs-dist'/*,
-      'moment': 'npm:moment',
+      'pdfjs-dist': 'npm:pdfjs-dist',
+      'moment': 'npm:moment'/*,
       'ng2-bootstrap': 'npm:ng2-bootstrap'*/
     },
     // packages tells the System loader how to load when no filename and/or no extension
@@ -60,14 +60,14 @@
       'pdfjs-dist': { 
         main: 'build/pdf.js',
         defaultExtension: 'js' 
-      }/*,
+      },/*
       'ng2-bootstrap': {
        main: 'index.js',
        defaultExtension: 'js'
-     },
+     },*/
      'moment':{
        format: 'cjs'
-     }*/
+     }
    }
  });
 })(this);

@@ -7,3 +7,8 @@ solicitud_editar:
     path:   /editar
     defaults: { _controller: "AppBundle:Solicitud:editar"}
     methods:  POST
+    
+solicitud_reporte:
+    path:   /reporte
+    defaults: { _controller: "AppBundle:Solicitud:reporte"}
+    methods:  POST

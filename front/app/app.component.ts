@@ -26,6 +26,7 @@ export class AppComponent implements OnInit{
 	public minutos;
 	public segundos;
 	public contador;
+	public salida;
 	@Output() progress: EventEmitter<any> = new EventEmitter();
 
 	constructor(
@@ -36,6 +37,7 @@ export class AppComponent implements OnInit{
 
 	}
 	ngOnInit(){
+		this.salida = false;
 		this.user = {
 			'email': "",
 			'password': "",
@@ -148,12 +150,14 @@ export class AppComponent implements OnInit{
 	}
 
 	logout() {
+		this.salida = true;
 		localStorage.removeItem('identity');
 		localStorage.removeItem('token');
 		sessionStorage.removeItem('identity');
 		sessionStorage.removeItem('token');
 		this.identity = null;
 		this.token = null;
+		this.salida= false;
 		window.location.href='/';
 	}
 

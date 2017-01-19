@@ -1,14 +1,80 @@
 <div class="menuActivo">
-				<div class="collapse navbar-collapse"  id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav">
-						<button [routerLink]="['/nueva_solicitud']">Generar una Nueva Solicitud</button>
-					</ul>
-					<ul class="nav navbar-nav navbar-right">
-						<p>Módulo actual: <span>{{titulo}}</span></p>
-					</ul>
-				</div>
-			</div>
-			<hr>
-			<div class="formulario_solicitud">
-				<p>Aqui va una tabla con todas las solicitudes realizadas</p>
+	<div class="collapse navbar-collapse"  id="bs-example-navbar-collapse-1">
+		<ul class="nav navbar-nav">
+			<button [routerLink]="['/nueva_solicitud']">Generar una Nueva Solicitud</button>
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<p>Módulo actual: <span>{{titulo}}</span></p>
+		</ul>
+	</div>
+</div>
+<hr>
+<div class="formulario_solicitud" *ngIf="detalleSol == false">
+	<div *ngIf="datoSolMostrar" >
+		<table cellpadding="0" cellspacing="0" border="0" class="display" id="muestra_datos" width="1">
+			<thead>
+				<tr>
+					<th>Solicitud</th>
+					<th>Fecha Realización</th>
+					<!-- <th>Nombre Funcionario</th> -->
+					<th>Estado</th>
+					<th width="65px">EDITAR - ELIMINAR</th>
+				</tr>
+			</thead>
+			
+			<tbody *ngFor="let SolicitudMostrar of info">
+				<!-- <tbody *ngFor="let datoUsuario of datoUsuarioMostrar"> -->
+				<tr>
+					<td><button (click)="OnMostrarDetalle()">
+						{{SolicitudMostrar.solIdsolicitud}}
+					</button></td>
+
+					<td>{{SolicitudMostrar.solFecharealizacion}}</td>
+					<!-- <td>{{SolicitudMostrar.per.perNombrecompleto}}</td> -->
+
+					<td>{{SolicitudMostrar.solEstado}}</td>
+					<td>
+						<!--<a href="<?php echo site_url('cliente/cliente/ver_cliente/' . $datos->FUN_ID); ?>" class="btn btn-primary btn-xs"><i class="icon-search"></i></a>-->
+						<a class="btn btn-warning btn-xs glyphicon glyphicon-edit"></a>
+						<!-- <a href="<?php echo site_url('cliente/cliente/editar_cliente/' . $datos->FUN_ID); ?>" class="btn btn-warning btn-xs"><i class="icon-edit"></i></a>
+						<a href="<?php echo site_url('cliente/cliente/borrar_cliente/' . $datos->FUN_ID); ?>" class="btn btn-danger btn-xs"><i class="icon-trash"></i></a> -->
+						<a class="btn btn-danger btn-xs glyphicon glyphicon-trash"></a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div *ngIf!="datoSolMostrar">
+			<!-- <table cellpadding="0" cellspacing="0" border="0" class="display" id="muestra_datos" width="1">
+				<thead>
+					<tr>
+						<th>Solicitud</th>
+						<th>Fecha Realización</th>
+						<th>Nombre Funcionario</th>
+						<th>Estado</th>
+						<th width="65px">EDITAR - ELIMINAR</th>
+					</tr>
+				</thead>
+				<tbody >
+					<tr>
+						<td> -->{{NoMostrar}}<!-- </td>
+					</tr>
+				</tbody>
+			</table> -->
 		</div>
+	</div>
+	<div id="detalleSol" *ngIf="detalleSol == true">
+		<!-- <div class="menuActivo">
+			<div class="collapse navbar-collapse"  id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav"> -->
+					<button (click)="OnbotonAtrasSolicitud()">Atrás</button>
+				<!-- </ul>
+				<ul class="nav navbar-nav navbar-right">
+					<p>Módulo actual: <span>{{titulo}}</span></p>
+				</ul>
+			</div>
+		</div> -->
+		<p>Id de la solicitud</p> <!-- <p>{{SolicitudMostrar.solIdsolicitud}}</p> -->
+		<p>Fecha de la solicitud</p> <!-- <p>{{SolicitudMostrar.solFecharealizacion}}</p> -->
+		<p>Estado de la solicitud</p> <!-- <p>{{SolicitudMostrar.solEstado}}</p> -->
+	</div>
