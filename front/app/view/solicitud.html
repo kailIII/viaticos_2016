@@ -9,40 +9,35 @@
 	</div>
 </div>
 <hr>
-<div class="formulario_solicitud" *ngIf="detalleSol == false">
+<!-- Inicio del collapse en menu-->
+<div >
+<p-tabView>
+    <p-tabPanel header="Realizadas">
+       <!-- inicio detalle solicitud realizadas -->
+       <div class="formulario_solicitud" *ngIf="detalleSol == false">
 	<div *ngIf="datoSolMostrar" >
-		<table cellpadding="0" cellspacing="0" border="0" class="display" id="muestra_datos" width="1">
-			<thead>
-				<tr>
-					<th>Solicitud</th>
-					<th>Fecha Realización</th>
-					<!-- <th>Nombre Funcionario</th> -->
-					<th>Estado</th>
-					<th width="65px">EDITAR - ELIMINAR</th>
-				</tr>
-			</thead>
-			
-			<tbody *ngFor="let SolicitudMostrar of info">
-				<!-- <tbody *ngFor="let datoUsuario of datoUsuarioMostrar"> -->
-				<tr>
-					<td><button (click)="OnMostrarDetalle()">
-						{{SolicitudMostrar.solIdsolicitud}}
-					</button></td>
-
-					<td>{{SolicitudMostrar.solFecharealizacion}}</td>
-					<!-- <td>{{SolicitudMostrar.per.perNombrecompleto}}</td> -->
-
-					<td>{{SolicitudMostrar.solEstado}}</td>
-					<td>
-						<!--<a href="<?php echo site_url('cliente/cliente/ver_cliente/' . $datos->FUN_ID); ?>" class="btn btn-primary btn-xs"><i class="icon-search"></i></a>-->
-						<a class="btn btn-warning btn-xs glyphicon glyphicon-edit"></a>
-						<!-- <a href="<?php echo site_url('cliente/cliente/editar_cliente/' . $datos->FUN_ID); ?>" class="btn btn-warning btn-xs"><i class="icon-edit"></i></a>
-						<a href="<?php echo site_url('cliente/cliente/borrar_cliente/' . $datos->FUN_ID); ?>" class="btn btn-danger btn-xs"><i class="icon-trash"></i></a> -->
-						<a class="btn btn-danger btn-xs glyphicon glyphicon-trash"></a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		<!-- <table cellpadding="0" cellspacing="0" border="0" class="display" id="muestra_datos" width="1"> -->
+		<div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none; text-align: right;">
+    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+    <input #gb type="text" pInputText size="25" placeholder="Buscar">
+</div>
+		<p-dataTable [value]="datoSolMostrar" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [globalFilter]="gb">
+		<!-- <p-header>Solicitudes Realizadas</p-header> -->
+    <p-column field="solIdsolicitud" header="Solicitud" [sortable]="true"></p-column>
+    <p-column field="solFecharealizacion" dateformat="yyyy-MM-dd" header="Fecha Realización" [sortable]="true"></p-column>
+    <p-column field="solEstado" header="Estado" [sortable]="true"></p-column>
+    <!-- <p-column field="solAnio" header="Acción"></p-column> -->
+    <p-column styleClass="col-button" header="Acción">
+        <!-- <template pTemplate="header"> -->
+            <!-- <button type="button" pButton icon="fa-refresh"></button> -->
+            <!-- <p><ins>Acción</ins></p> -->
+        <!-- </template> -->
+        <template let-car="rowData" pTemplate="body">
+            <button type="button" pButton (click)="selectCar(car)" icon="fa-edit"></button>
+        </template>
+    </p-column>
+</p-dataTable>
+		<!-- </table> -->
 	</div>
 	<div *ngIf!="datoSolMostrar">
 			<!-- <table cellpadding="0" cellspacing="0" border="0" class="display" id="muestra_datos" width="1">
@@ -63,6 +58,58 @@
 			</table> -->
 		</div>
 	</div>
+
+       <!-- fin detalle solicitud realizadas -->
+    </p-tabPanel>
+    <p-tabPanel header="Por Firmar">
+        <!-- inicio detalle solicitud por firmar -->
+
+<!-- <p-dataTable id="muestra_datos" [value]="datoSolMostrar" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[10,15,20]">
+ -->    <!-- <p-header>Solicitudes Realizadas</p-header> -->
+    <!-- <p-column *ngFor="let col of datoSolMostrar" [field]="col.solIdsolicitud" [header]="Solicitud"></p-column> -->
+    <!-- <p-column field="{{SolicitudMostrar.solIdsolicitud}}" header="Solicitud"></p-column> -->
+    <!-- <p-column field="{{SolicitudMostrar.solFecharealizacion}}" header="Fecha realización"></p-column> -->
+    <!-- <p-column field="{{SolicitudMostrar.solEstado}}" header="Estado"></p-column> -->
+    <!-- <p-column field="<a class="btn btn-warning btn-xs glyphicon glyphicon-edit"></a>" header="Editar"></p-column> -->
+<!-- </p-dataTable> -->
+
+<!-- <table cellpadding="0" cellspacing="0" border="0" class="display" id="muestra_datos" width="1"> -->
+<p-dataTable id="muestra_datos" [value]="datoSolMostrar" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[10,15,20]" >
+
+
+<thead>
+                    <tr><tr>
+                        <th>ID</th>
+                        <th>NOMBRE</th>
+                        <th>EXTENSION</th>
+                        <th>ESTADO</th>
+                        <th width="65px">EDITAR</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let SolicitudMostrar of datoSolMostrar">
+                	<td>{{SolicitudMostrar.solIdsolicitud}}</td>
+                	<td>{{SolicitudMostrar.solFecharealizacion}}</td>
+                	<td>{{SolicitudMostrar.solEstado}}"</td>
+                	<td>
+                		<a class="btn btn-warning btn-xs"><i class="icon-edit"></i></a>
+                	</td>
+
+                </tbody>
+                
+</p-dataTable>
+
+
+        <!-- fin detalle solicitud por firmar -->
+    </p-tabPanel>
+    <p-tabPanel header="Historial">
+        <!-- inicio detalle historial solicitud     -->
+        <!-- fin detalle historial solicitud -->
+    </p-tabPanel>
+</p-tabView>
+
+            </div>
+
+<!-- fin del collapse en menu-->
 	<div id="detalleSol" *ngIf="detalleSol == true">
 		<!-- <div class="menuActivo">
 			<div class="collapse navbar-collapse"  id="bs-example-navbar-collapse-1">

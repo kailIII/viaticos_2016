@@ -12,8 +12,12 @@ var core_1 = require("@angular/core");
 // import { Router, ActivatedRoute, Params } from '@angular/router';
 var login_service_1 = require("../services/login.service");
 var solicitud_service_1 = require("../services/solicitud.service");
+// import * as $ from 'jquery';
 var SolicitudComponent = (function () {
+    // private activeItem: MenuItem;
     // public solicitudpropia;
+    // private realizadas: any[];
+    // @ViewChild('input') input: ElementRef;
     function SolicitudComponent(_loginService, _solicitudService) {
         this._loginService = _loginService;
         this._solicitudService = _solicitudService;
@@ -27,7 +31,27 @@ var SolicitudComponent = (function () {
             'fun_id': this.identity.sub
         };
         this.OnVerDetalleSol();
+        // this.OnTabSol();
+        // this.OnPaginacion("muestra_datos");
     };
+    // OnPaginacion(id){
+    // 	$('#'+id+"'").DataTable( { //CONVERTIMOS NUESTRO LISTADO DE LA FORMA DEL JQUERY.DATATABLES- PASAMOS EL ID DE LA TABLA
+    //        "sPaginationType": "full_numbers" //DAMOS FORMATO A LA PAGINACION(NUMEROS)
+    //    } );
+    // }
+    SolicitudComponent.prototype.OnTabSol = function () {
+        this.items = [
+            { label: 'Solicitudes realizadas' },
+            { label: 'Solicitudes por firmar' },
+            { label: 'Historial de solicitudes' },
+        ];
+    };
+    // OnDetalleSolicitudRealizados(){
+    // 	$(document).ready(function(){
+    //     $('#muestra_datos').dataTable();
+    // });
+    // }
+    //esto es con subscribe
     SolicitudComponent.prototype.OnVerDetalleSol = function () {
         var _this = this;
         this._solicitudService.reporteSolicitud(this.token, this.funcionario).subscribe(function (response) {
@@ -52,6 +76,9 @@ var SolicitudComponent = (function () {
                     }
                     ;
                     _this.datoSolMostrar = JSON.parse("[" + _this.datoSol + "]");
+                    // console.log("datoSolMostrar:"+this.datoSol);
+                    // console.log("datoSolMostrar:"+new Date(this.datoSolMostrar[0].solFecharealizacion).toLocaleDateString());
+                    // this.datoSolMostrar = this.datoSol;
                     return _this.datoSolMostrar;
                 }
             }

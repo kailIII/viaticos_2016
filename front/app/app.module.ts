@@ -1,4 +1,4 @@
-import { NgModule }      from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
@@ -15,9 +15,11 @@ import {ImprimirsolicitudComponent} from "./components/imprimirsolicitud.compone
 
 import { routing, appRoutingProviders } from './app.routing';
 // import {InputTextModule, DataTableModule, ButtonModule, DialogModule} from 'primeng/primeng';
-import {DataTableModule} from "angular2-datatable";
-import {EditorModule, SharedModule, MultiSelectModule,CalendarModule, DropdownModule} from 'primeng/primeng';
+// import {DataTableModule} from "angular2-datatable";
+import {EditorModule, SharedModule, MultiSelectModule,CalendarModule, DropdownModule,TabViewModule,DataTableModule, PanelModule} from 'primeng/primeng';
 // import { PdfViewerComponent } from 'ng2-pdf-viewer';
+import { CommonModule } from '@angular/common';
+
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { DatePipe } from './pipes/formatDate.pipe';
 // import { DatepickerModule } from 'ng2-bootstrap';
@@ -39,6 +41,8 @@ import { DatePipe } from './pipes/formatDate.pipe';
               HttpModule, 
               FormsModule, 
               routing, 
+              CommonModule,
+              PanelModule,
               // InputTextModule, 
               // DataTableModule, 
               // ButtonModule, 
@@ -50,7 +54,8 @@ import { DatePipe } from './pipes/formatDate.pipe';
               SharedModule,
               MultiSelectModule,
               CalendarModule,
-              DropdownModule
+              DropdownModule,
+              TabViewModule
   ],
   declarations: [ 
               AppComponent,
@@ -67,6 +72,7 @@ import { DatePipe } from './pipes/formatDate.pipe';
   ],
   providers:    [ appRoutingProviders],
   bootstrap:    [ AppComponent ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA ]
 
 })
 

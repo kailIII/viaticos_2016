@@ -9,57 +9,98 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-// import { Router, ActivatedRoute, Params } from '@angular/router';
+// import $ = require('jquery')
+// declare var jQuery:any;
+// var jQuery:any = require("jquery");
+//
 var InformeComponent = (function () {
-    function InformeComponent() {
+    function InformeComponent(elRef) {
+        this.elRef = elRef;
         this.titulo = "Componente de Informe";
-        // public identity;
-        // public funcionario;
-        // public errorMessage;
-        // public status;
-        // public info;
-        // public datoMenu;
-        // public datoMenuIteracion;
-        // public datoMenuMostrar: Array<any>;
-        // constructor(
-        // 	private _loginService: LoginService
-        // 	){}
-        // ngOnInit(){
-        // 	this.identity = this._loginService.getIdentity();
-        // 	this.funcionario = {
-        // 		'id_fun': this.identity.sub
-        // 	};
-        // 	this._loginService.menuUsuario(this.funcionario).subscribe(
-        // 		response => {
-        // 			let info = response;
-        // 			this.info = info;
-        // 			if(this.info.length <=0){
-        // 				alert("Error en el servidor 5");
-        // 			}else{ 	
-        // 				if(!this.info.status){
-        // 					this.datoMenu = "";
-        // 					var length = this.info.length;
-        // 					for (var i = 0; i < length; i++) {
-        // 						this.datoMenuIteracion = JSON.stringify(this.info[i].mod);
-        // 						if(this.datoMenu == ""){
-        // 							this.datoMenu = this.datoMenuIteracion;
-        // 						}else{
-        // 							this.datoMenu = this.datoMenu+","+this.datoMenuIteracion;
-        // 						}
-        // 					};  
-        // 					this.datoMenuMostrar = JSON.parse("["+this.datoMenu+"]");  
-        // 					return this.datoMenuMostrar;
-        // 				}
-        // 			}
-        // 		},error => {
-        // 			this.errorMessage = <any>error;
-        // 			if(this.errorMessage != null){
-        // 				console.log(this.errorMessage);
-        // 				alert("Error en la peticion de OnMenu")
-        // 			}
-        // 		});
-        // }
     }
+    // ngAfterViewInit() {
+    //       jQuery('button').click();
+    //   }
+    InformeComponent.prototype.ngOnInit = function () {
+        this.myRowData = [
+            { "name": "Ronald Bowman", "country": "China", "city": "Lutou", "email": "rbowman0@spotify.com" },
+            { "name": "Pamela Hill", "country": "Russia", "city": "Krylovskaya", "email": "phill1@symantec.com" },
+            { "name": "Robin Andrews", "country": "Ukraine", "city": "Korop", "email": "randrews2@photobucket.com" },
+            { "name": "Peter Kim", "country": "Mexico", "city": "San Jose", "email": "pkim3@theatlantic.com" },
+            { "name": "Carol Foster", "country": "Mexico", "city": "El Aguacate", "email": "cfoster8@intel.com" },
+            { "name": "Jimmy Burke", "country": "Indonesia", "city": "Banjarsari", "email": "jburke9@over-blog.com" },
+            { "name": "Jonathan Crawford", "country": "Peru", "city": "Alca", "email": "jcrawforda@deliciousdays.com" },
+            { "name": "Donald Montgomery", "country": "Poland", "city": "Działoszyce", "email": "dmontgomeryb@google.com.br" },
+            { "name": "Donna Shaw", "country": "Japan", "city": "Akune", "email": "dshawc@chronoengine.com" },
+            { "name": "Helen King", "country": "United States", "city": "Hollywood", "email": "hkingd@devhub.com" },
+            { "name": "Walter Myers", "country": "China", "city": "a ndaowa n", "email": "wmyerse@state.tx.us" },
+            { "name": " Alice Collins", "country": "Papua Nw  Guine a", "city": "Mendi", "email": "acollinsf@npr.org" },
+            { "name": "Anne Richards", "country": "China", "city": "Koramlik", "email": "arichardsu@vinaora.com" },
+            { "name": "Randy Miller", "country": "Indonesia", "city": "Trenggulunan", "email": "rmillerv@oakley.com" },
+            { "name": "Phillip Adams", "country": "Bahamas", "city": "Duncan Town", "email": "padamsw@lycos.com" },
+            { "name": "Nicholas Allen", "country": "Philippines", "city": "Bautista", "email": "nallenx@aboutads.info" },
+            { "name": "Lisa Willis", "country": "Thailand", "city": "Lat Yao", "email": "lwillisy@istockphoto.com" },
+            { "name": "Jeffrey Castillo", "country": "Indonesia", "city": "Karangsari", "email": "jcastilloz@washington.edu" },
+            { "name": "Michael Carpenter", "country": "Colombia", "city": "Cali", "email": "mcarpenter13@prlog.org" },
+            { "name": "Roger Lee", "country": "France", "city": "Courtaboeuf", "email": "rlee14@earthlink.net" },
+            { "name": "Steve Wallace", "country": "Russia", "city": "Novobeysugskaya", "email": "swallace15@cisco.com" },
+            { "name": "Shirley Patterson", "country": "Peru", "city": "La Tinguiña", "email": "spatterson16@woothemes.com" },
+            { "name": "Nancy Ward", "country": "Sweden", "city": "Båstad", "email": "nward17@mapquest.com" }
+        ];
+        this.columnDefs = [
+            { header: 'Nombre', field: "name", width: 200 },
+            { header: 'Pais', field: "country", width: 180 },
+            { header: 'Ciudad', field: "city", width: 160 },
+            { header: 'correo', field: "email", width: 300 }
+        ];
+        // this.columnDefs = JSON.stringify(this.myRowData);
+        // this.columnDefs = this.myRowData;
+        // jQuery(this.elRef.nativeElement).find('table').on('click',function(){
+        // let tabla = (<HTMLInputElement>document.getElementById("hazclick")).value;
+        // // console.log(tabla);
+        //    $('#'+tabla+'').DataTable( { //CONVERTIMOS NUESTRO LISTADO DE LA FORMA DEL JQUERY.DATATABLES- PASAMOS EL ID DE LA TABLA
+        //      "sPaginationType": "full_numbers" //DAMOS FORMATO A LA PAGINACION(NUMEROS)
+        //  } );
+        // });
+        // // $('#elemId')
+        // // css('color','red');
+        // $('button').click();
+    };
+    InformeComponent.prototype.OnVerDetalleSol = function () {
+        var _this = this;
+        this._solicitudService.reporteSolicitud(this.token, this.funcionario).subscribe(function (response) {
+            var info = response;
+            _this.info = info;
+            if (_this.info.length <= 0) {
+                _this.NoMostrar = "No existen solicitudes realizadas";
+                return _this.NoMostrar;
+            }
+            else {
+                if (!_this.info.status) {
+                    _this.datoSol = "";
+                    var length = _this.info.length;
+                    for (var i = 0; i < length; i++) {
+                        _this.datoSolIteracion = JSON.stringify(_this.info[i]);
+                        if (_this.datoSol == "") {
+                            _this.datoSol = _this.datoSolIteracion;
+                        }
+                        else {
+                            _this.datoSol = _this.datoSol + "," + _this.datoSolIteracion;
+                        }
+                    }
+                    ;
+                    _this.datoSolMostrar = JSON.parse("[" + _this.datoSol + "]");
+                    return _this.datoSolMostrar;
+                }
+            }
+        }, function (error) {
+            _this.errorMessage = error;
+            if (_this.errorMessage != null) {
+                console.log(_this.errorMessage);
+                alert("Error en la peticion de solicitudes");
+            }
+        });
+    };
     return InformeComponent;
 }());
 InformeComponent = __decorate([
@@ -67,7 +108,7 @@ InformeComponent = __decorate([
         selector: 'informe',
         templateUrl: 'app/view/informe.html'
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [core_1.ElementRef])
 ], InformeComponent);
 exports.InformeComponent = InformeComponent;
 //# sourceMappingURL=informe.component.js.map

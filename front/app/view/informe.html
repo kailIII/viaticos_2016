@@ -1,1 +1,77 @@
-{{titulo}}
+<!-- <button onclick="console.log('It Worked!!')">
+                    jQuery Integration Test
+                </button> -->
+                <!-- <button id="hazclick" >Click me</button> -->
+
+                <!-- <input type="text" id="hazclick" value="prueba"> -->
+
+                <!-- </input> -->
+
+                <!-- <table id="hazclick">
+                	<tr>
+                		<th>Company</th>
+                		<th>Contact</th>
+                		<th>Country</th>
+                	</tr>
+                	<tr>
+                		<td>Alfreds Futterkiste</td>
+                		<td>Maria Anders</td>
+                		<td>Germany</td>
+                	</tr>
+                	<tr>
+                		<td>Centro comercial Moctezuma</td>
+                		<td>Francisco Chang</td>
+                		<td>Mexico</td>
+                	</tr>
+                	<tr>
+                		<td>Ernst Handel</td>
+                		<td>Roland Mendel</td>
+                		<td>Austria</td>
+                	</tr>
+                	<tr>
+                		<td>Island Trading</td>
+                		<td>Helen Bennett</td>
+                		<td>UK</td>
+                	</tr>
+                	<tr>
+                		<td>Laughing Bacchus Winecellars</td>
+                		<td>Yoshi Tannamuri</td>
+                		<td>Canada</td>
+                	</tr>
+                	<tr>
+                		<td>Magazzini Alimentari Riuniti</td>
+                		<td>Giovanni Rovelli</td>
+                		<td>Italy</td>
+                	</tr>
+                </table> -->
+
+
+<table id="muestra_datos">
+	<thead>
+		<tr>
+                		<th>Nombre</th>
+                		<th>Pais</th>
+                		<th>Ciudad</th>
+                		<th>Correo</th>
+
+                	</tr>
+	</thead>
+	<tbody *ngFor="let SolicitudMostrar of myRowData">
+		<tr>
+                		<td>{{SolicitudMostrar.name}}</td>
+                		<td>{{SolicitudMostrar.country}}</td>
+                		<td>{{SolicitudMostrar.city}}</td>
+                		<td>{{SolicitudMostrar.email}}</td>
+
+                	</tr>
+	</tbody>
+</table>
+                <p-dataTable [value]="myRowData" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[10,15,20]" >
+                	<p-header>Solicitudes Realizadas</p-header>
+                	<p-column [field]="name" [header]="Nombre"></p-column>
+                	<p-column [field]="country" [header]="Pais"></p-column>
+                	<p-column [field]="city" [header]="Ciudad"></p-column>
+                	<p-column [field]="email" [header]="Correo"></p-column>
+
+                	<!-- <p-column [field]="boton" [header]="Editar"></p-column> -->
+                </p-dataTable>

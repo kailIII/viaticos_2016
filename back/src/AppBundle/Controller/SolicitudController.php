@@ -348,6 +348,7 @@ class SolicitudController extends Controller {
 		}
 		return $helpers->json($data);
 	}
+
 	public function reporteAction(Request $request) {
 		$helpers = $this->get("app.helpers");
 
@@ -394,7 +395,7 @@ class SolicitudController extends Controller {
 							)
 						);
 					return $helpers->json($solPer);
-
+					
 				}else{
 					$cargoPer1 = $em->getRepository('BackBundle:CargoPersona')->findBy(
 						array(
@@ -402,9 +403,10 @@ class SolicitudController extends Controller {
 							"carperEstado"=> "A"
 							)
 						);
+				// return $helpers->json($cargoPer1);
 
-					// $solicitudPer = array();
-					// $solicitudPer = null;
+					$solicitudPer = array();
+					$solicitudPer = null;
 					foreach ($cargoPer1 as $cargoHijo) {
 						$solPer1 = $em->getRepository('BackBundle:Solicitud')->findBy(
 							array(

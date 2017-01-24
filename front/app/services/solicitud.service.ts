@@ -45,7 +45,7 @@ export class SolicitudService{
 
 	}
 
-		reporteSolicitud(token,data){
+	reporteSolicitud(token,data){
 		let json = JSON.stringify(data);
 		let params = "json="+json+"&authorization="+token;
 		let headers = new Headers({'Content-Type':'application/x-www-form-urlencoded'});

@@ -30,7 +30,8 @@
       'lodash': 'npm:lodash/lodash.js',
       'ng2-pdf-viewer': 'npm:ng2-pdf-viewer',
       'pdfjs-dist': 'npm:pdfjs-dist',
-      'moment': 'npm:moment'/*,
+      'moment': 'npm:moment',
+      'jquery':'npm:jquery'/*,
       'ng2-bootstrap': 'npm:ng2-bootstrap'*/
     },
     // packages tells the System loader how to load when no filename and/or no extension
@@ -67,7 +68,11 @@
      },*/
      'moment':{
        format: 'cjs'
-     }
+     },
+      'jquery': { 
+        main: 'dist/jquery.js',
+        defaultExtension: 'js' 
+      }
    }
  });
 })(this);
