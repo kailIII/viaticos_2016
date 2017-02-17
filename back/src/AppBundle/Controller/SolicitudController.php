@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+// use Symfony\Component\Form\Extension\Core\Type\DateType;
+// use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -22,28 +24,17 @@ use BackBundle\Entity\TransporteSolicitado;
 class SolicitudController extends Controller {
 	public function nuevoAction(Request $request) {
 		$helpers = $this->get("app.helpers");
-
 		$json = $request->get("json", null);
 		$params = json_decode($json);
-
 		$hash = $request->get("authorization", null);
 		$authCheck = $helpers->authCheck($hash);
-
 		$data = array();
-
 		if ($authCheck == true) {
 			$identity = $helpers->authCheck($hash, true);
 			if ($json != null) {
 				$correo = (isset($params->correo)) ? $params->correo : null;
-				// $fechahoy = (new \DateTime());
 				$Fecha_sol = (isset($params->Fecha_sol)) ? $params->Fecha_sol : null;
-				$fecha = new \DateTime($Fecha_sol);
-				// $fecha = \DateTime::createFromFormat('m/d/Y', $Fecha_sol);
-				// $fechabusqueda = (\DateTime::createFromFormat('d/m/Y', $fecha));
-
-				// return $helpers->json($fecha);
-				// return $helpers->json($fecha);
-
+				$fecha = $Fecha_sol;
 				$em = $this->getDoctrine()->getManager();
 //inicio crear solicitud
 				$isset_persona = $em->getRepository('BackBundle:Persona')->findOneBy(
@@ -56,7 +47,7 @@ class SolicitudController extends Controller {
 					array(
 						"solFecharealizacion" => $fecha, 
 						"per" => $isset_persona,
-						"solEstado" => "A"
+						"solEstado" => "P"
 						)
 					);
 				if (count($isset_solicitud) == 0){
@@ -90,13 +81,12 @@ class SolicitudController extends Controller {
 						$idsecuencial = count($secuencial)+1;
 					}
 					$numsol = trim($cargo_persona[0]->getCar()->getDep()->getDepSiglas())."-".date('Y')."-SAPCSI-".trim($isset_persona->getPerIniciales())."-".$idsecuencial;
-
 					$solicitud = new Solicitud();
 					$solicitud->setSolSecuencial($idsecuencial);
 					$solicitud->setSolIdsolicitud($numsol);
 					$solicitud->setSolFecharealizacion($fecha);
 					$solicitud->setSolNumeroactualizacion("0");
-					$solicitud->setSolEstado("A");
+					$solicitud->setSolEstado("P");
 					$solicitud->setSolAnio($soloanio);
 					$solicitud->setPer($isset_persona);
 					$em->persist($solicitud);
@@ -109,10 +99,32 @@ class SolicitudController extends Controller {
 					$actividadessol = (isset($params->actividadessol)) ? $params->actividadessol : null;
 					$observacionsol = (isset($params->observacionsol)) ? $params->observacionsol : null;
 
-					$fechaDesde = new \DateTime($FechaDesde_sol);
-					$fechaHasta = new \DateTime($FechaHasta_sol);
-					$HoraDesde = new \DateTime($HoraDesde_sol);
-					$HoraHasta = new \DateTime($HoraHasta_sol);
+					// $datetime = new \DateTime();
+// $newDate = $datetime->createFromFormat('d/m/Y', '23/05/2013');
+
+					$fechaDesde = $FechaDesde_sol;
+					$fechaHasta = $FechaHasta_sol;
+					$HoraDesde = $HoraDesde_sol;
+					$HoraHasta = $HoraHasta_sol;
+
+					
+					// $fechaDesde = $datetime->createFromFormat('d-m-Y', $FechaDesde_sol);
+					// $fechaHasta = $datetime->createFromFormat('d-m-Y', $FechaHasta_sol);
+					// $HoraDesde = $datetime->createFromFormat('d-m-Y', $HoraDesde_sol);
+					// $HoraHasta = $datetime->createFromFormat('d-m-Y', $HoraHasta_sol);
+
+					// $fechaDesde = new \DateTime($FechaDesde_sol);
+					// $fechaHasta = new \DateTime($FechaHasta_sol);
+					// $HoraDesde = new \DateTime($HoraDesde_sol);
+					// $HoraHasta = new \DateTime($HoraHasta_sol);
+
+// $fechastotales = ("fechaDesde: ".$fechaDesde." fechaHasta: ".$fechaHasta. " HoraDesde: ".$HoraDesde." HoraHasta: ".$HoraHasta);
+
+// $fechastotales = ("fechaDesde: ".$fechaDesde." fechaHasta: ".$fechaHasta);
+
+
+					// return $helpers->json($fechastotales);
+
 					$rutasol = "pdf/".trim($isset_persona->getPerIdentificacion())."/".$numsol.".pdf";
 
 					$existe_estado_solicitud = $em->getRepository('BackBundle:EstadoSolicitud')->findBy(
@@ -120,6 +132,7 @@ class SolicitudController extends Controller {
 							"sol" => $solicitud
 							)
 						);
+					// return $helpers->json($existe_estado_solicitud);
 					if (count($existe_estado_solicitud) == 0){
 						$estado_solicitud = new EstadoSolicitud();
 						$estado_solicitud->setEstsolFechasalida($fechaDesde);
@@ -133,6 +146,8 @@ class SolicitudController extends Controller {
 						$estado_solicitud->setSol($solicitud);
 						$em->persist($estado_solicitud);
 						$em->flush();
+// return $helpers->json($estado_solicitud);
+
 // inicio crear ciudad solicitud		
 						$existe_solicitud_ciudad = $em->getRepository('BackBundle:CiudadSolicitud')->findBy(
 							array(
@@ -177,7 +192,6 @@ class SolicitudController extends Controller {
 									$hay_persona = $em->getRepository('BackBundle:Persona')->findOneBy(
 										array(
 											"perNombrecompleto" => trim($sol_persona),
-								// "perId" => $sol_persona,
 											"perEstado"=> "A"
 											)
 										);
@@ -187,8 +201,14 @@ class SolicitudController extends Controller {
 										$personacomision->setSol($solicitud);
 										$em->persist($personacomision);
 										$em->flush();
-										
-//inicio crear transporte solicitud
+										}else {
+										$data = array(
+											"status" => "error",
+											"code" => 400,
+											"msg" => "Funcionario no existe, por favor ingrese los datos correctos1"
+											);
+									}
+										//inicio crear transporte solicitud
 										$transportesolicitado1 = $em->getRepository('BackBundle:TransporteSolicitado')->findBy(
 											array(
 												"estsol" => $estado_solicitud
@@ -196,30 +216,24 @@ class SolicitudController extends Controller {
 											);
 										if(count($transportesolicitado1)==0){
 											$solotransporteSol = (isset($params->solotransporteSol)) ? $params->solotransporteSol : null;
-
 											$traruta_sol = Array();
 											$traruta_sol = explode(';', $solotransporteSol);
-												// var_dump($traruta_sol);
 											foreach ($traruta_sol as $existe_transporte) {
-												// $existe_transporte1 = "";
-												// $existe_transporte1 = $helpers->json($existe_transporte);
-
 												$isset_transporte = Array();
-												// $isset_transporte.length=0;
 												$isset_transporte = explode(',', $existe_transporte);
-												// var_dump($isset_transporte);
-												
 												$Tiptramod = $isset_transporte[1];
 												$TrasolRutainicio = $isset_transporte[2];
 												$TrasolRutafin = $isset_transporte[3];
-												// $TrasolFechasalida = (new \DateTime($isset_transporte[4]))->format('m/d/Y');
-												$TrasolFechasalida = \DateTime::createFromFormat('d/m/Y', $isset_transporte[4]);
-												$TrasolHorasalida = new \DateTime($isset_transporte[5]);
-												// $TrasolFechallegada = (new \DateTime($isset_transporte[6]))->format('m/d/Y');
-												$TrasolFechallegada = \DateTime::createFromFormat('d/m/Y', $isset_transporte[6]);
-												$TrasolHorallegada = new \DateTime($isset_transporte[7]);
-// var_dump($TrasolFechasalida);
-					// return $helpers->json($TrasolFechasalida);
+												$TrasolFechasalida = $isset_transporte[4];
+												$TrasolHorasalida = $isset_transporte[5];
+												$TrasolFechallegada = $isset_transporte[6];
+												$TrasolHorallegada = $isset_transporte[7];
+
+// $TrasolFechasalida = \DateTime::createFromFormat('d/m/Y', $isset_transporte[4]);
+// 												$TrasolHorasalida = new \DateTime($isset_transporte[5]);
+// 												$TrasolFechallegada = \DateTime::createFromFormat('d/m/Y', $isset_transporte[6]);
+// 												$TrasolHorallegada = new \DateTime($isset_transporte[7]);
+
 												$tiptra = $em->getRepository('BackBundle:TipoTransporte')->findOneBy(
 													array(
 														"tiptraNombre" => $Tiptramod
@@ -237,75 +251,12 @@ class SolicitudController extends Controller {
 												$em->persist($transporte_solicitud);
 												$em->flush();
 											}
-										}
 										$data["status"] = "success";
 										$data["msg"] = "Solicitud creada satisfactoriamente";
-											// else {
-										// 	$data = array(
-										// 		"status" => "error",
-										// 		"code" => 400,
-										// 		"msg" => "Solicitud no existe, por favor ingrese la solicitud"
-										// 		);
-										// }
+										}
 //fin crear transporte solicitud
-									}else {
-										$data = array(
-											"status" => "error",
-											"code" => 400,
-											"msg" => "Funcionario no existe, por favor ingrese los datos correctos"
-											);
-									}
 								}
-
-
-//inicio crear transporte solicitud
-								// $solotransporteSol = (isset($params->solotransporteSol)) ? $params->solotransporteSol : null;
-
-								// $traruta_sol = Array();
-								// $traruta_sol = explode(';', $solotransporteSol);
-								// $transportesolicitado1 = $em->getRepository('BackBundle:TransporteSolicitado')->findBy(
-								// 	array(
-								// 		"estsol" => $estado_solicitud
-								// 		)
-								// 	);
-// if(count($transportesolicitado1)==0){
-// 										foreach ($transporte_solu as $isset_tipotransporte) {
-// 											$tipotransporte = $em->getRepository('BackBundle:TipoTransporte')->findOneBy(
-// 												array(
-// 													"tiptraNombre" => $isset_tipotransporte
-// 													)
-// 												);
-// 											foreach ($trarutaInicio_sol as $trarutaInicio_sol_ini) {
-// 												foreach ($trarutaFin_sol as $trarutaFin_sol_ini) {
-// 													foreach ($trahoraInicio_sol as $trahoraInicio_sol_ini) {
-// 														foreach ($trahoraFin_sol as $trahoraFin_sol_ini) {
-// 															foreach ($trafechaInicio_sol as $trafechaInicio_sol_ini) {
-// 																foreach ($trafechaFin_sol as $trafechaFin_sol_ini) {
-// 																	$transporte_solicitud = new TransporteSolicitado();
-// 																	$transporte_solicitud->setTrasolRutainicio($trarutaInicio_sol_ini);
-// 																	$transporte_solicitud->setTrasolRutafin($trarutaFin_sol_ini);
-// 																	$transporte_solicitud->setTrasolFechasalida($trafechaInicio_sol_ini);
-// 																	$transporte_solicitud->setTrasolHorasalida($trahoraInicio_sol_ini);
-// 																	$transporte_solicitud->setTrasolFechallegada($trafechaFin_sol_ini);
-// 																	$transporte_solicitud->setTrasolHorallegada($trahoraFin_sol_ini);
-// 																	$transporte_solicitud->setTiptra($tipotransporte);
-// 																	$transporte_solicitud->setEstsol($estado_solicitud);
-// 																	$em->persist($transporte_solicitud);
-// 																	$em->flush();
-// 																}
-// 															}
-// 														}
-// 													}
-// 												}
-// 											}
-// 										}
 // //fin crear transporte solicitud
-							}else {
-								$data = array(
-									"status" => "error",
-									"code" => 400,
-									"msg" => "Funcionario no existe, por favor ingrese los datos correctos"
-									);
 							}
 // fin crear comisionados solicitud
 						}else {
@@ -323,7 +274,7 @@ class SolicitudController extends Controller {
 							"msg" => "No existe la solicitud, por favor cree una solicitud para poder continuar"
 							);
 					}
-//fin crear estado solicitud
+//fin crear estado solicitud  //aqui
 				}else {
 					$data = array(
 						"status" => "error",
@@ -359,71 +310,91 @@ class SolicitudController extends Controller {
 		$authCheck = $helpers->authCheck($hash);
 
 		$data = array();
+		$reporte = array();
 
 		if ($authCheck == true) {
 			$identity = $helpers->authCheck($hash, true);
 			if ($json != null) {
-//	inicio de busqueda		
 				$fun_id = (isset($params->fun_id)) ? $params->fun_id : null;
-
 				$em = $this->getDoctrine()->getManager();
 
-				$cargoPer = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
+				// $cargoPer = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
+				// 	array(
+				// 		"per" => $fun_id,
+				// 		"carperEstado"=> "A"
+				// 		)
+				// 	);
+				// // $cargos = $em->getRepository('BackBundle:Cargo')->findOneBy(
+				// 	array(
+				// 		"carId" => $cargoPer->getCar()
+				// 		)
+				// 	);
+				// $cargoPadre = $em->getRepository('BackBundle:Cargo')->findBy(
+				// 	array(
+				// 		"carJefe" => $cargos
+				// 		)
+				// 	);
+				// if(count($cargoPadre)==0){
+				// if(count($cargoPer) > 0){
+				$solPer = $em->getRepository('BackBundle:Solicitud')->findBy(
 					array(
-						"per" => $fun_id,
-						"carperEstado"=> "A"
+						"per" => $fun_id
 						)
 					);
-
-				$cargos = $em->getRepository('BackBundle:Cargo')->findOneBy(
+				$estsolPer = $em->getRepository('BackBundle:EstadoSolicitud')->findBy(
 					array(
-						"carId" => $cargoPer->getCar()
+						"sol" => $solPer
 						)
 					);
-
-
-				$cargoPadre = $em->getRepository('BackBundle:Cargo')->findBy(
-					array(
-						"carJefe" => $cargos
-						)
-					);
-
-				if(count($cargoPadre)==0){
-					$solPer = $em->getRepository('BackBundle:Solicitud')->findBy(
+				foreach ($estsolPer as $estsolPer1) {
+					$ciuPer = $em->getRepository('BackBundle:CiudadSolicitud')->findBy(
 						array(
-							"per" => $fun_id
+							"estsol" => $estsolPer1
 							)
 						);
-					return $helpers->json($solPer);
-					
-				}else{
-					$cargoPer1 = $em->getRepository('BackBundle:CargoPersona')->findBy(
-						array(
-							"car" => $cargoPadre,
-							"carperEstado"=> "A"
-							)
-						);
-				// return $helpers->json($cargoPer1);
-
-					$solicitudPer = array();
-					$solicitudPer = null;
-					foreach ($cargoPer1 as $cargoHijo) {
-						$solPer1 = $em->getRepository('BackBundle:Solicitud')->findBy(
-							array(
-								"per" => $cargoHijo->getPer()
-								)
-							);
-						if(count($solPer1) > 0){
-
-							$solicitudPer = $solPer1;
-							// $solicitudPer.solFecharealizacion = new Date($solPer1.solFecharealizacion);
-						}
+					// return $helpers->json($ciuPer);
+					if(count($ciuPer)>0){
+					array_push($reporte, $ciuPer);
 					}
-
-					return $helpers->json($solicitudPer);
 				}
+				return $helpers->json($reporte);
 
-//	fin de busqueda
+				// }else{
+				// 	$cargoPer1 = $em->getRepository('BackBundle:CargoPersona')->findBy(
+				// 		array(
+				// 			"car" => $cargoPadre,
+				// 			"carperEstado"=> "A"
+				// 			)
+				// 		);
+				// 	$solicitudPer = array();
+				// 	// $solicitudPer = null;
+				// 	foreach ($cargoPer1 as $cargoHijo) {
+				// 		// return $helpers->json($cargoHijo);
+				// 		$solPer1 = $em->getRepository('BackBundle:Solicitud')->findBy(
+				// 			array(
+				// 				"per" => $cargoHijo->getPer()
+				// 				)
+				// 			);
+				// 		$estsolPer1 = $em->getRepository('BackBundle:EstadoSolicitud')->findBy(
+				// 			array(
+				// 				"sol" => $solPer1
+				// 				)
+				// 			);
+				// 		$ciuPer1 = $em->getRepository('BackBundle:CiudadSolicitud')->findBy(
+				// 			array(
+				// 				"estsol" => $estsolPer1
+				// 				)
+				// 			);
+				// 		// if(count($solPer1) > 0){
+				// 		// 	$solicitudPer = $solPer1;
+				// 		// }
+				// 		if(count($ciuPer1) > 0){
+				// 			array_push($solicitudPer,$ciuPer1);
+				// 		}
+				// 	}
+				// 		// return $helpers->json($solPer1);
+				// 	return $helpers->json($solicitudPer);
+				// }
 			} else {
 				$data = array(
 					"status" => "error",
@@ -440,4 +411,260 @@ class SolicitudController extends Controller {
 		}
 		return $helpers->json($data);
 	}
+
+	public function porfirmarAction(Request $request) {
+		$helpers = $this->get("app.helpers");
+
+		$json = $request->get("json", null);
+		$params = json_decode($json);
+
+		$hash = $request->get("authorization", null);
+		$authCheck = $helpers->authCheck($hash);
+
+		$data = array();
+
+		if ($authCheck == true) {
+			$identity = $helpers->authCheck($hash, true);
+			if ($json != null) {
+				$fun_id = (isset($params->fun_id)) ? $params->fun_id : null;
+				$em = $this->getDoctrine()->getManager();
+
+				$cargoPer = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
+					array(
+						"per" => $fun_id,
+						"carperEstado"=> "A"
+						)
+					);
+				$cargos = $em->getRepository('BackBundle:Cargo')->findOneBy(
+					array(
+						"carId" => $cargoPer->getCar()
+						)
+					);
+				$cargoPadre = $em->getRepository('BackBundle:Cargo')->findBy(
+					array(
+						"carJefe" => $cargos
+						)
+					);
+				if(count($cargoPadre) > 0){
+					$cargoPer1 = $em->getRepository('BackBundle:CargoPersona')->findBy(
+						array(
+							"car" => $cargoPadre,
+							"carperEstado"=> "A"
+							)
+						);
+					$solicitudPer = array();
+					// $solicitudPer = null;
+					foreach ($cargoPer1 as $cargoHijo) {
+						// return $helpers->json($cargoHijo);
+						$solPer1 = $em->getRepository('BackBundle:Solicitud')->findBy(
+							array(
+								"per" => $cargoHijo->getPer()
+								)
+							);
+						$estsolPer1 = $em->getRepository('BackBundle:EstadoSolicitud')->findBy(
+							array(
+								"sol" => $solPer1
+								)
+							);
+						$ciuPer1 = $em->getRepository('BackBundle:CiudadSolicitud')->findBy(
+							array(
+								"estsol" => $estsolPer1
+								)
+							);
+						// if(count($solPer1) > 0){
+						// 	$solicitudPer = $solPer1;
+						// }
+						if(count($ciuPer1) > 0){
+							array_push($solicitudPer,$ciuPer1);
+						}
+					}
+						// return $helpers->json($solPer1);
+					return $helpers->json($solicitudPer);
+				}
+			} else {
+				$data = array(
+					"status" => "error",
+					"code" => 400,
+					"msg" => "No existen datos, por favor ingrese los datos"
+					);
+			}
+		} else {
+			$data = array(
+				"status" => "error",
+				"code" => 400,
+				"msg" => "Los datos de acceso son incorrectos"
+				);
+		}
+		return $helpers->json($data);
+	}
+
+	public function detallesolrealizadasAction(Request $request) {
+		$helpers = $this->get("app.helpers");
+
+		$json = $request->get("json", null);
+		$params = json_decode($json);
+
+		$hash = $request->get("authorization", null);
+		$authCheck = $helpers->authCheck($hash);
+
+		$data = array();
+
+		if ($authCheck == true) {
+			$identity = $helpers->authCheck($hash, true);
+			if ($json != null) {
+				$DetsolIdsolicitud = (isset($params->DetsolIdsolicitud)) ? $params->DetsolIdsolicitud : null;
+				$em = $this->getDoctrine()->getManager();
+				//aqui se obtiene solicitud, fecha y funcionario
+				$solicitud = $em->getRepository('BackBundle:Solicitud')->findOneBy(
+					array(
+						"solIdsolicitud" => $DetsolIdsolicitud
+						)
+					);
+				//aqui se obtiene cargo y departamento
+				$cargopersonasolicitud = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
+					array(
+						"per" => $solicitud->getPer()
+						)
+					);
+				$cargosolicitud = $em->getRepository('BackBundle:Cargo')->findOneBy(
+					array(
+						"carId" => $cargopersonasolicitud->getCar()
+						)
+					);
+				//aqui se obtiene fechas, horas solicitud y actividades
+				$estadosolicitud = $em->getRepository('BackBundle:EstadoSolicitud')->findBy(
+					array(
+						"sol" => $solicitud
+						)
+					);
+				//aqui se obtiene ciudades
+				$ciudadesporsolicitud = $em->getRepository('BackBundle:Ciudad')->findAll();
+				$ciudadsolicitud = $em->getRepository('BackBundle:CiudadSolicitud')->findBy(
+					array(
+						"estsol" => $estadosolicitud,
+						"ciu" => $ciudadesporsolicitud
+						)
+					);
+				//aqui se obtiene servidores integran
+				$funcionario = $em->getRepository('BackBundle:Persona')->findAll();
+				$personassolicitud = $em->getRepository('BackBundle:PersonaComision')->findBy(
+					array(
+						"sol" => $solicitud,
+						"per" => $funcionario
+						)
+					);
+				//aqui se obtiene el transporte solicitado
+				$transporte = $em->getRepository('BackBundle:TipoTransporte')->findAll();
+				$transportesolicitud = $em->getRepository('BackBundle:TransporteSolicitado')->findBy(
+					array(
+						"estsol" => $estadosolicitud,
+						"tiptra" => $transporte
+						)
+					);
+				//aqui se obtiene el banco de persona
+				$banco = $em->getRepository('BackBundle:Banco')->findAll();
+				$bancopersonasolicitud = $em->getRepository('BackBundle:BancoPersona')->findOneBy(
+					array(
+						"ban" => $banco,
+						"per" => $solicitud->getPer(),
+						"banperEstado" => "A"
+						)
+					);
+				//aqui se obtiene el jefe
+				$cargojefesolicitud = $em->getRepository('BackBundle:Cargo')->findOneBy(
+					array(
+						"carId" => $cargopersonasolicitud->getCar()->getCarJefe()
+						)
+					);
+				$cargopersonajefesolicitud = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
+					array(
+						"car" => $cargojefesolicitud
+						)
+					);
+				//aqui se obtiene el coordinador administrativo Financiero
+				$cargocotosolicitud = $em->getRepository('BackBundle:Cargo')->findOneBy(
+					array(
+						"carNombre" => "COORDINADOR GENERAL ADMINISTRATIVO FINANCIERO"
+						)
+					);
+				$cargopersonacotosolicitud = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
+					array(
+						"car" => $cargocotosolicitud
+						)
+					);
+				$data = array('cargocotosol' => $cargopersonacotosolicitud, 'cargojefesol' => $cargopersonajefesolicitud, 'transportessol' => $transportesolicitud,'bancosol' => $bancopersonasolicitud,'personasssol' => $personassolicitud, 'ciudadessol' => $ciudadsolicitud,'estadosol' => $estadosolicitud, 'cardep' => $cargosolicitud, 'solifecfun' => $solicitud);
+			}else {
+				$data = array(
+					"status" => "error",
+					"code" => 400,
+					"msg" => "No existen datos, por favor ingrese los datos"
+					);
+			}
+		}else {
+			$data = array(
+				"status" => "error",
+				"code" => 400,
+				"msg" => "Los datos de acceso son incorrectos"
+				);
+		}
+		return $helpers->json($data);
+	}
+
+public function esjefeAction(Request $request) {
+		$helpers = $this->get("app.helpers");
+
+		$json = $request->get("json", null);
+		$params = json_decode($json);
+
+		$hash = $request->get("authorization", null);
+		$authCheck = $helpers->authCheck($hash);
+
+		$data = array();
+		$reporte = array();
+
+		if ($authCheck == true) {
+			$identity = $helpers->authCheck($hash, true);
+			if ($json != null) {
+				$fun_id = (isset($params->fun_id)) ? $params->fun_id : null;
+				$em = $this->getDoctrine()->getManager();
+
+				$cargoPer = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
+					array(
+						"per" => $fun_id,
+						"carperEstado"=> "A"
+						)
+					);
+				$cargos = $em->getRepository('BackBundle:Cargo')->findOneBy(
+					array(
+						"carId" => $cargoPer->getCar()
+						)
+					);
+				$cargoPadre = $em->getRepository('BackBundle:Cargo')->findBy(
+					array(
+						"carJefe" => $cargos
+						)
+					);
+				// if(count($cargoPadre) > 0){
+
+				return $helpers->json(count($cargoPadre));
+					// }
+				// }
+
+			} else {
+				$data = array(
+					"status" => "error",
+					"code" => 400,
+					"msg" => "No existen datos, por favor ingrese los datos"
+					);
+			}
+		} else {
+			$data = array(
+				"status" => "error",
+				"code" => 400,
+				"msg" => "Los datos de acceso son incorrectos"
+				);
+		}
+		return $helpers->json($data);
+	}
+
 }

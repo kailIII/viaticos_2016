@@ -178,7 +178,7 @@ var NuevasolicitudComponent = (function () {
             _this.errorMessage = error;
             if (_this.errorMessage != null) {
                 console.log(_this.errorMessage);
-                alert("Error en la petición 2");
+                alert("Error en la petición 2Per");
             }
         });
     };
@@ -202,63 +202,46 @@ var NuevasolicitudComponent = (function () {
         }
         ;
     };
-    // 	OnAgregarVehiculoSol(){
-    // 		// let tblBody = NodeListOf(<HTMLInputElement>document.getElementsByName("tbody_trareq_dialog"));
-    // 		let tblBody = (<HTMLInputElement>document.getElementById("tbody_trareq_dialog")).rows.length;
-    // 		var yea=tblBody;
-    // alert(yea);
-    // 	}
     NuevasolicitudComponent.prototype.Onpaso2 = function () {
-        this.comision.Fecha_sol = new Date(this.Fecha_sol).toLocaleDateString('en-US');
-        this.comision.FechaDesde_sol = new Date(this.FechaDesde_solicitud).toLocaleDateString('en-US');
-        this.comision.HoraDesde_sol = new Date(this.HoraDesde_sol).toLocaleTimeString();
-        this.comision.FechaHasta_sol = new Date(this.FechaHasta_solicitud).toLocaleDateString('en-US');
-        this.comision.HoraHasta_sol = new Date(this.HoraHasta_sol).toLocaleTimeString();
+        this.comision.Fecha_sol = (((JSON.stringify(new Date(this.Fecha_sol).toLocaleDateString()).replace('"', '')).replace('"', '')).replace('/', '-')).replace('/', '-');
+        this.comision.FechaDesde_sol = (((JSON.stringify(new Date(this.FechaDesde_solicitud).toLocaleDateString()).replace('"', '')).replace('"', '')).replace('/', '-')).replace('/', '-');
+        this.comision.HoraDesde_sol = (JSON.stringify(new Date(this.HoraDesde_sol).toLocaleTimeString()).replace('"', '')).replace('"', '');
+        this.comision.FechaHasta_sol = (((JSON.stringify(new Date(this.FechaHasta_solicitud).toLocaleDateString()).replace('"', '')).replace('"', '')).replace('/', '-')).replace('/', '-');
+        this.comision.HoraHasta_sol = (JSON.stringify(new Date(this.HoraHasta_sol).toLocaleTimeString()).replace('"', '')).replace('"', '');
         this.OnDiferenciaFechas(this.FechaDesde_solicitud, this.FechaHasta_solicitud);
         var fechaactividades;
         var length = this.dias.length;
         fechaactividades = '';
         for (var i = 0; i < length; i++) {
             var fechas = this.dias[i];
-            fechaactividades += '<p class="ql-align-center"><strong class="ql-size-large">' + fechas + '</strong></p><ul><li><br></li></ul>';
+            // fechaactividades += '<p class="ql-align-center"><strong>'+fechas+'</strong></p><ul><li></li></ul>';
+            fechaactividades += '<p class="centrado ql-align-center"><strong>' + fechas + '</strong></p><ul><li></li></ul>';
         }
         ;
         this.comision.actividadessol = fechaactividades;
         this.comision.correo = this._loginService.getIdentity().aperUsuario;
-        // 	this.comision.Fecha_sol  = new Date(this.Fecha_sol_ini).toLocaleDateString();
-        // 	this.comision.FechaDesde_sol  = new Date(this.FechaDesde_sol_ini).toLocaleDateString();
-        // 	this.comision.HoraDesde_sol  = new Date(this.HoraDesde_sol_ini).toLocaleTimeString();
-        // 	this.comision.FechaHasta_sol  = new Date(this.FechaHasta_sol_ini).toLocaleDateString();
-        // 	this.comision.HoraHasta_sol  = new Date(this.HoraHasta_sol_ini).toLocaleTimeString();
-        // console.log("this.funcionarios_sol_ini:"+this.funcionarios_sol_ini);
         if (this.funcionarios_sol_ini !== undefined) {
             this.comision.funcionarios_sol = ((JSON.stringify(this.funcionarios_sol_ini).replace('["', '')).replace('"]', '')).replace('","', ',');
         }
-        // this.comision.funcionarios_sol  = JSON.stringify(this.funcionarios_sol_ini);
         if (this.ciudades_sol_ini !== undefined) {
             this.comision.ciudades_sol = (JSON.stringify(this.ciudades_sol_ini).replace('[', '')).replace(']', '');
         }
-        console.log(this.comision);
+        // console.log(this.comision);
         this.inicial = true;
     };
     NuevasolicitudComponent.prototype.Onpaso3 = function () {
-        // this.comision.actividadessol = this.comisionInicial.actividadessol;
-        // console.log(this.comision.actividadessol);
         this.paso2 = true;
     };
     NuevasolicitudComponent.prototype.Onpaso4 = function () {
         var tblBody = document.getElementById("tbody_trareq_dialog");
-        // let fila = tblBody.getElementById("TransporteReqDet");
         var hilera = tblBody.getElementsByTagName("tr");
         var filas = hilera.length;
-        // alert("filas:"+filas);
         var vehiculo_solicitud;
         var ciudades_solicitud;
         var trahoraFin;
         var trahoraInicio;
         var trarutaFin;
         var trarutaInicio;
-        // alert("columna:"+columna);
         for (var i = 0; i < filas; i++) {
             var datos = hilera[i].getElementsByTagName("td");
             var columna = datos.length;
@@ -274,20 +257,11 @@ var NuevasolicitudComponent = (function () {
                 }
                 else {
                     data1 = data1.replace(";,", ";") + "," + informaciontra;
-                    // console.log(data1);
                     data2 = data1;
                 }
             }
         }
-        // console.log("data2:"+data2);
-        // console.log("data2:"+data2.replace(";,",";"));
         this.comision.solotransporteSol = data2;
-        // for (var i = 0; i < filas; i++) {
-        // }
-        // console.log(data1);
-        // var data3;
-        // this.comision.solotransporteSol = data2;
-        // console.log(data3);
     };
     NuevasolicitudComponent.prototype.OnbotonAtras = function () {
         if (this.inicial == false && this.paso2 == false && this.paso3 == false) {
@@ -337,7 +311,6 @@ var NuevasolicitudComponent = (function () {
         var hilera = document.getElementById("TransporteReqDet");
         hilera.remove();
         var hileraactual = document.getElementById("TransporteReqDet");
-        // console.log(hileraactual);
         if (hileraactual === null) {
             this.mostrar_trareq = false;
         }
@@ -374,13 +347,13 @@ var NuevasolicitudComponent = (function () {
             rurFin_trareq = document.createTextNode(this.RfinTrans);
         }
         var nuevafechaIniciotransformar = new Date(this.FinicioTrans).toLocaleString();
-        var fechaIniciotransformar = new Date(this.FinicioTrans).toLocaleDateString();
-        var horaIniciotransformar = new Date(this.FinicioTrans).toLocaleTimeString();
+        var fechaIniciotransformar = (((JSON.stringify(new Date(this.FinicioTrans).toLocaleDateString()).replace('"', '')).replace('"', '')).replace('/', '-')).replace('/', '-');
+        var horaIniciotransformar = (JSON.stringify(new Date(this.FinicioTrans).toLocaleTimeString()).replace('"', '')).replace('"', '');
         var fInicio_trareq = document.createTextNode(fechaIniciotransformar);
         var hInicio_trareq = document.createTextNode(horaIniciotransformar);
-        var nuevafechaFintransformar = new Date(this.FfinTrans).toLocaleString();
-        var fechaFintransformar = new Date(this.FfinTrans).toLocaleDateString();
-        var horaFintransformar = new Date(this.FfinTrans).toLocaleTimeString();
+        var nuevafechaFintransformar = (JSON.stringify(new Date(this.FfinTrans).toLocaleString()).replace('"', '')).replace('"', '');
+        var fechaFintransformar = (((JSON.stringify(new Date(this.FfinTrans).toLocaleDateString()).replace('"', '')).replace('"', '')).replace('/', '-')).replace('/', '-');
+        var horaFintransformar = (JSON.stringify(new Date(this.FfinTrans).toLocaleTimeString()).replace('"', '')).replace('"', '');
         var fFin_trareq = document.createTextNode(fechaFintransformar);
         var hFin_trareq = document.createTextNode(horaFintransformar);
         tipo.appendChild(tipo_trareq);
@@ -445,7 +418,7 @@ var NuevasolicitudComponent = (function () {
                 _this.errorMessage = error;
                 if (_this.errorMessage != null) {
                     console.log(_this.errorMessage);
-                    alert("Error en la petición 2");
+                    alert("Error en la petición 212");
                 }
             });
         }
@@ -457,17 +430,16 @@ var NuevasolicitudComponent = (function () {
         this._router.navigate(['/imprimir_solicitud']);
         // window.location.href='/principal';
     };
+    NuevasolicitudComponent.prototype.OnBloquearBotones = function () {
+    };
     NuevasolicitudComponent.prototype.onEnviarSol = function () {
         var _this = this;
-        // console.log(this.comision);
+        // console.log("this.comision:"+JSON.stringify(this.comision));
         var token = this._loginService.getToken();
         this._SolicitudService.AddSolicitud(token, this.comision).subscribe(function (response) {
-            _this.status = response.status;
-            if (_this.status != "success") {
-                _this.status = "error";
-            }
-            else {
-            }
+            alert("La solicitud ha sido creada satisfactoriamente");
+            // window.location.href='/solicitud';
+            _this._router.navigate(['/solicitud']);
         }, function (error) {
             _this.errorMessage = error;
             if (_this.errorMessage != null) {

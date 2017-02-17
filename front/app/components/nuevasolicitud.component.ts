@@ -88,11 +88,6 @@ export class NuevasolicitudComponent implements OnInit{
 	fechas: Date;
 	minDate: Date;
 	maxDate: Date;
-	// public Fecha_sol_ini;
-	// public FechaDesde_sol_ini;
-	// public HoraDesde_sol_ini;
-	// public FechaHasta_sol_ini;
-	// public HoraHasta_sol_ini;
 	public funcionarios_sol_ini;
 	public ciudades_sol_ini;
 	public Fecha_sol;
@@ -170,7 +165,6 @@ export class NuevasolicitudComponent implements OnInit{
 			'vehiculo_solicitud' : "",
 			'funcionarios_sol' : "",
 			"solotransporteSol":""
-
 		};
 	}
 
@@ -269,7 +263,7 @@ export class NuevasolicitudComponent implements OnInit{
 				this.errorMessage = <any>error;
 				if(this.errorMessage != null){
 					console.log(this.errorMessage);
-					alert("Error en la petición 2");
+					alert("Error en la petición 2Per");
 				}
 			}
 			);
@@ -297,309 +291,271 @@ export class NuevasolicitudComponent implements OnInit{
 		};
 	}
 
-	// 	OnAgregarVehiculoSol(){
-		// 		// let tblBody = NodeListOf(<HTMLInputElement>document.getElementsByName("tbody_trareq_dialog"));
-		// 		let tblBody = (<HTMLInputElement>document.getElementById("tbody_trareq_dialog")).rows.length;
-		// 		var yea=tblBody;
-		// alert(yea);
-		// 	}
+	Onpaso2(){
+		this.comision.Fecha_sol = (((JSON.stringify(new Date(this.Fecha_sol).toLocaleDateString()).replace('"','')).replace('"','')).replace('/','-')).replace('/','-');
+		this.comision.FechaDesde_sol = (((JSON.stringify(new Date(this.FechaDesde_solicitud).toLocaleDateString()).replace('"','')).replace('"','')).replace('/','-')).replace('/','-');
+		this.comision.HoraDesde_sol = (JSON.stringify(new Date(this.HoraDesde_sol).toLocaleTimeString()).replace('"','')).replace('"','');
+		this.comision.FechaHasta_sol = (((JSON.stringify(new Date(this.FechaHasta_solicitud).toLocaleDateString()).replace('"','')).replace('"','')).replace('/','-')).replace('/','-');
+		this.comision.HoraHasta_sol = (JSON.stringify(new Date(this.HoraHasta_sol).toLocaleTimeString()).replace('"','')).replace('"','');
 
-		Onpaso2(){
-
-			this.comision.Fecha_sol = new Date(this.Fecha_sol).toLocaleDateString('en-US');
-			this.comision.FechaDesde_sol = new Date(this.FechaDesde_solicitud).toLocaleDateString('en-US');
-			this.comision.HoraDesde_sol = new Date(this.HoraDesde_sol).toLocaleTimeString();
-			this.comision.FechaHasta_sol = new Date(this.FechaHasta_solicitud).toLocaleDateString('en-US');
-			this.comision.HoraHasta_sol = new Date(this.HoraHasta_sol).toLocaleTimeString();
-
-			this.OnDiferenciaFechas(this.FechaDesde_solicitud,this.FechaHasta_solicitud);
-			let fechaactividades;
-			var length = this.dias.length;
-			fechaactividades = '';
-			for (var i = 0; i < length; i++) {
-				let fechas = this.dias[i];
-				fechaactividades += '<p class="ql-align-center"><strong class="ql-size-large">'+fechas+'</strong></p><ul><li><br></li></ul>';
-
-			};
-			this.comision.actividadessol = fechaactividades;
-			this.comision.correo = this._loginService.getIdentity().aperUsuario;
-			// 	this.comision.Fecha_sol  = new Date(this.Fecha_sol_ini).toLocaleDateString();
-			// 	this.comision.FechaDesde_sol  = new Date(this.FechaDesde_sol_ini).toLocaleDateString();
-			// 	this.comision.HoraDesde_sol  = new Date(this.HoraDesde_sol_ini).toLocaleTimeString();
-			// 	this.comision.FechaHasta_sol  = new Date(this.FechaHasta_sol_ini).toLocaleDateString();
-			// 	this.comision.HoraHasta_sol  = new Date(this.HoraHasta_sol_ini).toLocaleTimeString();
-			// console.log("this.funcionarios_sol_ini:"+this.funcionarios_sol_ini);
-			if(this.funcionarios_sol_ini !== undefined){
-				this.comision.funcionarios_sol  = ((JSON.stringify(this.funcionarios_sol_ini).replace('["','')).replace('"]','')).replace('","',',');
-			}
-			// this.comision.funcionarios_sol  = JSON.stringify(this.funcionarios_sol_ini);
-			if(this.ciudades_sol_ini !== undefined){
-				this.comision.ciudades_sol  = (JSON.stringify(this.ciudades_sol_ini).replace('[','')).replace(']','');
-			}
-			console.log(this.comision);
-			this.inicial = true;
+		this.OnDiferenciaFechas(this.FechaDesde_solicitud,this.FechaHasta_solicitud);
+		let fechaactividades;
+		var length = this.dias.length;
+		fechaactividades = '';
+		for (var i = 0; i < length; i++) {
+			let fechas = this.dias[i];
+			// fechaactividades += '<p class="ql-align-center"><strong>'+fechas+'</strong></p><ul><li></li></ul>';
+			fechaactividades += '<p class="centrado ql-align-center"><strong>'+fechas+'</strong></p><ul><li></li></ul>';
+		};
+		this.comision.actividadessol = fechaactividades;
+		this.comision.correo = this._loginService.getIdentity().aperUsuario;
+		if(this.funcionarios_sol_ini !== undefined){
+			this.comision.funcionarios_sol  = ((JSON.stringify(this.funcionarios_sol_ini).replace('["','')).replace('"]','')).replace('","',',');
 		}
-
-		Onpaso3(){
-			// this.comision.actividadessol = this.comisionInicial.actividadessol;
-			// console.log(this.comision.actividadessol);
-
-			this.paso2 = true;
+		if(this.ciudades_sol_ini !== undefined){
+			this.comision.ciudades_sol  = (JSON.stringify(this.ciudades_sol_ini).replace('[','')).replace(']','');
 		}
+		// console.log(this.comision);
+		this.inicial = true;
+	}
 
-		Onpaso4(){
-			let tblBody = (<HTMLTableCellElement>document.getElementById("tbody_trareq_dialog"));
-			// let fila = tblBody.getElementById("TransporteReqDet");
-			let hilera = tblBody.getElementsByTagName("tr")
-			let filas = hilera.length;
-			// alert("filas:"+filas);
-			let vehiculo_solicitud;
-			let ciudades_solicitud;
-			let trahoraFin;
-			let trahoraInicio;
-			let trarutaFin;
-			let trarutaInicio;
+	Onpaso3(){
+		this.paso2 = true;
+	}
 
-			// alert("columna:"+columna);
+	Onpaso4(){
+		let tblBody = (<HTMLTableCellElement>document.getElementById("tbody_trareq_dialog"));
+		let hilera = tblBody.getElementsByTagName("tr")
+		let filas = hilera.length;
+		let vehiculo_solicitud;
+		let ciudades_solicitud;
+		let trahoraFin;
+		let trahoraInicio;
+		let trarutaFin;
+		let trarutaInicio;
 
-
-			for (var i = 0; i < filas; i++) {
-				let datos = hilera[i].getElementsByTagName("td")
-				let columna = datos.length;
-				var data1;
-				var data2;
-				if(data1 !== undefined){
-					data1 = data1+";";
-				}
-				for (var j = 0; j < columna - 1; j++) {
-					let informaciontra = datos[j].firstChild.nodeValue;
-
-					if(data1 == undefined){
-						data1 = informaciontra;
-					}else{
-
-						data1 = data1.replace(";,",";")+","+informaciontra;
-						// console.log(data1);
+		for (var i = 0; i < filas; i++) {
+			let datos = hilera[i].getElementsByTagName("td")
+			let columna = datos.length;
+			var data1;
+			var data2;
+			if(data1 !== undefined){
+				data1 = data1+";";
+			}
+			for (var j = 0; j < columna - 1; j++) {
+				let informaciontra = datos[j].firstChild.nodeValue;
+				if(data1 == undefined){
+					data1 = informaciontra;
+				}else{
+					data1 = data1.replace(";,",";")+","+informaciontra;
 					data2 = data1;
-					}
 				}
 			}
-				// console.log("data2:"+data2);
-				// console.log("data2:"+data2.replace(";,",";"));
-					this.comision.solotransporteSol = data2;
-			// for (var i = 0; i < filas; i++) {
-			// }
-				// console.log(data1);
-			// var data3;
-			// this.comision.solotransporteSol = data2;
-			// console.log(data3);
+		}
+		this.comision.solotransporteSol = data2;
+	}
+
+	OnbotonAtras(){
+		if(this.inicial == false && this.paso2 == false && this.paso3 == false){
+			this._router.navigate(['/solicitud']);
+		}else if(this.inicial == true && this.paso2 == false && this.paso3 == false){
+			this.inicial = false;
+		}else if(this.inicial == true && this.paso2 == true && this.paso3 == false) { 
+			this.paso2 = false;
+		} else  if(this.inicial == true && this.paso2 == true && this.paso3 == true) { 
+			this.paso3 = false;
 
 		}
+	}
 
-		OnbotonAtras(){
-			if(this.inicial == false && this.paso2 == false && this.paso3 == false){
-				this._router.navigate(['/solicitud']);
-			}else if(this.inicial == true && this.paso2 == false && this.paso3 == false){
-				this.inicial = false;
-			}else if(this.inicial == true && this.paso2 == true && this.paso3 == false) { 
-				this.paso2 = false;
-			} else  if(this.inicial == true && this.paso2 == true && this.paso3 == true) { 
-				this.paso3 = false;
-
-			}
+	OnAgregarCiudad(title:string){
+		this.valor_textarea = (<HTMLInputElement>document.getElementById("ciudades_solicitud")).value;
+		this.ciudadComision = this.valor_textarea;
+		if(this.ciudadComision == ""){
+			this.ciudadComision = title;
+		}else{
+			this.ciudadComision = this.ciudadComision+","+title;
 		}
+		this.comision.ciudades_solicitud = this.ciudadComision;
+		(<HTMLInputElement>document.getElementById('ciudades_solicitud')).focus();
+		(<HTMLInputElement>document.getElementById('ingresarCiudad')).focus();
+	}
 
-		OnAgregarCiudad(title:string){
-			this.valor_textarea = (<HTMLInputElement>document.getElementById("ciudades_solicitud")).value;
-			this.ciudadComision = this.valor_textarea;
-			if(this.ciudadComision == ""){
-				this.ciudadComision = title;
-			}else{
-				this.ciudadComision = this.ciudadComision+","+title;
-			}
-			this.comision.ciudades_solicitud = this.ciudadComision;
-			(<HTMLInputElement>document.getElementById('ciudades_solicitud')).focus();
-			(<HTMLInputElement>document.getElementById('ingresarCiudad')).focus();
+	OnAgregarComisionado(title:string){
+		this.textarea_comisionados = (<HTMLInputElement>document.getElementById("comisionados_solicitud")).value;
+		this.comisionadoComision = this.textarea_comisionados;
+
+		if(this.comisionadoComision == ""){
+			this.comisionadoComision = title;
+		}else{
+			this.comisionadoComision = this.comisionadoComision+","+title;
 		}
+		this.comision.PersonasComision = this.comisionadoComision;
+	}
 
-		OnAgregarComisionado(title:string){
-			this.textarea_comisionados = (<HTMLInputElement>document.getElementById("comisionados_solicitud")).value;
-			this.comisionadoComision = this.textarea_comisionados;
-
-			if(this.comisionadoComision == ""){
-				this.comisionadoComision = title;
-			}else{
-				this.comisionadoComision = this.comisionadoComision+","+title;
-			}
-			this.comision.PersonasComision = this.comisionadoComision;
+	OnAgregarTraReq(){
+		if(this.mostrar_trareq === false){
+			this.mostrar_trareq = true;	
 		}
+		this.OnAgregarbtnEliminar();
+	}
 
-		OnAgregarTraReq(){
-			if(this.mostrar_trareq === false){
-				this.mostrar_trareq = true;	
-			}
-			this.OnAgregarbtnEliminar();
+	OnEliminarTraReq(){
+		let hilera = (<HTMLInputElement>document.getElementById("TransporteReqDet"));
+		hilera.remove();
+		let hileraactual = (<HTMLInputElement>document.getElementById("TransporteReqDet"));
+		if(hileraactual === null){
+			this.mostrar_trareq = false;
 		}
-
-		OnEliminarTraReq(){
-			let hilera = (<HTMLInputElement>document.getElementById("TransporteReqDet"));
-			hilera.remove();
-			let hileraactual = (<HTMLInputElement>document.getElementById("TransporteReqDet"));
-			// console.log(hileraactual);
-			if(hileraactual === null){
-				this.mostrar_trareq = false;
-				// let encabezado = (<HTMLInputElement>document.getElementById("TransporteReqEnc"));
-				// encabezado.remove();
-			}
+	}
+	OnAgregarbtnEliminar(){
+		let tblBody = (<HTMLInputElement>document.getElementById("tbody_trareq_dialog"));
+		let hilera = (<HTMLTableRowElement>document.createElement("tr"));
+		let tipo = document.createElement("td");
+		let modelo = document.createElement("td");
+		let rutInicio = document.createElement("td");
+		let rurFin = document.createElement("td");
+		let fInicio = document.createElement("td");
+		let hInicio = document.createElement("td");
+		let fFin = document.createElement("td");
+		let hFin = document.createElement("td");
+		let tdboton = document.createElement("td");
+		let aboton = document.createElement("a");
+		let rutInicio_trareq;
+		let tipo_trareq = document.createTextNode((<HTMLInputElement>document.getElementById("combo_tiptra")).value);
+		let modelo_trareq = document.createTextNode((<HTMLInputElement>document.getElementById("combo_vehiculo")).value);
+		if(this.RinicioTrans === undefined || this.RinicioTrans == ""){
+			this.RinicioTrans = "Cuenca-Azuay";
+			rutInicio_trareq = document.createTextNode(this.RinicioTrans);
 		}
-		OnAgregarbtnEliminar(){
-			let tblBody = (<HTMLInputElement>document.getElementById("tbody_trareq_dialog"));
-			let hilera = (<HTMLTableRowElement>document.createElement("tr"));
-			let tipo = document.createElement("td");
-			let modelo = document.createElement("td");
-			let rutInicio = document.createElement("td");
-			let rurFin = document.createElement("td");
-			let fInicio = document.createElement("td");
-			let hInicio = document.createElement("td");
-			let fFin = document.createElement("td");
-			let hFin = document.createElement("td");
-			let tdboton = document.createElement("td");
-			let aboton = document.createElement("a");
-			let rutInicio_trareq;
-			let tipo_trareq = document.createTextNode((<HTMLInputElement>document.getElementById("combo_tiptra")).value);
-			let modelo_trareq = document.createTextNode((<HTMLInputElement>document.getElementById("combo_vehiculo")).value);
-			if(this.RinicioTrans === undefined || this.RinicioTrans == ""){
-				this.RinicioTrans = "Cuenca-Azuay";
-				rutInicio_trareq = document.createTextNode(this.RinicioTrans);
-			}
-			else{
-				rutInicio_trareq = document.createTextNode(this.RinicioTrans);
-			}
-			let rurFin_trareq;
-			if(this.RfinTrans === undefined || this.RfinTrans == ""){
-				this.RfinTrans = "Cuenca-Azuay";
-				rurFin_trareq = document.createTextNode(this.RfinTrans);
-			}
-			else{
-				rurFin_trareq = document.createTextNode(this.RfinTrans);
-			}
-			let nuevafechaIniciotransformar = new Date(this.FinicioTrans).toLocaleString();
-			let fechaIniciotransformar = new Date(this.FinicioTrans).toLocaleDateString();
-			let horaIniciotransformar = new Date(this.FinicioTrans).toLocaleTimeString();
-			let fInicio_trareq = document.createTextNode(fechaIniciotransformar);
-			let hInicio_trareq = document.createTextNode(horaIniciotransformar);
-			let nuevafechaFintransformar = new Date(this.FfinTrans).toLocaleString();
-			let fechaFintransformar = new Date(this.FfinTrans).toLocaleDateString();
-			let horaFintransformar = new Date(this.FfinTrans).toLocaleTimeString();
-			let fFin_trareq = document.createTextNode(fechaFintransformar);
-			let hFin_trareq = document.createTextNode(horaFintransformar);
-			tipo.appendChild(tipo_trareq);
-			modelo.appendChild(modelo_trareq);
-			rutInicio.appendChild(rutInicio_trareq);
-			rurFin.appendChild(rurFin_trareq);
-			fInicio.appendChild(fInicio_trareq);
-			hInicio.appendChild(hInicio_trareq);
-			fFin.appendChild(fFin_trareq);
-			hFin.appendChild(hFin_trareq);
-			tdboton.appendChild(aboton);
-			aboton.setAttribute("class","btn btn-danger btn-xs glyphicon glyphicon-minus");
-			aboton.addEventListener('click', this.OnEliminarTraReq);
-
-			tipo.setAttribute("id","tipo_trareq");
-			modelo.setAttribute("id","modelo_trareq");
-			rutInicio.setAttribute("id","rutInicio_trareq");
-			rurFin.setAttribute("id","rurFin_trareq");
-			fInicio.setAttribute("id","fInicio_trareq");
-			hInicio.setAttribute("id","hInicio_trareq");
-			fFin.setAttribute("id","fFin_trareq");
-			hFin.setAttribute("id","hFin_trareq");
-			tdboton.setAttribute("id","botoneliminarTraReq");
-			hilera.appendChild(tipo);
-			hilera.appendChild(modelo);
-			hilera.appendChild(rutInicio);
-			hilera.appendChild(rurFin);
-			hilera.appendChild(fInicio);
-			hilera.appendChild(hInicio);
-			hilera.appendChild(fFin);
-			hilera.appendChild(hFin);
-			hilera.appendChild(tdboton);
-			hilera.setAttribute("id","TransporteReqDet");
-			tblBody.appendChild(hilera);
-			(<HTMLInputElement>document.getElementById("combo_tiptra")).value = "0";
-			this.modeltrans = false;
-			(<HTMLInputElement>document.getElementById("combo_vehiculo")).value = "Escoja uno";
-			this.RinicioTrans = "";
-			this.RfinTrans = "";
-			this.FinicioTrans = "";
-			this.FfinTrans = "";
+		else{
+			rutInicio_trareq = document.createTextNode(this.RinicioTrans);
 		}
+		let rurFin_trareq;
+		if(this.RfinTrans === undefined || this.RfinTrans == ""){
+			this.RfinTrans = "Cuenca-Azuay";
+			rurFin_trareq = document.createTextNode(this.RfinTrans);
+		}
+		else{
+			rurFin_trareq = document.createTextNode(this.RfinTrans);
+		}
+		let nuevafechaIniciotransformar = new Date(this.FinicioTrans).toLocaleString();
+		let fechaIniciotransformar = (((JSON.stringify(new Date(this.FinicioTrans).toLocaleDateString()).replace('"','')).replace('"','')).replace('/','-')).replace('/','-');
+		let horaIniciotransformar = (JSON.stringify(new Date(this.FinicioTrans).toLocaleTimeString()).replace('"','')).replace('"','');
+		let fInicio_trareq = document.createTextNode(fechaIniciotransformar);
+		let hInicio_trareq = document.createTextNode(horaIniciotransformar);
+		let nuevafechaFintransformar = (JSON.stringify(new Date(this.FfinTrans).toLocaleString()).replace('"','')).replace('"','');
+		let fechaFintransformar = (((JSON.stringify(new Date(this.FfinTrans).toLocaleDateString()).replace('"','')).replace('"','')).replace('/','-')).replace('/','-');
+		let horaFintransformar = (JSON.stringify(new Date(this.FfinTrans).toLocaleTimeString()).replace('"','')).replace('"','');
+		let fFin_trareq = document.createTextNode(fechaFintransformar);
+		let hFin_trareq = document.createTextNode(horaFintransformar);
+		tipo.appendChild(tipo_trareq);
+		modelo.appendChild(modelo_trareq);
+		rutInicio.appendChild(rutInicio_trareq);
+		rurFin.appendChild(rurFin_trareq);
+		fInicio.appendChild(fInicio_trareq);
+		hInicio.appendChild(hInicio_trareq);
+		fFin.appendChild(fFin_trareq);
+		hFin.appendChild(hFin_trareq);
+		tdboton.appendChild(aboton);
+		aboton.setAttribute("class","btn btn-danger btn-xs glyphicon glyphicon-minus");
+		aboton.addEventListener('click', this.OnEliminarTraReq);
 
-		onSelect() {
-			let tipotransporte = (<HTMLInputElement>document.getElementById("combo_tiptra")).value;
-			if(tipotransporte === "0"){
-				this.modeltra = {
-					"tiptraId": 0,
-					"tiptraNombre": "Escoja un",
-					"tiptraTipo": "Escoja un",
-					"tiptraSigla": "NA"
-				}
-			}else{
-				this.moltra = {
-					'tritra' : tipotransporte
-				};
-				this._TransporteService.GetModeloTransporte(this.moltra).subscribe(
-					response => {
-						let modeltra = response;
-						this.modeltra = modeltra;
+		tipo.setAttribute("id","tipo_trareq");
+		modelo.setAttribute("id","modelo_trareq");
+		rutInicio.setAttribute("id","rutInicio_trareq");
+		rurFin.setAttribute("id","rurFin_trareq");
+		fInicio.setAttribute("id","fInicio_trareq");
+		hInicio.setAttribute("id","hInicio_trareq");
+		fFin.setAttribute("id","fFin_trareq");
+		hFin.setAttribute("id","hFin_trareq");
+		tdboton.setAttribute("id","botoneliminarTraReq");
+		hilera.appendChild(tipo);
+		hilera.appendChild(modelo);
+		hilera.appendChild(rutInicio);
+		hilera.appendChild(rurFin);
+		hilera.appendChild(fInicio);
+		hilera.appendChild(hInicio);
+		hilera.appendChild(fFin);
+		hilera.appendChild(hFin);
+		hilera.appendChild(tdboton);
+		hilera.setAttribute("id","TransporteReqDet");
+		tblBody.appendChild(hilera);
+		(<HTMLInputElement>document.getElementById("combo_tiptra")).value = "0";
+		this.modeltrans = false;
+		(<HTMLInputElement>document.getElementById("combo_vehiculo")).value = "Escoja uno";
+		this.RinicioTrans = "";
+		this.RfinTrans = "";
+		this.FinicioTrans = "";
+		this.FfinTrans = "";
+	}
 
-						this.modeltrans = true;
-					},
-					error =>{
-
-						this.errorMessage = <any>error;
-						if(this.errorMessage != null){
-							console.log(this.errorMessage);
-							alert("Error en la petición 2");
-						}
-					}
-					);
-
+	onSelect() {
+		let tipotransporte = (<HTMLInputElement>document.getElementById("combo_tiptra")).value;
+		if(tipotransporte === "0"){
+			this.modeltra = {
+				"tiptraId": 0,
+				"tiptraNombre": "Escoja un",
+				"tiptraTipo": "Escoja un",
+				"tiptraSigla": "NA"
 			}
-		}
+		}else{
+			this.moltra = {
+				'tritra' : tipotransporte
+			};
+			this._TransporteService.GetModeloTransporte(this.moltra).subscribe(
+				response => {
+					let modeltra = response;
+					this.modeltra = modeltra;
 
-		onCambiarModelTra(){
-			this.modeltrans = false;
-		}
-
-		OnImprimirSol(){
-			this._router.navigate(['/imprimir_solicitud']);
-			// window.location.href='/principal';
-		}
-
-		onEnviarSol(){
-			// console.log(this.comision);
-			let token = this._loginService.getToken();
-			this._SolicitudService.AddSolicitud(token,this.comision).subscribe(
-				response =>{
-					this.status = response.status;
-					if(this.status != "success"){
-						this.status = "error";
-					}else{
-						//van los errores de ingreso
-					}
+					this.modeltrans = true;
 				},
 				error =>{
+
 					this.errorMessage = <any>error;
 					if(this.errorMessage != null){
 						console.log(this.errorMessage);
-						alert("Error al guardar datos");
+						alert("Error en la petición 212");
 					}
 				}
 				);
 
-
 		}
+	}
+
+	onCambiarModelTra(){
+		this.modeltrans = false;
+	}
+
+	OnImprimirSol(){
+		this._router.navigate(['/imprimir_solicitud']);
+		// window.location.href='/principal';
+	}
+	OnBloquearBotones(){
+
+	}
+
+	onEnviarSol(){
+		// console.log("this.comision:"+JSON.stringify(this.comision));
+		let token = this._loginService.getToken();
+		this._SolicitudService.AddSolicitud(token,this.comision).subscribe(
+			response =>{
+				alert("La solicitud ha sido creada satisfactoriamente");
+				// window.location.href='/solicitud';
+				this._router.navigate(['/solicitud']);
+			},
+			error =>{
+				this.errorMessage = <any>error;
+				if(this.errorMessage != null){
+					console.log(this.errorMessage);
+					alert("Error al guardar datos");
+				}
+			}
+			);
+
+
+	}
 
 	
 
-	}
+}

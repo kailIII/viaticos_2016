@@ -12,3 +12,19 @@ solicitud_reporte:
     path:   /reporte
     defaults: { _controller: "AppBundle:Solicitud:reporte"}
     methods:  POST
+
+solicitud_detallesolrealizadas:
+    path:   /detallesolicitud
+    defaults: { _controller: "AppBundle:Solicitud:detallesolrealizadas"}
+    methods:  POST
+
+solicitud_porfirmar:
+    path:   /porfirmar
+    defaults: { _controller: "AppBundle:Solicitud:porfirmar"}
+    methods:  POST
+
+solicitud_esjefe:
+    path:   /esjefe
+    defaults: { _controller: "AppBundle:Solicitud:esjefe"}
+    methods:  POST
+    

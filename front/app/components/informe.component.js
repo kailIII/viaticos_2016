@@ -66,41 +66,6 @@ var InformeComponent = (function () {
         // // css('color','red');
         // $('button').click();
     };
-    InformeComponent.prototype.OnVerDetalleSol = function () {
-        var _this = this;
-        this._solicitudService.reporteSolicitud(this.token, this.funcionario).subscribe(function (response) {
-            var info = response;
-            _this.info = info;
-            if (_this.info.length <= 0) {
-                _this.NoMostrar = "No existen solicitudes realizadas";
-                return _this.NoMostrar;
-            }
-            else {
-                if (!_this.info.status) {
-                    _this.datoSol = "";
-                    var length = _this.info.length;
-                    for (var i = 0; i < length; i++) {
-                        _this.datoSolIteracion = JSON.stringify(_this.info[i]);
-                        if (_this.datoSol == "") {
-                            _this.datoSol = _this.datoSolIteracion;
-                        }
-                        else {
-                            _this.datoSol = _this.datoSol + "," + _this.datoSolIteracion;
-                        }
-                    }
-                    ;
-                    _this.datoSolMostrar = JSON.parse("[" + _this.datoSol + "]");
-                    return _this.datoSolMostrar;
-                }
-            }
-        }, function (error) {
-            _this.errorMessage = error;
-            if (_this.errorMessage != null) {
-                console.log(_this.errorMessage);
-                alert("Error en la peticion de solicitudes");
-            }
-        });
-    };
     return InformeComponent;
 }());
 InformeComponent = __decorate([

@@ -38,20 +38,24 @@ BackBundle\Entity\TransporteSolicitado:
                 fixed: true
             column: trasol_rutafin
         trasolFechasalida:
-            type: date
+            type: string
             nullable: true
+            length: 20
             column: trasol_fechasalida
         trasolHorasalida:
-            type: time
+            type: string
             nullable: true
+            length: 20
             column: trasol_horasalida
         trasolFechallegada:
-            type: date
+            type: string
             nullable: true
+            length: 20
             column: trasol_fechallegada
         trasolHorallegada:
-            type: time
+            type: string
             nullable: true
+            length: 20
             column: trasol_horallegada
     manyToOne:
         tiptra:

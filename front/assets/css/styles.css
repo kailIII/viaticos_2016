@@ -1,3 +1,10 @@
+.centrado{
+	text-align: center;
+}
+.modal-detallesol{
+	font-size: 12px;
+}
+
 #header_login{
 	margin-top: 2%;
 	text-align: center;
@@ -53,8 +60,8 @@
 .informacion{
 	width: 88%;
 	padding: 1%;
-	border-left: 1px solid #d3d1d1;
-	border-radius: 3px;
+	/*border-left: 1px solid #d3d1d1;*/
+	/*border-radius: 3px;*/
 }
 .nombre{
 	width: 20%;
@@ -86,8 +93,8 @@
 .ultimosvuelos, .vuelospendientes, .procesopago, .informependiente{
 	width: 50%;
 	margin: 1%;
-	border: 1px solid #000000;
-	border-radius: 10px;
+	/*border: 1px solid #000000;
+	border-radius: 10px;*/
 }
 
 .ultimosvuelos p, .vuelospendientes p, .procesopago p, .informependiente p{

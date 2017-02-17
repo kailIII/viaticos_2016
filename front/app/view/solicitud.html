@@ -11,117 +11,882 @@
 <hr>
 <!-- Inicio del collapse en menu-->
 <div >
-<p-tabView>
-    <p-tabPanel header="Realizadas">
-       <!-- inicio detalle solicitud realizadas -->
-       <div class="formulario_solicitud" *ngIf="detalleSol == false">
-	<div *ngIf="datoSolMostrar" >
-		<!-- <table cellpadding="0" cellspacing="0" border="0" class="display" id="muestra_datos" width="1"> -->
-		<div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none; text-align: right;">
-    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-    <input #gb type="text" pInputText size="25" placeholder="Buscar">
-</div>
-		<p-dataTable [value]="datoSolMostrar" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [globalFilter]="gb">
-		<!-- <p-header>Solicitudes Realizadas</p-header> -->
-    <p-column field="solIdsolicitud" header="Solicitud" [sortable]="true"></p-column>
-    <p-column field="solFecharealizacion" dateformat="yyyy-MM-dd" header="Fecha Realización" [sortable]="true"></p-column>
-    <p-column field="solEstado" header="Estado" [sortable]="true"></p-column>
-    <!-- <p-column field="solAnio" header="Acción"></p-column> -->
-    <p-column styleClass="col-button" header="Acción">
-        <!-- <template pTemplate="header"> -->
-            <!-- <button type="button" pButton icon="fa-refresh"></button> -->
-            <!-- <p><ins>Acción</ins></p> -->
-        <!-- </template> -->
-        <template let-car="rowData" pTemplate="body">
-            <button type="button" pButton (click)="selectCar(car)" icon="fa-edit"></button>
-        </template>
-    </p-column>
-</p-dataTable>
-		<!-- </table> -->
-	</div>
-	<div *ngIf!="datoSolMostrar">
-			<!-- <table cellpadding="0" cellspacing="0" border="0" class="display" id="muestra_datos" width="1">
-				<thead>
+	<p-tabView>
+		<p-tabPanel header="Mis Solicitudes">
+			<!-- inicio detalle solicitud realizadas -->
+			<div class="formulario_solicitud" *ngIf="detalleSol == false">
+				<div *ngIf="datoSolMostrar">
+					<div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none; text-align: right;">
+						<i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+						<input #gb1 type="text" pInputText size="25" placeholder="Buscar">
+					</div>
+					<p-dataTable [value]="datoSolMostrarp" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [globalFilter]="gb1">
+						<p-column [style]="{'width':'30%'}" field="solIdsolicitud" header="Solicitud" [ordered]="true" [sortable]="true" ></p-column>
+						<p-column [style]="{'width':'15%'}" field="solFecharealizacion" dateformat="yyyy-MM-dd" header="Fecha Realizado"  [sortable]="true"></p-column>
+						<p-column  [style]="{'width':'35%'}" field="solCiudades" header="Ciudades" [sortable]="true">
+						</p-column>
+						<p-column [style]="{'width':'10%'}" field="solEstado" header="Estado" [sortable]="true"></p-column>
+						<p-column [style]="{'width':'10%'}" styleClass="col-button" header="Acción">
+							<template let-car="rowData" pTemplate="body">
+								<button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-eye" data-toggle="tooltip" data-placement="bottom" title="Ver Solicitud"></button>
+								<button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-pencil" data-toggle="tooltip" data-placement="bottom" title="Editar Solicitud"></button>
+								<!-- <button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-file-o" data-toggle="tooltip" data-placement="bottom" title="Realizar Informe"></button> -->
+								<!-- <button class="btn btn-primary" (click)="lgModal.show()">Large modal</button> -->
+							</template>
+						</p-column>
+					</p-dataTable>
+				</div>
+				<div class="row modal-detallesol">
+					<!-- <button (click)="myModal.open()">open my modal</button> -->
+					<modal #myModal>
+						<modal-header>
+							<h5>SOLICITUD DE AUTORIZACION PARA CUMPLIMIENTO DE SERVICIOS INSTITUCIONALES</h5> <!-- <h2>{{detalleSolicitudRealizadas.DetsolIdsolicitud}}</h2> -->
+						</modal-header>
+						<modal-content>
+							<div>
+								<table class="tabla-modal" border="1">
+									<!-- <tbody> -->
+									<tr >
+										<td class="enc_sol">
+											<p>Nro.Solicitud de Autorización de servicios Institucionales</p>
+											<p>{{solifecfun2.solIdsolicitud}}</p>
+										</td>
+										<td class="enc_sol">
+											<p>Fecha de Solicitud (dd-mm-aa):</p>
+											<p>{{solifecfun2.solFecharealizacion}}</p>
+										</td>
+									</tr>
+									<!-- </tbody> -->
+								</table>
+								<table class="tabla-modal"  border="1">
+									<!-- <tbody> -->
+									<tr>
+										<td style="width: 20%"><p>VIATICOS</p></td>
+										<td style="width: 5%"><p>{{equis.viaticos}}</p></td>
+										<td style="width: 20%"><p>MOVILIZACIONES</p></td>
+										<td style="width: 5%"><p>{{equis.movilizaciones}}</p></td>
+										<td style="width: 20%"><p>SUBSISTENCIAS</p></td>
+										<td style="width: 5%"><p>{{equis.subsistencias}}</p></td>
+										<td style="width: 20%"><p>ALIMENTACION</p></td>
+										<td style="width: 5%"><p>{{equis.alimentacion}}</p></td>
+									</tr>
+									<!-- </tbody> -->
+								</table>
+								<div class="titulo_sol">DATOS GENERALES</div>
+								<table class="tabla-modal"  border="1">
+									<!-- <tbody> -->
+									<tr>
+										<td><p>NOMBRES COMPLETOS DE LA O EL SERVIDOR:</p>
+											<p>{{solifecfun2.perNombrecompleto}}</p>
+											<p>{{solifecfun2.perIdentificacion}}</p>
+										</td>
+										<td>
+											<p>PUESTO QUE OCUPA:</p>
+											<p>{{cardep2.carNombre}}</p>
+
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<p>CIUDAD - PROVINCIA DEL SERVICIO INSTITUCIONAL:</p>
+											<p *ngFor="let ciudadessolMostrar of ciudadessol">{{ciudadessolMostrar.ciu.ciuNombre}}-{{ciudadessolMostrar.ciu.prov.provNombre}}</p>
+										</td>
+										<td>
+											<p>NOMBRE DE LA UNIDAD A LA QUE PERTENECE LA O EL SERVIDOR:</p>
+											<p>{{cardep2.depNombre}}</p>
+										</td>
+									</tr>
+									<!-- </tbody> -->
+								</table>
+								<table class="tabla-modal"  border="1">
+									<!-- <tbody> -->
+									<tr *ngFor="let estadosolMostrar of estadosol">
+										<td>
+											<p>FECHA SALIDA (dd-mm-aa):</p>
+											<p>{{estadosolMostrar.estsolFechasalida}}</p>
+										</td>
+										<td>
+											<p>HORA SALIDA (hh:mm):</p>
+											<p>{{estadosolMostrar.estsolHorasalida}}</p>
+										</td>
+										<td>
+											<p>FECHA LLEGADA (dd-mm-aa):</p>
+											<p>{{estadosolMostrar.estsolFechallegada}}</p>
+										</td>
+										<td>
+											<p>HORA LLEGADA (hh:mm):</p>
+											<p>{{estadosolMostrar.estsolHorallegada}}</p>
+										</td>
+
+									</tr>
+									<!-- </tbody> -->
+								</table>
+								<!-- <p>Actividades:</p><p>{{estadosol.estsolActividades}}</p>-->
+				<!-- <div *ngIf = "bancosol2.banperTipocuenta === A">
+					<p >Banco: {{bancosol2.banNombre}} AHORROS {{bancosol2.banperNumerocuenta}}</p>
+				</div> -->
+				<!-- <div *ngIf="bancosol2.banperTipocuenta === C"> -->
+				<table class="tabla-modal"  border="1">
 					<tr>
-						<th>Solicitud</th>
-						<th>Fecha Realización</th>
-						<th>Nombre Funcionario</th>
-						<th>Estado</th>
-						<th width="65px">EDITAR - ELIMINAR</th>
+						<td>
+							<p>SERVIDORES QUE INTEGRAN LOS SERVICIOS INSTITUCIONALES:</p>
+							<p *ngFor="let personasssolMostrar of personasssol">{{personasssolMostrar.per.perNombrecompleto}}</p>
+						</td>
 					</tr>
-				</thead>
-				<tbody >
 					<tr>
-						<td> -->{{NoMostrar}}<!-- </td>
+						<td>
+							<p>DESCRIPCION DE LAS ACTIVIDADES A EJECUTARSE:</p>
+							<!-- <div *ngFor="let estadosolMostrar of estadosol">
+								<div>
+									{{estadosolMostrar.estsolActividades}}	
+								</div>
+							</div> -->
+							<div>
+								<span [innerHTML]="estsolActividades"></span>
+								<!-- {{estsolActividades}} -->
+							</div>
+						</td>
+
 					</tr>
-				</tbody>
-			</table> -->
-		</div>
-	</div>
+				</table>
+				<div>
+					<div class="titulo_sol">Transporte:</div> 
+					<table class="tabla-modal"  border="1">
+						<thead>
+							<tr>
+								<th>Tipo</th>
+								<!-- <th>tiptraTipo</th> -->
+								<th>Ruta inicio</th>
+								<th>Ruta fin</th>
+								<th>Fecha salida</th>
+								<th>Hora salida</th>
+								<th>Fecha llegada</th>
+								<th>Hora llegada</th>
 
-       <!-- fin detalle solicitud realizadas -->
-    </p-tabPanel>
-    <p-tabPanel header="Por Firmar">
-        <!-- inicio detalle solicitud por firmar -->
-
-<!-- <p-dataTable id="muestra_datos" [value]="datoSolMostrar" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[10,15,20]">
- -->    <!-- <p-header>Solicitudes Realizadas</p-header> -->
-    <!-- <p-column *ngFor="let col of datoSolMostrar" [field]="col.solIdsolicitud" [header]="Solicitud"></p-column> -->
-    <!-- <p-column field="{{SolicitudMostrar.solIdsolicitud}}" header="Solicitud"></p-column> -->
-    <!-- <p-column field="{{SolicitudMostrar.solFecharealizacion}}" header="Fecha realización"></p-column> -->
-    <!-- <p-column field="{{SolicitudMostrar.solEstado}}" header="Estado"></p-column> -->
-    <!-- <p-column field="<a class="btn btn-warning btn-xs glyphicon glyphicon-edit"></a>" header="Editar"></p-column> -->
-<!-- </p-dataTable> -->
-
-<!-- <table cellpadding="0" cellspacing="0" border="0" class="display" id="muestra_datos" width="1"> -->
-<p-dataTable id="muestra_datos" [value]="datoSolMostrar" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[10,15,20]" >
-
-
-<thead>
-                    <tr><tr>
-                        <th>ID</th>
-                        <th>NOMBRE</th>
-                        <th>EXTENSION</th>
-                        <th>ESTADO</th>
-                        <th width="65px">EDITAR</th>
-                    </tr>
-                </thead>
-                <tbody *ngFor="let SolicitudMostrar of datoSolMostrar">
-                	<td>{{SolicitudMostrar.solIdsolicitud}}</td>
-                	<td>{{SolicitudMostrar.solFecharealizacion}}</td>
-                	<td>{{SolicitudMostrar.solEstado}}"</td>
-                	<td>
-                		<a class="btn btn-warning btn-xs"><i class="icon-edit"></i></a>
-                	</td>
-
-                </tbody>
-                
-</p-dataTable>
-
-
-        <!-- fin detalle solicitud por firmar -->
-    </p-tabPanel>
-    <p-tabPanel header="Historial">
-        <!-- inicio detalle historial solicitud     -->
-        <!-- fin detalle historial solicitud -->
-    </p-tabPanel>
-</p-tabView>
-
-            </div>
-
-<!-- fin del collapse en menu-->
-	<div id="detalleSol" *ngIf="detalleSol == true">
-		<!-- <div class="menuActivo">
-			<div class="collapse navbar-collapse"  id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav"> -->
-					<button (click)="OnbotonAtrasSolicitud()">Atrás</button>
-				<!-- </ul>
-				<ul class="nav navbar-nav navbar-right">
-					<p>Módulo actual: <span>{{titulo}}</span></p>
-				</ul>
+							</tr>
+						</thead>
+						<tbody *ngFor="let transportessolMostrar of transportessol">
+							<tr>
+								<td>{{transportessolMostrar.tiptra.tiptraNombre}}</td>
+								<!-- <td>{{transportessolMostrar.tiptra.tiptraTipo}}</td> -->
+								<td>{{transportessolMostrar.trasolRutainicio}}</td>
+								<td>{{transportessolMostrar.trasolRutafin}}</td>
+								<td>{{transportessolMostrar.trasolFechasalida}}</td>
+								<td>{{transportessolMostrar.trasolHorasalida}}</td>
+								<td>{{transportessolMostrar.trasolFechallegada}}</td>
+								<td>{{transportessolMostrar.trasolHorallegada}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<table class="tabla-modal"  border="1">
+					<!-- <tbody> -->
+					<tr>
+						<td><p>NOMBRE DEL BANCO:</p><p>{{bancosol2.banNombre}}</p></td>
+						<td><p>TIPO DE CUENTA:</p><p>{{bancosol2.banperTipocuenta}}</p></td>
+						<!-- <td *ngIf="bancosol2.banperTipocuenta === C"><p>TIPO DE CUENTA:</p><p>CORRIENTE</p></td> -->
+						<td><p>N° DE CUENTA:</p><p>{{bancosol2.banperNumerocuenta}}</p></td>
+					</tr>
+					<!-- </tbody> -->
+				</table>
+				<!-- </div> -->
+				<table class="tabla-modal"  border="1">
+					<!-- <tbody> -->
+					<tr>
+						<td>
+							<p>{{solifecfun2.perNombrecompleto}}</p>
+							<p>{{cardep2.carNombre}}</p>
+						</td>
+						<td>
+							<p>{{cargojefesol2.perNombrecompleto}}</p>
+							<p>{{cargojefesol2.carNombre}}</p>
+						</td>
+						<td>
+							<p>{{cargocotosol2.perNombrecompleto}}</p>
+							<p>{{cargocotosol2.carNombre}}</p> 
+						</td>
+					</tr>
+					<!-- </tbody> -->
+				</table>
 			</div>
-		</div> -->
-		<p>Id de la solicitud</p> <!-- <p>{{SolicitudMostrar.solIdsolicitud}}</p> -->
-		<p>Fecha de la solicitud</p> <!-- <p>{{SolicitudMostrar.solFecharealizacion}}</p> -->
-		<p>Estado de la solicitud</p> <!-- <p>{{SolicitudMostrar.solEstado}}</p> -->
-	</div>
+		</modal-content>
+		<modal-footer>
+			<!-- <button class="btn btn-primary" (click)="myModal.close()">Firmar</button> -->
+			<button class="btn btn-primary" (click)="myModal.close()">Cerrar</button>
+		</modal-footer>
+	</modal>
+</div>
+
+<div *ngIf!="datoSolMostrar">
+	{{NoMostrar}}
+</div>
+</div>
+<!-- fin detalle solicitud realizadas -->
+</p-tabPanel>
+<p-tabPanel header="Mi Historial">
+	<!-- inicio detalle solicitud realizadas -->
+	<div class="formulario_solicitud" *ngIf="detalleSol == false">
+		<div *ngIf="datoSolMostrar">
+			<div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none; text-align: right;">
+				<i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+				<input #gb2 type="text" pInputText size="25" placeholder="Buscar">
+			</div>
+			<p-dataTable [value]="datoSolMostrara" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [globalFilter]="gb2">
+				<p-column [style]="{'width':'30%'}" field="solIdsolicitud" header="Solicitud" [ordered]="true" [sortable]="true" ></p-column>
+				<p-column [style]="{'width':'15%'}" field="solFecharealizacion" dateformat="yyyy-MM-dd" header="Fecha Realizado"  [sortable]="true"></p-column>
+				<p-column  [style]="{'width':'35%'}" field="solCiudades" header="Ciudades" [sortable]="true">
+				</p-column>
+				<p-column [style]="{'width':'10%'}" field="solEstado" header="Estado" [sortable]="true"></p-column>
+				<p-column [style]="{'width':'10%'}" styleClass="col-button" header="Acción">
+					<template let-car="rowData" pTemplate="body">
+						<button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-eye" data-toggle="tooltip" data-placement="bottom" title="Ver Solicitud"></button>
+						<button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-pencil" data-toggle="tooltip" data-placement="bottom" title="Editar Solicitud"></button>
+						<!-- <button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-file-o" data-toggle="tooltip" data-placement="bottom" title="Realizar Informe"></button> -->
+						<!-- <button class="btn btn-primary" (click)="lgModal.show()">Large modal</button> -->
+					</template>
+				</p-column>
+			</p-dataTable>
+		</div>
+		<div class="row modal-detallesol">
+			<!-- <button (click)="myModal.open()">open my modal</button> -->
+			<modal #myModal2>
+				<modal-header>
+					<h5>SOLICITUD DE AUTORIZACION PARA CUMPLIMIENTO DE SERVICIOS INSTITUCIONALES</h5> <!-- <h2>{{detalleSolicitudRealizadas.DetsolIdsolicitud}}</h2> -->
+				</modal-header>
+				<modal-content>
+					<div>
+						<table class="tabla-modal" border="1">
+							<!-- <tbody> -->
+							<tr >
+								<td class="enc_sol">
+									<p>Nro.Solicitud de Autorización de servicios Institucionales</p>
+									<p>{{solifecfun2.solIdsolicitud}}</p>
+								</td>
+								<td class="enc_sol">
+									<p>Fecha de Solicitud (dd-mm-aa):</p>
+									<p>{{solifecfun2.solFecharealizacion}}</p>
+								</td>
+							</tr>
+							<!-- </tbody> -->
+						</table>
+						<table class="tabla-modal"  border="1">
+							<!-- <tbody> -->
+							<tr>
+								<td style="width: 20%"><p>VIATICOS</p></td>
+								<td style="width: 5%"><p>{{equis.viaticos}}</p></td>
+								<td style="width: 20%"><p>MOVILIZACIONES</p></td>
+								<td style="width: 5%"><p>{{equis.movilizaciones}}</p></td>
+								<td style="width: 20%"><p>SUBSISTENCIAS</p></td>
+								<td style="width: 5%"><p>{{equis.subsistencias}}</p></td>
+								<td style="width: 20%"><p>ALIMENTACION</p></td>
+								<td style="width: 5%"><p>{{equis.alimentacion}}</p></td>
+							</tr>
+							<!-- </tbody> -->
+						</table>
+						<div class="titulo_sol">DATOS GENERALES</div>
+						<table class="tabla-modal"  border="1">
+							<!-- <tbody> -->
+							<tr>
+								<td><p>NOMBRES COMPLETOS DE LA O EL SERVIDOR:</p>
+									<p>{{solifecfun2.perNombrecompleto}}</p>
+									<p>{{solifecfun2.perIdentificacion}}</p>
+								</td>
+								<td>
+									<p>PUESTO QUE OCUPA:</p>
+									<p>{{cardep2.carNombre}}</p>
+
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p>CIUDAD - PROVINCIA DEL SERVICIO INSTITUCIONAL:</p>
+									<p *ngFor="let ciudadessolMostrar of ciudadessol">{{ciudadessolMostrar.ciu.ciuNombre}}-{{ciudadessolMostrar.ciu.prov.provNombre}}</p>
+								</td>
+								<td>
+									<p>NOMBRE DE LA UNIDAD A LA QUE PERTENECE LA O EL SERVIDOR:</p>
+									<p>{{cardep2.depNombre}}</p>
+								</td>
+							</tr>
+							<!-- </tbody> -->
+						</table>
+						<table class="tabla-modal"  border="1">
+							<!-- <tbody> -->
+							<tr *ngFor="let estadosolMostrar of estadosol">
+								<td>
+									<p>FECHA SALIDA (dd-mm-aa):</p>
+									<p>{{estadosolMostrar.estsolFechasalida}}</p>
+								</td>
+								<td>
+									<p>HORA SALIDA (hh:mm):</p>
+									<p>{{estadosolMostrar.estsolHorasalida}}</p>
+								</td>
+								<td>
+									<p>FECHA LLEGADA (dd-mm-aa):</p>
+									<p>{{estadosolMostrar.estsolFechallegada}}</p>
+								</td>
+								<td>
+									<p>HORA LLEGADA (hh:mm):</p>
+									<p>{{estadosolMostrar.estsolHorallegada}}</p>
+								</td>
+
+							</tr>
+							<!-- </tbody> -->
+						</table>
+						<!-- <p>Actividades:</p><p>{{estadosol.estsolActividades}}</p>-->
+				<!-- <div *ngIf = "bancosol2.banperTipocuenta === A">
+					<p >Banco: {{bancosol2.banNombre}} AHORROS {{bancosol2.banperNumerocuenta}}</p>
+				</div> -->
+				<!-- <div *ngIf="bancosol2.banperTipocuenta === C"> -->
+				<table class="tabla-modal"  border="1">
+					<tr>
+						<td>
+							<p>SERVIDORES QUE INTEGRAN LOS SERVICIOS INSTITUCIONALES:</p>
+							<p *ngFor="let personasssolMostrar of personasssol">{{personasssolMostrar.per.perNombrecompleto}}</p>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p>DESCRIPCION DE LAS ACTIVIDADES A EJECUTARSE:</p>
+							<!-- <div *ngFor="let estadosolMostrar of estadosol">
+								<div>
+									{{estadosolMostrar.estsolActividades}}	
+								</div>
+							</div> -->
+							<div>
+								<span [innerHTML]="estsolActividades"></span>
+								<!-- {{estsolActividades}} -->
+							</div>
+						</td>
+
+					</tr>
+				</table>
+				<div>
+					<div class="titulo_sol">Transporte:</div> 
+					<table class="tabla-modal"  border="1">
+						<thead>
+							<tr>
+								<th>Tipo</th>
+								<!-- <th>tiptraTipo</th> -->
+								<th>Ruta inicio</th>
+								<th>Ruta fin</th>
+								<th>Fecha salida</th>
+								<th>Hora salida</th>
+								<th>Fecha llegada</th>
+								<th>Hora llegada</th>
+
+							</tr>
+						</thead>
+						<tbody *ngFor="let transportessolMostrar of transportessol">
+							<tr>
+								<td>{{transportessolMostrar.tiptra.tiptraNombre}}</td>
+								<!-- <td>{{transportessolMostrar.tiptra.tiptraTipo}}</td> -->
+								<td>{{transportessolMostrar.trasolRutainicio}}</td>
+								<td>{{transportessolMostrar.trasolRutafin}}</td>
+								<td>{{transportessolMostrar.trasolFechasalida}}</td>
+								<td>{{transportessolMostrar.trasolHorasalida}}</td>
+								<td>{{transportessolMostrar.trasolFechallegada}}</td>
+								<td>{{transportessolMostrar.trasolHorallegada}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<table class="tabla-modal"  border="1">
+					<!-- <tbody> -->
+					<tr>
+						<td><p>NOMBRE DEL BANCO:</p><p>{{bancosol2.banNombre}}</p></td>
+						<td><p>TIPO DE CUENTA:</p><p>{{bancosol2.banperTipocuenta}}</p></td>
+						<!-- <td *ngIf="bancosol2.banperTipocuenta === C"><p>TIPO DE CUENTA:</p><p>CORRIENTE</p></td> -->
+						<td><p>N° DE CUENTA:</p><p>{{bancosol2.banperNumerocuenta}}</p></td>
+					</tr>
+					<!-- </tbody> -->
+				</table>
+				<!-- </div> -->
+				<table class="tabla-modal centrado"  border="1">
+					<!-- <tbody> -->
+					<tr>
+						<td>
+							<p class="firmado">Firmado Electrónicamente</p>
+							<p>{{solifecfun2.perNombrecompleto}}</p>
+							<p>{{cardep2.carNombre}}</p>
+						</td>
+						<td>
+							<p class="firmado">Firmado Electrónicamente</p>
+							<p>{{cargojefesol2.perNombrecompleto}}</p>
+							<p>{{cargojefesol2.carNombre}}</p>
+						</td>
+						<td>
+							<p class="firmado">Firmado Electrónicamente</p>
+							<p>{{cargocotosol2.perNombrecompleto}}</p>
+							<p>{{cargocotosol2.carNombre}}</p> 
+						</td>
+					</tr>
+					<!-- </tbody> -->
+				</table>
+			</div>
+		</modal-content>
+		<modal-footer>
+			<!-- <button class="btn btn-primary" (click)="myModal.close()">Firmar</button> -->
+			<button class="btn btn-primary" (click)="myModal2.close()">Cerrar</button>
+		</modal-footer>
+	</modal>
+</div>
+
+
+
+
+
+<div *ngIf!="datoSolMostrar">
+	{{NoMostrar}}
+</div>
+</div>
+<!-- fin detalle solicitud realizadas -->
+</p-tabPanel>
+<div *ngIf="mostrarmenufirma > 0" >
+	<p-tabPanel header="Por Firmar">
+		<!-- inicio detalle solicitud realizadas -->
+		<div class="formulario_solicitud" *ngIf="detalleSol == false">
+			<div *ngIf="datoSolMostrar">
+				<div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none; text-align: right;">
+					<i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+					<input #gb3 type="text" pInputText size="25" placeholder="Buscar">
+				</div>
+				<p-dataTable [value]="datoSolMostrarhp" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [globalFilter]="gb3">
+					<p-column [style]="{'width':'25%'}" field="perNombrecompleto" header="funcionario(a)" [sortable]="true" ></p-column>
+					<p-column [style]="{'width':'25%'}" field="solIdsolicitud" header="Solicitud" [ordered]="true" [sortable]="true" ></p-column>
+					<p-column [style]="{'width':'10%'}" field="solFecharealizacion" dateformat="yyyy-MM-dd" header="Fecha Realizado"  [sortable]="true"></p-column>
+					<p-column  [style]="{'width':'20%'}" field="solCiudades" header="Ciudades" [sortable]="true">
+					</p-column>
+					<p-column [style]="{'width':'10%'}" field="solEstado" header="Estado" [sortable]="true"></p-column>
+					<p-column [style]="{'width':'10%'}" styleClass="col-button" header="Acción">
+						<template let-car="rowData" pTemplate="body">
+							<button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-eye" data-toggle="tooltip" data-placement="bottom" title="Ver Solicitud"></button>
+							<button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-pencil" data-toggle="tooltip" data-placement="bottom" title="Editar Solicitud"></button>
+							<!-- <button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-file-o" data-toggle="tooltip" data-placement="bottom" title="Realizar Informe"></button> -->
+							<!-- <button class="btn btn-primary" (click)="lgModal.show()">Large modal</button> -->
+						</template>
+					</p-column>
+				</p-dataTable>
+			</div>
+			<div class="row modal-detallesol">
+				<!-- <button (click)="myModal.open()">open my modal</button> -->
+				<modal #myModal3>
+					<modal-header>
+						<h5>SOLICITUD DE AUTORIZACION PARA CUMPLIMIENTO DE SERVICIOS INSTITUCIONALES</h5> <!-- <h2>{{detalleSolicitudRealizadas.DetsolIdsolicitud}}</h2> -->
+					</modal-header>
+					<modal-content>
+						<div>
+							<table class="tabla-modal" border="1">
+								<!-- <tbody> -->
+								<tr >
+									<td class="enc_sol">
+										<p>Nro.Solicitud de Autorización de servicios Institucionales</p>
+										<p>{{solifecfun2.solIdsolicitud}}</p>
+									</td>
+									<td class="enc_sol">
+										<p>Fecha de Solicitud (dd-mm-aa):</p>
+										<p>{{solifecfun2.solFecharealizacion}}</p>
+									</td>
+								</tr>
+								<!-- </tbody> -->
+							</table>
+							<table class="tabla-modal"  border="1">
+								<!-- <tbody> -->
+								<tr>
+									<td style="width: 20%"><p>VIATICOS</p></td>
+									<td style="width: 5%"><p>{{equis.viaticos}}</p></td>
+									<td style="width: 20%"><p>MOVILIZACIONES</p></td>
+									<td style="width: 5%"><p>{{equis.movilizaciones}}</p></td>
+									<td style="width: 20%"><p>SUBSISTENCIAS</p></td>
+									<td style="width: 5%"><p>{{equis.subsistencias}}</p></td>
+									<td style="width: 20%"><p>ALIMENTACION</p></td>
+									<td style="width: 5%"><p>{{equis.alimentacion}}</p></td>
+								</tr>
+								<!-- </tbody> -->
+							</table>
+							<div class="titulo_sol">DATOS GENERALES</div>
+							<table class="tabla-modal"  border="1">
+								<!-- <tbody> -->
+								<tr>
+									<td><p>NOMBRES COMPLETOS DE LA O EL SERVIDOR:</p>
+										<p>{{solifecfun2.perNombrecompleto}}</p>
+										<p>{{solifecfun2.perIdentificacion}}</p>
+									</td>
+									<td>
+										<p>PUESTO QUE OCUPA:</p>
+										<p>{{cardep2.carNombre}}</p>
+
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<p>CIUDAD - PROVINCIA DEL SERVICIO INSTITUCIONAL:</p>
+										<p *ngFor="let ciudadessolMostrar of ciudadessol">{{ciudadessolMostrar.ciu.ciuNombre}}-{{ciudadessolMostrar.ciu.prov.provNombre}}</p>
+									</td>
+									<td>
+										<p>NOMBRE DE LA UNIDAD A LA QUE PERTENECE LA O EL SERVIDOR:</p>
+										<p>{{cardep2.depNombre}}</p>
+									</td>
+								</tr>
+								<!-- </tbody> -->
+							</table>
+							<table class="tabla-modal"  border="1">
+								<!-- <tbody> -->
+								<tr *ngFor="let estadosolMostrar of estadosol">
+									<td>
+										<p>FECHA SALIDA (dd-mm-aa):</p>
+										<p>{{estadosolMostrar.estsolFechasalida}}</p>
+									</td>
+									<td>
+										<p>HORA SALIDA (hh:mm):</p>
+										<p>{{estadosolMostrar.estsolHorasalida}}</p>
+									</td>
+									<td>
+										<p>FECHA LLEGADA (dd-mm-aa):</p>
+										<p>{{estadosolMostrar.estsolFechallegada}}</p>
+									</td>
+									<td>
+										<p>HORA LLEGADA (hh:mm):</p>
+										<p>{{estadosolMostrar.estsolHorallegada}}</p>
+									</td>
+
+								</tr>
+								<!-- </tbody> -->
+							</table>
+							<!-- <p>Actividades:</p><p>{{estadosol.estsolActividades}}</p>-->
+				<!-- <div *ngIf = "bancosol2.banperTipocuenta === A">
+					<p >Banco: {{bancosol2.banNombre}} AHORROS {{bancosol2.banperNumerocuenta}}</p>
+				</div> -->
+				<!-- <div *ngIf="bancosol2.banperTipocuenta === C"> -->
+				<table class="tabla-modal"  border="1">
+					<tr>
+						<td>
+							<p>SERVIDORES QUE INTEGRAN LOS SERVICIOS INSTITUCIONALES:</p>
+							<p *ngFor="let personasssolMostrar of personasssol">{{personasssolMostrar.per.perNombrecompleto}}</p>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p>DESCRIPCION DE LAS ACTIVIDADES A EJECUTARSE:</p>
+							<!-- <div *ngFor="let estadosolMostrar of estadosol">
+								<div>
+									{{estadosolMostrar.estsolActividades}}	
+								</div>
+							</div> -->
+							<div>
+								<span [innerHTML]="estsolActividades"></span>
+								<!-- {{estsolActividades}} -->
+							</div>
+						</td>
+
+					</tr>
+				</table>
+				<div>
+					<div class="titulo_sol">Transporte:</div> 
+					<table class="tabla-modal"  border="1">
+						<thead>
+							<tr>
+								<th>Tipo</th>
+								<!-- <th>tiptraTipo</th> -->
+								<th>Ruta inicio</th>
+								<th>Ruta fin</th>
+								<th>Fecha salida</th>
+								<th>Hora salida</th>
+								<th>Fecha llegada</th>
+								<th>Hora llegada</th>
+
+							</tr>
+						</thead>
+						<tbody *ngFor="let transportessolMostrar of transportessol">
+							<tr>
+								<td>{{transportessolMostrar.tiptra.tiptraNombre}}</td>
+								<!-- <td>{{transportessolMostrar.tiptra.tiptraTipo}}</td> -->
+								<td>{{transportessolMostrar.trasolRutainicio}}</td>
+								<td>{{transportessolMostrar.trasolRutafin}}</td>
+								<td>{{transportessolMostrar.trasolFechasalida}}</td>
+								<td>{{transportessolMostrar.trasolHorasalida}}</td>
+								<td>{{transportessolMostrar.trasolFechallegada}}</td>
+								<td>{{transportessolMostrar.trasolHorallegada}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<table class="tabla-modal"  border="1">
+					<!-- <tbody> -->
+					<tr>
+						<td><p>NOMBRE DEL BANCO:</p><p>{{bancosol2.banNombre}}</p></td>
+						<td><p>TIPO DE CUENTA:</p><p>{{bancosol2.banperTipocuenta}}</p></td>
+						<!-- <td *ngIf="bancosol2.banperTipocuenta === C"><p>TIPO DE CUENTA:</p><p>CORRIENTE</p></td> -->
+						<td><p>N° DE CUENTA:</p><p>{{bancosol2.banperNumerocuenta}}</p></td>
+					</tr>
+					<!-- </tbody> -->
+				</table>
+				<!-- </div> -->
+				<table class="tabla-modal centrado"  border="1">
+					<!-- <tbody> -->
+					<tr>
+						<td>
+							
+							<p>{{solifecfun2.perNombrecompleto}}</p>
+							<p>{{cardep2.carNombre}}</p>
+						</td>
+						<td>
+							
+							<p>{{cargojefesol2.perNombrecompleto}}</p>
+							<p>{{cargojefesol2.carNombre}}</p>
+						</td>
+						<td>
+							
+							<p>{{cargocotosol2.perNombrecompleto}}</p>
+							<p>{{cargocotosol2.carNombre}}</p> 
+						</td>
+					</tr>
+					<!-- </tbody> -->
+				</table>
+			</div>
+		</modal-content>
+		<modal-footer>
+			<!-- <button class="btn btn-primary" (click)="myModal.close()">Firmar</button> -->
+			<button class="btn btn-primary" (click)="myModal3.close()">Cerrar</button>
+		</modal-footer>
+	</modal>
+</div>
+
+
+
+
+
+<div *ngIf!="datoSolMostrar">
+	{{NoMostrar}}
+</div>
+</div>
+<!-- fin detalle solicitud realizadas -->
+</p-tabPanel>
+<p-tabPanel header="Historial firmados">
+	<!-- inicio detalle solicitud realizadas -->
+	<div class="formulario_solicitud" *ngIf="detalleSol == false">
+		<div *ngIf="datoSolMostrar">
+			<div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none; text-align: right;">
+				<i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+				<input #gb4 type="text" pInputText size="25" placeholder="Buscar">
+			</div>
+			<p-dataTable [value]="datoSolMostrarha" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [globalFilter]="gb4">
+				<p-column [style]="{'width':'25%'}" field="perNombrecompleto" header="funcionario(a)" [sortable]="true" ></p-column>
+				<p-column [style]="{'width':'25%'}" field="solIdsolicitud" header="Solicitud" [ordered]="true" [sortable]="true" ></p-column>
+				<p-column [style]="{'width':'10%'}" field="solFecharealizacion" dateformat="yyyy-MM-dd" header="Fecha Realizado"  [sortable]="true"></p-column>
+				<p-column  [style]="{'width':'20%'}" field="solCiudades" header="Ciudades" [sortable]="true">
+				</p-column>
+				<p-column [style]="{'width':'10%'}" field="solEstado" header="Estado" [sortable]="true"></p-column>
+				<p-column [style]="{'width':'10%'}" styleClass="col-button" header="Acción">
+					<template let-car="rowData" pTemplate="body">
+						<button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-eye" data-toggle="tooltip" data-placement="bottom" title="Ver Solicitud"></button>
+						<button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-pencil" data-toggle="tooltip" data-placement="bottom" title="Editar Solicitud"></button>
+						<!-- <button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-file-o" data-toggle="tooltip" data-placement="bottom" title="Realizar Informe"></button> -->
+						<!-- <button class="btn btn-primary" (click)="lgModal.show()">Large modal</button> -->
+					</template>
+				</p-column>
+			</p-dataTable>
+		</div>
+		<div class="row modal-detallesol">
+			<!-- <button (click)="myModal.open()">open my modal</button> -->
+			<modal #myModal4>
+				<modal-header>
+					<h5>SOLICITUD DE AUTORIZACION PARA CUMPLIMIENTO DE SERVICIOS INSTITUCIONALES</h5> <!-- <h2>{{detalleSolicitudRealizadas.DetsolIdsolicitud}}</h2> -->
+				</modal-header>
+				<modal-content>
+					<div>
+						<table class="tabla-modal" border="1">
+							<!-- <tbody> -->
+							<tr >
+								<td class="enc_sol">
+									<p>Nro.Solicitud de Autorización de servicios Institucionales</p>
+									<p>{{solifecfun2.solIdsolicitud}}</p>
+								</td>
+								<td class="enc_sol">
+									<p>Fecha de Solicitud (dd-mm-aa):</p>
+									<p>{{solifecfun2.solFecharealizacion}}</p>
+								</td>
+							</tr>
+							<!-- </tbody> -->
+						</table>
+						<table class="tabla-modal"  border="1">
+							<!-- <tbody> -->
+							<tr>
+								<td style="width: 20%"><p>VIATICOS</p></td>
+								<td style="width: 5%"><p>{{equis.viaticos}}</p></td>
+								<td style="width: 20%"><p>MOVILIZACIONES</p></td>
+								<td style="width: 5%"><p>{{equis.movilizaciones}}</p></td>
+								<td style="width: 20%"><p>SUBSISTENCIAS</p></td>
+								<td style="width: 5%"><p>{{equis.subsistencias}}</p></td>
+								<td style="width: 20%"><p>ALIMENTACION</p></td>
+								<td style="width: 5%"><p>{{equis.alimentacion}}</p></td>
+							</tr>
+							<!-- </tbody> -->
+						</table>
+						<div class="titulo_sol">DATOS GENERALES</div>
+						<table class="tabla-modal"  border="1">
+							<!-- <tbody> -->
+							<tr>
+								<td><p>NOMBRES COMPLETOS DE LA O EL SERVIDOR:</p>
+									<p>{{solifecfun2.perNombrecompleto}}</p>
+									<p>{{solifecfun2.perIdentificacion}}</p>
+								</td>
+								<td>
+									<p>PUESTO QUE OCUPA:</p>
+									<p>{{cardep2.carNombre}}</p>
+
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p>CIUDAD - PROVINCIA DEL SERVICIO INSTITUCIONAL:</p>
+									<p *ngFor="let ciudadessolMostrar of ciudadessol">{{ciudadessolMostrar.ciu.ciuNombre}}-{{ciudadessolMostrar.ciu.prov.provNombre}}</p>
+								</td>
+								<td>
+									<p>NOMBRE DE LA UNIDAD A LA QUE PERTENECE LA O EL SERVIDOR:</p>
+									<p>{{cardep2.depNombre}}</p>
+								</td>
+							</tr>
+							<!-- </tbody> -->
+						</table>
+						<table class="tabla-modal"  border="1">
+							<!-- <tbody> -->
+							<tr *ngFor="let estadosolMostrar of estadosol">
+								<td>
+									<p>FECHA SALIDA (dd-mm-aa):</p>
+									<p>{{estadosolMostrar.estsolFechasalida}}</p>
+								</td>
+								<td>
+									<p>HORA SALIDA (hh:mm):</p>
+									<p>{{estadosolMostrar.estsolHorasalida}}</p>
+								</td>
+								<td>
+									<p>FECHA LLEGADA (dd-mm-aa):</p>
+									<p>{{estadosolMostrar.estsolFechallegada}}</p>
+								</td>
+								<td>
+									<p>HORA LLEGADA (hh:mm):</p>
+									<p>{{estadosolMostrar.estsolHorallegada}}</p>
+								</td>
+
+							</tr>
+							<!-- </tbody> -->
+						</table>
+						<!-- <p>Actividades:</p><p>{{estadosol.estsolActividades}}</p>-->
+				<!-- <div *ngIf = "bancosol2.banperTipocuenta === A">
+					<p >Banco: {{bancosol2.banNombre}} AHORROS {{bancosol2.banperNumerocuenta}}</p>
+				</div> -->
+				<!-- <div *ngIf="bancosol2.banperTipocuenta === C"> -->
+				<table class="tabla-modal"  border="1">
+					<tr>
+						<td>
+							<p>SERVIDORES QUE INTEGRAN LOS SERVICIOS INSTITUCIONALES:</p>
+							<p *ngFor="let personasssolMostrar of personasssol">{{personasssolMostrar.per.perNombrecompleto}}</p>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p>DESCRIPCION DE LAS ACTIVIDADES A EJECUTARSE:</p>
+							<!-- <div *ngFor="let estadosolMostrar of estadosol">
+								<div>
+									{{estadosolMostrar.estsolActividades}}	
+								</div>
+							</div> -->
+							<div>
+								<span [innerHTML]="estsolActividades"></span>
+								<!-- {{estsolActividades}} -->
+							</div>
+						</td>
+
+					</tr>
+				</table>
+				<div>
+					<div class="titulo_sol">Transporte:</div> 
+					<table class="tabla-modal"  border="1">
+						<thead>
+							<tr>
+								<th>Tipo</th>
+								<!-- <th>tiptraTipo</th> -->
+								<th>Ruta inicio</th>
+								<th>Ruta fin</th>
+								<th>Fecha salida</th>
+								<th>Hora salida</th>
+								<th>Fecha llegada</th>
+								<th>Hora llegada</th>
+
+							</tr>
+						</thead>
+						<tbody *ngFor="let transportessolMostrar of transportessol">
+							<tr>
+								<td>{{transportessolMostrar.tiptra.tiptraNombre}}</td>
+								<!-- <td>{{transportessolMostrar.tiptra.tiptraTipo}}</td> -->
+								<td>{{transportessolMostrar.trasolRutainicio}}</td>
+								<td>{{transportessolMostrar.trasolRutafin}}</td>
+								<td>{{transportessolMostrar.trasolFechasalida}}</td>
+								<td>{{transportessolMostrar.trasolHorasalida}}</td>
+								<td>{{transportessolMostrar.trasolFechallegada}}</td>
+								<td>{{transportessolMostrar.trasolHorallegada}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<table class="tabla-modal"  border="1">
+					<!-- <tbody> -->
+					<tr>
+						<td><p>NOMBRE DEL BANCO:</p><p>{{bancosol2.banNombre}}</p></td>
+						<td><p>TIPO DE CUENTA:</p><p>{{bancosol2.banperTipocuenta}}</p></td>
+						<!-- <td *ngIf="bancosol2.banperTipocuenta === C"><p>TIPO DE CUENTA:</p><p>CORRIENTE</p></td> -->
+						<td><p>N° DE CUENTA:</p><p>{{bancosol2.banperNumerocuenta}}</p></td>
+					</tr>
+					<!-- </tbody> -->
+				</table>
+				<!-- </div> -->
+				<table class="tabla-modal centrado"  border="1">
+					<!-- <tbody> -->
+					<tr>
+						<td>
+							<p class="firmado">Firmado Electrónicamente</p>
+							<p>{{solifecfun2.perNombrecompleto}}</p>
+							<p>{{cardep2.carNombre}}</p>
+						</td>
+						<td>
+							<p class="firmado">Firmado Electrónicamente</p>
+							<p>{{cargojefesol2.perNombrecompleto}}</p>
+							<p>{{cargojefesol2.carNombre}}</p>
+						</td>
+						<td>
+							<p class="firmado">Firmado Electrónicamente</p>
+							<p>{{cargocotosol2.perNombrecompleto}}</p>
+							<p>{{cargocotosol2.carNombre}}</p> 
+						</td>
+					</tr>
+					<!-- </tbody> -->
+				</table>
+			</div>
+		</modal-content>
+		<modal-footer>
+			<!-- <button class="btn btn-primary" (click)="myModal.close()">Firmar</button> -->
+			<button class="btn btn-primary" (click)="myModal4.close()">Cerrar</button>
+		</modal-footer>
+	</modal>
+</div>
+
+
+
+
+
+<div *ngIf!="datoSolMostrar">
+	{{NoMostrar}}
+</div>
+</div>
+<!-- fin detalle solicitud realizadas -->
+</p-tabPanel>
+</div>
+</p-tabView>
+</div>
+<!-- fin del collapse en menu-->
+<div id="detalleSol" *ngIf="detalleSol == true">
+	<button (click)="OnbotonAtrasSolicitud()">Atrás</button>
+	<p>Id de la solicitud</p> 
+	<p>Fecha de la solicitud</p> 
+	<p>Estado de la solicitud</p> 
+</div>

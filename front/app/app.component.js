@@ -163,8 +163,11 @@ var AppComponent = (function () {
             else if (minutos > 0) {
                 this.contador = minutos + ' Minutos, ' + segundos + ' Segundos';
             }
-            else {
+            else if (segundos > 1) {
                 this.contador = segundos + ' Segundos';
+            }
+            else {
+                this.contador = segundos + ' Segundo';
             }
             this.progress.emit(diferencia);
         }

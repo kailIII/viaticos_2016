@@ -31,6 +31,9 @@
       'ng2-pdf-viewer': 'npm:ng2-pdf-viewer',
       'pdfjs-dist': 'npm:pdfjs-dist',
       'moment': 'npm:moment',
+      'ng2-modal': 'npm:ng2-modal',
+      // 'ng2-bootstrap': 'npm:ng2-bootstrap',
+      // 'angular2-modal': 'npm:angular2-modal',
       'jquery':'npm:jquery'/*,
       'ng2-bootstrap': 'npm:ng2-bootstrap'*/
     },
@@ -58,10 +61,23 @@
         main: 'dist/pdf-viewer.component.js', 
         defaultExtension: 'js' 
       },
+      'ng2-modal': { 
+        main: 'index.js', 
+        defaultExtension: 'js' 
+      },
+      // 'ng2-bootstrap': { 
+      //   main: 'index.js', 
+      //   defaultExtension: 'js' 
+      // },
       'pdfjs-dist': { 
         main: 'build/pdf.js',
         defaultExtension: 'js' 
       },/*
+      'angular2-modal': { 
+        main: 'bundles/angular2-modal.umd',
+        // main: 'esm/index.js',
+        defaultExtension: 'js' 
+      },
       'ng2-bootstrap': {
        main: 'index.js',
        defaultExtension: 'js'

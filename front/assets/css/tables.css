@@ -1,3 +1,61 @@
+.infoprincipal{
+    /*margin-top: 2%;*/
+    /*border-radius: 5px;*/
+    font-size: 11px;
+/*    border: 1px solid #000000;
+    border-radius: 10px;*/
+}
+.infoprincipal p{
+    margin:0;
+    font-size: 14px;
+    color: Red;
+    /*border-radius: 5px;
+    font-size: 11px;*/
+}
+.infoprincipal p-datatable{
+    /*margin-top: 2%;*/
+    /*border-radius: 10px;*/
+    /*font-size: 11px;*/
+}
+.centrado{
+    text-align: center;
+}
+.centrado td{
+    width: 33%;
+}
+.firmado{
+    font-style: italic;
+    color: #235794;
+    font-size: 12px;
+    font-weight: bold;
+ /*   font-family:'Lucida Console';
+    
+    font-weight:400;
+    line-height:1;*/
+}
+
+.titulo_sol{
+    width: 100%;
+    border:1px solid #000;
+}
+
+.tabla-modal{
+    width: 100%;
+    /*border: 1;*/
+    /*border:1px solid #000;*/
+    /*border-color: #000;*/
+}
+
+.enc_sol{
+ width: 50%;
+ padding-left: 2%;
+ padding-right: 2%;
+}
+
+.enc_sol_equis{
+ width: 100%;
+}
+
 #contador{
     text-align: center;
     /*margin-bottom: 1%;*/
@@ -13,7 +71,7 @@
 	background-color:#efefef;	
 	height:30px;					
 	padding:5px 0px 5px 0px;
-        margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 #table_action_header ul
@@ -226,8 +284,8 @@ glyphicon{
 }
 
 .tabla_venta{
-border-radius:3px;
-border: 1px solid #CCCCCC;
+    border-radius:3px;
+    border: 1px solid #CCCCCC;
 }
 
 .label_productos{

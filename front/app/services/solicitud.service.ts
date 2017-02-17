@@ -35,8 +35,6 @@ export class SolicitudService{
 
 	AddSolicitud(token,data){
 		let json = JSON.stringify(data);
-		// console.log(json);
-		// let token = localStorage.getItem('token');
 		let params = "json="+json+"&authorization="+token;
 		let headers = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
 
@@ -50,6 +48,33 @@ export class SolicitudService{
 		let params = "json="+json+"&authorization="+token;
 		let headers = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
 		return this._http.post(this.url+"/solicitud/reporte", params, {headers: headers})
+		.map(res => res.json());
+
+	}
+
+	detallesolrealizadas(token,data){
+		let json = JSON.stringify(data);
+		let params = "json="+json+"&authorization="+token;
+		let headers = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+"/solicitud/detallesolicitud", params, {headers: headers})
+		.map(res => res.json());
+
+	}
+
+	porfirmarSolicitud(token,data){
+		let json = JSON.stringify(data);
+		let params = "json="+json+"&authorization="+token;
+		let headers = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+"/solicitud/porfirmar", params, {headers: headers})
+		.map(res => res.json());
+
+	}
+
+	jefeSolicitud(token,data){
+		let json = JSON.stringify(data);
+		let params = "json="+json+"&authorization="+token;
+		let headers = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+"/solicitud/esjefe", params, {headers: headers})
 		.map(res => res.json());
 
 	}

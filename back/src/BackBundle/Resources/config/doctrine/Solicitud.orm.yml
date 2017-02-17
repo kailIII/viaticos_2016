@@ -34,8 +34,9 @@ BackBundle\Entity\Solicitud:
                 fixed: true
             column: sol_idsolicitud
         solFecharealizacion:
-            type: date
+            type: string
             nullable: true
+            length: 20
             column: sol_fecharealizacion
         solNumeroactualizacion:
             type: smallint

@@ -187,8 +187,10 @@ export class AppComponent implements OnInit{
 				this.contador =/*'Restan ' + dias + ' D&iacute;as, ' +*/ horas + ' Hora, ' + minutos + ' Minutos, ' + segundos + ' Segundos'
 			}else if(minutos > 0){
 				this.contador =/*'Restan ' + dias + ' D&iacute;as, ' + horas + ' Hora, ' +*/ minutos + ' Minutos, ' + segundos + ' Segundos'
-			}else{
+			}else if(segundos > 1){
 				this.contador =/*'Restan ' + dias + ' D&iacute;as, ' + horas + ' Hora, ' + minutos + ' Minutos, ' +*/ segundos + ' Segundos'
+			}else{
+				this.contador =/*'Restan ' + dias + ' D&iacute;as, ' + horas + ' Hora, ' + minutos + ' Minutos, ' +*/ segundos + ' Segundo'
 			}
 
 			this.progress.emit(diferencia);

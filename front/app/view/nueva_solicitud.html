@@ -10,6 +10,7 @@
 	</div>
 </div>
 <div class="FormularioActivo">
+	<!-- <form #ComisionForm="ngForm"> -->
 	<form (ngSubmit)="onEnviarSol()" #ComisionForm="ngForm">
 		<div *ngIf="inicial == false">
 			<div class="td2">
@@ -17,7 +18,7 @@
 		<td><!-- <input type="datetime-local" [value]="2016-01-01" 
 			(change)="date=$event.target.value" /> -->
 			<!-- <datepicker [(ngModel)]="dt" [minDate]="minDate" [showWeeks]="true"></datepicker> -->
-			<p-calendar [showIcon]="true" [locale]="es" [(ngModel)]="Fecha_sol" [ngModelOptions]="{standalone: true}" dateFormat="dd/mm/yy"></p-calendar>
+			<p-calendar [showIcon]="true" [locale]="es" [(ngModel)]="Fecha_sol" [ngModelOptions]="{standalone: true}" dateFormat="yy-mm-dd"></p-calendar>
 			<!-- <input type="date" min="2016-01-01"  class="cuadros" name="Fecha_sol" > -->
 		</td>
 	</div>
@@ -33,7 +34,7 @@
 
 				<!-- <div class="ui-g-12 ui-md-4">
 				<h3>Icon</h3> -->
-				<p-calendar [style]="{'width':'auto'}" [showIcon]="true" [locale]="es" [(ngModel)]="FechaDesde_solicitud" [ngModelOptions]="{standalone: true}" dateFormat="dd/mm/yy"></p-calendar> <!-- <span style="margin-left:35px">{{fechas|date}}</span> -->
+				<p-calendar [style]="{'width':'auto'}" [showIcon]="true" [locale]="es" [(ngModel)]="FechaDesde_solicitud" [ngModelOptions]="{standalone: true}" dateFormat="yy-mm-dd"></p-calendar> <!-- <span style="margin-left:35px">{{fechas|date}}</span> -->
 				<!-- </div> -->
 				<!-- <p-calendar [(ngModel)]="comision.FechaDesde_sol" dateFormat="dd.mm.yy" showTime="showTime" hourFormat="24" [locale]="en"></p-calendar> -->
 				<!-- <input id="FechaDesde_sol" type="date" min="2016-01-01" class="cuadros" name="FechaDesde_sol" #FechaDesde_sol="ngModel" [(ngModel)]="comision.FechaDesde_sol"> -->
@@ -49,7 +50,7 @@
 			<td class="td2">
 				<!-- <input type="date" id="FechaHasta_sol" [(ngModel)]="comision.FechaHasta_sol"> -->
 				<!-- <input type="date" min="2016-01-01" class="cuadros" name="FechaHasta_sol" id="FechaHasta_sol" #FechaHasta_sol="ngModel" [(ngModel)]="comision.FechaHasta_sol"> -->
-				<p-calendar [style]="{'width':'auto'}" [showIcon]="true" [locale]="es" [(ngModel)]="FechaHasta_solicitud" [ngModelOptions]="{standalone: true}" dateFormat="dd/mm/yy"></p-calendar>
+				<p-calendar [style]="{'width':'auto'}" [showIcon]="true" [locale]="es" [(ngModel)]="FechaHasta_solicitud" [ngModelOptions]="{standalone: true}" dateFormat="yy-mm-dd"></p-calendar>
 				<!-- <p-calendar [(ngModel)]="FechaHasta_sol" dateFormat="dd/mm/yyyy" [ngModelOptions]="{standalone: true}"></p-calendar> -->
 			</td>
 			<td class="td2">Hora Fin:</td>

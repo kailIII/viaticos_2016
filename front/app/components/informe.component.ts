@@ -85,42 +85,4 @@ export class InformeComponent implements OnInit{
 // $('button').click();
 	}
 
-
-
-	OnVerDetalleSol(){
-		this._solicitudService.reporteSolicitud(this.token,this.funcionario).subscribe(
-			response => {
-				let info = response;
-				this.info = info;
-				if(this.info.length <=0){
-					this.NoMostrar = "No existen solicitudes realizadas";
-					return this.NoMostrar;
-				}else{ 	
-					if(!this.info.status){
-						this.datoSol = "";
-						var length = this.info.length;
-						for (var i = 0; i < length; i++) {
-							this.datoSolIteracion = JSON.stringify(this.info[i]);
-							if(this.datoSol == ""){
-								this.datoSol = this.datoSolIteracion;
-							}else{
-								this.datoSol = this.datoSol+","+this.datoSolIteracion;
-							}
-						};  
-						this.datoSolMostrar = JSON.parse("["+this.datoSol+"]");  
-						return this.datoSolMostrar;
-					}
-				}
-			},error => {
-				this.errorMessage = <any>error;
-
-				if(this.errorMessage != null){
-					console.log(this.errorMessage);
-					alert("Error en la peticion de solicitudes");
-				}
-			});
-	}
-
-
 }
-

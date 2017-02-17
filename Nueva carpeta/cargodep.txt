@@ -1,0 +1,20 @@
+{"carId":28,
+"carNombre":"ANALISTA DE TECNOLOGÍAS DE LA INFORMACIÓN 2",
+"carCategorizacion":null,
+"carJefe":99,
+"dep":{
+	"depId":29,
+	"depNombre":"Dirección de Tecnologías de la Información y Comunicación",
+	"depSiglas":"DTIC    ",
+	"depPadre":26,
+	"depEstado":"A",
+	"ins":{
+		"insId":1,
+		"insNombre":"VICEPRESIDENCIA DE LA REPÚBLICA DEL ECUADOR",
+		"insDireccion":"BENALCAZAR N4-40 Y CHILE",
+		"insLogo":"/images/vice_crece.png",
+		"insEstado":"A"}},
+"rol":{
+	"rolId":2,
+	"rolNombre":"Solicitante",
+	"rolEstado":"A"}}

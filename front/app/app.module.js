@@ -29,6 +29,10 @@ var primeng_1 = require("primeng/primeng");
 var common_1 = require("@angular/common");
 var ng2_pdf_viewer_1 = require("ng2-pdf-viewer");
 var formatDate_pipe_1 = require("./pipes/formatDate.pipe");
+var ng2_modal_1 = require("ng2-modal");
+// import { ModalModule } from 'angular2-modal';
+// import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
+// import { AlertComponent } from 'ng2-bootstrap/ng2-bootstrap';
 // import { DatepickerModule } from 'ng2-bootstrap';
 // import { Ng2SmartTableModule } from 'ng2-smart-table';
 // import {InputTextModule} from 'primeng/components/inputtext/inputtext';
@@ -63,7 +67,9 @@ AppModule = __decorate([
             primeng_1.MultiSelectModule,
             primeng_1.CalendarModule,
             primeng_1.DropdownModule,
-            primeng_1.TabViewModule
+            primeng_1.TabViewModule /*,
+            AlertComponent*/,
+            ng2_modal_1.ModalModule
         ],
         declarations: [
             app_component_1.AppComponent,

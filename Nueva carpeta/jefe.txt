@@ -1,0 +1,36 @@
+{"carperId":80,
+"carperDesde":{"timezone":{"name":"America/Guayaquil","location":{"country_code":"EC","latitude":-2.16667,"longitude":-79.83334,"comments":"Ecuador (mainland)"}},"offset":-18000,"timestamp":1475643600},
+"carperHasta":null,
+"carperTipo":null,
+"carperEstado":"A",
+"car":{
+	"carId":99,
+	"carNombre":"DIRECTOR/A DE TECNOLOGÍAS DE LA INFORMACIÓN Y COMUNICACIÓN",
+	"carCategorizacion":null,
+	"carJefe":76,
+	"dep":{
+		"depId":29,
+		"depNombre":"Dirección de Tecnologías de la Información y Comunicación",
+		"depSiglas":"DTIC    ",
+		"depPadre":26,
+		"depEstado":"A",
+		"ins":{
+			"insId":1,
+			"insNombre":"VICEPRESIDENCIA DE LA REPÚBLICA DEL ECUADOR",
+			"insDireccion":"BENALCAZAR N4-40 Y CHILE",
+			"insLogo":"/images/vice_crece.png",
+			"insEstado":"A"}},
+	"rol":{
+		"rolId":3,
+		"rolNombre":"JefeInmediato",
+		"rolEstado":"A"}},
+"per":{
+	"perId":87,
+	"perNombre":"Patricio Daniel",
+	"perApellido":"Galárraga Sosa",
+	"perIdentificacion":"1713848214   ",
+	"perEstado":"A",
+	"perCorreoelectronico":"patricio.galarraga@vicepresidencia.gob.ec",
+	"perIniciales":"PDGS",
+	"perCreado":{"timezone":{"name":"America/Guayaquil","location":{"country_code":"EC","latitude":-2.16667,"longitude":-79.83334,"comments":"Ecuador (mainland)"}},"offset":-18000,"timestamp":1475038800},
+	"perNombrecompleto":"Patricio Daniel Galárraga Sosa"}}

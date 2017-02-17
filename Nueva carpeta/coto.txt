@@ -1,0 +1,36 @@
+"carperId":145,
+"carperDesde":{"timezone":{"name":"America/Guayaquil","location":{"country_code":"EC","latitude":-2.16667,"longitude":-79.83334,"comments":"Ecuador (mainland)"}},"offset":-18000,"timestamp":1475643600},
+"carperHasta":null,
+"carperTipo":null,
+"carperEstado":"A",
+"car":
+	{"carId":67,
+	"carNombre":"COORDINADOR GENERAL ADMINISTRATIVO FINANCIERO",
+	"carCategorizacion":null,
+	"carJefe":120,
+	"dep":
+		{"depId":36,
+		"depNombre":"Coordinación General Administrativa Financiera",
+		"depSiglas":"CGAF    ",
+		"depPadre":6,
+		"depEstado":"A",
+		"ins":
+			{"insId":1,
+			"insNombre":"VICEPRESIDENCIA DE LA REPÚBLICA DEL ECUADOR",
+			"insDireccion":"BENALCAZAR N4-40 Y CHILE",
+			"insLogo":"/images/vice_crece.png",
+			"insEstado":"A"}},
+	"rol":
+		{"rolId":4,
+		"rolNombre":"JefeCoordinacion",
+		"rolEstado":"A"}},
+"per":
+	{"perId":154,
+	"perNombre":"Rodrigo Iván",
+	"perApellido":"Paredes Pérez",
+	"perIdentificacion":"1704441409   ",
+	"perEstado":"A",
+	"perCorreoelectronico":"ivan.paredes@vicepresidencia.gob.ec",
+	"perIniciales":"RIPP",
+	"perCreado":{"timezone":{"name":"America/Guayaquil","location":{"country_code":"EC","latitude":-2.16667,"longitude":-79.83334,"comments":"Ecuador (mainland)"}},"offset":-18000,"timestamp":1475038800},
+	"perNombrecompleto":"Rodrigo Iván Paredes Pérez"

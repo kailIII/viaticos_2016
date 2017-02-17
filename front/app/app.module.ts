@@ -22,6 +22,12 @@ import { CommonModule } from '@angular/common';
 
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { DatePipe } from './pipes/formatDate.pipe';
+
+import {ModalModule} from "ng2-modal";
+// import { ModalModule } from 'angular2-modal';
+// import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
+
+// import { AlertComponent } from 'ng2-bootstrap/ng2-bootstrap';
 // import { DatepickerModule } from 'ng2-bootstrap';
 // import { Ng2SmartTableModule } from 'ng2-smart-table';
 // import {InputTextModule} from 'primeng/components/inputtext/inputtext';
@@ -55,7 +61,13 @@ import { DatePipe } from './pipes/formatDate.pipe';
               MultiSelectModule,
               CalendarModule,
               DropdownModule,
-              TabViewModule
+              TabViewModule/*,
+              AlertComponent*/
+    //           , 
+    // ModalModule.forRoot(),
+    // BootstrapModalModule
+    ,
+    ModalModule
   ],
   declarations: [ 
               AppComponent,

@@ -1,0 +1,71 @@
+{"trasolId":84,
+"trasolRutainicio":"San Felipe de Oña-Azuay",
+"trasolRutafin":"Sevilla de Oro-Azuay",
+"trasolFechasalida":{
+		"timezone":{
+			"name":"America/Guayaquil",
+			"location":{
+				"country_code":"EC","latitude":-2.16667,"longitude":-79.83334,"comments":"Ecuador (mainland)"}},
+		"offset":-18000,
+		"timestamp":1512104400},
+"trasolHorasalida":{
+	"timezone":{
+		"name":"America/Guayaquil",
+		"location":{
+			"country_code":"EC","latitude":-2.16667,"longitude":-79.83334,"comments":"Ecuador (mainland)"}},
+		"offset":-18000,
+		"timestamp":71400},
+"trasolFechallegada":{
+	"timezone":{
+		"name":"America/Guayaquil",
+		"location":{
+			"country_code":"EC","latitude":-2.16667,"longitude":-79.83334,"comments":"Ecuador (mainland)"}},
+		"offset":-18000,
+		"timestamp":1514782800},
+"trasolHorallegada":{
+	"timezone":{
+		"name":"America/Guayaquil","location":{"country_code":"EC","latitude":-2.16667,"longitude":-79.83334,"comments":"Ecuador (mainland)"}},
+		"offset":-18000,
+		"timestamp":71400},
+"tiptra":{
+	"tiptraId":3,
+	"tiptraNombre":"TAME",
+	"tiptraTipo":"Aereo",
+	"tiptraSigla":"TAME"},
+"estsol":{
+	"estsolId":139,
+	"estsolFechasalida":{
+		"timezone":{
+			"name":"America/Guayaquil",
+			"location":{
+				"country_code":"EC",
+				"latitude":-2.16667,
+				"longitude":-79.83334,
+				"comments":"Ecuador (mainland)"}},
+		"offset":-18000,
+		"timestamp":1484110800},
+	"estsolHorasalida":{"timezone":{"name":"America/Guayaquil","location":{"country_code":"EC","latitude":-2.16667,"longitude":-79.83334,"comments":"Ecuador (mainland)"}},"offset":-18000,"timestamp":77010},
+	"estsolFechallegada":{"timezone":{"name":"America/Guayaquil","location":{"country_code":"EC","latitude":-2.16667,"longitude":-79.83334,"comments":"Ecuador (mainland)"}},"offset":-18000,"timestamp":1484110800},
+	"estsolHorallegada":{"timezone":{"name":"America/Guayaquil","location":{"country_code":"EC","latitude":-2.16667,"longitude":-79.83334,"comments":"Ecuador (mainland)"}},"offset":-18000,"timestamp":77010},
+	"estsolActividades":null,
+	"estsolEstado":"A",
+	"estsolRutapdf":"pdf/1002455630/DTIC-2017-SAPCSI-BSBE-135.pdf",
+	"estsolObservacion":null,
+	"sol":{
+		"solId":194,
+		"solSecuencial":135,
+		"solIdsolicitud":"DTIC-2017-SAPCSI-BSBE-135",
+		"solFecharealizacion":"2017-01-29",
+		"solNumeroactualizacion":0,
+		"solEstado":"P",
+		"solAnio":"2017",
+		"per":{
+			"perId":32,
+			"perNombre":"Byron Santiago",
+			"perApellido":"Benítez Echegaray",
+			"perIdentificacion":"1002455630   ",
+			"perEstado":"A",
+			"perCorreoelectronico":"santiago.benitez@vicepresidencia.gob.ec",
+			"perIniciales":"BSBE",
+			"perCreado":{"timezone":{"name":"America/Guayaquil","location":{"country_code":"EC","latitude":-2.16667,"longitude":-79.83334,"comments":"Ecuador (mainland)"}},"offset":-18000,"timestamp":1475038800},
+			"perNombrecompleto":"Byron Santiago Benítez Echegaray"}}}}

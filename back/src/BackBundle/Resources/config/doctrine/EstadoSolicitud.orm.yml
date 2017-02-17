@@ -21,20 +21,24 @@ BackBundle\Entity\EstadoSolicitud:
                 strategy: SEQUENCE
     fields:
         estsolFechasalida:
-            type: date
+            type: string
             nullable: true
+            length: 20
             column: estsol_fechasalida
         estsolHorasalida:
-            type: time
+            type: string
             nullable: true
+            length: 20
             column: estsol_horasalida
         estsolFechallegada:
-            type: date
+            type: string
             nullable: true
+            length: 20
             column: estsol_fechallegada
         estsolHorallegada:
-            type: time
+            type: string
             nullable: true
+            length: 20
             column: estsol_horallegada
         estsolActividades:
             type: text

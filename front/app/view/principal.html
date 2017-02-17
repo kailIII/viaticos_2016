@@ -19,6 +19,29 @@
 		<p>proceso pago</p>
 	</div>
 	<div class="informependiente">
-		<p>informes pendiente</p>
+		<div *ngIf="datoSolMostrar">
+			<!-- <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none; text-align: right;">
+				<i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+				<input #gb2 type="text" pInputText size="25" placeholder="Buscar">
+			</div> -->
+			<div class="infoprincipal">
+		<p>INFORMES PENDIENTES</p>
+				
+			<p-dataTable [value]="datoSolMostrara" [rows]="3" [paginator]="true" [pageLinks]="3" [globalFilter]="gb2">
+				<p-column [style]="{'width':'30%'}" field="solIdsolicitud" header="Informes pendientes" [ordered]="true" [sortable]="true" ></p-column>
+				<p-column [style]="{'width':'15%'}" field="solFecharealizacion" dateformat="yyyy-MM-dd" header="Fecha Realizado"  [sortable]="true"></p-column>
+				<p-column  [style]="{'width':'35%'}" field="solCiudades" header="Ciudades" [sortable]="true">
+				</p-column>
+				<!-- <p-column [style]="{'width':'10%'}" field="solEstado" header="Estado" [sortable]="true"></p-column> -->
+				<!-- <p-column [style]="{'width':'10%'}" styleClass="col-button" header="Acción">
+					<template let-car="rowData" pTemplate="body">
+						<button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-eye" ></button>
+						<button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-edit" ></button> -->
+						<!-- <button class="btn btn-primary" (click)="lgModal.show()">Large modal</button> -->
+					<!--</template>
+				</p-column> -->
+			</p-dataTable>
+			</div>
+		</div>
 	</div>
 </div>
