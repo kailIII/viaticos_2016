@@ -28,8 +28,8 @@
 						<p-column [style]="{'width':'10%'}" field="solEstado" header="Estado" [sortable]="true"></p-column>
 						<p-column [style]="{'width':'10%'}" styleClass="col-button" header="Acción">
 							<template let-car="rowData" pTemplate="body">
-								<button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-eye" data-toggle="tooltip" data-placement="bottom" title="Ver Solicitud"></button>
-								<button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-pencil" data-toggle="tooltip" data-placement="bottom" title="Editar Solicitud"></button>
+								<button type="button" pButton (click)="myModal.open();OnMostrarDetalle(car)" icon="fa-eye" data-toggle="tooltip" data-placement="bottom" title="Ver Solicitud"></button>
+								<button type="button" pButton (click)="myModal.open();OnMostrarDetalle(car)" icon="fa-pencil" data-toggle="tooltip" data-placement="bottom" title="Editar Solicitud"></button>
 								<!-- <button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-file-o" data-toggle="tooltip" data-placement="bottom" title="Realizar Informe"></button> -->
 								<!-- <button class="btn btn-primary" (click)="lgModal.show()">Large modal</button> -->
 							</template>
@@ -459,24 +459,41 @@
 					<p-column [style]="{'width':'10%'}" field="solEstado" header="Estado" [sortable]="true"></p-column>
 					<p-column [style]="{'width':'10%'}" styleClass="col-button" header="Acción">
 						<template let-car="rowData" pTemplate="body">
-							<button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-eye" data-toggle="tooltip" data-placement="bottom" title="Ver Solicitud"></button>
-							<button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-pencil" data-toggle="tooltip" data-placement="bottom" title="Editar Solicitud"></button>
-							<!-- <button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-file-o" data-toggle="tooltip" data-placement="bottom" title="Realizar Informe"></button> -->
+							<button type="button" pButton (click)="myModal3.open();OnMostrarDetalle(car)" icon="fa-eye" data-toggle="tooltip" data-placement="bottom" title="Ver Solicitud"></button>
+							<!-- <button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-pencil" data-toggle="tooltip" data-placement="bottom" title="Editar Solicitud"></button> -->
+							<!-- <button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-pencil" data-toggle="tooltip" data-placement="bottom" title="Firmar Solicitud"></button> -->
 							<!-- <button class="btn btn-primary" (click)="lgModal.show()">Large modal</button> -->
 						</template>
 					</p-column>
 				</p-dataTable>
 			</div>
 			<div class="row modal-detallesol">
-				<!-- <button (click)="myModal.open()">open my modal</button> -->
+				<modal #myModal212>
+					<modal-header>
+						<h5>modal de aceptacion de firma</h5>
+					</modal-header>
+					<modal-content>
+						<p>FIRMAR LA SOLICITUD:</p>
+						<p>{{solifecfun2.solIdsolicitud}}</p>
+						<p>DEL FUNCIONARIO(A):</p>
+									<p>{{solifecfun2.perNombrecompleto}}</p>
+									<p>{{cardep2.depNombre}}</p>
+					</modal-content>
+					<modal-footer>
+						<button class="btn btn-primary" (click)="myModal212.close();myModal3.open()">Regresar</button>
+						<button class="btn btn-primary" (click)="OnfirmarSolicitud()">Confirmar Firma</button>
+						<button class="btn btn-primary" (click)="myModal212.close();myModal3.close()">Cerrar</button>
+					</modal-footer>
+				</modal>
+			</div>
+			<div class="row modal-detallesol">
 				<modal #myModal3>
 					<modal-header>
-						<h5>SOLICITUD DE AUTORIZACION PARA CUMPLIMIENTO DE SERVICIOS INSTITUCIONALES</h5> <!-- <h2>{{detalleSolicitudRealizadas.DetsolIdsolicitud}}</h2> -->
+						<h5>SOLICITUD DE AUTORIZACION PARA CUMPLIMIENTO DE SERVICIOS INSTITUCIONALES</h5> 
 					</modal-header>
 					<modal-content>
 						<div>
 							<table class="tabla-modal" border="1">
-								<!-- <tbody> -->
 								<tr >
 									<td class="enc_sol">
 										<p>Nro.Solicitud de Autorización de servicios Institucionales</p>
@@ -487,10 +504,8 @@
 										<p>{{solifecfun2.solFecharealizacion}}</p>
 									</td>
 								</tr>
-								<!-- </tbody> -->
 							</table>
 							<table class="tabla-modal"  border="1">
-								<!-- <tbody> -->
 								<tr>
 									<td style="width: 20%"><p>VIATICOS</p></td>
 									<td style="width: 5%"><p>{{equis.viaticos}}</p></td>
@@ -645,7 +660,7 @@
 			</div>
 		</modal-content>
 		<modal-footer>
-			<!-- <button class="btn btn-primary" (click)="myModal.close()">Firmar</button> -->
+			<button class="btn btn-primary" (click)="myModal212.open();myModal3.close()">Firmar Solicitud</button>
 			<button class="btn btn-primary" (click)="myModal3.close()">Cerrar</button>
 		</modal-footer>
 	</modal>
@@ -678,8 +693,8 @@
 				<p-column [style]="{'width':'10%'}" field="solEstado" header="Estado" [sortable]="true"></p-column>
 				<p-column [style]="{'width':'10%'}" styleClass="col-button" header="Acción">
 					<template let-car="rowData" pTemplate="body">
-						<button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-eye" data-toggle="tooltip" data-placement="bottom" title="Ver Solicitud"></button>
-						<button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-pencil" data-toggle="tooltip" data-placement="bottom" title="Editar Solicitud"></button>
+						<button type="button" pButton (click)="myModal4.open();OnMostrarDetalle(car)" icon="fa-eye" data-toggle="tooltip" data-placement="bottom" title="Ver Solicitud"></button>
+						<button type="button" pButton (click)="myModal4.open();OnMostrarDetalle(car)" icon="fa-pencil" data-toggle="tooltip" data-placement="bottom" title="Editar Solicitud"></button>
 						<!-- <button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-file-o" data-toggle="tooltip" data-placement="bottom" title="Realizar Informe"></button> -->
 						<!-- <button class="btn btn-primary" (click)="lgModal.show()">Large modal</button> -->
 					</template>

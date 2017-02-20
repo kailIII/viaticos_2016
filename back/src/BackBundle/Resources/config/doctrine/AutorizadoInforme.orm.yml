@@ -2,12 +2,12 @@ BackBundle\Entity\AutorizadoInforme:
     type: entity
     table: autorizado_informe
     indexes:
-        inf_aut_fk:
-            columns:
-                - inf_id
         aut_autinf_fk:
             columns:
                 - aut_id
+        inf_aut_fk:
+            columns:
+                - estinf_id
     uniqueConstraints:
         autorizado_informe_pk:
             columns:
@@ -52,14 +52,14 @@ BackBundle\Entity\AutorizadoInforme:
                 aut_id:
                     referencedColumnName: aut_id
             orphanRemoval: false
-        inf:
-            targetEntity: Informe
+        infsol:
+            targetEntity: EstadoInforme
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                inf_id:
-                    referencedColumnName: inf_id
+                estinf_id:
+                    referencedColumnName: estinf_id
             orphanRemoval: false
     lifecycleCallbacks: {  }

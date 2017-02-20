@@ -4,10 +4,10 @@ BackBundle\Entity\Gasto:
     indexes:
         ciu_gas_fk:
             columns:
-                - ciusol_id
-        inf_gas_fk:
+                - ciuinf_id
+        estinf_gas_fk:
             columns:
-                - inf_id
+                - estinf_id
     uniqueConstraints:
         gasto_pk:
             columns:
@@ -62,24 +62,24 @@ BackBundle\Entity\Gasto:
                 fixed: true
             column: gas_concepto
     manyToOne:
-        ciusol:
-            targetEntity: CiudadSolicitud
+        ciuinf:
+            targetEntity: CiudadInforme
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                ciusol_id:
-                    referencedColumnName: ciusol_id
+                ciuinf_id:
+                    referencedColumnName: ciuinf_id
             orphanRemoval: false
-        inf:
-            targetEntity: Informe
+        estinf:
+            targetEntity: EstadoInforme
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                inf_id:
-                    referencedColumnName: inf_id
+                estinf_id:
+                    referencedColumnName: estinf_id
             orphanRemoval: false
     lifecycleCallbacks: {  }

@@ -2,9 +2,6 @@ BackBundle\Entity\Informe:
     type: entity
     table: informe
     indexes:
-        ciu_inf_fk:
-            columns:
-                - ciusol_id
         sol_inf_fk:
             columns:
                 - sol_id
@@ -23,33 +20,17 @@ BackBundle\Entity\Informe:
             generator:
                 strategy: SEQUENCE
     fields:
-        infFecharealizado:
-            type: date
+        infFecharealizacion:
+            type: string
             nullable: true
-            column: inf_fecharealizado
-        infFechasalida:
-            type: date
+            length: 20
+            column: inf_fecharealizacion
+        infNumeroactualizacion:
+            type: smallint
             nullable: true
-            column: inf_fechasalida
-        infHorasalida:
-            type: time
-            nullable: true
-            column: inf_horasalida
-        infFechallegada:
-            type: date
-            nullable: true
-            column: inf_fechallegada
-        infHorallegada:
-            type: time
-            nullable: true
-            column: inf_horallegada
-        infActividades:
-            type: text
-            nullable: true
-            length: null
             options:
-                fixed: false
-            column: inf_actividades
+                unsigned: false
+            column: inf_numeroactualizacion
         infEstado:
             type: string
             nullable: true
@@ -57,24 +38,13 @@ BackBundle\Entity\Informe:
             options:
                 fixed: true
             column: inf_estado
-        infRutapdf:
-            type: text
+        infAnio:
+            type: string
             nullable: true
-            length: null
             options:
-                fixed: false
-            column: inf_rutapdf
+                fixed: true
+            column: inf_anio
     manyToOne:
-        ciusol:
-            targetEntity: CiudadSolicitud
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                ciusol_id:
-                    referencedColumnName: ciusol_id
-            orphanRemoval: false
         sol:
             targetEntity: Solicitud
             cascade: {  }

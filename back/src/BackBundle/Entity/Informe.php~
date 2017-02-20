@@ -5,9 +5,9 @@ namespace BackBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Informe
+ * Solicitud
  *
- * @ORM\Table(name="informe", uniqueConstraints={@ORM\UniqueConstraint(name="informe_pk", columns={"inf_id"})}, indexes={@ORM\Index(name="ciu_inf_fk", columns={"ciusol_id"}), @ORM\Index(name="sol_inf_fk", columns={"sol_id"})})
+ * @ORM\Table(name="informe", uniqueConstraints={@ORM\UniqueConstraint(name="informe_pk", columns={"inf_id"})}, indexes={@ORM\Index(name="sol_inf_fk", columns={"sol_id"})})
  * @ORM\Entity
  */
 class Informe
@@ -25,44 +25,16 @@ class Informe
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="inf_fecharealizado", type="date", nullable=true)
+     * @ORM\Column(name="inf_fecharealizacion", type="date", nullable=true)
      */
-    private $infFecharealizado;
+    private $infFecharealizacion;
 
     /**
-     * @var \DateTime
+     * @var integer
      *
-     * @ORM\Column(name="inf_fechasalida", type="date", nullable=true)
+     * @ORM\Column(name="inf_numeroactualizacion", type="smallint", nullable=true)
      */
-    private $infFechasalida;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="inf_horasalida", type="time", nullable=true)
-     */
-    private $infHorasalida;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="inf_fechallegada", type="date", nullable=true)
-     */
-    private $infFechallegada;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="inf_horallegada", type="time", nullable=true)
-     */
-    private $infHorallegada;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="inf_actividades", type="text", nullable=true)
-     */
-    private $infActividades;
+    private $infNumeroactualizacion;
 
     /**
      * @var string
@@ -74,19 +46,9 @@ class Informe
     /**
      * @var string
      *
-     * @ORM\Column(name="inf_rutapdf", type="text", nullable=true)
+     * @ORM\Column(name="inf_anio", type="string", length=4, nullable=true)
      */
-    private $infRutapdf;
-
-    /**
-     * @var \CiudadSolicitud
-     *
-     * @ORM\ManyToOne(targetEntity="CiudadSolicitud")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="ciusol_id", referencedColumnName="ciusol_id")
-     * })
-     */
-    private $ciusol;
+    private $infAnio;
 
     /**
      * @var \Solicitud
@@ -98,8 +60,6 @@ class Informe
      */
     private $sol;
 
-
-
     /**
      * Get infId
      *
@@ -109,155 +69,59 @@ class Informe
     {
         return $this->infId;
     }
-
+   
     /**
-     * Set infFecharealizado
+     * Set infFecharealizacion
      *
-     * @param \DateTime $infFecharealizado
+     * @param \DateTime $infFecharealizacion
      *
      * @return Informe
      */
-    public function setInfFecharealizado($infFecharealizado)
+    public function setInfFecharealizacion($infFecharealizacion)
     {
-        $this->infFecharealizado = $infFecharealizado;
+        $this->infFecharealizacion = $infFecharealizacion;
 
         return $this;
     }
 
     /**
-     * Get infFecharealizado
+     * Get infFecharealizacion
      *
      * @return \DateTime
      */
-    public function getInfFecharealizado()
+    public function getSolFecharealizacion()
     {
-        return $this->infFecharealizado;
+        return $this->infFecharealizacion;
     }
 
     /**
-     * Set infFechasalida
+     * Set infNumeroactualizacion
      *
-     * @param \DateTime $infFechasalida
+     * @param integer $infNumeroactualizacion
      *
      * @return Informe
      */
-    public function setInfFechasalida($infFechasalida)
+    public function setInfNumeroactualizacion($infNumeroactualizacion)
     {
-        $this->infFechasalida = $infFechasalida;
+        $this->infNumeroactualizacion = $infNumeroactualizacion;
 
         return $this;
     }
 
     /**
-     * Get infFechasalida
+     * Get infNumeroactualizacion
      *
-     * @return \DateTime
+     * @return integer
      */
-    public function getInfFechasalida()
+    public function getInfNumeroactualizacion()
     {
-        return $this->infFechasalida;
-    }
-
-    /**
-     * Set infHorasalida
-     *
-     * @param \DateTime $infHorasalida
-     *
-     * @return Informe
-     */
-    public function setInfHorasalida($infHorasalida)
-    {
-        $this->infHorasalida = $infHorasalida;
-
-        return $this;
-    }
-
-    /**
-     * Get infHorasalida
-     *
-     * @return \DateTime
-     */
-    public function getInfHorasalida()
-    {
-        return $this->infHorasalida;
-    }
-
-    /**
-     * Set infFechallegada
-     *
-     * @param \DateTime $infFechallegada
-     *
-     * @return Informe
-     */
-    public function setInfFechallegada($infFechallegada)
-    {
-        $this->infFechallegada = $infFechallegada;
-
-        return $this;
-    }
-
-    /**
-     * Get infFechallegada
-     *
-     * @return \DateTime
-     */
-    public function getInfFechallegada()
-    {
-        return $this->infFechallegada;
-    }
-
-    /**
-     * Set infHorallegada
-     *
-     * @param \DateTime $infHorallegada
-     *
-     * @return Informe
-     */
-    public function setInfHorallegada($infHorallegada)
-    {
-        $this->infHorallegada = $infHorallegada;
-
-        return $this;
-    }
-
-    /**
-     * Get infHorallegada
-     *
-     * @return \DateTime
-     */
-    public function getInfHorallegada()
-    {
-        return $this->infHorallegada;
-    }
-
-    /**
-     * Set infActividades
-     *
-     * @param string $infActividades
-     *
-     * @return Informe
-     */
-    public function setInfActividades($infActividades)
-    {
-        $this->infActividades = $infActividades;
-
-        return $this;
-    }
-
-    /**
-     * Get infActividades
-     *
-     * @return string
-     */
-    public function getInfActividades()
-    {
-        return $this->infActividades;
+        return $this->infNumeroactualizacion;
     }
 
     /**
      * Set infEstado
      *
-     * @param string $infEstado
+     * @param integer $infEstado
      *
      * @return Informe
      */
@@ -279,51 +143,27 @@ class Informe
     }
 
     /**
-     * Set infRutapdf
+     * Set infAnio
      *
-     * @param string $infRutapdf
+     * @param integer $infAnio
      *
      * @return Informe
      */
-    public function setInfRutapdf($infRutapdf)
+    public function setInfAnio($infAnio)
     {
-        $this->infRutapdf = $infRutapdf;
+        $this->infAnio = $infAnio;
 
         return $this;
     }
 
     /**
-     * Get infRutapdf
+     * Get infAnio
      *
      * @return string
      */
-    public function getInfRutapdf()
+    public function getSolAnio()
     {
-        return $this->infRutapdf;
-    }
-
-    /**
-     * Set ciusol
-     *
-     * @param \BackBundle\Entity\CiudadSolicitud $ciusol
-     *
-     * @return Informe
-     */
-    public function setCiusol(\BackBundle\Entity\CiudadSolicitud $ciusol = null)
-    {
-        $this->ciusol = $ciusol;
-
-        return $this;
-    }
-
-    /**
-     * Get ciusol
-     *
-     * @return \BackBundle\Entity\CiudadSolicitud
-     */
-    public function getCiusol()
-    {
-        return $this->ciusol;
+        return $this->infAnio;
     }
 
     /**
@@ -331,9 +171,9 @@ class Informe
      *
      * @param \BackBundle\Entity\Solicitud $sol
      *
-     * @return Informe
+     * @return Solicitud
      */
-    public function setSol(\BackBundle\Entity\Solicitud $sol = null)
+    public function setPer(\BackBundle\Entity\Solicitud $sol = null)
     {
         $this->sol = $sol;
 

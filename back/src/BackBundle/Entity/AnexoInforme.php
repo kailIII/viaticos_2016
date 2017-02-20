@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * AnexoInforme
  *
- * @ORM\Table(name="anexo_informe", uniqueConstraints={@ORM\UniqueConstraint(name="anexo_informe_pk", columns={"infanex_id"})}, indexes={@ORM\Index(name="inf_aneinf_fk", columns={"inf_id"})})
+ * @ORM\Table(name="anexo_informe", uniqueConstraints={@ORM\UniqueConstraint(name="anexo_informe_pk", columns={"infanex_id"})}, indexes={@ORM\Index(name="inf_aneinf_fk", columns={"estinf_id"})})
  * @ORM\Entity
  */
 class AnexoInforme
@@ -44,14 +44,14 @@ class AnexoInforme
     private $infanexRuta;
 
     /**
-     * @var \Informe
+     * @var \EstadoInforme
      *
-     * @ORM\ManyToOne(targetEntity="Informe")
+     * @ORM\ManyToOne(targetEntity="EstadoInforme")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="inf_id", referencedColumnName="inf_id")
+     *   @ORM\JoinColumn(name="estinf_id", referencedColumnName="estinf_id")
      * })
      */
-    private $inf;
+    private $estinf;
 
 
 
@@ -138,26 +138,26 @@ class AnexoInforme
     }
 
     /**
-     * Set inf
+     * Set estinf
      *
-     * @param \BackBundle\Entity\Informe $inf
+     * @param \BackBundle\Entity\EstadoInforme $estinf
      *
      * @return AnexoInforme
      */
-    public function setInf(\BackBundle\Entity\Informe $inf = null)
+    public function setEstInf(\BackBundle\Entity\EstadoInforme $estinf = null)
     {
-        $this->inf = $inf;
+        $this->estinf = $estinf;
 
         return $this;
     }
 
     /**
-     * Get inf
+     * Get estinf
      *
-     * @return \BackBundle\Entity\Informe
+     * @return \BackBundle\Entity\EstadoInforme
      */
-    public function getInf()
+    public function getEstInf()
     {
-        return $this->inf;
+        return $this->estinf;
     }
 }

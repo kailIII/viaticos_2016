@@ -5,9 +5,6 @@ BackBundle\Entity\AutorizadoSolicitud:
         aut_autsol_fk:
             columns:
                 - aut_id
-        per_autsol_fk:
-            columns:
-                - per_id
         sol_aut_fk:
             columns:
                 - estsol_id
@@ -54,16 +51,6 @@ BackBundle\Entity\AutorizadoSolicitud:
             joinColumns:
                 aut_id:
                     referencedColumnName: aut_id
-            orphanRemoval: false
-        per:
-            targetEntity: Persona
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                per_id:
-                    referencedColumnName: per_id
             orphanRemoval: false
         estsol:
             targetEntity: EstadoSolicitud

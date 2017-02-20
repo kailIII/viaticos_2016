@@ -142,6 +142,9 @@ export class SolicitudComponent {
 	public info15;
 	public mostrarmenufirma: number;
 	public estsolActividades;
+	public firmaSolicitudRealizadas;
+
+	public info9;
 
 
 
@@ -882,69 +885,27 @@ OnporFirmar(){
 			}
 		});
 }
-// 	this._solicitudService.porfirmarSolicitud(this.token,this.funcionario).subscribe(
-// 		response => {
-	// 			let info = response;
-	// 			this.infofirmar = info;
-	// 			console.log("this.infofirmar.status:"+this.infofirmar.status);
-	// 			// console.log("this.infofirmar:"+JSON.stringify(this.infofirmar[1]));
-	// 			if(this.infofirmar.length <=0){
-		// 				this.NoMostrar = "No existen solicitudes pendientes";
-		// 				return this.NoMostrar;
-		// 			}else{ 	
-			// 				// if(!this.infofirmar.status){
-				// 					this.datoSolfirmar = "";
-				// 					var length = this.infofirmar.length;
-				// 					for (var i = 0; i < length; i++) {
-					// 						if(this.infofirmar[i].solEstado === "A"){
 
-						// 							this.datoSolIteracionfirmar1 = {
-							// 								'solId' : this.infofirmar[i].solId,
-							// 								'solIdsolicitud' : this.infofirmar[i].solIdsolicitud,
-							// 								'solFecharealizacion' : this.infofirmar[i].solFecharealizacion,
-							// 								'solDepartamento' : this.infofirmar[i].solFecharealizacion,
-							// 								'solEstado' : 'APROBADO',
-							// 								'perNombrecompleto' : this.infofirmar[i].per.perNombrecompleto
-							// 							};
-							// 						}else{
-								// 							this.datoSolIteracionfirmar1 = {
-									// 								'solId' : this.infofirmar[i].solId,
-									// 								'solIdsolicitud' : this.infofirmar[i].solIdsolicitud,
-									// 								'solFecharealizacion' : this.infofirmar[i].solFecharealizacion,
-									// 								'solDepartamento' : this.infofirmar[i].solFecharealizacion,
-									// 								'solEstado' : 'PENDIENTE',
-									// 								'perNombrecompleto' : this.infofirmar[i].per.perNombrecompleto
-									// 							};
-									// 						}
-									// 						this.datoSolIteracionfirmar = JSON.stringify(this.datoSolIteracionfirmar1);
-									// 						if(this.datoSolfirmar == ""){
-										// 							this.datoSolfirmar = this.datoSolIteracionfirmar;
-										// 						}else{
-											// 							this.datoSolfirmar = this.datoSolfirmar+","+this.datoSolIteracionfirmar;
-											// 						}
-											// 					};  
-											// 					var MostrarFirmar = JSON.parse("["+this.datoSolfirmar+"]");  
+OnfirmarSolicitud(){
+	// console.log("aqui va el codigo de la firma de la solicitud");
 
-											// 					var firmarlenght = MostrarFirmar.length;
-											// 					// console.log("firmarlenght:"+firmarlenght);
+	// console.log("solicitud: "+this.detalleSolicitudRealizadas.DetsolIdsolicitud);
 
-											// 					console.log("MostrarFirmar:"+JSON.stringify(MostrarFirmar));
-											// 					// for(var firmai = 0; firmai < firmarlenght; firmai++){
+	this.firmaSolicitudRealizadas = {
+		'Idsolicitud': this.detalleSolicitudRealizadas.DetsolIdsolicitud
+	};
+	this._solicitudService.firmarSolicitud(this.token,this.firmaSolicitudRealizadas).subscribe(
+		response => {
+			let info = response;
+			this.info9 = info;
+		},error => {
+			this.errorMessage = <any>error;
+			if(this.errorMessage != null){
+				console.log(this.errorMessage);
+				alert("Error en la peticion de solicitudes");
+			}
+		});
+}
 
-												// 						// return this.datoSolMostrarFirmar;
-												// 						// }
-
-												// 						// }
-												// 					}
-												// 				},error => {
-													// 					this.errorMessage = <any>error;
-
-													// 					if(this.errorMessage != null){
-														// 						console.log(this.errorMessage);
-														// 						alert("Error en la peticion de solicitudes");
-														// 					}
-														// 				});
-														// }
-
-													}
+}
 

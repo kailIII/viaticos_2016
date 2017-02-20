@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Gasto
  *
- * @ORM\Table(name="gasto", uniqueConstraints={@ORM\UniqueConstraint(name="gasto_pk", columns={"gas_id"})}, indexes={@ORM\Index(name="ciu_gas_fk", columns={"ciusol_id"}), @ORM\Index(name="inf_gas_fk", columns={"inf_id"})})
+ * @ORM\Table(name="gasto", uniqueConstraints={@ORM\UniqueConstraint(name="gasto_pk", columns={"gas_id"})}, indexes={@ORM\Index(name="ciu_gas_fk", columns={"ciuinf_id"}), @ORM\Index(name="estinf_gas_fk", columns={"estinf_id"})})
  * @ORM\Entity
  */
 class Gasto
@@ -65,24 +65,24 @@ class Gasto
     private $gasConcepto;
 
     /**
-     * @var \CiudadSolicitud
+     * @var \CiudadInforme
      *
-     * @ORM\ManyToOne(targetEntity="CiudadSolicitud")
+     * @ORM\ManyToOne(targetEntity="CiudadInforme")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="ciusol_id", referencedColumnName="ciusol_id")
+     *   @ORM\JoinColumn(name="ciuinf_id", referencedColumnName="ciuinf_id")
      * })
      */
-    private $ciusol;
+    private $ciuinf;
 
     /**
-     * @var \Informe
+     * @var \EstadoInforme
      *
-     * @ORM\ManyToOne(targetEntity="Informe")
+     * @ORM\ManyToOne(targetEntity="EstadoInforme")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="inf_id", referencedColumnName="inf_id")
+     *   @ORM\JoinColumn(name="estinf_id", referencedColumnName="estinf_id")
      * })
      */
-    private $inf;
+    private $estinf;
 
 
 
@@ -241,50 +241,50 @@ class Gasto
     }
 
     /**
-     * Set ciusol
+     * Set ciuinf
      *
-     * @param \BackBundle\Entity\CiudadSolicitud $ciusol
+     * @param \BackBundle\Entity\CiudadSolicitud $ciuinf
      *
      * @return Gasto
      */
-    public function setCiusol(\BackBundle\Entity\CiudadSolicitud $ciusol = null)
+    public function setCiuinf(\BackBundle\Entity\CiudadInforme $ciuinf = null)
     {
-        $this->ciusol = $ciusol;
+        $this->ciuinf = $ciuinf;
 
         return $this;
     }
 
     /**
-     * Get ciusol
+     * Get ciuinf
      *
-     * @return \BackBundle\Entity\CiudadSolicitud
+     * @return \BackBundle\Entity\CiudadInforme
      */
-    public function getCiusol()
+    public function getCiuinf()
     {
-        return $this->ciusol;
+        return $this->ciuinf;
     }
 
     /**
-     * Set inf
+     * Set estinf
      *
-     * @param \BackBundle\Entity\Informe $inf
+     * @param \BackBundle\Entity\EstadoInforme $inf
      *
      * @return Gasto
      */
-    public function setInf(\BackBundle\Entity\Informe $inf = null)
+    public function setEstInf(\BackBundle\Entity\IEstadonforme $estinf = null)
     {
-        $this->inf = $inf;
+        $this->estinf = $estinf;
 
         return $this;
     }
 
     /**
-     * Get inf
+     * Get estinf
      *
-     * @return \BackBundle\Entity\Informe
+     * @return \BackBundle\Entity\EstadoInforme
      */
-    public function getInf()
+    public function getEstInf()
     {
-        return $this->inf;
+        return $this->estinf;
     }
 }

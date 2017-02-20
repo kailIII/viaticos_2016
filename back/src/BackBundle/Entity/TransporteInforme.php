@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TransporteInforme
  *
- * @ORM\Table(name="transporte_informe", uniqueConstraints={@ORM\UniqueConstraint(name="transporte_informe_pk", columns={"trainf_id"})}, indexes={@ORM\Index(name="inf_trainf_fk", columns={"inf_id"}), @ORM\Index(name="traext_trainf_fk", columns={"traasi_id"})})
+ * @ORM\Table(name="transporte_informe", uniqueConstraints={@ORM\UniqueConstraint(name="transporte_informe_pk", columns={"trainf_id"})}, indexes={@ORM\Index(name="estinf_trainf_fk", columns={"estinf_id"}), @ORM\Index(name="traext_trainf_fk", columns={"traasi_id"})})
  * @ORM\Entity
  */
 class TransporteInforme
@@ -72,14 +72,14 @@ class TransporteInforme
     private $trainfSeuso;
 
     /**
-     * @var \Informe
+     * @var \EstadoInforme
      *
-     * @ORM\ManyToOne(targetEntity="Informe")
+     * @ORM\ManyToOne(targetEntity="EstadoInforme")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="inf_id", referencedColumnName="inf_id")
+     *   @ORM\JoinColumn(name="estinf_id", referencedColumnName="estinf_id")
      * })
      */
-    private $inf;
+    private $estinf;
 
     /**
      * @var \TransporteAsignado
@@ -272,27 +272,27 @@ class TransporteInforme
     }
 
     /**
-     * Set inf
+     * Set estinf
      *
-     * @param \BackBundle\Entity\Informe $inf
+     * @param \BackBundle\Entity\EstadoInforme $estinf
      *
      * @return TransporteInforme
      */
-    public function setInf(\BackBundle\Entity\Informe $inf = null)
+    public function setEstInf(\BackBundle\Entity\EstadoInforme $estinf = null)
     {
-        $this->inf = $inf;
+        $this->estinf = $estinf;
 
         return $this;
     }
 
     /**
-     * Get inf
+     * Get estinf
      *
-     * @return \BackBundle\Entity\Informe
+     * @return \BackBundle\Entity\EstadoInforme
      */
-    public function getInf()
+    public function getEstInf()
     {
-        return $this->inf;
+        return $this->estinf;
     }
 
     /**

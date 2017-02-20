@@ -666,5 +666,28 @@ public function esjefeAction(Request $request) {
 		}
 		return $helpers->json($data);
 	}
+public function firmarAction(Request $request) {
+		$helpers = $this->get("app.helpers");
+		$json = $request->get("json", null);
+		$params = json_decode($json);
+		$hash = $request->get("authorization", null);
+		$authCheck = $helpers->authCheck($hash);
+		$data = array();
+		if ($authCheck == true) {
+			$identity = $helpers->authCheck($hash, true);
+			if ($json != null) {
+				// $correo = (isset($params->correo)) ? $params->correo : null;
+				$Idsolicitud = (isset($params->Idsolicitud)) ? $params->Idsolicitud : null;
+				// $fecha = $Fecha_sol;
+				$em = $this->getDoctrine()->getManager();
 
+				$isset_solicitud = $em->getRepository('BackBundle:Solicitud')->findOneBy(
+					array(
+						"solIdsolicitud" => $Idsolicitud
+						)
+					);
+				return $helpers->json($isset_solicitud);
+			}
+		}
+	}
 }

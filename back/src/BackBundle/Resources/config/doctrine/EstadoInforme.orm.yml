@@ -1,0 +1,82 @@
+BackBundle\Entity\EstadoInforme:
+    type: entity
+    table: estado_informe
+    indexes:
+        inf_estinf_fk:
+            columns:
+                - inf_id
+    uniqueConstraints:
+        estado_informe_pk:
+            columns:
+                - estinf_id
+    id:
+        estinfId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: estinf_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        estinfFechasalida:
+            type: string
+            nullable: true
+            length: 20
+            column: estinf_fechasalida
+        estinfHorasalida:
+            type: string
+            nullable: true
+            length: 20
+            column: estinf_horasalida
+        estinfFechallegada:
+            type: string
+            nullable: true
+            length: 20
+            column: estinf_fechallegada
+        estinfHorallegada:
+            type: string
+            nullable: true
+            length: 20
+            column: estinf_horallegada
+        estinfActividades:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: estinf_actividades
+        estinfEstado:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: estinf_estado
+        estinfRutapdf:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: estinf_rutapdf
+        estinfObservacion:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: estinf_observacion
+    manyToOne:
+        inf:
+            targetEntity: Informe
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                inf_id:
+                    referencedColumnName: inf_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

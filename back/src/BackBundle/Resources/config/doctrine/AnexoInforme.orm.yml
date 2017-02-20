@@ -4,7 +4,7 @@ BackBundle\Entity\AnexoInforme:
     indexes:
         inf_aneinf_fk:
             columns:
-                - inf_id
+                - estinf_id
     uniqueConstraints:
         anexo_informe_pk:
             columns:
@@ -42,14 +42,14 @@ BackBundle\Entity\AnexoInforme:
                 fixed: false
             column: infanex_ruta
     manyToOne:
-        inf:
-            targetEntity: Informe
+        estinf:
+            targetEntity: EstadoInforme
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                inf_id:
-                    referencedColumnName: inf_id
+                estinf_id:
+                    referencedColumnName: estinf_id
             orphanRemoval: false
     lifecycleCallbacks: {  }

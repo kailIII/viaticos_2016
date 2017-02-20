@@ -78,4 +78,13 @@ export class SolicitudService{
 		.map(res => res.json());
 
 	}
+
+	firmarSolicitud(token,data){
+		let json = JSON.stringify(data);
+		let params = "json="+json+"&authorization="+token;
+		let headers = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+"/solicitud/firmar", params, {headers: headers})
+		.map(res => res.json());
+
+	}
 }

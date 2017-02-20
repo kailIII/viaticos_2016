@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * AutorizadoSolicitud
  *
- * @ORM\Table(name="autorizado_solicitud", uniqueConstraints={@ORM\UniqueConstraint(name="autorizado_solicitud_pk", columns={"solaut_id"})}, indexes={@ORM\Index(name="aut_autsol_fk", columns={"aut_id"}), @ORM\Index(name="per_autsol_fk", columns={"per_id"}), @ORM\Index(name="sol_aut_fk", columns={"estsol_id"})})
+ * @ORM\Table(name="autorizado_solicitud", uniqueConstraints={@ORM\UniqueConstraint(name="autorizado_solicitud_pk", columns={"solaut_id"})}, indexes={@ORM\Index(name="aut_autsol_fk", columns={"aut_id"}), @ORM\Index(name="sol_aut_fk", columns={"estsol_id"})})
  * @ORM\Entity
  */
 class AutorizadoSolicitud
@@ -52,16 +52,6 @@ class AutorizadoSolicitud
      * })
      */
     private $aut;
-
-    /**
-     * @var \Persona
-     *
-     * @ORM\ManyToOne(targetEntity="Persona")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="per_id", referencedColumnName="per_id")
-     * })
-     */
-    private $per;
 
     /**
      * @var \EstadoSolicitud
@@ -179,30 +169,6 @@ class AutorizadoSolicitud
     public function getAut()
     {
         return $this->aut;
-    }
-
-    /**
-     * Set per
-     *
-     * @param \BackBundle\Entity\Persona $per
-     *
-     * @return AutorizadoSolicitud
-     */
-    public function setPer(\BackBundle\Entity\Persona $per = null)
-    {
-        $this->per = $per;
-
-        return $this;
-    }
-
-    /**
-     * Get per
-     *
-     * @return \BackBundle\Entity\Persona
-     */
-    public function getPer()
-    {
-        return $this->per;
     }
 
     /**

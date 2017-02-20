@@ -1,0 +1,63 @@
+BackBundle\Entity\CiudadInforme:
+    type: entity
+    table: ciudad_informe
+    indexes:
+        ciu_ciuinf_fk:
+            columns:
+                - ciu_id
+        ciu_inf_fk:
+            columns:
+                - estinf_id
+    uniqueConstraints:
+        ciudad_informe_pk:
+            columns:
+                - ciuinf_id
+    id:
+        ciuinfId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: ciuinf_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        ciuinfFechadesde:
+            type: date
+            nullable: true
+            column: ciuinf_fechadesde
+        ciuinfHoradesde:
+            type: time
+            nullable: true
+            column: ciuinf_horadesde
+        ciuinfFechahasta:
+            type: date
+            nullable: true
+            column: ciuinf_fechahasta
+        ciuinfHorahasta:
+            type: time
+            nullable: true
+            column: ciuinf_horahasta
+    manyToOne:
+        ciu:
+            targetEntity: Ciudad
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ciu_id:
+                    referencedColumnName: ciu_id
+            orphanRemoval: false
+        estinf:
+            targetEntity: EstadoInforme
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                estinf_id:
+                    referencedColumnName: estinf_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

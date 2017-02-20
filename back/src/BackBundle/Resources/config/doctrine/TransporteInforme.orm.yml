@@ -2,9 +2,9 @@ BackBundle\Entity\TransporteInforme:
     type: entity
     table: transporte_informe
     indexes:
-        inf_trainf_fk:
+        estinf_trainf_fk:
             columns:
-                - inf_id
+                - estinf_id
         traext_trainf_fk:
             columns:
                 - traasi_id
@@ -61,15 +61,15 @@ BackBundle\Entity\TransporteInforme:
                 fixed: true
             column: trainf_seuso
     manyToOne:
-        inf:
-            targetEntity: Informe
+        estinf:
+            targetEntity: EstadoInforme
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                inf_id:
-                    referencedColumnName: inf_id
+                estinf_id:
+                    referencedColumnName: estinf_id
             orphanRemoval: false
         traasi:
             targetEntity: TransporteAsignado

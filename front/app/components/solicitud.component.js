@@ -747,6 +747,24 @@ var SolicitudComponent = (function () {
             }
         });
     };
+    SolicitudComponent.prototype.OnfirmarSolicitud = function () {
+        // console.log("aqui va el codigo de la firma de la solicitud");
+        var _this = this;
+        // console.log("solicitud: "+this.detalleSolicitudRealizadas.DetsolIdsolicitud);
+        this.firmaSolicitudRealizadas = {
+            'Idsolicitud': this.detalleSolicitudRealizadas.DetsolIdsolicitud
+        };
+        this._solicitudService.firmarSolicitud(this.token, this.firmaSolicitudRealizadas).subscribe(function (response) {
+            var info = response;
+            _this.info9 = info;
+        }, function (error) {
+            _this.errorMessage = error;
+            if (_this.errorMessage != null) {
+                console.log(_this.errorMessage);
+                alert("Error en la peticion de solicitudes");
+            }
+        });
+    };
     return SolicitudComponent;
 }());
 SolicitudComponent = __decorate([

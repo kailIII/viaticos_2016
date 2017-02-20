@@ -28,3 +28,7 @@ solicitud_esjefe:
     defaults: { _controller: "AppBundle:Solicitud:esjefe"}
     methods:  POST
     
+solicitud_firmar:
+    path:   /firmar
+    defaults: { _controller: "AppBundle:Solicitud:firmar"}
+    methods:  POST

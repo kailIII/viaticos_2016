@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * AutorizadoInforme
  *
- * @ORM\Table(name="autorizado_informe", uniqueConstraints={@ORM\UniqueConstraint(name="autorizado_informe_pk", columns={"infaut_id"})}, indexes={@ORM\Index(name="inf_aut_fk", columns={"inf_id"}), @ORM\Index(name="aut_autinf_fk", columns={"aut_id"})})
+ * @ORM\Table(name="autorizado_informe", uniqueConstraints={@ORM\UniqueConstraint(name="autorizado_informe_pk", columns={"infaut_id"})}, indexes={@ORM\Index(name="aut_autinf_fk", columns={"aut_id"}), @ORM\Index(name="inf_aut_fk", columns={"estinf_id"})})
  * @ORM\Entity
  */
 class AutorizadoInforme
@@ -54,14 +54,14 @@ class AutorizadoInforme
     private $aut;
 
     /**
-     * @var \Informe
+     * @var \EstadoInforme
      *
-     * @ORM\ManyToOne(targetEntity="Informe")
+     * @ORM\ManyToOne(targetEntity="EstadoInforme")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="inf_id", referencedColumnName="inf_id")
+     *   @ORM\JoinColumn(name="estinf_id", referencedColumnName="estinf_id")
      * })
      */
-    private $inf;
+    private $estinf;
 
 
 
@@ -172,26 +172,26 @@ class AutorizadoInforme
     }
 
     /**
-     * Set inf
+     * Set estinf
      *
-     * @param \BackBundle\Entity\Informe $inf
+     * @param \BackBundle\Entity\EstadoInforme $estinf
      *
      * @return AutorizadoInforme
      */
-    public function setInf(\BackBundle\Entity\Informe $inf = null)
+    public function setEstinf(\BackBundle\Entity\EstadoInforme $estinf = null)
     {
-        $this->inf = $inf;
+        $this->estinf = $estinf;
 
         return $this;
     }
 
     /**
-     * Get inf
+     * Get estinf
      *
-     * @return \BackBundle\Entity\Informe
+     * @return \BackBundle\Entity\EstadoInforme
      */
-    public function getInf()
+    public function getEstinf()
     {
-        return $this->inf;
+        return $this->estinf;
     }
 }
