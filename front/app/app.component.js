@@ -166,8 +166,11 @@ var AppComponent = (function () {
             else if (segundos > 1) {
                 this.contador = segundos + ' Segundos';
             }
-            else {
+            else if (segundos == 1) {
                 this.contador = segundos + ' Segundo';
+            }
+            else {
+                this.contador = segundos + ' Segundos';
             }
             this.progress.emit(diferencia);
         }

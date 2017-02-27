@@ -79,6 +79,13 @@ class EstadoSolicitud
     private $estsolObservacion;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="estsol_numeroactualizacion", type="smallint", nullable=true)
+     */
+    private $estsolNumeroactualizacion;
+
+    /**
      * @var \Solicitud
      *
      * @ORM\ManyToOne(targetEntity="Solicitud")
@@ -290,6 +297,30 @@ class EstadoSolicitud
     public function getEstsolObservacion()
     {
         return $this->estsolObservacion;
+    }
+
+    /**
+     * Set estsolNumeroactualizacion
+     *
+     * @param integer $estsolNumeroactualizacion
+     *
+     * @return EstadoSolicitud
+     */
+    public function setEstsolNumeroactualizacion($estsolNumeroactualizacion)
+    {
+        $this->estsolNumeroactualizacion = $estsolNumeroactualizacion;
+
+        return $this;
+    }
+
+    /**
+     * Get estsolNumeroactualizacion
+     *
+     * @return integer
+     */
+    public function getEstsolNumeroactualizacion()
+    {
+        return $this->estsolNumeroactualizacion;
     }
 
     /**

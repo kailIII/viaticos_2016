@@ -68,6 +68,12 @@ BackBundle\Entity\EstadoSolicitud:
             options:
                 fixed: false
             column: estsol_observacion
+        estsolNumeroactualizacion:
+            type: smallint
+            nullable: true
+            options:
+                unsigned: false
+            column: estsol_numeroactualizacion
     manyToOne:
         sol:
             targetEntity: Solicitud

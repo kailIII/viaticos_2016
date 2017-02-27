@@ -68,6 +68,12 @@ BackBundle\Entity\EstadoInforme:
             options:
                 fixed: false
             column: estinf_observacion
+        estinfNumeroactualizacion:
+            type: smallint
+            nullable: true
+            options:
+                unsigned: false
+            column: estinf_numeroactualizacion
     manyToOne:
         inf:
             targetEntity: Informe

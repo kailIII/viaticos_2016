@@ -79,6 +79,13 @@ class EstadoInforme
     private $estinfObservacion;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="estinf_numeroactualizacion", type="smallint", nullable=true)
+     */
+    private $estinfNumeroactualizacion;
+
+    /**
      * @var \Informe
      *
      * @ORM\ManyToOne(targetEntity="Informe")
@@ -290,6 +297,30 @@ class EstadoInforme
     public function getEstinfObservacion()
     {
         return $this->estinfObservacion;
+    }
+
+    /**
+     * Set estinfNumeroactualizacion
+     *
+     * @param integer $estinfNumeroactualizacion
+     *
+     * @return EstadoInforme
+     */
+    public function setEstinfNumeroactualizacion($estinfNumeroactualizacion)
+    {
+        $this->estinfNumeroactualizacion = $estinfNumeroactualizacion;
+
+        return $this;
+    }
+
+    /**
+     * Get estinfNumeroactualizacion
+     *
+     * @return integer
+     */
+    public function getEstinfNumeroactualizacion()
+    {
+        return $this->estinfNumeroactualizacion;
     }
 
     /**

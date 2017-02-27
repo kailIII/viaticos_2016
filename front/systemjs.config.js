@@ -72,7 +72,8 @@
       'pdfjs-dist': { 
         main: 'build/pdf.js',
         defaultExtension: 'js' 
-      },/*
+      },
+      /*
       'angular2-modal': { 
         main: 'bundles/angular2-modal.umd',
         // main: 'esm/index.js',

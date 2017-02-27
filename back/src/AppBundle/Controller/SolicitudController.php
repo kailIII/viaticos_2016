@@ -141,6 +141,7 @@ class SolicitudController extends Controller {
 						$estado_solicitud->setEstsolHorallegada($HoraHasta);
 						$estado_solicitud->setEstsolActividades($actividadessol);
 						$estado_solicitud->setEstsolEstado("A");
+						$estado_solicitud->setEstsolNumeroactualizacion("0");
 						$estado_solicitud->setEstsolRutapdf($rutasol);
 						$estado_solicitud->setEstsolObservacion($observacionsol);
 						$estado_solicitud->setSol($solicitud);
