@@ -8,12 +8,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var transporte_service_1 = require("../services/transporte.service");
 var solicitud_service_1 = require("../services/solicitud.service");
 var login_service_1 = require("../services/login.service");
+var ng2_file_upload_1 = require("ng2-file-upload/ng2-file-upload");
+var URLupload = 'file://localhost:3000/pdfSol1/';
 var NuevasolicitudComponent = (function () {
+    // filesToUpload: Array<File>;
     function NuevasolicitudComponent(_TransporteService, _SolicitudService, _loginService, _router, _route) {
         this._TransporteService = _TransporteService;
         this._SolicitudService = _SolicitudService;
@@ -27,14 +31,34 @@ var NuevasolicitudComponent = (function () {
         this.FechaDesde_sol = [];
         this.FechaHasta_sol = [];
         this.ciudadtra = [];
+        this.item = { firstName: 'Peter', lastName: 'Parker' };
+        this.buildPdf = new buildPdf();
+        // public uploader:FileUploader;
+        // public URLupload: string;
+        // public uploader:FileUploader = new FileUploader({url: URLupload});
+        this.uploader = new ng2_file_upload_1.FileUploader({ url: URLupload /*,
+                autoUpload: true,*/
+            /*allowedMimeType: ['image/png', 'image/jpg', 'image/bmp', 'application/pdf'],
+            maxFileSize: 510241024 // 5 MB*/
+        });
+        this.hasBaseDropZoneOver = false;
+        this.hasAnotherDropZoneOver = false;
         this.mostrar_trareq = false;
+        // this.filesToUpload = [];
     }
+    NuevasolicitudComponent.prototype.fileOverBase = function (e) {
+        this.hasBaseDropZoneOver = e;
+    };
+    NuevasolicitudComponent.prototype.fileOverAnother = function (e) {
+        this.hasAnotherDropZoneOver = e;
+    };
     NuevasolicitudComponent.prototype.ngOnInit = function () {
         this.ciudadComision = "";
         this.ciudadComisionJSON = "";
         this.inicial = false;
         this.paso2 = false;
         this.paso3 = false;
+        this.paso4 = false;
         this.modeltrans = false;
         this.transporte = {
             'tritra': ""
@@ -81,8 +105,20 @@ var NuevasolicitudComponent = (function () {
             'ciudades_sol': "",
             'vehiculo_solicitud': "",
             'funcionarios_sol': "",
-            "solotransporteSol": ""
+            "solotransporteSol": "",
+            "fondovalor": "",
+            "fondoobservacion": "",
+            "anexotitulo": "",
+            "aneodescripcion": "",
+            "anexoruta": ""
         };
+    };
+    NuevasolicitudComponent.prototype.openPdf = function () {
+        this.pdf = pdfMake;
+        this.buildPdf = buildPdf;
+        this.pdf.createPdf(buildPdf(this.item)).open();
+        // this.pdf.createPdf(buildPdf(this.item)).print();
+        this.pdf.createPdf(buildPdf(this.item)).download();
     };
     NuevasolicitudComponent.prototype.OnCiudad = function () {
         var _this = this;
@@ -226,7 +262,6 @@ var NuevasolicitudComponent = (function () {
         if (this.ciudades_sol_ini !== undefined) {
             this.comision.ciudades_sol = (JSON.stringify(this.ciudades_sol_ini).replace('[', '')).replace(']', '');
         }
-        // console.log(this.comision);
         this.inicial = true;
     };
     NuevasolicitudComponent.prototype.Onpaso3 = function () {
@@ -262,19 +297,30 @@ var NuevasolicitudComponent = (function () {
             }
         }
         this.comision.solotransporteSol = data2;
+        this.paso3 = true;
+    };
+    NuevasolicitudComponent.prototype.Onpaso5 = function () {
+        this.fondovalor = 0;
+        this.fondoobservacion = 0;
+        this.anexotitulo = 0;
+        this.aneodescripcion = 0;
+        this.anexoruta = 0;
     };
     NuevasolicitudComponent.prototype.OnbotonAtras = function () {
-        if (this.inicial == false && this.paso2 == false && this.paso3 == false) {
+        if (this.inicial == false && this.paso2 == false && this.paso3 == false && this.paso4 == false) {
             this._router.navigate(['/solicitud']);
         }
-        else if (this.inicial == true && this.paso2 == false && this.paso3 == false) {
+        else if (this.inicial == true && this.paso2 == false && this.paso3 == false && this.paso4 == false) {
             this.inicial = false;
         }
-        else if (this.inicial == true && this.paso2 == true && this.paso3 == false) {
+        else if (this.inicial == true && this.paso2 == true && this.paso3 == false && this.paso4 == false) {
             this.paso2 = false;
         }
-        else if (this.inicial == true && this.paso2 == true && this.paso3 == true) {
+        else if (this.inicial == true && this.paso2 == true && this.paso3 == true && this.paso4 == false) {
             this.paso3 = false;
+        }
+        else if (this.inicial == true && this.paso2 == true && this.paso3 == true && this.paso4 == true) {
+            this.paso4 = false;
         }
     };
     NuevasolicitudComponent.prototype.OnAgregarCiudad = function (title) {

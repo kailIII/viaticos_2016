@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var router_1 = require("@angular/router");
 var principal_component_1 = require("./components/principal.component");
 var informe_component_1 = require("./components/informe.component");

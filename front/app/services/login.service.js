@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
@@ -33,6 +34,18 @@ var LoginService = (function () {
             this.identity = null;
         }
         return this.identity;
+    };
+    LoginService.prototype.getJe = function () {
+        var je = localStorage.getItem('je');
+        // console.log(je);
+        // let identity = JSON.parse(sessionStorage.getItem('identity'));
+        if (je != "undefined") {
+            this.je = je;
+        }
+        else {
+            this.je = null;
+        }
+        return this.je;
     };
     LoginService.prototype.getToken = function () {
         var token = localStorage.getItem('token');

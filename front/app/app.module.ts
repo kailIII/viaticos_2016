@@ -24,6 +24,9 @@ import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { DatePipe } from './pipes/formatDate.pipe';
 
 import {ModalModule} from "ng2-modal";
+// import { FileUploader } from 'ng2-file-upload';
+import {FileUploadModule } from 'ng2-file-upload';
+// import {SMTP} from "emailjs";
 // import { ModalModule } from 'angular2-modal';
 // import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 
@@ -61,7 +64,9 @@ import {ModalModule} from "ng2-modal";
               MultiSelectModule,
               CalendarModule,
               DropdownModule,
-              TabViewModule/*,
+              TabViewModule,
+              FileUploadModule/*
+              SMTP
               AlertComponent*/
     //           , 
     // ModalModule.forRoot(),

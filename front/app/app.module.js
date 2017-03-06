@@ -5,9 +5,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var http_1 = require("@angular/http");
@@ -30,6 +28,9 @@ var common_1 = require("@angular/common");
 var ng2_pdf_viewer_1 = require("ng2-pdf-viewer");
 var formatDate_pipe_1 = require("./pipes/formatDate.pipe");
 var ng2_modal_1 = require("ng2-modal");
+// import { FileUploader } from 'ng2-file-upload';
+var ng2_file_upload_1 = require("ng2-file-upload");
+// import {SMTP} from "emailjs";
 // import { ModalModule } from 'angular2-modal';
 // import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 // import { AlertComponent } from 'ng2-bootstrap/ng2-bootstrap';
@@ -67,8 +68,14 @@ AppModule = __decorate([
             primeng_1.MultiSelectModule,
             primeng_1.CalendarModule,
             primeng_1.DropdownModule,
-            primeng_1.TabViewModule /*,
-            AlertComponent*/,
+            primeng_1.TabViewModule,
+            ng2_file_upload_1.FileUploadModule /*
+            SMTP
+            AlertComponent*/
+            //           , 
+            // ModalModule.forRoot(),
+            // BootstrapModalModule
+            ,
             ng2_modal_1.ModalModule
         ],
         declarations: [
@@ -87,8 +94,7 @@ AppModule = __decorate([
         providers: [app_routing_1.appRoutingProviders],
         bootstrap: [app_component_1.AppComponent],
         schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA]
-    }),
-    __metadata("design:paramtypes", [])
+    })
 ], AppModule);
 exports.AppModule = AppModule;
 //# sourceMappingURL=app.module.js.map

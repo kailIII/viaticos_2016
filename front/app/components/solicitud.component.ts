@@ -4,12 +4,16 @@ import {LoginService} from '../services/login.service';
 import {SolicitudService} from '../services/solicitud.service';
 import {TabMenuModule,MenuItem} from 'primeng/primeng';
 
+
+
 // import { Overlay, overlayConfigFactory } from 'angular2-modal';
 // import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
 
 ///<reference path="../typings/globals/jquery/index.d.ts">
 // declare var jQuery:any;
 declare var jQuery:any;
+
+
 // import * as $ from 'jquery';
 
 @Component({
@@ -22,6 +26,7 @@ export class SolicitudComponent {
 
 	public titulo = "Solicitud";
 	public identity;
+	public je;
 	public funcionario;
 	public errorMessage;
 	public status;
@@ -52,7 +57,6 @@ export class SolicitudComponent {
 	public bancosol: Array<any>;
 	public personasssol: Array<any>;
 	public ciudadessol: Array<any>;
-	// public estadosol;
 	public estadosol: Array<any>;
 	public cardep: Array<any>;
 	public solifecfun: Array<any>;
@@ -118,10 +122,6 @@ export class SolicitudComponent {
 	public datociudadtodos1;
 	public datosciudad2;
 	public datociudadtodos2;
-	// private activeItem: MenuItem;
-	// public solicitudpropia;
-	// private realizadas: any[];
-	// @ViewChild('input') input: ElementRef;
 	public info11;
 	public NoMostrar1;
 	public datoSol1;
@@ -146,8 +146,6 @@ export class SolicitudComponent {
 
 	public info9;
 
-
-
 	constructor(
 		private _loginService: LoginService,
 		private _solicitudService: SolicitudService
@@ -158,15 +156,11 @@ export class SolicitudComponent {
 		this.detalleSol = false;
 		this.identity = this._loginService.getIdentity();
 		this.token = this._loginService.getToken();
-
+		this.je = this._loginService.getJe();
 		this.funcionario = {
 			'fun_id': this.identity.sub
 		};
 		this.OnVerDetalleSol();	
-
-		this.OnMenuFirma();
-
-		// this.OnporFirmar();
 
 		this.detalleSolicitudRealizadas = {
 			'DetsolIdsolicitud': ''
@@ -180,21 +174,10 @@ export class SolicitudComponent {
 
 		this.datoSolIteracion1 = {
 			'solId' : '',
-			// 'solSecuencial' : '',
 			'solIdsolicitud' : '',
 			'solFecharealizacion' : '',
-			// 'solNumeroactualizacion' : '',
 			'solEstado' : '',
 			'solCiudades' : '',
-			// 'solAnio' : '',
-			// 'perId' : '',
-			// 'perNombre' : '',
-			// 'perApellido' : '',
-			// 'perIdentificacion' : '',
-			// 'perEstado' : '',
-			// 'perCorreoelectronico' : '',
-			// 'perIniciales' : '''',
-			// 'perCreado' : '',
 			'perNombrecompleto' : ''
 		};
 
@@ -301,31 +284,6 @@ export class SolicitudComponent {
 		};
 	}
 
-	OnMenuFirma(){
-		this._solicitudService.jefeSolicitud(this.token,this.funcionario).subscribe(
-			response => {
-				let info = response;
-				this.info15 = info;
-				// this.mostrarmenufirma = this.info15;
-				// var tamano = this.info15;
-
-				// console.log("this.info15:"+this.info15);
-				if(this.info15 > 0){
-					this.mostrarmenufirma = this.info15;
-					this.OnporFirmar();
-
-				}else{
-					this.mostrarmenufirma = 0;
-				}
-			},error => {
-				this.errorMessage = <any>error;
-				if(this.errorMessage != null){
-					console.log(this.errorMessage);
-					alert("Error en la peticion de solicitudes");
-				}
-			});
-	}
-
 	OnVerDetalleSol(){
 		this._solicitudService.reporteSolicitud(this.token,this.funcionario).subscribe(
 			response => {
@@ -336,8 +294,6 @@ export class SolicitudComponent {
 					return this.NoMostrar;
 				}else{ 	
 					this.datoSol = "";
-					// this.ciu = [];
-					// this.ciu1 = [];
 					var estanterior = 0;
 					var length1 = this.info.length;
 					var itemsiguiente;
@@ -886,6 +842,7 @@ OnporFirmar(){
 		});
 }
 
+
 OnfirmarSolicitud(){
 	// console.log("aqui va el codigo de la firma de la solicitud");
 
@@ -906,6 +863,9 @@ OnfirmarSolicitud(){
 			}
 		});
 }
+
+
+
 
 }
 

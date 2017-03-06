@@ -6,6 +6,12 @@ import {SolicitudService} from '../services/solicitud.service';
 import {LoginService} from '../services/login.service';
 
 import {SelectItem} from 'primeng/primeng';
+import {FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
+
+declare var pdfMake: any;
+declare var buildPdf: any;
+
+const URLupload = 'file://localhost:3000/pdfSol1/';
 
 @Component({
 	selector: 'nueva_solicitud',
@@ -20,6 +26,7 @@ export class NuevasolicitudComponent implements OnInit{
 	public inicial: boolean;
 	public paso2: boolean;
 	public paso3: boolean;
+	public paso4: boolean;
 	public comision;
 	public ciudadcom;
 	public personacom;
@@ -96,6 +103,41 @@ export class NuevasolicitudComponent implements OnInit{
 	public FechaDesde_solicitud;
 	public FechaHasta_solicitud;
 	public data2;
+	public fondovalor;
+	public fondoobservacion;
+	public anexotitulo;
+	public aneodescripcion;
+	public anexoruta;
+
+	public item: {firstName: string, lastName: string} = {firstName: 'Peter', lastName: 'Parker'};
+	public pdf: any;
+	public buildPdf: any = new buildPdf();
+
+	// public uploader:FileUploader;
+	// public URLupload: string;
+
+	// public uploader:FileUploader = new FileUploader({url: URLupload});
+
+	public uploader:FileUploader = new FileUploader({url: URLupload/*,
+		autoUpload: true,*/
+	/*allowedMimeType: ['image/png', 'image/jpg', 'image/bmp', 'application/pdf'],
+	maxFileSize: 510241024 // 5 MB*/
+});
+
+	public hasBaseDropZoneOver:boolean = false;
+	public hasAnotherDropZoneOver:boolean = false;
+
+	public fileOverBase(e:any):void {
+		this.hasBaseDropZoneOver = e;
+	}
+
+	public fileOverAnother(e:any):void {
+		this.hasAnotherDropZoneOver = e;
+	}
+
+
+
+	// filesToUpload: Array<File>;
 
 	constructor(
 		private _TransporteService: TransporteService,
@@ -105,7 +147,10 @@ export class NuevasolicitudComponent implements OnInit{
 		private _route: ActivatedRoute,
 		){
 		this.mostrar_trareq = false;
+		// this.filesToUpload = [];
 	}
+
+
 
 	ngOnInit(){
 		this.ciudadComision ="";
@@ -113,6 +158,7 @@ export class NuevasolicitudComponent implements OnInit{
 		this.inicial = false;
 		this.paso2 = false;
 		this.paso3 = false;
+		this.paso4 = false;
 		this.modeltrans = false;
 		this.transporte = {
 			'tritra':""
@@ -164,8 +210,22 @@ export class NuevasolicitudComponent implements OnInit{
 			'ciudades_sol' : "",
 			'vehiculo_solicitud' : "",
 			'funcionarios_sol' : "",
-			"solotransporteSol":""
+			"solotransporteSol":"",
+			"fondovalor":"",
+			"fondoobservacion":"",
+			"anexotitulo":"",
+			"aneodescripcion":"",
+			"anexoruta":""
 		};
+
+	}
+
+	openPdf() {
+		this.pdf = pdfMake;
+		this.buildPdf = buildPdf;
+		this.pdf.createPdf(buildPdf(this.item)).open();
+		// this.pdf.createPdf(buildPdf(this.item)).print();
+		this.pdf.createPdf(buildPdf(this.item)).download();
 	}
 
 	OnCiudad(){
@@ -315,7 +375,6 @@ export class NuevasolicitudComponent implements OnInit{
 		if(this.ciudades_sol_ini !== undefined){
 			this.comision.ciudades_sol  = (JSON.stringify(this.ciudades_sol_ini).replace('[','')).replace(']','');
 		}
-		// console.log(this.comision);
 		this.inicial = true;
 	}
 
@@ -353,17 +412,27 @@ export class NuevasolicitudComponent implements OnInit{
 			}
 		}
 		this.comision.solotransporteSol = data2;
+		this.paso3 = true;
+	}
+	Onpaso5(){
+		this.fondovalor = 0;
+		this.fondoobservacion = 0;
+		this.anexotitulo = 0;
+		this.aneodescripcion = 0;
+		this.anexoruta = 0;
 	}
 
 	OnbotonAtras(){
-		if(this.inicial == false && this.paso2 == false && this.paso3 == false){
+		if(this.inicial == false && this.paso2 == false && this.paso3 == false && this.paso4 == false){
 			this._router.navigate(['/solicitud']);
-		}else if(this.inicial == true && this.paso2 == false && this.paso3 == false){
+		}else if(this.inicial == true && this.paso2 == false && this.paso3 == false && this.paso4 == false){
 			this.inicial = false;
-		}else if(this.inicial == true && this.paso2 == true && this.paso3 == false) { 
+		}else if(this.inicial == true && this.paso2 == true && this.paso3 == false && this.paso4 == false) { 
 			this.paso2 = false;
-		} else  if(this.inicial == true && this.paso2 == true && this.paso3 == true) { 
+		} else  if(this.inicial == true && this.paso2 == true && this.paso3 == true && this.paso4 == false) { 
 			this.paso3 = false;
+		}else  if(this.inicial == true && this.paso2 == true && this.paso3 == true && this.paso4 == true) { 
+			this.paso4 = false;
 
 		}
 	}
@@ -556,6 +625,6 @@ export class NuevasolicitudComponent implements OnInit{
 
 	}
 
-	
+
 
 }

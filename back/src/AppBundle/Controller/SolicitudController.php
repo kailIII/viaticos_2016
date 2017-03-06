@@ -202,7 +202,7 @@ class SolicitudController extends Controller {
 										$personacomision->setSol($solicitud);
 										$em->persist($personacomision);
 										$em->flush();
-										}else {
+									}else {
 										$data = array(
 											"status" => "error",
 											"code" => 400,
@@ -210,51 +210,51 @@ class SolicitudController extends Controller {
 											);
 									}
 										//inicio crear transporte solicitud
-										$transportesolicitado1 = $em->getRepository('BackBundle:TransporteSolicitado')->findBy(
-											array(
-												"estsol" => $estado_solicitud
-												)
-											);
-										if(count($transportesolicitado1)==0){
-											$solotransporteSol = (isset($params->solotransporteSol)) ? $params->solotransporteSol : null;
-											$traruta_sol = Array();
-											$traruta_sol = explode(';', $solotransporteSol);
-											foreach ($traruta_sol as $existe_transporte) {
-												$isset_transporte = Array();
-												$isset_transporte = explode(',', $existe_transporte);
-												$Tiptramod = $isset_transporte[1];
-												$TrasolRutainicio = $isset_transporte[2];
-												$TrasolRutafin = $isset_transporte[3];
-												$TrasolFechasalida = $isset_transporte[4];
-												$TrasolHorasalida = $isset_transporte[5];
-												$TrasolFechallegada = $isset_transporte[6];
-												$TrasolHorallegada = $isset_transporte[7];
+									$transportesolicitado1 = $em->getRepository('BackBundle:TransporteSolicitado')->findBy(
+										array(
+											"estsol" => $estado_solicitud
+											)
+										);
+									if(count($transportesolicitado1)==0){
+										$solotransporteSol = (isset($params->solotransporteSol)) ? $params->solotransporteSol : null;
+										$traruta_sol = Array();
+										$traruta_sol = explode(';', $solotransporteSol);
+										foreach ($traruta_sol as $existe_transporte) {
+											$isset_transporte = Array();
+											$isset_transporte = explode(',', $existe_transporte);
+											$Tiptramod = $isset_transporte[1];
+											$TrasolRutainicio = $isset_transporte[2];
+											$TrasolRutafin = $isset_transporte[3];
+											$TrasolFechasalida = $isset_transporte[4];
+											$TrasolHorasalida = $isset_transporte[5];
+											$TrasolFechallegada = $isset_transporte[6];
+											$TrasolHorallegada = $isset_transporte[7];
 
 // $TrasolFechasalida = \DateTime::createFromFormat('d/m/Y', $isset_transporte[4]);
 // 												$TrasolHorasalida = new \DateTime($isset_transporte[5]);
 // 												$TrasolFechallegada = \DateTime::createFromFormat('d/m/Y', $isset_transporte[6]);
 // 												$TrasolHorallegada = new \DateTime($isset_transporte[7]);
 
-												$tiptra = $em->getRepository('BackBundle:TipoTransporte')->findOneBy(
-													array(
-														"tiptraNombre" => $Tiptramod
-														)
-													);
-												$transporte_solicitud = new TransporteSolicitado();
-												$transporte_solicitud->setTrasolRutainicio($TrasolRutainicio);
-												$transporte_solicitud->setTrasolRutafin($TrasolRutafin);
-												$transporte_solicitud->setTrasolFechasalida($TrasolFechasalida);
-												$transporte_solicitud->setTrasolHorasalida($TrasolHorasalida);
-												$transporte_solicitud->setTrasolFechallegada($TrasolFechallegada);
-												$transporte_solicitud->setTrasolHorallegada($TrasolHorallegada);
-												$transporte_solicitud->setTiptra($tiptra);
-												$transporte_solicitud->setEstsol($estado_solicitud);
-												$em->persist($transporte_solicitud);
-												$em->flush();
-											}
+											$tiptra = $em->getRepository('BackBundle:TipoTransporte')->findOneBy(
+												array(
+													"tiptraNombre" => $Tiptramod
+													)
+												);
+											$transporte_solicitud = new TransporteSolicitado();
+											$transporte_solicitud->setTrasolRutainicio($TrasolRutainicio);
+											$transporte_solicitud->setTrasolRutafin($TrasolRutafin);
+											$transporte_solicitud->setTrasolFechasalida($TrasolFechasalida);
+											$transporte_solicitud->setTrasolHorasalida($TrasolHorasalida);
+											$transporte_solicitud->setTrasolFechallegada($TrasolFechallegada);
+											$transporte_solicitud->setTrasolHorallegada($TrasolHorallegada);
+											$transporte_solicitud->setTiptra($tiptra);
+											$transporte_solicitud->setEstsol($estado_solicitud);
+											$em->persist($transporte_solicitud);
+											$em->flush();
+										}
 										$data["status"] = "success";
 										$data["msg"] = "Solicitud creada satisfactoriamente";
-										}
+									}
 //fin crear transporte solicitud
 								}
 // //fin crear transporte solicitud
@@ -355,7 +355,7 @@ class SolicitudController extends Controller {
 						);
 					// return $helpers->json($ciuPer);
 					if(count($ciuPer)>0){
-					array_push($reporte, $ciuPer);
+						array_push($reporte, $ciuPer);
 					}
 				}
 				return $helpers->json($reporte);
@@ -611,7 +611,7 @@ class SolicitudController extends Controller {
 		return $helpers->json($data);
 	}
 
-public function esjefeAction(Request $request) {
+	public function esjefeAction(Request $request) {
 		$helpers = $this->get("app.helpers");
 
 		$json = $request->get("json", null);
@@ -667,7 +667,7 @@ public function esjefeAction(Request $request) {
 		}
 		return $helpers->json($data);
 	}
-public function firmarAction(Request $request) {
+	public function firmarAction(Request $request) {
 		$helpers = $this->get("app.helpers");
 		$json = $request->get("json", null);
 		$params = json_decode($json);
@@ -691,4 +691,37 @@ public function firmarAction(Request $request) {
 			}
 		}
 	}
+
+	public function enviarCorreoAction(Request $request) {
+		$helpers = $this->get("app.helpers");
+		$json = $request->get("json", null);
+		$params = json_decode($json);
+		$hash = $request->get("authorization", null);
+		$authCheck = $helpers->authCheck($hash);
+		$data = array();
+		if ($authCheck == true) {
+			$identity = $helpers->authCheck($hash, true);
+			if ($json != null) {
+				$mailto = (isset($params->mailto)) ? $params->mailto : null;
+				$mailfrom = (isset($params->mailfrom)) ? $params->mailfrom : null;
+				$mailheader = (isset($params->mailheader)) ? $params->mailheader: null;
+				$mailmsg = (isset($params->mailmsg)) ? $params->mailmsg : null;
+				$mailviatico = (isset($params->mailviatico)) ? $params->mailviatico : null;
+
+
+
+				// echo 'Enviando correo';
+				// $to = $mailto;
+				// $subject = "Nueva Solicitud de Viatico: ". $mailviatico;
+				// $txt = "Hola es un placer saludar desde el correo en pruebas!";
+				// $headers = "From: aquiotrocorreo@ejemplo.com" . "\r\n" .
+				// "CC: yaquiotrocorreocomocc@aprenderaprogramar.com";
+				// mail($to,$subject,$txt,$headers);
+
+				$helpers->correosol($mailviatico,$mailto,$mailfrom);
+			}
+		}
+	}
+
+	
 }

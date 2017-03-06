@@ -32,7 +32,10 @@
       'pdfjs-dist': 'npm:pdfjs-dist',
       'moment': 'npm:moment',
       'ng2-modal': 'npm:ng2-modal',
-      // 'ng2-bootstrap': 'npm:ng2-bootstrap',
+      'ng2-file-upload': 'npm:ng2-file-upload',
+      'ng2-bootstrap': 'npm:ng2-bootstrap',
+      // 'pdfmake': 'npm:pdfmake',
+      // 'emailjs': 'npm:emailjs',
       // 'angular2-modal': 'npm:angular2-modal',
       'jquery':'npm:jquery'/*,
       'ng2-bootstrap': 'npm:ng2-bootstrap'*/
@@ -65,14 +68,26 @@
         main: 'index.js', 
         defaultExtension: 'js' 
       },
-      // 'ng2-bootstrap': { 
-      //   main: 'index.js', 
-      //   defaultExtension: 'js' 
-      // },
+      'ng2-bootstrap': { 
+        main: 'index.js', 
+        defaultExtension: 'js' 
+      },
       'pdfjs-dist': { 
         main: 'build/pdf.js',
         defaultExtension: 'js' 
       },
+      'ng2-file-upload': {
+        main: 'ng2-file-upload.js',
+        defaultExtension: 'js'
+      },
+      // 'pdfmake': { 
+      //   main: 'webpack.config.js', 
+      //   defaultExtension: 'js' 
+      // },
+      // 'emailjs': {
+      //   main: 'email',
+      //   defaultExtension: 'js'
+      // },
       /*
       'angular2-modal': { 
         main: 'bundles/angular2-modal.umd',

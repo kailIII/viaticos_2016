@@ -9,6 +9,7 @@ export class LoginService{
 	public url = "http://localhost/sistema_viaticos/back/web/app_dev.php";
 	public identity;
 	public token;
+	public je;
 
 	constructor(private _http: Http){}
 
@@ -32,6 +33,19 @@ export class LoginService{
 		}
 
 		return this.identity;
+	}
+
+	getJe(){
+		let je = localStorage.getItem('je');
+		// console.log(je);
+		// let identity = JSON.parse(sessionStorage.getItem('identity'));
+		if(je != "undefined"){
+			this.je = je;
+		}else{
+			this.je = null;
+		}
+
+		return this.je;
 	}
 
 	getToken(){

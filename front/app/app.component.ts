@@ -1,17 +1,19 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {LoginService} from './services/login.service';
+import {SolicitudService} from './services/solicitud.service';
 
 @Component({
 	selector: "mi-app",
 	templateUrl: "app/view/home.html",
-	providers: [LoginService]
+	providers: [LoginService, SolicitudService]
 })
 
 export class AppComponent implements OnInit{ 
 	public errorMessage;
 	public identity;
 	public token;
+	public je;
 	public errorMsg = '';
 	public funcionario;
 	public idfuncionario;
@@ -27,10 +29,12 @@ export class AppComponent implements OnInit{
 	public segundos;
 	public contador;
 	public salida;
+	public info15;
 	@Output() progress: EventEmitter<any> = new EventEmitter();
 
 	constructor(
 		private _loginService: LoginService,
+		private _solicitudService: SolicitudService,
 		private _router: Router,
 		private _route: ActivatedRoute
 		){
@@ -117,24 +121,56 @@ export class AppComponent implements OnInit{
 											// sessionStorage.setItem('token',token);
 											if(this._loginService.checkCredentials(this._loginService.getToken())){
 												// this._router.navigate(['/principal']);
-												window.location.href='/principal';
+												// window.location.href='/principal';
+												// this.funcionario = {
+												// 	'fun_id': this.identity.sub
+												// };
+												// this._solicitudService.jefeSolicitud(this.token,this.funcionario).subscribe(
+												// 	response => {
+												// 		let info = response;
+												// 		this.info15 = info;
+												// 		if(this.info15 > 0){
+												// 			localStorage.setItem('je', "S");
+												// 		}else{
+												// 			localStorage.setItem('je', "N");
+												// 		}
+														// if(this._loginService.checkCredentials(this._loginService.getToken())){
+															// this._router.navigate(['/principal']);
+															window.location.href='/principal';
 
+
+															// else{
+																// 	this.mostrarmenufirma = 0;
+															// 	// }
+															// },error => {
+															// 	this.errorMessage = <any>error;
+															// 	if(this.errorMessage != null){
+															// 		console.log(this.errorMessage);
+															// 		alert("Error en la peticion de solicitudes");
+															// 	}
+															// });
 											}else{
 												// this._router.navigate(['/']);
 												window.location.href='/';
+												this.logout();
 											}
+										}else{
+											// this._router.navigate(['/']);
+											window.location.href='/';
+											this.logout();
 										}
 									}
-								},
-								error =>{
-									this.errorMessage = <any>error;
-									if(this.errorMessage != null){
-										console.log(this.errorMessage);
-										alert("Error en la petición 2");
-										this.logout();
-									}
+								// }
+							},
+							error =>{
+								this.errorMessage = <any>error;
+								if(this.errorMessage != null){
+									console.log(this.errorMessage);
+									alert("Error en la petición 2");
+									this.logout();
 								}
-								);
+							}
+							);
 						}
 					}
 				},
@@ -153,10 +189,13 @@ export class AppComponent implements OnInit{
 		this.salida = true;
 		localStorage.removeItem('identity');
 		localStorage.removeItem('token');
+		localStorage.removeItem('je');
+		sessionStorage.removeItem('je');
 		sessionStorage.removeItem('identity');
 		sessionStorage.removeItem('token');
 		this.identity = null;
 		this.token = null;
+		this.je = null;
 		this.salida= false;
 		window.location.href='/';
 	}

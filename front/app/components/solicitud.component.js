@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 // import { Router, ActivatedRoute, Params } from '@angular/router';
 var login_service_1 = require("../services/login.service");
@@ -24,12 +25,11 @@ var SolicitudComponent = (function () {
         this.detalleSol = false;
         this.identity = this._loginService.getIdentity();
         this.token = this._loginService.getToken();
+        this.je = this._loginService.getJe();
         this.funcionario = {
             'fun_id': this.identity.sub
         };
         this.OnVerDetalleSol();
-        this.OnMenuFirma();
-        // this.OnporFirmar();
         this.detalleSolicitudRealizadas = {
             'DetsolIdsolicitud': ''
         };
@@ -41,21 +41,10 @@ var SolicitudComponent = (function () {
         };
         this.datoSolIteracion1 = {
             'solId': '',
-            // 'solSecuencial' : '',
             'solIdsolicitud': '',
             'solFecharealizacion': '',
-            // 'solNumeroactualizacion' : '',
             'solEstado': '',
             'solCiudades': '',
-            // 'solAnio' : '',
-            // 'perId' : '',
-            // 'perNombre' : '',
-            // 'perApellido' : '',
-            // 'perIdentificacion' : '',
-            // 'perEstado' : '',
-            // 'perCorreoelectronico' : '',
-            // 'perIniciales' : '''',
-            // 'perCreado' : '',
             'perNombrecompleto': ''
         };
         this.trasolId = '';
@@ -154,29 +143,6 @@ var SolicitudComponent = (function () {
             'tiptraTipo': []
         };
     };
-    SolicitudComponent.prototype.OnMenuFirma = function () {
-        var _this = this;
-        this._solicitudService.jefeSolicitud(this.token, this.funcionario).subscribe(function (response) {
-            var info = response;
-            _this.info15 = info;
-            // this.mostrarmenufirma = this.info15;
-            // var tamano = this.info15;
-            // console.log("this.info15:"+this.info15);
-            if (_this.info15 > 0) {
-                _this.mostrarmenufirma = _this.info15;
-                _this.OnporFirmar();
-            }
-            else {
-                _this.mostrarmenufirma = 0;
-            }
-        }, function (error) {
-            _this.errorMessage = error;
-            if (_this.errorMessage != null) {
-                console.log(_this.errorMessage);
-                alert("Error en la peticion de solicitudes");
-            }
-        });
-    };
     SolicitudComponent.prototype.OnVerDetalleSol = function () {
         var _this = this;
         this._solicitudService.reporteSolicitud(this.token, this.funcionario).subscribe(function (response) {
@@ -188,8 +154,6 @@ var SolicitudComponent = (function () {
             }
             else {
                 _this.datoSol = "";
-                // this.ciu = [];
-                // this.ciu1 = [];
                 var estanterior = 0;
                 var length1 = _this.info.length;
                 var itemsiguiente;
@@ -361,6 +325,7 @@ var SolicitudComponent = (function () {
                 ;
                 _this.datoSolMostrara = JSON.parse("[" + _this.datociudadtodos1 + "]");
                 _this.datoSolMostrarp = JSON.parse("[" + _this.datociudadtodos2 + "]");
+                // console.log("this.datoSolMostrarp:"+JSON.stringify(this.datoSolMostrarp));
             }
         }, function (error) {
             _this.errorMessage = error;
@@ -445,6 +410,7 @@ var SolicitudComponent = (function () {
                 if (_this.info[0].personasssol.length > 0) {
                     // console.log("personasssol.length no undefined");
                     _this.personasssol = _this.info[0].personasssol;
+                    // console.log("this.personasssol[0]:"+JSON.stringify(this.personasssol[0]));
                 }
                 else if (_this.info[0].personasssol.length == 0) {
                     // console.log("personasssol.length no undefined");
@@ -458,6 +424,7 @@ var SolicitudComponent = (function () {
                 if (_this.info[0].ciudadessol.length > 0) {
                     // console.log("ciudadessol.length no undefined");
                     _this.ciudadessol = _this.info[0].ciudadessol;
+                    // console.log("this.ciudadessol[0]:"+JSON.stringify(this.ciudadessol[0]));
                 }
                 else if (_this.info[0].ciudadessol.length == 0) {
                     // console.log("ciudadessol.length no undefined");
@@ -487,15 +454,20 @@ var SolicitudComponent = (function () {
                             'alimentacion': 'X'
                         };
                     }
+                    // console.log("this.estadosol[0]:"+JSON.stringify(this.estadosol[0]));	
                 }
                 else if (_this.info[0].estadosol.length == 0) {
                     // console.log("estadosol.length no undefined");
                     _this.estadosol = _this.info[0].estadosol;
+                    // this.estsolActividades = (JSON.stringify(this.info[0].estadosol.estsolActividades).replace('"<p','<p')).replace('ul>"','ul>');
+                    // console.log("this.estadosol:"+JSON.stringify(this.estadosol));
                 }
                 else {
                     // console.log("estadosol.length == undefined");
                     _this.estadosol1 = JSON.stringify(_this.info[0].estadosol);
                     _this.estadosol = JSON.parse("[" + _this.estadosol1 + "]");
+                    // this.estsolActividades = (JSON.stringify(this.info[0].estadosol.estsolActividades).replace('"<p','<p')).replace('ul>"','ul>');
+                    // console.log("this.estadosol:"+JSON.stringify(this.estadosol));
                 }
                 if (_this.info[0].cardep.length > 0) {
                     // console.log("cardep.length no undefined");
@@ -520,10 +492,13 @@ var SolicitudComponent = (function () {
                         'rolNombre': _this.info[0].cardep.rol.rolNombre,
                         'rolEstado': _this.info[0].cardep.rol.rolEstado
                     };
+                    // console.log("this.cardep1:"+this.cardep1);
                 }
                 if (_this.info[0].solifecfun.length > 0) {
+                    // console.log("solifecfun.length no undefined");
                 }
                 else if (_this.info[0].solifecfun.length == 0) {
+                    // console.log("solifecfun.length no undefined");
                 }
                 else {
                     _this.solifecfun2 = {

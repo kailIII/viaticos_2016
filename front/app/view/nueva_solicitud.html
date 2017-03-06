@@ -2,7 +2,9 @@
 	<div class="collapse navbar-collapse">
 		<ul class="nav navbar-nav">
 			<button (click)="OnbotonAtras()">Atrás</button>
-			<!-- <button><li><a [routerLink]="['/nueva_solicitud']">Generar una Nueva Solicitud</a></li></button> -->
+			<div>
+				<button (click)="openPdf()">Open PDF</button>
+			</div>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			<p>Módulo actual: <span>{{titulo}}</span></p>
@@ -10,401 +12,205 @@
 	</div>
 </div>
 <div class="FormularioActivo">
-	<!-- <form #ComisionForm="ngForm"> -->
 	<form (ngSubmit)="onEnviarSol()" #ComisionForm="ngForm">
-		<div *ngIf="inicial == false">
+		<div *ngIf="inicial == false && paso2 == false  && paso3 == false && paso4 == false">
 			<div class="td2">
 				<td>Fecha Solicitud:</td>
-		<td><!-- <input type="datetime-local" [value]="2016-01-01" 
-			(change)="date=$event.target.value" /> -->
-			<!-- <datepicker [(ngModel)]="dt" [minDate]="minDate" [showWeeks]="true"></datepicker> -->
-			<p-calendar [showIcon]="true" [locale]="es" [(ngModel)]="Fecha_sol" [ngModelOptions]="{standalone: true}" dateFormat="yy-mm-dd"></p-calendar>
-			<!-- <input type="date" min="2016-01-01"  class="cuadros" name="Fecha_sol" > -->
-		</td>
-	</div>
-	<table id="mytable" class="table2">
-		<thead>
-			<p><ins>Lugares de Comisión 1</ins></p>
-		</thead>
-		<tbody>
-			<tr>
-				<td class="td2">Fecha Inicio:</td>
-				<td class="td2">
-					<!-- <input type="date"> -->
-
-				<!-- <div class="ui-g-12 ui-md-4">
-				<h3>Icon</h3> -->
-				<p-calendar [style]="{'width':'auto'}" [showIcon]="true" [locale]="es" [(ngModel)]="FechaDesde_solicitud" [ngModelOptions]="{standalone: true}" dateFormat="yy-mm-dd"></p-calendar> <!-- <span style="margin-left:35px">{{fechas|date}}</span> -->
-				<!-- </div> -->
-				<!-- <p-calendar [(ngModel)]="comision.FechaDesde_sol" dateFormat="dd.mm.yy" showTime="showTime" hourFormat="24" [locale]="en"></p-calendar> -->
-				<!-- <input id="FechaDesde_sol" type="date" min="2016-01-01" class="cuadros" name="FechaDesde_sol" #FechaDesde_sol="ngModel" [(ngModel)]="comision.FechaDesde_sol"> -->
-				<!-- <p-calendar [(ngModel)]="FechaDesde_sol" dateFormat="dd/mm/yyyy" [ngModelOptions]="{standalone: true}"></p-calendar> -->
-			</td>
-			<td class="td2">Hora Inicio:</td>
-			<td class="td2">
-				<p-calendar [style]="{'width':'auto'}" [(ngModel)]="HoraDesde_sol" [timeOnly]="true" hourFormat="24" [ngModelOptions]="{standalone: true}" timeFormat="hh:mm"></p-calendar>
-				<!-- <input type="time" class="cuadros" id="HoraDesde_sol" name="HoraDesde_sol" #HoraDesde_sol="ngModel" [(ngModel)]="comision.HoraDesde_sol"> -->
-			</td>
-			<td>-</td> 
-			<td class="td2">Fecha Fin:</td>
-			<td class="td2">
-				<!-- <input type="date" id="FechaHasta_sol" [(ngModel)]="comision.FechaHasta_sol"> -->
-				<!-- <input type="date" min="2016-01-01" class="cuadros" name="FechaHasta_sol" id="FechaHasta_sol" #FechaHasta_sol="ngModel" [(ngModel)]="comision.FechaHasta_sol"> -->
-				<p-calendar [style]="{'width':'auto'}" [showIcon]="true" [locale]="es" [(ngModel)]="FechaHasta_solicitud" [ngModelOptions]="{standalone: true}" dateFormat="yy-mm-dd"></p-calendar>
-				<!-- <p-calendar [(ngModel)]="FechaHasta_sol" dateFormat="dd/mm/yyyy" [ngModelOptions]="{standalone: true}"></p-calendar> -->
-			</td>
-			<td class="td2">Hora Fin:</td>
-			<td class="td2">
-				<p-calendar [style]="{'width':'auto'}" [(ngModel)]="HoraHasta_sol" [timeOnly]="true" hourFormat="24" [ngModelOptions]="{standalone: true}" timeFormat="hh:mm"></p-calendar>
-				<!-- <input type="time" class="cuadros" name="HoraHasta_sol" id="HoraHasta_sol" #HoraHasta_sol="ngModel" [(ngModel)]="comision.HoraHasta_sol"> -->
-			</td>
-		</tr>
-	</tbody>
-</table>
-<table id="mytable" class="table2">
-	<thead>
-		<p><ins>Lugares de Comisión</ins></p>
-	</thead>
-	<tbody>
-		<tr>
-			<td class="td2">
-				<form>
-
-				<p-multiSelect id="ingresarCiudad" [options]="ciudad" [(ngModel)]="ciudades_sol_ini" [ngModelOptions]="{standalone: true}" dataType="string"></p-multiSelect>
-					<!-- <p-multiSelect id="ingresarCiudad" [options]="ciudad" #ciudades_sol="ngModel" [(ngModel)]="comision.ciudades_sol" [ngModelOptions]="{standalone: true}"></p-multiSelect> -->
-					<!-- <p>Selected Cars: {{selectedCars}}</p> -->
-					<!-- <input id="ingresarCiudad" class="cuadros1" type="text" size="30" placeholder="Agregar ciudad" #ciudadSol required> -->
-					<!-- <button class="btn1" (click)="OnAgregarCiudad(ciudadSol.value)" >Agregar</button> -->
-				</form> 
-			</td>
-				<!-- <td class="td2"> <p>Listado Ciudades</p> 
-				<textarea id="ciudades_solicitud" name="ciudades_sol" #ciudades_sol rows="2" cols="50">{{selectedCars}}</textarea>    -->
-				<!-- <textarea id="ciudades_solicitud" name="ciudades_sol" #ciudades_sol rows="2" cols="50">{{ciudades_sol}}</textarea>  -->
-				<!-- </td> -->
-<!-- 					<td>
-
-</td> -->
-</tr>
-</tbody>
-</table>
-<table id="mytable" class="table2">
-	<thead>
-		<p><ins>Comisionados</ins></p>
-	</thead>
-
-	<tbody>
-
-		<tr>
-			<td class="td2">
-				<form>
-					<p-multiSelect id="ingresarComisionado" [options]="persona" [(ngModel)]="funcionarios_sol_ini" [ngModelOptions]="{standalone: true}" dataType="string"></p-multiSelect>
-					<!-- <p-multiSelect id="ingresarComisionado" [options]="persona" #funcionarios_solicitud="ngModel" [(ngModel)]="comision.funcionarios_solicitud" [ngModelOptions]="{standalone: true}"></p-multiSelect> -->
-						<!-- <input id="ingresarComisionado"  class="cuadros1" type="texto" size="30" placeholder="Agregar Comisionados" #comisionadoSol required>
-						<button class="btn1" (click)="OnAgregarComisionado(comisionadoSol.value)" >Agregar</button> -->
-					</form> 
-				</td>
-				<!-- <td class="td2"> 
-					<ins>Listado Comisionados</ins> 
-					<textarea id="comisionados_solicitud" name="comisionados_sol" #comisionados_sol rows="2" cols="50">{{comisionadoSol}}</textarea>
-				</td> -->
-			</tr>
-		</tbody>
-	</table> 
-	<button (click)="Onpaso2()">Actividades a Realizar</button>
-</div>
-<div *ngIf="inicial == true && paso2 == false">
-	<table id="mytable" class="table2">
-		<thead>
-			<p><ins>Actividades a realizar</ins></p>
-		</thead>
-		<tbody>
-			<tr>
 				<td>
-					<p-editor id="editor" [(ngModel)]="comision.actividadessol" [style]="{'height':'320px'}" [ngModelOptions]="{standalone: true}">
-						<header>
-
-
-							<span class="ql-formats" style="text-align: center; width: 100%;">
-
-								<table id="tabla_toolbar">
-									<tr>
-										<td>Estilo</td>
-										
-									</tr>
-									<tr>
-										
-										<td>
-											<span class="ql-formats">
-												<button class="ql-bold"></button>
-												<button class="ql-italic"></button>
-												<button class="ql-underline"></button>
-											</span>
-										</td>
-									</tr>
-								</table>
-								<table id="tabla_toolbar">
-									<tr>
-
-										<td>Tamaño</td>
-										
-									</tr>
-									<tr>
-										
-
-										<td>
-											<select class="ql-size">
-												<option selected></option>
-												<option value="large">Titulo</option>
-											</select>
-										</td>
-									</tr>
-								</table>
-								<table id="tabla_toolbar">
-									<tr>
-
-										<td>Alineación</td>
-									</tr>
-									<tr>
-										<td style="text-align: center;">
-											<span class="ql-formats">
-											<!-- <select class="ql-align">
-												<option selected></option>
-												<option value="right"></option>
-												<option value="center"></option>
-											</select> -->
-											<!-- <button title="Align Left" type="button" data-value="left" class="btn btn-tlb ql-align fa fa-align-left"></button> -->
-											<button class="ql-align"></button>
-											<button class="ql-align " value="center"></button>
-											<button class="ql-align" value="justify"></button>
-										</span>
-									</td>
-								</tr>
-							</table>
-							<table id="tabla_toolbar">
-								<tr>
-
-									<td>Ordenamiento</td>
-								</tr>
-								<tr>
-
-									<td style="text-align: center;">
-											<!-- <select class="ql-align">
-												<option selected></option>
-												<option value="right"></option>
-												<option value="center"></option>
-											</select> -->
-											<!-- <button title="Align Left" type="button" data-value="left" class="btn btn-tlb ql-align fa fa-align-left"></button> -->
-											<span class="ql-formats">
-												<!-- <button class="ql-list" value="ordered"></button> -->
-												<button class="ql-list" value="bullet"></button>
-												<button class="ql-indent" value="-1"></button>
-												<button class="ql-indent" value="+1"></button>
-												<!-- <select class="ql-align"></select> -->
-											</span>
-										</td>
-									</tr>
-								</table>
-									<!-- <tr>
-									<td>Estilo</td>
-										<td>Tamaño</td>
-										<td>Alineación</td>
-									</tr> -->
-
-									<!-- <tr style="text-align: center; padding-right: 1%; padding-left: 1%;">
-										<td>
-											<button class="ql-bold"></button>
-											<button class="ql-italic"></button>
-											<button class="ql-underline"></button>
-
-										</td>
-										<td>
-											<select class="ql-size">
-												<option selected></option>
-												<option value="large">Titulo</option>
-											</select>
-										</td>
-										<td>
-											<select class="ql-align">
-												<option selected></option>
-												<option value="right"></option>
-												<option value="center"></option>
-											</select>
-										</td>
-									</tr> -->
-									<!-- </table> -->
-									<!-- <span> 
-										<button class="ql-bold"></button>
-										<button class="ql-italic"></button>
-										<button class="ql-underline"></button>-->
-										<!-- <button class="ql-direction"></button> -->
-										<!-- <button class="ql-list"></button> -->
-										<!-- <button class="ql-align"></button> -->
-										<!-- </span> 
-										<span class="ql-format-button ql-strike"></span>-->
-										<!-- <div id="separador">|</div> -->
-										<!-- <button pButton icon="fa-check"></button> -->
-										<!-- <span class="ql-format-separator"></span> -->
-										<!-- <span> 
-										<select class="ql-size">
-											<option selected></option>
-											<option value="large">Titulo</option>
-										</select>-->
-										<!-- </span> 
-										<span class="ql-format-button ql-strike"></span>-->
-										<!-- <div id="separador">|</div> -->
-										<!-- <button pButton icon="fa-check"></button> -->
-										<!-- <span class="ql-separator"></span> -->
-										<!-- <span> 
-										<select class="ql-align">
-											<option selected></option>
-											<option value="right"></option>
-											<option value="center"></option>
-										</select>-->
-										<!-- </span> -->
-									<!-- 	<select class="ql-indent">
-											<option selected></option>
-											<option value="-1">-1</option>
-											<option value="+1">+1</option>
-										</select> -->
+					<p-calendar [showIcon]="true" [locale]="es" [(ngModel)]="Fecha_sol" [ngModelOptions]="{standalone: true}" dateFormat="yy-mm-dd"></p-calendar>
+				</td>
+			</div>
+			<table id="mytable" class="table2">
+				<thead>
+					<p><ins>Lugares de Comisión 1</ins></p>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="td2">Fecha Inicio:</td>
+						<td class="td2">
+							<p-calendar [style]="{'width':'auto'}" [showIcon]="true" [locale]="es" [(ngModel)]="FechaDesde_solicitud" [ngModelOptions]="{standalone: true}" dateFormat="yy-mm-dd"></p-calendar> 
+						</td>
+						<td class="td2">Hora Inicio:</td>
+						<td class="td2">
+							<p-calendar [style]="{'width':'auto'}" [(ngModel)]="HoraDesde_sol" [timeOnly]="true" hourFormat="24" [ngModelOptions]="{standalone: true}" timeFormat="hh:mm"></p-calendar>
+						</td>
+						<td>-</td> 
+						<td class="td2">Fecha Fin:</td>
+						<td class="td2">
+							<p-calendar [style]="{'width':'auto'}" [showIcon]="true" [locale]="es" [(ngModel)]="FechaHasta_solicitud" [ngModelOptions]="{standalone: true}" dateFormat="yy-mm-dd"></p-calendar>
+						</td>
+						<td class="td2">Hora Fin:</td>
+						<td class="td2">
+							<p-calendar [style]="{'width':'auto'}" [(ngModel)]="HoraHasta_sol" [timeOnly]="true" hourFormat="24" [ngModelOptions]="{standalone: true}" timeFormat="hh:mm"></p-calendar>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<table id="mytable" class="table2">
+				<thead>
+					<p><ins>Lugares de Comisión</ins></p>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="td2">
+							<form>
+								<p-multiSelect id="ingresarCiudad" [options]="ciudad" [(ngModel)]="ciudades_sol_ini" [ngModelOptions]="{standalone: true}" dataType="string"></p-multiSelect>
+							</form> 
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<table id="mytable" class="table2">
+				<thead>
+					<p><ins>Comisionados</ins></p>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="td2">
+							<form>
+								<p-multiSelect id="ingresarComisionado" [options]="persona" [(ngModel)]="funcionarios_sol_ini" [ngModelOptions]="{standalone: true}" dataType="string"></p-multiSelect>
+							</form> 
+						</td>
+					</tr>
+				</tbody>
+			</table> 
+			<button (click)="Onpaso2()">Actividades a Realizar</button>
+		</div>
+		<div *ngIf="inicial == true && paso2 == false  && paso3 == false && paso4 == false">
+			<table id="mytable" class="table2">
+				<thead>
+					<p><ins>Actividades a realizar</ins></p>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<p-editor id="editor" [(ngModel)]="comision.actividadessol" [style]="{'height':'320px'}" [ngModelOptions]="{standalone: true}">
+								<header>
+									<span class="ql-formats" style="text-align: center; width: 100%;">
+										<table id="tabla_toolbar">
+											<tr>
+												<td>Estilo</td>
+											</tr>
+											<tr>
+												<td>
+													<span class="ql-formats">
+														<button class="ql-bold"></button>
+														<button class="ql-italic"></button>
+														<button class="ql-underline"></button>
+													</span>
+												</td>
+											</tr>
+										</table>
+										<table id="tabla_toolbar">
+											<tr>
+												<td>Tamaño</td>
+											</tr>
+											<tr>
+												<td>
+													<select class="ql-size">
+														<option selected></option>
+														<option value="large">Titulo</option>
+													</select>
+												</td>
+											</tr>
+										</table>
+										<table id="tabla_toolbar">
+											<tr>
+												<td>Alineación</td>
+											</tr>
+											<tr>
+												<td style="text-align: center;">
+													<span class="ql-formats">
+														<button class="ql-align"></button>
+														<button class="ql-align " value="center"></button>
+														<button class="ql-align" value="justify"></button>
+													</span>
+												</td>
+											</tr>
+										</table>
+										<table id="tabla_toolbar">
+											<tr>
+												<td>Ordenamiento</td>
+											</tr>
+											<tr>
+												<td style="text-align: center;">
+													<span class="ql-formats">
+														<button class="ql-list" value="bullet"></button>
+														<button class="ql-indent" value="-1"></button>
+														<button class="ql-indent" value="+1"></button>
+													</span>
+												</td>
+											</tr>
+										</table>
 									</span>
-									<!-- <button pButton icon="fa-check"></button> -->
 								</header>
 							</p-editor>
 						</td>
 
 					</tr>
-					<!-- <tr>
-						<td>
-							<textarea #actividadessol="ngModel" [(ngModel)]="comision.actividadessol" [ngModelOptions]="{standalone: true}" rows="20" cols="120"></textarea> 
-						</td>
-						<p>{{drop}}</p>
-					</tr> -->
 				</tbody>
 			</table> 
 			<button (click)="Onpaso3()">Escoger Transporte</button>
 		</div>
-		<div *ngIf="inicial == true && paso2 == true && paso3 == false">
+		<div *ngIf="inicial == true && paso2 == true && paso3 == false && paso4 == false">
 			<p><ins>Escoger los transportes a requerir</ins></p>
 			<table class="table table-striped">
 				<thead>
 					<tr>
 						<th style="width: 10%">Tipo
-							<!-- <mfDefaultSorter by="tipo">Tipo</mfDefaultSorter> -->
 						</th>
 						<th style="width: 10%">Modelo
-							<!-- <mfDefaultSorter by="modelo">Modelo</mfDefaultSorter> -->
 						</th>
 						<th style="width: 20%">Ruta Inicio
-							<!-- <mfDefaultSorter by="rutInicio">Ruta Inicio</mfDefaultSorter> -->
 						</th>
 						<th style="width: 20%">Ruta Fin
-							<!-- <mfDefaultSorter by="rurFin">Ruta Fin</mfDefaultSorter> -->
 						</th>
 						<th style="width: 10%">Fecha Inicio
-							<!-- <mfDefaultSorter by="fInicio">Fecha Inicio</mfDefaultSorter> -->
 						</th>
-						<!-- <th style="width: 10%">Hora Inicio
-							<mfDefaultSorter by="hInicio">Hora Inicio</mfDefaultSorter>
-						</th> -->
 						<th style="width: 10%">Fecha Fin
-							<!-- <mfDefaultSorter by="fFin">Fecha Fin</mfDefaultSorter> -->
 						</th>
-						<!-- <th style="width: 10%">Hora Fin
-							<mfDefaultSorter by="hFin">Hora Fin</mfDefaultSorter>
-						</th> -->
 						<th style="width: 10%">Agregar Ruta
-							<!-- <mfDefaultSorter by="botonEliminarTras">Eliminar</mfDefaultSorter> -->
 						</th>
 					</tr>
 				</thead>
 				<tbody id="tbody_trareq">
 					<tr>
 						<td style="width: 10%">
-							<!--<p>Tipo</p> -->
 							<select id="combo_tiptra" (change)="onSelect()" (change)="onCambiarModelTra()">
 								<option [value]="0">Escoja uno</option>
 								<option *ngFor="let tipodetransporte of tipotra" [value]="tipodetransporte.val">
 									{{tipodetransporte.name}}
 								</option>
 							</select>
-							<!-- <select id="combo_tiptra" (change)="onSelect()" (change)="onCambiarModelTra()">
-								<!-- <option [value]="0">Escoja uno</option> 
-								<option *ngFor="let tipodetransporte of tipotra" [value]="tipodetransporte.val">
-									{{tipodetransporte.name}}
-								</option>
-							</select> -->
 						</td>
 						<td style="width: 10%">
-							<!-- <p><ins>Modelo</ins></p> -->
 							<select id="combo_vehiculo" *ngIf="modeltrans == false" >
 								<option [value]="0">Escoja uno</option>
-								<!-- <option *ngFor="let modelotransporte of modeltra" [value]="modelotransporte.tiptraId">
-									{{modelotransporte.tiptraNombre}}
-								</option> -->
 							</select> 
-						<!-- </td>
-						<td style="width: 10%; height: auto;"> -->
-							<!-- <p><ins>Modelo</ins></p> -->
 							<select id="combo_vehiculo" *ngIf="modeltrans == true" >
-								<!-- <option [value]="0">Escoja uno</option> -->
 								<option *ngFor="let modelotransporte of modeltra" [value]="modelotransporte.tiptraNombre">
 									{{modelotransporte.tiptraNombre}}
 								</option>
 							</select> 
 						</td>
 						<td style="width: 20%">
-
-							<!-- <p-multiSelect id="RinicioTrans" [options]="ciudadtra" [(ngModel)]="RinicioTrans" [ngModelOptions]="{standalone: true}"></p-multiSelect> -->
-
 							<p-dropdown [style]="{'width':'auto'}" [options]="ciudadtra" [(ngModel)]="RinicioTrans" [filter]="true" [ngModelOptions]="{standalone: true}">
-								<!--  <template let-car>-->
-								<!-- <div class="ui-helper-clearfix" style="position: relative;height: 12px;"> -->
-								<!-- <img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:5px"/> -->
-								<!-- <div id="RinicioTrans" style="font-size:10px;float:right;margin-top:1px;">{{ciudadtra.label}}</div> -->
-								<!-- </div> -->
-								<!--</template> -->
-								<!-- {{ciudadtra.label}} -->
 							</p-dropdown>
 						</td>
 						<td style="width: 20%">
-							<!-- <p><ins>Ruta Fin</ins></p> -->
-							<!-- <input type="text" id="RfinTrans" > -->
-							<!-- <p-multiSelect id="RfinTrans" [options]="ciudad" #trarutaFin="ngModel" [(ngModel)]="transporte.trarutaFin" [ngModelOptions]="{standalone: true}"></p-multiSelect> -->
 							<p-dropdown [style]="{'width':'auto'}" [options]="ciudadtra" [(ngModel)]="RfinTrans" [filter]="true" [ngModelOptions]="{standalone: true}">
-								<!--  <template let-car>-->
 								<div class="ui-helper-clearfix" style="position: relative;height: 12px;">
-									<!-- <img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:5px"/> -->
 									<div id="RfinTrans" style="font-size:10px;float:right;margin-top:1px">{{ciudadtra.label}}</div>
 								</div>
-								<!--</template> -->
-								<!-- {{ciudadtra.label}} -->
 							</p-dropdown>
-
-							<!-- <p-multiSelect id="RfinTrans" [options]="ciudadtra" [(ngModel)]="RfinTrans" [ngModelOptions]="{standalone: true}"></p-multiSelect> -->
 						</td>
 						<td style="width: 10%">
-							<!-- <p><ins>Fecha Inicio</ins></p> -->
-							<!-- <p-calendar [style]="{'width':'auto'}" [showIcon]="true" [locale]="es" [showTime]="true" [(
-							ngModel)]="FinicioTrans" [ngModelOptions]="{standalone: true}"></p-calendar> -->
 							<p-calendar [style]="{'width':'100%'}" [showIcon]="true" [locale]="es" [showTime]="true" [(ngModel)]="FinicioTrans" [ngModelOptions]="{standalone: true}"></p-calendar>
-							<!-- <p-calendar  [(ngModel)]="FinicioTrans" [showTime]="true" [ngModelOptions]="{standalone: true}"></p-calendar> -->
-							<!-- <input type="date" min="2016-01-01" max="2050-12-31" class="cuadros3" id="FinicioTrans" > -->
 						</td>
-						<!-- <td style="width: 10%">
-							<p-calendar [style]="{'width':'100%'}" [(ngModel)]="HinicioTrans" [timeOnly]="true" hourFormat="24" [ngModelOptions]="{standalone: true}" dataType="string"></p-calendar>
-						</td> -->
 						<td style="width: 10%">
-							<!-- <p><ins>Fecha Fin</ins></p> -->
-							<!-- <p-calendar [style]="{'width':'auto'}" [showIcon]="true" showTime="showTime" hourFormat="24" [locale]="es"  [(ngModel)]="FfinTrans" [ngModelOptions]="{standalone: true}" dataType="string" ></p-calendar> -->
 							<p-calendar [style]="{'width':'100%'}" [showIcon]="true" [locale]="es" [showTime]="true"  [(ngModel)]="FfinTrans" [ngModelOptions]="{standalone: true}"></p-calendar>
-							<!-- dateFormat="dd/mm/yy" [showTime]="true" -->
-							<!-- <input type="date" min="2016-01-01" max="2050-12-31" class="cuadros3" id="FfinTrans" > -->
 						</td>
-						<!-- <td style="width: 10%">
-							<p-calendar [style]="{'width':'100%'}" [(ngModel)]="HfinTrans" [timeOnly]="true" hourFormat="24" [ngModelOptions]="{standalone: true}" dataType="string"></p-calendar>
-						</td> -->
 						<td >
-							<!-- <a class="btn btn-success btn-xs glyphicon glyphicon-plus" (click)="showDialogToAdd()"> -->
 							<a class="btn btn-success btn-xs glyphicon glyphicon-plus" (click)="OnAgregarTraReq()">
 							</a>
 						</td>
@@ -415,246 +221,114 @@
 				<thead id="TransporteReqEnc">
 					<tr>
 						<th style="width: 10%">Tipo
-							
 						</th>
 						<th style="width: 10%">Modelo
-							
 						</th>
 						<th style="width: 20%">Ruta Inicio
-							
 						</th>
 						<th style="width: 20%">Ruta Fin
-							
 						</th>
 						<th style="width: 10%">Fecha Inicio
-							
 						</th>
 						<th style="width: 10%">Hora Inicio
-							
 						</th>
 						<th style="width: 10%">Fecha Fin
-							
 						</th>
 						<th style="width: 10%">Hora Fin
-							
 						</th>
 						<th style="width: 10%">Eliminar
-							
 						</th>
 					</tr>
 				</thead>
 			</table>
-			<!-- <div> -->
-				<!-- <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="3" [responsive]="true">
-					<header>VEHICULOS REQUERIDOS</header>
-					<p-column field="tipo" header="Tipo" [sortable]="true"></p-column>
-					<p-column field="modelo" header="Modelo" [sortable]="true"></p-column>
-					<p-column field="rutainicio" header="Ruta Inicio" [sortable]="true"></p-column>
-					<p-column field="rutafin" header="Ruta Fin" [sortable]="true"></p-column>
-					<p-column field="fechainicio" header="Fecha Inicio" [sortable]="true"></p-column>
-					<p-column field="horainicio" header="Hora Inicio" [sortable]="true"></p-column>
-					<p-column field="fechafin" header="Fecha Fin" [sortable]="true"></p-column>
-					<p-column field="horafin" header="Hora Fin" [sortable]="true"></p-column>
-					<p-column field="eliminar" header="Eliminar" [sortable]="false"></p-column> -->
-					<!-- <footer><div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Add"></button></div></footer> -->
-					<!-- </p-dataTable> -->
-
-				<!-- <p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" id="tbody_trareq_dialog">
-					<div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="car">
-						<div class="ui-grid-row">
-							<div class="ui-grid-col-4"><label for="tipo">Tipo</label></div>
-							<div class="ui-grid-col-8"><input pInputText id="tipo" /></div>
-						</div>
-						<div class="ui-grid-row">
-							<div class="ui-grid-col-4"><label for="modelo">Modelo</label></div>
-							<div class="ui-grid-col-8"><input pInputText id="modelo"/></div>
-						</div>
-						<div class="ui-grid-row">
-							<div class="ui-grid-col-4"><label for="rutainicio">Ruta Inicio</label></div>
-							<div class="ui-grid-col-8"><input pInputText id="rutainicio" /></div>
-						</div>
-						<div class="ui-grid-row">
-							<div class="ui-grid-col-4"><label for="rutafin">Ruta Fin</label></div>
-							<div class="ui-grid-col-8"><input pInputText id="rutafin" /></div>
-						</div>
-						<div class="ui-grid-row">
-							<div class="ui-grid-col-4"><label for="fechainicio">Fecha Inicio</label></div>
-							<div class="ui-grid-col-8"><input pInputText id="fechainicio" /></div>
-						</div>
-						<div class="ui-grid-row">
-							<div class="ui-grid-col-4"><label for="horainicio">Hora Inicio</label></div>
-							<div class="ui-grid-col-8"><input pInputText id="horainicio" /></div>
-						</div>
-						<div class="ui-grid-row">
-							<div class="ui-grid-col-4"><label for="fechafin">Fecha Fin</label></div>
-							<div class="ui-grid-col-8"><input pInputText id="fechafin" /></div>
-						</div>
-						<div class="ui-grid-row">
-							<div class="ui-grid-col-4"><label for="horafin">Hora Fin</label></div>
-							<div class="ui-grid-col-8"><input pInputText id="horafin" /></div>
-						</div>
-						<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-							<!-- <button type="button" pButton icon="fa-close" (click)="delete()" label="Delete"></button> -->
-							<!-- <button class="btn btn-danger btn-xs glyphicon glyphicon-minus" (click)="OnEliminarTraReq()"></button> -->
-							<!-- <button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button> -->
-						<!--</div>
-					</div>
-				</p-dialog> -->
-				<!-- </div> -->
-
-				<!-- <table class="table table-striped" [mfData]="comision" #mf="mfDataTable" [mfRowsOnPage]="5"> -->
-				<table class="table table-striped">
-					<!-- <thead>
-						<tr>
-							<th style="width: 10%">Tipo -->
-								<!-- <mfDefaultSorter by="tipo">Tipo</mfDefaultSorter> -->
-							<!-- </th>
-							<th style="width: 10%">Modelo-->
-								<!-- <mfDefaultSorter by="modelo">Modelo</mfDefaultSorter> -->
-							<!-- </th>
-							<th style="width: 20%">Ruta Inicio -->
-								<!-- <mfDefaultSorter by="rutInicio">Ruta Inicio</mfDefaultSorter> -->
-							<!-- </th>
-							<th style="width: 20%">Ruta Fin -->
-								<!-- <mfDefaultSorter by="rurFin">Ruta Fin</mfDefaultSorter> -->
-							<!-- </th>
-							<th style="width: 10%">Fecha Inicio -->
-								<!-- <mfDefaultSorter by="fInicio">Fecha Inicio</mfDefaultSorter> -->
-							<!-- </th>
-							<th style="width: 10%">Hora Inicio -->
-								<!-- <mfDefaultSorter by="hInicio">Hora Inicio</mfDefaultSorter> -->
-							<!-- </th>
-							<th style="width: 10%">Fecha Fin -->
-								<!-- <mfDefaultSorter by="fFin">Fecha Fin</mfDefaultSorter> -->
-							<!-- </th>
-							<th style="width: 10%">Hora Fin -->
-								<!-- <mfDefaultSorter by="hFin">Hora Fin</mfDefaultSorter> -->
-							<!-- </th>
-							<th style="width: 10%">Eliminar -->
-								<!-- <mfDefaultSorter by="botonEliminarTras">Eliminar</mfDefaultSorter> -->
-							<!-- </th>
-						</tr>
-					</thead> -->
-					<tbody id="tbody_trareq_dialog">
-   <!--  <tr *ngFor="let item of mf.data">
-        <td>{{item.name}}</td>
-        <td>{{item.email}}</td>
-        <td class="text-right">{{item.age}}</td>
-        <td>{{item.city | uppercase}}</td>
-    </tr> -->
-</tbody>
-    <!-- <tfoot>
-    <tr>
-        <td colspan="4">
-            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
-        </td>
-    </tr>
-</tfoot> -->
-</table>
-
-
-<!-- 
-<table class="table table-striped" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5">
-    <thead>
-    <tr>
-        <th style="width: 20%">
-            <mfDefaultSorter by="name">Name</mfDefaultSorter>
-        </th>
-        <th style="width: 50%">
-            <mfDefaultSorter by="email">Email</mfDefaultSorter>
-        </th>
-        <th style="width: 10%">
-            <mfDefaultSorter by="age">Age</mfDefaultSorter>
-        </th>
-        <th style="width: 20%">
-            <mfDefaultSorter by="city">City</mfDefaultSorter>
-        </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let item of mf.data">
-        <td>{{item.name}}</td>
-        <td>{{item.email}}</td>
-        <td class="text-right">{{item.age}}</td>
-        <td>{{item.city | uppercase}}</td>
-    </tr>
-    </tbody>
-    <tfoot>
-    <tr>
-        <td colspan="4">
-            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
-        </td>
-    </tr>
-    </tfoot>
-</table> -->
-
-
-
-
-
-<!-- <ng2-smart-table [settings]="settings"></ng2-smart-table> -->
-			<!-- <table id="mytable" class="table2">
-				<thead>
-					<p>Transporte extra (Solo institucional)</p>
-				</thead>
-				<tbody>
-					<tr>
-						<td class="td2">
-							<p>Tipo</p>
-							<select id="tipoTrans">
-								<option value="aereo">Aereo</option>
-								<option value="terrestre">Terrestre</option>
-								<option value="marítimo">Marítimo</option>
-								<option value="ferreo">Ferreo</option>
-								<option value="otro">Otro</option>
-							</select>
-						</td>
-						<td class="td2"><p><ins>Modelo</ins></p>
-							<select id="modeloTrans" >
-								<option value="aereo">SZ</option>
-								<option value="terrestre">Camioneta</option>
-							</select></td>
-							<td class="td2">
-								<p><ins>Ruta Inicio</ins></p>
-								<input type="text" id="RinicioTrans" >
-							</td>
-							<td class="td2">
-								<p><ins>Ruta Fin</ins></p>
-								<input type="text" id="RfinTrans" >
-							</td>
-							<td class="td2">
-								<p><ins>Fecha Inicio</ins></p>
-								<input type="date" min="2016-01-01" max="2050-12-31" class="cuadros3" id="FinicioTrans" >
-							</td>
-							<td class="td2">
-								<p><ins>Hora Inicio</ins></p>
-								<input type="time" class="cuadros3" id="HinicioTrans">
-							</td>
-							<td class="td2">
-								<p><ins>Fecha Fin</ins></p>
-								<input type="date" min="2016-01-01" max="2050-12-31" class="cuadros3" id="FfinTrans" >
-							</td>
-							<td class="td2">
-								<p><ins>Hora Fin</ins></p>
-								<input type="time"  class="cuadros3" id="HfinTrans">
-							</td>
-							<td class="td2">
-								<button class="btn btn-success btn-xs glyphicon glyphicon-plus">
-								</button>
-							</td>
-
-						</tr>
-						<tr>
-						</tr>
-					</tbody>
-				</table> -->
-				<ul class="pagination pull-CENTER">
-					<button (click)="onGuardarSol()">GUARDAR</button>
-					<button (click)="Onpaso4()">ENVIAR</button>
-					<!-- <button [routerLink]="['/imprimir_solicitud']">IMPRIMIR</button> -->
-					<button (click)="OnImprimirSol()">IMPRIMIR</button>
-					<button (click)="OnCancelarSol()">CANCELAR</button>
-				</ul>
+			<table class="table table-striped">
+				<tbody id="tbody_trareq_dialog">
+				</tbody>
+			</table>
+			<div class="pagination pull-CENTER">
+				<button (click)="Onpaso4()">Ingresar Anexos y Fondos</button>
 			</div>
-		</form>
-	</div>
+		</div>
+		<div *ngIf="inicial == true && paso2 == true && paso3 == true && paso4 == false">
+			<div>
+				<p><ins>Ingresar los fondos asignados</ins></p>
+				<label>Cantidad del fondo asignado:</label>
+					<input type="text" id="fonvalor" name="fonvalor"/>
+				<label>Descripción del fondo asignado:</label>
+					<input type="text" id="fondes" name="fondes"/>
+			</div>
+			<div>
+				<p><ins>Adjuntar archivos</ins></p>
+				<input type="file" ng2FileSelect [uploader]="uploader" multiple  /><br/>
+				<div class="col-md-9" style="margin-bottom: 40px">
+					<p>Cantidad de archivos a subir: {{ uploader?.queue?.length }}</p>
+					<table class="table">
+						<thead>
+							<tr>
+								<th width="50%">Nombre</th>
+								<th>Estado</th>
+								<th>Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let item of uploader.queue">
+								<td><strong>{{ item?.file?.name }}</strong></td>
+								<td *ngIf="uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+								<td *ngIf="uploader.isHTML5">
+									<div class="progress" style="margin-bottom: 0;">
+										<div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+									</div>
+								</td>
+								<td class="text-center">
+									<span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+									<span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+									<span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+								</td>
+								<td nowrap>
+									<button type="button" class="btn btn-success btn-xs"
+									(click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+									<span class="glyphicon glyphicon-upload"></span> Subir
+								</button>
+								<button type="button" class="btn btn-warning btn-xs"
+								(click)="item.cancel()" [disabled]="!item.isUploading">
+								<span class="glyphicon glyphicon-ban-circle"></span> Cancelar
+							</button>
+							<button type="button" class="btn btn-danger btn-xs"
+							(click)="item.remove()">
+							<span class="glyphicon glyphicon-trash"></span> Quitar
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div>
+			<div>
+				Progreso:
+				<div class="progress" style="">
+					<div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+				</div>
+			</div>
+			<button type="button" class="btn btn-success btn-s"
+			(click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+			<span class="glyphicon glyphicon-upload"></span> Subir todos
+		</button>
+		<button type="button" class="btn btn-warning btn-s"
+		(click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+		<span class="glyphicon glyphicon-ban-circle"></span> Cancelar todos
+	</button>
+	<button type="button" class="btn btn-danger btn-s"
+	(click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+	<span class="glyphicon glyphicon-trash"></span> Quitar todos
+</button>
+</div>
+</div>
+</div>
+<ul class="pagination pull-CENTER">
+	<button (click)="onGuardarSol()">GUARDAR</button>
+	<button (click)="Onpaso5()">ENVIAR</button>
+	<button (click)="OnImprimirSol()">IMPRIMIR</button>
+	<button (click)="OnCancelarSol()">CANCELAR</button>
+</ul>
+</div>
+</form>
+</div>

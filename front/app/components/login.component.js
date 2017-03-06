@@ -8,12 +8,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var login_service_1 = require("../services/login.service");
+var solicitud_service_1 = require("../services/solicitud.service");
 var LoginComponent = (function () {
-    function LoginComponent(_loginService, _router, _route) {
+    function LoginComponent(_loginService, _solicitudService, _router, _route) {
         this._loginService = _loginService;
+        this._solicitudService = _solicitudService;
         this._router = _router;
         this._route = _route;
         this.errorMsg = '';
@@ -50,7 +53,28 @@ var LoginComponent = (function () {
                                 // sessionStorage.setItem('token',token);
                                 if (_this._loginService.checkCredentials(_this._loginService.getToken())) {
                                     // this._router.navigate(['/principal']);
-                                    window.location.href = '/principal';
+                                    _this.funcionario = {
+                                        'fun_id': _this.identity.sub
+                                    };
+                                    _this._solicitudService.jefeSolicitud(_this.token, _this.funcionario).subscribe(function (response) {
+                                        var info = response;
+                                        _this.info15 = info;
+                                        if (_this.info15 > 0) {
+                                            localStorage.setItem('je', "S");
+                                            // this.je="S";
+                                        }
+                                        else {
+                                            localStorage.setItem('je', "N");
+                                            // this.je="N";
+                                        }
+                                        window.location.href = '/principal';
+                                    }, function (error) {
+                                        _this.errorMessage = error;
+                                        if (_this.errorMessage != null) {
+                                            console.log(_this.errorMessage);
+                                            alert("Error en la peticion de solicitudes");
+                                        }
+                                    });
                                 }
                                 else {
                                     // this._router.navigate(['/']);
@@ -81,9 +105,10 @@ LoginComponent = __decorate([
     core_1.Component({
         selector: "login",
         templateUrl: "app/view/login.html",
-        providers: [login_service_1.LoginService]
+        providers: [login_service_1.LoginService, solicitud_service_1.SolicitudService]
     }),
     __metadata("design:paramtypes", [login_service_1.LoginService,
+        solicitud_service_1.SolicitudService,
         router_1.Router,
         router_1.ActivatedRoute])
 ], LoginComponent);

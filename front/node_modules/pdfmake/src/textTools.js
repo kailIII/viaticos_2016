@@ -82,7 +82,7 @@ TextTools.prototype.sizeOfString = function (text, styleContextStack) {
 	var font = this.fontProvider.provideFont(fontName, bold, italics);
 
 	return {
-		width: font.widthOfString(removeDiacritics(text), fontSize),
+		width: font.widthOfString(text, fontSize),
 		height: font.lineHeight(fontSize) * lineHeight,
 		fontSize: fontSize,
 		lineHeight: lineHeight,
@@ -133,7 +133,7 @@ function copyStyle(source, destination) {
 	return destination;
 }
 
-function normalizeTextArray(array) {
+function normalizeTextArray(array, styleContextStack) {
 	var results = [];
 
 	if (!Array.isArray(array)) {
@@ -145,11 +145,12 @@ function normalizeTextArray(array) {
 		var style = null;
 		var words;
 
+		var noWrap = getStyleProperty(item || {}, styleContextStack, 'noWrap', false);
 		if (item !== null && (typeof item === 'object' || item instanceof Object)) {
-			words = splitWords(normalizeString(item.text), item.noWrap);
+			words = splitWords(normalizeString(item.text), noWrap);
 			style = copyStyle(item);
 		} else {
-			words = splitWords(normalizeString(item));
+			words = splitWords(normalizeString(item), noWrap);
 		}
 
 		for (var i2 = 0, l2 = words.length; i2 < l2; i2++) {
@@ -182,16 +183,6 @@ function normalizeString(value) {
 	}
 }
 
-//TODO: support for other languages (currently only polish is supported)
-var diacriticsMap = {'Ą': 'A', 'Ć': 'C', 'Ę': 'E', 'Ł': 'L', 'Ń': 'N', 'Ó': 'O', 'Ś': 'S', 'Ź': 'Z', 'Ż': 'Z', 'ą': 'a', 'ć': 'c', 'ę': 'e', 'ł': 'l', 'ń': 'n', 'ó': 'o', 'ś': 's', 'ź': 'z', 'ż': 'z'};
-// '  << atom.io workaround
-
-function removeDiacritics(text) {
-	return text.replace(/[^A-Za-z0-9\[\] ]/g, function (a) {
-		return diacriticsMap[a] || a;
-	});
-}
-
 function getStyleProperty(item, styleContextStack, property, defaultValue) {
 	var value;
 
@@ -216,7 +207,7 @@ function getStyleProperty(item, styleContextStack, property, defaultValue) {
 }
 
 function measure(fontProvider, textArray, styleContextStack) {
-	var normalized = normalizeTextArray(textArray);
+	var normalized = normalizeTextArray(textArray, styleContextStack);
 
 	normalized.forEach(function (item) {
 		var fontName = getStyleProperty(item, styleContextStack, 'font', 'Roboto');
@@ -234,7 +225,7 @@ function measure(fontProvider, textArray, styleContextStack) {
 		var font = fontProvider.provideFont(fontName, bold, italics);
 
 		// TODO: character spacing
-		item.width = font.widthOfString(removeDiacritics(item.text), fontSize);
+		item.width = font.widthOfString(item.text, fontSize);
 		item.height = font.lineHeight(fontSize) * lineHeight;
 
 		var leadingSpaces = item.text.match(LEADING);

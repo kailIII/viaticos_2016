@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 // import {LoginComponent} from '../components/login.component';
@@ -222,6 +223,7 @@ var PrincipalComponent = (function () {
                 ;
                 _this.datoSolMostrara = JSON.parse("[" + _this.datociudadtodos1 + "]");
                 _this.datoSolMostrarp = JSON.parse("[" + _this.datociudadtodos2 + "]");
+                // console.log("this.datoSolMostrarp:"+JSON.stringify(this.datoSolMostrarp));
             }
         }, function (error) {
             _this.errorMessage = error;
