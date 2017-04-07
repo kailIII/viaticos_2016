@@ -1,0 +1,9 @@
+en carpeta back
+composer install
+en el caso de actualizacion 
+composer update
+
+
+en la carpeta front
+npm install
+npm run typings install
