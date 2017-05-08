@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 	public token;
 	public ide;
 	public tk;
-	public errorMsg = '';
+	public errorMsg: boolean;
 	public funcionario;
 	public info;
 	public datoMenu;
@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
 		){}
 
 	ngOnInit(){
+		this.errorMsg = false;
 		this.user = {
 			'email': "",
 			'password': "",
@@ -103,6 +104,8 @@ export class LoginComponent implements OnInit {
 								}
 							}
 							);
+					}else{
+						this.errorMsg = true;
 					}
 				}
 			},
@@ -114,6 +117,10 @@ export class LoginComponent implements OnInit {
 				}
 			}
 			);
+	}
+
+	corregirDatos(){
+		this.errorMsg = false;
 	}
 	// menuUsuario(idpersona:any){
 	// 	// this.identity = this._loginService.getIdentity();

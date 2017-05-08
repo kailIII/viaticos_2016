@@ -8,39 +8,27 @@
 		</ul>
 	</div>
 </div>
+
+<div class="title" style="display: none">
+	<h1>prueba con jquery</h1>
+</div>
 <hr>
 <div class="formulario_solicitud">
-	<!-- comienzo de la tabla -->
-	<article id="contenido">
-		<table cellpadding="0" cellspacing="0" border="0" class="display" id="muestra_datos" width="1">
-			<thead>
-				<tr>
-					<th>NOMBRE</th>
-					<th>APELLIDO</th>
-					<th>IDENTIFICACION</th>
-					<th>CORREO ELECTRONICO</th>
-					<th width="65px">EDITAR - ELIMINAR</th>
-				</tr>
-			</thead>
-			<tbody *ngFor="let datoUsuario of datoUsuarioMostrar">
-				<tr>
-					<td>{{datoUsuario.perNombre}}</td>
-					<td>{{datoUsuario.perApellido}}</td>
-					<td>{{datoUsuario.perIdentificacion}}</td>
-					<td>{{datoUsuario.perCorreoelectronico}}</td>
-					<td>
-						<!--<a href="<?php echo site_url('cliente/cliente/ver_cliente/' . $datos->FUN_ID); ?>" class="btn btn-primary btn-xs"><i class="icon-search"></i></a>-->
-						<a class="btn btn-warning btn-xs glyphicon glyphicon-edit"></a>
-						<!-- <a href="<?php echo site_url('cliente/cliente/editar_cliente/' . $datos->FUN_ID); ?>" class="btn btn-warning btn-xs"><i class="icon-edit"></i></a>
-						<a href="<?php echo site_url('cliente/cliente/borrar_cliente/' . $datos->FUN_ID); ?>" class="btn btn-danger btn-xs"><i class="icon-trash"></i></a> -->
-						<a class="btn btn-danger btn-xs glyphicon glyphicon-trash"></a>
-					</td>
-</tr>
-			</tbody>
-		</table>
-	</article>
-	<!-- fin de la tabla -->
-<!-- 	<ul *ngFor="let usuario of datoUsuarioMostrar">
-		<li>{{usuario.perNombre}} {{usuario.perApellido}}</li>
-	</ul> -->
+	<div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none; text-align: right;">
+		<i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+		<input #gb1 type="text" pInputText size="25" placeholder="Buscar">
+	</div>
+	<p-dataTable [value]="datoUsuarioMostrar" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [globalFilter]="gb1">
+		<p-column [style]="{'width':'20%'}" field="perNombre" header="NOMBRE" [ordered]="true" [sortable]="true" ></p-column>
+		<p-column [style]="{'width':'20%'}" field="perApellido" dateformat="yyyy-MM-dd" header="APELLIDO"  [sortable]="true"></p-column>
+		<p-column  [style]="{'width':'15%'}" field="perIdentificacion" header="IDENTIFICACION" [sortable]="true">
+		</p-column>
+		<p-column [style]="{'width':'35%'}" field="perCorreoelectronico" header="CORREO ELECTRONICO" [sortable]="true"></p-column>
+		<p-column [style]="{'width':'10%'}" styleClass="col-button" header="ACCION">
+			<template let-car="rowData" pTemplate="body">
+				<button type="button" pButton (click)="toggleTitle()" icon="fa-eye" data-toggle="tooltip" data-placement="bottom" title="Editar"></button>
+				<button type="button" pButton (click)="toggleTitle()" icon="fa-pencil" data-toggle="tooltip" data-placement="bottom" title="Eliminar"></button>
+			</template>
+		</p-column>
+	</p-dataTable>
 </div>

@@ -25,6 +25,13 @@ BackBundle\Entity\PersonaComision:
             column: percom_id
             generator:
                 strategy: SEQUENCE
+    fields:
+        percomComision:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: percom_comision
     manyToOne:
         com:
             targetEntity: Comision

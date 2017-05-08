@@ -1,20 +1,14 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit,Input } from '@angular/core';
 // import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import {LoginService} from '../services/login.service';
 import {SolicitudService} from '../services/solicitud.service';
 import {TabMenuModule,MenuItem} from 'primeng/primeng';
 
+import {VersolicitudComponent} from './versolicitud.component';
 
-
-// import { Overlay, overlayConfigFactory } from 'angular2-modal';
-// import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
-
-///<reference path="../typings/globals/jquery/index.d.ts">
-// declare var jQuery:any;
 declare var jQuery:any;
-
-
-// import * as $ from 'jquery';
+declare var $:any;
 
 @Component({
 	selector: 'solicitud',
@@ -23,6 +17,8 @@ declare var jQuery:any;
 })
 
 export class SolicitudComponent {
+
+	@Input() name: string;
 
 	public titulo = "Solicitud";
 	public identity;
@@ -101,7 +97,6 @@ export class SolicitudComponent {
 	public trasolHorallegada1;
 	public tiptraNombre1;
 	public tiptraTipo1;
-
 	public trasolId2;
 	public trasolRutainicio2;
 	public trasolRutafin2;
@@ -111,7 +106,6 @@ export class SolicitudComponent {
 	public trasolHorallegada2;
 	public tiptraNombre2;
 	public tiptraTipo2;
-
 	public actividades;
 	public datoSolIteracion2;
 	public datosciudad;
@@ -136,6 +130,7 @@ export class SolicitudComponent {
 	public datociudadtodos21;
 	public datoSolMostrarha: Array<any>;
 	public datoSolMostrarhp: Array<any>;
+	public datoSolMostrarhc: Array<any>;
 	public datosciudad13;
 	public datosciudad23;
 	public ciuIteracionl1;
@@ -143,12 +138,16 @@ export class SolicitudComponent {
 	public mostrarmenufirma: number;
 	public estsolActividades;
 	public firmaSolicitudRealizadas;
-
+	public datoSolMostrarc;
+	public datociudadtodos3;
+	public datociudadtodos31;
 	public info9;
 
 	constructor(
 		private _loginService: LoginService,
-		private _solicitudService: SolicitudService
+		private _solicitudService: SolicitudService,
+		private _router: Router,
+		private _route: ActivatedRoute
 		){
 	}
 
@@ -161,6 +160,7 @@ export class SolicitudComponent {
 			'fun_id': this.identity.sub
 		};
 		this.OnVerDetalleSol();	
+		this.OnporFirmar();
 
 		this.detalleSolicitudRealizadas = {
 			'DetsolIdsolicitud': ''
@@ -271,17 +271,6 @@ export class SolicitudComponent {
 			'banNombre':[]
 		};
 
-		this.transportessol2 = {
-			'trasolId':[],
-			'trasolRutainicio':[],
-			'trasolRutafin':[],
-			'trasolFechasalida':[],
-			'trasolHorasalida':[],
-			'trasolFechallegada':[],
-			'trasolHorallegada':[],
-			'tiptraNombre':[],
-			'tiptraTipo':[]
-		};
 	}
 
 	OnVerDetalleSol(){
@@ -289,15 +278,20 @@ export class SolicitudComponent {
 			response => {
 				let info = response;
 				this.info = info;
+				// console.log("this.info:"+this.info);
+
 				if(this.info.length <=0){
 					this.NoMostrar = "No existen solicitudes realizadas";
 					return this.NoMostrar;
-				}else{ 	
+				}else{
 					this.datoSol = "";
+					this.ciu1 = "";
 					var estanterior = 0;
 					var length1 = this.info.length;
 					var itemsiguiente;
+					var itemsiguiente1;
 					var anterior;
+					var anterior1;
 					var tamanodatos1;
 					for(var j = 0; j < length1; j++){
 						var length = this.info[j].length;
@@ -311,8 +305,16 @@ export class SolicitudComponent {
 									'solCiudades' : this.info[j][i].ciu.ciuNombre,
 									'perNombrecompleto' : this.info[j][i].estsol.sol.per.perNombrecompleto
 								};
-							}
-							else{
+							}else if(this.info[j][i].estsol.sol.solEstado === "C"){
+								this.datoSolIteracion1 = {
+									'solId' : this.info[j][i].estsol.sol.solId,
+									'solIdsolicitud' : this.info[j][i].estsol.sol.solIdsolicitud,
+									'solFecharealizacion' : this.info[j][i].estsol.sol.solFecharealizacion,
+									'solEstado' : 'CANCELADO',
+									'solCiudades' : this.info[j][i].ciu.ciuNombre,
+									'perNombrecompleto' : this.info[j][i].estsol.sol.per.perNombrecompleto
+								};
+							}else{
 								this.datoSolIteracion1 = {
 									'solId' : this.info[j][i].estsol.sol.solId,
 									'solIdsolicitud' : this.info[j][i].estsol.sol.solIdsolicitud,
@@ -324,6 +326,8 @@ export class SolicitudComponent {
 							}
 
 							this.datoSolIteracion = JSON.stringify(this.datoSolIteracion1);
+							// console.log("this.datoSolIteracion:"+this.datoSolIteracion);
+
 							if(this.datoSol == ""){
 								this.datoSol = this.datoSolIteracion;
 							}else{
@@ -331,37 +335,34 @@ export class SolicitudComponent {
 							}
 						};
 					};
-					this.datoSolMostrar1 = JSON.parse("["+this.datoSol+"]");  
+					this.datoSolMostrar1 = JSON.parse("["+this.datoSol+"]");
+					// console.log("this.datoSolMostrar1:"+this.datoSolMostrar1);
+					
 					var tamanodatos = this.datoSolMostrar1.length
 					this.datociudadtodos = "";
-					for(var k=0; k<tamanodatos ; k++){
+
+					for(var l=0; l<tamanodatos; l++){
 						var datociudad1 = "";
-						itemsiguiente = k + 1;
-						anterior = k-1;
-						this.ciu1 = "";
-						tamanodatos1 = tamanodatos;
-						if(itemsiguiente < tamanodatos){
-							if(this.datoSolMostrar1[k].solIdsolicitud === this.datoSolMostrar1[itemsiguiente].solIdsolicitud){
-								for(var l=itemsiguiente ; l<tamanodatos1 ; l++){
-									this.ciuIteracion = this.datoSolMostrar1[k].solCiudades;
-									this.ciuIteracionl = this.datoSolMostrar1[l].solCiudades;
-									if(this.datoSolMostrar1[k].solIdsolicitud === this.datoSolMostrar1[l].solIdsolicitud){
-										if(this.ciu1 == ""){
-											this.ciu1 = this.ciuIteracion+","+this.ciuIteracionl;
-										}else{
-											this.ciu1 = this.ciu1+","+this.ciuIteracionl;
-										}
-									}else{
-										l = tamanodatos1;
-									}
-								};
+						itemsiguiente1 = l + 1;
+						anterior1 = l - 1;
+						this.ciuIteracion = this.datoSolMostrar1[l].solCiudades;
+						if(this.ciu1 == ""){
+							this.ciu1 = this.ciuIteracion;
+						}else{
+							this.ciu1 = this.ciu1+","+this.ciuIteracion;
+						}
+
+						// console.log(l+" this.datoSolMostrar1[l].solId:"+this.datoSolMostrar1[l].solId);
+						if(l > 0){
+
+							if(this.datoSolMostrar1[l].solId !== this.datoSolMostrar1[anterior1].solId && itemsiguiente1 === tamanodatos){
 								this.datosciudad = {
-									'solId':this.datoSolMostrar1[k].solId,
-									'solIdsolicitud': this.datoSolMostrar1[k].solIdsolicitud,
-									'solFecharealizacion' :this.datoSolMostrar1[k].solFecharealizacion,
-									'solEstado' : this.datoSolMostrar1[k].solEstado,
+									'solId':this.datoSolMostrar1[l].solId,
+									'solIdsolicitud': this.datoSolMostrar1[l].solIdsolicitud,
+									'solFecharealizacion' :this.datoSolMostrar1[l].solFecharealizacion,
+									'solEstado' : this.datoSolMostrar1[l].solEstado,
 									'solCiudades' : this.ciu1,
-									'perNombrecompleto' : this.datoSolMostrar1[k].perNombrecompleto
+									'perNombrecompleto' : this.datoSolMostrar1[l].perNombrecompleto
 								};
 								datociudad1 = JSON.stringify(this.datosciudad);
 								if(this.datociudadtodos == ""){
@@ -370,16 +371,26 @@ export class SolicitudComponent {
 									this.datociudadtodos = this.datociudadtodos+","+datociudad1;
 								}
 							}else{
-								if(anterior > -1){
-									if(this.datoSolMostrar1[k].solIdsolicitud !== this.datoSolMostrar1[itemsiguiente].solIdsolicitud){
-										if(this.datoSolMostrar1[k].solIdsolicitud !== this.datoSolMostrar1[anterior].solIdsolicitud){
+
+								for(var k=itemsiguiente1; k<tamanodatos; k++){
+									if(this.datoSolMostrar1[l].solId === this.datoSolMostrar1[k].solId){
+										// console.log("igual al this.ciu1 de "+l+" :"+this.ciu1);
+										this.ciuIteracion = this.datoSolMostrar1[k].solCiudades;
+										if(this.ciu1 == ""){
+											this.ciu1 = this.ciuIteracion;
+										}else{
+											this.ciu1 = this.ciu1+","+this.ciuIteracion;
+										}
+										l = k;
+										// console.log("l:"+l);
+										if(k === tamanodatos -1){
 											this.datosciudad = {
-												'solId':this.datoSolMostrar1[k].solId,
-												'solIdsolicitud': this.datoSolMostrar1[k].solIdsolicitud,
-												'solFecharealizacion' :this.datoSolMostrar1[k].solFecharealizacion,
-												'solEstado' : this.datoSolMostrar1[k].solEstado,
-												'solCiudades' : this.datoSolMostrar1[k].solCiudades,
-												'perNombrecompleto' : this.datoSolMostrar1[k].perNombrecompleto
+												'solId':this.datoSolMostrar1[l].solId,
+												'solIdsolicitud': this.datoSolMostrar1[l].solIdsolicitud,
+												'solFecharealizacion' :this.datoSolMostrar1[l].solFecharealizacion,
+												'solEstado' : this.datoSolMostrar1[l].solEstado,
+												'solCiudades' : this.ciu1,
+												'perNombrecompleto' : this.datoSolMostrar1[l].perNombrecompleto
 											};
 											datociudad1 = JSON.stringify(this.datosciudad);
 											if(this.datociudadtodos == ""){
@@ -388,31 +399,58 @@ export class SolicitudComponent {
 												this.datociudadtodos = this.datociudadtodos+","+datociudad1;
 											}
 										}
-									}
-								}else{
-									this.datosciudad = {
-										'solId':this.datoSolMostrar1[k].solId,
-										'solIdsolicitud': this.datoSolMostrar1[k].solIdsolicitud,
-										'solFecharealizacion' :this.datoSolMostrar1[k].solFecharealizacion,
-										'solEstado' : this.datoSolMostrar1[k].solEstado,
-										'solCiudades' : this.datoSolMostrar1[k].solCiudades,
-										'perNombrecompleto' : this.datoSolMostrar1[k].perNombrecompleto
-									};
-									datociudad1 = JSON.stringify(this.datosciudad);
-									if(this.datociudadtodos == ""){
-										this.datociudadtodos = datociudad1;
 									}else{
-										this.datociudadtodos = this.datociudadtodos+","+datociudad1;
+										this.datosciudad = {
+											'solId':this.datoSolMostrar1[l].solId,
+											'solIdsolicitud': this.datoSolMostrar1[l].solIdsolicitud,
+											'solFecharealizacion' :this.datoSolMostrar1[l].solFecharealizacion,
+											'solEstado' : this.datoSolMostrar1[l].solEstado,
+											'solCiudades' : this.ciu1,
+											'perNombrecompleto' : this.datoSolMostrar1[l].perNombrecompleto
+										};
+										datociudad1 = JSON.stringify(this.datosciudad);
+										if(this.datociudadtodos == ""){
+											this.datociudadtodos = datociudad1;
+										}else{
+											this.datociudadtodos = this.datociudadtodos+","+datociudad1;
+										}
+
+										// console.log("en el else de desiguales this.datociudadtodos:"+this.datociudadtodos);
+										this.ciu1 = "";
+										k = tamanodatos; 
 									}
-								}
+								};
+							}
+						}else{
+							this.datosciudad = {
+								'solId':this.datoSolMostrar1[l].solId,
+								'solIdsolicitud': this.datoSolMostrar1[l].solIdsolicitud,
+								'solFecharealizacion' :this.datoSolMostrar1[l].solFecharealizacion,
+								'solEstado' : this.datoSolMostrar1[l].solEstado,
+								'solCiudades' : this.ciu1,
+								'perNombrecompleto' : this.datoSolMostrar1[l].perNombrecompleto
+							};
+							datociudad1 = JSON.stringify(this.datosciudad);
+							if(this.datociudadtodos == ""){
+								this.datociudadtodos = datociudad1;
+							}else{
+								this.datociudadtodos = this.datociudadtodos+","+datociudad1;
 							}
 						}
+						
 					};
+
+
 					this.datoSolMostrar = JSON.parse("["+this.datociudadtodos+"]");
+					// console.log("this.datoSolMostrar:"+this.datoSolMostrar);
+
+
 					this.datociudadtodos1 = "";
 					this.datociudadtodos2 = "";
+					this.datociudadtodos3 = "";
 					var datociudad3;
 					var datociudad2;
+					var datociudad4;
 					var todostamano = this.datoSolMostrar.length;
 					for(var a=0; a<todostamano; a++){
 						datociudad3 = "";
@@ -430,6 +468,21 @@ export class SolicitudComponent {
 								this.datociudadtodos1 = datociudad3;
 							}else{
 								this.datociudadtodos1 = this.datociudadtodos1+","+datociudad3;
+							}
+						}else if(this.datoSolMostrar[a].solEstado === "CANCELADO"){
+							this.datosciudad1 = {
+								'solId':this.datoSolMostrar[a].solId,
+								'solIdsolicitud': this.datoSolMostrar[a].solIdsolicitud,
+								'solFecharealizacion' :this.datoSolMostrar[a].solFecharealizacion,
+								'solEstado' : this.datoSolMostrar[a].solEstado,
+								'solCiudades' : this.datoSolMostrar[a].solCiudades,
+								'perNombrecompleto' : this.datoSolMostrar[a].perNombrecompleto
+							};
+							datociudad4 = JSON.stringify(this.datosciudad1);
+							if(this.datociudadtodos3 == ""){
+								this.datociudadtodos3 = datociudad4;
+							}else{
+								this.datociudadtodos3 = this.datociudadtodos3+","+datociudad4;
 							}
 						}else{
 							this.datosciudad2 = {
@@ -450,8 +503,11 @@ export class SolicitudComponent {
 					};
 					this.datoSolMostrara = JSON.parse("["+this.datociudadtodos1+"]");
 					this.datoSolMostrarp = JSON.parse("["+this.datociudadtodos2+"]");
+					this.datoSolMostrarc = JSON.parse("["+this.datociudadtodos3+"]");
 
-					// console.log("this.datoSolMostrarp:"+JSON.stringify(this.datoSolMostrarp));
+					// console.log("this.datoSolMostrara:"+this.datoSolMostrara);
+					// console.log("this.datoSolMostrarp:"+this.datoSolMostrarp);
+					// console.log("this.datoSolMostrarc:"+this.datoSolMostrarc);
 				}
 			},error => {
 				this.errorMessage = <any>error;
@@ -460,6 +516,201 @@ export class SolicitudComponent {
 					alert("Error en la peticion de solicitudes");
 				}
 			});
+}
+
+OnVerDetalleSol1(){
+	this._solicitudService.reporteSolicitud(this.token,this.funcionario).subscribe(
+		response => {
+			let info = response;
+			this.info = info;
+			if(this.info.length <=0){
+				this.NoMostrar = "No existen solicitudes realizadas";
+				return this.NoMostrar;
+			}else{ 	
+				this.datoSol = "";
+				var estanterior = 0;
+				var length1 = this.info.length;
+				var itemsiguiente;
+				var anterior;
+				var tamanodatos1;
+				for(var j = 0; j < length1; j++){
+					var length = this.info[j].length;
+					for (var i = 0; i < length; i++) {
+						if(this.info[j][i].estsol.sol.solEstado === "A"){
+							this.datoSolIteracion1 = {
+								'solId' : this.info[j][i].estsol.sol.solId,
+								'solIdsolicitud' : this.info[j][i].estsol.sol.solIdsolicitud,
+								'solFecharealizacion' : this.info[j][i].estsol.sol.solFecharealizacion,
+								'solEstado' : 'APROBADO',
+								'solCiudades' : this.info[j][i].ciu.ciuNombre,
+								'perNombrecompleto' : this.info[j][i].estsol.sol.per.perNombrecompleto
+							};
+						}else if(this.info[j][i].estsol.sol.solEstado === "C"){
+							this.datoSolIteracion1 = {
+								'solId' : this.info[j][i].estsol.sol.solId,
+								'solIdsolicitud' : this.info[j][i].estsol.sol.solIdsolicitud,
+								'solFecharealizacion' : this.info[j][i].estsol.sol.solFecharealizacion,
+								'solEstado' : 'CANCELADO',
+								'solCiudades' : this.info[j][i].ciu.ciuNombre,
+								'perNombrecompleto' : this.info[j][i].estsol.sol.per.perNombrecompleto
+							};
+						}else{
+							this.datoSolIteracion1 = {
+								'solId' : this.info[j][i].estsol.sol.solId,
+								'solIdsolicitud' : this.info[j][i].estsol.sol.solIdsolicitud,
+								'solFecharealizacion' : this.info[j][i].estsol.sol.solFecharealizacion,
+								'solEstado' : 'PENDIENTE',
+								'solCiudades' : this.info[j][i].ciu.ciuNombre,
+								'perNombrecompleto' : this.info[j][i].estsol.sol.per.perNombrecompleto
+							};
+						}
+
+						this.datoSolIteracion = JSON.stringify(this.datoSolIteracion1);
+						if(this.datoSol == ""){
+							this.datoSol = this.datoSolIteracion;
+						}else{
+							this.datoSol = this.datoSol+","+this.datoSolIteracion;
+						}
+					};
+				};
+				this.datoSolMostrar1 = JSON.parse("["+this.datoSol+"]");  
+				var tamanodatos = this.datoSolMostrar1.length
+				this.datociudadtodos = "";
+				for(var k=0; k<tamanodatos ; k++){
+					var datociudad1 = "";
+					itemsiguiente = k + 1;
+					anterior = k-1;
+					this.ciu1 = "";
+					tamanodatos1 = tamanodatos;
+					if(itemsiguiente < tamanodatos){
+						if(this.datoSolMostrar1[k].solIdsolicitud === this.datoSolMostrar1[itemsiguiente].solIdsolicitud){
+							for(var l=itemsiguiente ; l<tamanodatos1 ; l++){
+								this.ciuIteracion = this.datoSolMostrar1[k].solCiudades;
+								this.ciuIteracionl = this.datoSolMostrar1[l].solCiudades;
+								if(this.datoSolMostrar1[k].solIdsolicitud === this.datoSolMostrar1[l].solIdsolicitud){
+									if(this.ciu1 == ""){
+										this.ciu1 = this.ciuIteracion+","+this.ciuIteracionl;
+									}else{
+										this.ciu1 = this.ciu1+","+this.ciuIteracionl;
+									}
+								}else{
+									k = l+1;
+									l = tamanodatos1;
+								}
+							};
+							this.datosciudad = {
+								'solId':this.datoSolMostrar1[k].solId,
+								'solIdsolicitud': this.datoSolMostrar1[k].solIdsolicitud,
+								'solFecharealizacion' :this.datoSolMostrar1[k].solFecharealizacion,
+								'solEstado' : this.datoSolMostrar1[k].solEstado,
+								'solCiudades' : this.ciu1,
+								'perNombrecompleto' : this.datoSolMostrar1[k].perNombrecompleto
+							};
+							datociudad1 = JSON.stringify(this.datosciudad);
+							if(this.datociudadtodos == ""){
+								this.datociudadtodos = datociudad1;
+							}else{
+								this.datociudadtodos = this.datociudadtodos+","+datociudad1;
+							}
+						}else{
+							if(anterior > -1){
+								if(this.datoSolMostrar1[k].solIdsolicitud !== this.datoSolMostrar1[itemsiguiente].solIdsolicitud){
+									if(this.datoSolMostrar1[k].solIdsolicitud !== this.datoSolMostrar1[anterior].solIdsolicitud){
+										this.datosciudad = {
+											'solId':this.datoSolMostrar1[k].solId,
+											'solIdsolicitud': this.datoSolMostrar1[k].solIdsolicitud,
+											'solFecharealizacion' :this.datoSolMostrar1[k].solFecharealizacion,
+											'solEstado' : this.datoSolMostrar1[k].solEstado,
+											'solCiudades' : this.datoSolMostrar1[k].solCiudades,
+											'perNombrecompleto' : this.datoSolMostrar1[k].perNombrecompleto
+										};
+										datociudad1 = JSON.stringify(this.datosciudad);
+										if(this.datociudadtodos == ""){
+											this.datociudadtodos = datociudad1;
+										}else{
+											this.datociudadtodos = this.datociudadtodos+","+datociudad1;
+										}
+									}
+								}
+							}else{
+								this.datosciudad = {
+									'solId':this.datoSolMostrar1[k].solId,
+									'solIdsolicitud': this.datoSolMostrar1[k].solIdsolicitud,
+									'solFecharealizacion' :this.datoSolMostrar1[k].solFecharealizacion,
+									'solEstado' : this.datoSolMostrar1[k].solEstado,
+									'solCiudades' : this.datoSolMostrar1[k].solCiudades,
+									'perNombrecompleto' : this.datoSolMostrar1[k].perNombrecompleto
+								};
+								datociudad1 = JSON.stringify(this.datosciudad);
+								if(this.datociudadtodos == ""){
+									this.datociudadtodos = datociudad1;
+								}else{
+									this.datociudadtodos = this.datociudadtodos+","+datociudad1;
+								}
+							}
+						}
+					}
+				};
+				this.datoSolMostrar = JSON.parse("["+this.datociudadtodos+"]");
+				this.datociudadtodos1 = "";
+				this.datociudadtodos2 = "";
+				var datociudad3;
+				var datociudad2;
+				var todostamano = this.datoSolMostrar.length;
+				for(var a=0; a<todostamano; a++){
+					datociudad3 = "";
+					if(this.datoSolMostrar[a].solEstado === "APROBADO"){
+						this.datosciudad1 = {
+							'solId':this.datoSolMostrar[a].solId,
+							'solIdsolicitud': this.datoSolMostrar[a].solIdsolicitud,
+							'solFecharealizacion' :this.datoSolMostrar[a].solFecharealizacion,
+							'solEstado' : this.datoSolMostrar[a].solEstado,
+							'solCiudades' : this.datoSolMostrar[a].solCiudades,
+							'perNombrecompleto' : this.datoSolMostrar[a].perNombrecompleto
+						};
+						datociudad3 = JSON.stringify(this.datosciudad1);
+						if(this.datociudadtodos1 == ""){
+							this.datociudadtodos1 = datociudad3;
+						}else{
+							this.datociudadtodos1 = this.datociudadtodos1+","+datociudad3;
+						}
+					}else{
+						this.datosciudad2 = {
+							'solId':this.datoSolMostrar[a].solId,
+							'solIdsolicitud': this.datoSolMostrar[a].solIdsolicitud,
+							'solFecharealizacion' :this.datoSolMostrar[a].solFecharealizacion,
+							'solEstado' : this.datoSolMostrar[a].solEstado,
+							'solCiudades' : this.datoSolMostrar[a].solCiudades,
+							'perNombrecompleto' : this.datoSolMostrar[a].perNombrecompleto
+						};
+						datociudad2 = JSON.stringify(this.datosciudad2);
+						if(this.datociudadtodos2 == ""){
+							this.datociudadtodos2 = datociudad2;
+						}else{
+							this.datociudadtodos2 = this.datociudadtodos2+","+datociudad2;
+						}
+					}
+				};
+				this.datoSolMostrara = JSON.parse("["+this.datociudadtodos1+"]");
+				this.datoSolMostrarp = JSON.parse("["+this.datociudadtodos2+"]");
+
+				// console.log("this.datoSolMostrarp:"+JSON.stringify(this.datoSolMostrarp));
+			}
+		},error => {
+			this.errorMessage = <any>error;
+			if(this.errorMessage != null){
+				console.log(this.errorMessage);
+				alert("Error en la peticion de solicitudes");
+			}
+		});
+}
+
+OnMostrarDetalleSol(a){
+	// window.location.href='/solicitud';
+	console.log("a:"+JSON.stringify(a));
+	// console.log("this.equis:"+JSON.stringify(this.equis));
+	// 	console.log("this.solifecfun2:"+JSON.stringify(this.solifecfun2));
+	// this._router.navigate(['/versolicitud']);
 }
 
 OnMostrarDetalle(DetalleSolMostrar){
@@ -548,6 +799,7 @@ OnMostrarDetalle(DetalleSolMostrar){
 					this.personasssol1 = JSON.stringify(this.info[0].personasssol);
 					this.personasssol = JSON.parse("["+this.personasssol1+"]");
 				}
+				console.log("this.personasssol:"+JSON.stringify(this.personasssol));
 
 				if(this.info[0].ciudadessol.length>0){
 					// console.log("ciudadessol.length no undefined");
@@ -691,6 +943,15 @@ OnporFirmar(){
 								'solCiudades' : this.info11[j][i].ciu.ciuNombre,
 								'perNombrecompleto' : this.info11[j][i].estsol.sol.per.perNombrecompleto
 							};
+						}else if(this.info11[j][i].estsol.sol.solEstado === "C"){
+							this.datoSolIteracion11 = {
+								'solId' : this.info11[j][i].estsol.sol.solId,
+								'solIdsolicitud' : this.info11[j][i].estsol.sol.solIdsolicitud,
+								'solFecharealizacion' : this.info11[j][i].estsol.sol.solFecharealizacion,
+								'solEstado' : 'CANCELADO',
+								'solCiudades' : this.info11[j][i].ciu.ciuNombre,
+								'perNombrecompleto' : this.info11[j][i].estsol.sol.per.perNombrecompleto
+							};
 						}
 						else{
 							this.datoSolIteracion11 = {
@@ -715,131 +976,235 @@ OnporFirmar(){
 
 				var tamanodatos = this.datoSolMostrar12.length
 				this.datociudadtodos11 = "";
-				for(var k=0; k<tamanodatos ; k++){
+
+				for(var l=0; l<tamanodatos; l++){
 					var datociudad1 = "";
-					itemsiguiente = k + 1;
-					anterior = k-1;
-					this.ciu11 = "";
-					tamanodatos1 = tamanodatos;
-					if(itemsiguiente < tamanodatos){
-						if(this.datoSolMostrar12[k].solIdsolicitud === this.datoSolMostrar12[itemsiguiente].solIdsolicitud){
-							for(var l=itemsiguiente ; l<tamanodatos1 ; l++){
-								this.ciuIteracion1 = this.datoSolMostrar12[k].solCiudades;
-								this.ciuIteracionl1 = this.datoSolMostrar12[l].solCiudades;
-								if(this.datoSolMostrar12[k].solIdsolicitud === this.datoSolMostrar12[l].solIdsolicitud){
-									if(this.ciu11 == ""){
-										this.ciu11 = this.ciuIteracion1+","+this.ciuIteracionl1;
-									}else{
-										this.ciu11 = this.ciu11+","+this.ciuIteracionl1;
-									}
-								}else{
-									l = tamanodatos1;
-								}
-							};
-							this.datosciudad12 = {
-								'solId':this.datoSolMostrar12[k].solId,
-								'solIdsolicitud': this.datoSolMostrar12[k].solIdsolicitud,
-								'solFecharealizacion' :this.datoSolMostrar12[k].solFecharealizacion,
-								'solEstado' : this.datoSolMostrar12[k].solEstado,
+					itemsiguiente = l + 1;
+					anterior = l - 1;
+					this.ciuIteracion1 = this.datoSolMostrar12[l].solCiudades;
+					if(this.ciu11 == ""){
+						this.ciu11 = this.ciuIteracion1;
+					}else{
+						this.ciu11 = this.ciu11+","+this.ciuIteracion1;
+					}
+
+					// console.log(l+" this.datoSolMostrar1[l].solId:"+this.datoSolMostrar1[l].solId);
+					if(l > 0){
+
+						if(this.datoSolMostrar12[l].solId !== this.datoSolMostrar12[anterior].solId && itemsiguiente === tamanodatos){
+							this.datosciudad = {
+								'solId':this.datoSolMostrar12[l].solId,
+								'solIdsolicitud': this.datoSolMostrar12[l].solIdsolicitud,
+								'solFecharealizacion' :this.datoSolMostrar12[l].solFecharealizacion,
+								'solEstado' : this.datoSolMostrar12[l].solEstado,
 								'solCiudades' : this.ciu11,
-								'perNombrecompleto' : this.datoSolMostrar12[k].perNombrecompleto
+								'perNombrecompleto' : this.datoSolMostrar12[l].perNombrecompleto
 							};
-							datociudad1 = JSON.stringify(this.datosciudad12);
+							datociudad1 = JSON.stringify(this.datosciudad);
 							if(this.datociudadtodos11 == ""){
 								this.datociudadtodos11 = datociudad1;
 							}else{
 								this.datociudadtodos11 = this.datociudadtodos11+","+datociudad1;
 							}
 						}else{
-							if(anterior > -1){
-								if(this.datoSolMostrar12[k].solIdsolicitud !== this.datoSolMostrar12[itemsiguiente].solIdsolicitud){
-									if(this.datoSolMostrar12[k].solIdsolicitud !== this.datoSolMostrar12[anterior].solIdsolicitud){
-										this.datosciudad12 = {
-											'solId':this.datoSolMostrar12[k].solId,
-											'solIdsolicitud': this.datoSolMostrar12[k].solIdsolicitud,
-											'solFecharealizacion' :this.datoSolMostrar12[k].solFecharealizacion,
-											'solEstado' : this.datoSolMostrar12[k].solEstado,
-											'solCiudades' : this.datoSolMostrar12[k].solCiudades,
-											'perNombrecompleto' : this.datoSolMostrar12[k].perNombrecompleto
+
+							for(var k=itemsiguiente; k<tamanodatos; k++){
+								if(this.datoSolMostrar12[l].solId === this.datoSolMostrar12[k].solId){
+									// console.log("igual al this.ciu1 de "+l+" :"+this.ciu1);
+									this.ciuIteracion1 = this.datoSolMostrar12[k].solCiudades;
+									if(this.ciu11 == ""){
+										this.ciu11 = this.ciuIteracion1;
+									}else{
+										this.ciu11 = this.ciu11+","+this.ciuIteracion1;
+									}
+									l = k;
+									// console.log("l:"+l);
+									if(k === tamanodatos -1){
+										this.datosciudad = {
+											'solId':this.datoSolMostrar12[l].solId,
+											'solIdsolicitud': this.datoSolMostrar12[l].solIdsolicitud,
+											'solFecharealizacion' :this.datoSolMostrar12[l].solFecharealizacion,
+											'solEstado' : this.datoSolMostrar12[l].solEstado,
+											'solCiudades' : this.ciu11,
+											'perNombrecompleto' : this.datoSolMostrar12[l].perNombrecompleto
 										};
-										datociudad1 = JSON.stringify(this.datosciudad12);
+										datociudad1 = JSON.stringify(this.datosciudad);
 										if(this.datociudadtodos11 == ""){
 											this.datociudadtodos11 = datociudad1;
 										}else{
 											this.datociudadtodos11 = this.datociudadtodos11+","+datociudad1;
 										}
 									}
-								}
-							}else{
-								this.datosciudad12 = {
-									'solId':this.datoSolMostrar12[k].solId,
-									'solIdsolicitud': this.datoSolMostrar12[k].solIdsolicitud,
-									'solFecharealizacion' :this.datoSolMostrar12[k].solFecharealizacion,
-									'solEstado' : this.datoSolMostrar12[k].solEstado,
-									'solCiudades' : this.datoSolMostrar12[k].solCiudades,
-									'perNombrecompleto' : this.datoSolMostrar12[k].perNombrecompleto
-								};
-								datociudad1 = JSON.stringify(this.datosciudad12);
-								if(this.datociudadtodos11 == ""){
-									this.datociudadtodos11 = datociudad1;
 								}else{
-									this.datociudadtodos11 = this.datociudadtodos11+","+datociudad1;
+									this.datosciudad = {
+										'solId':this.datoSolMostrar12[l].solId,
+										'solIdsolicitud': this.datoSolMostrar12[l].solIdsolicitud,
+										'solFecharealizacion' :this.datoSolMostrar12[l].solFecharealizacion,
+										'solEstado' : this.datoSolMostrar12[l].solEstado,
+										'solCiudades' : this.ciu11,
+										'perNombrecompleto' : this.datoSolMostrar12[l].perNombrecompleto
+									};
+									datociudad1 = JSON.stringify(this.datosciudad);
+									if(this.datociudadtodos11 == ""){
+										this.datociudadtodos11 = datociudad1;
+									}else{
+										this.datociudadtodos11 = this.datociudadtodos11+","+datociudad1;
+									}
+
+									// console.log("en el else de desiguales this.datociudadtodos:"+this.datociudadtodos);
+									this.ciu11 = "";
+									k = tamanodatos; 
 								}
-							}
+							};
 						}
 					}
+
 				};
-				this.datoSolMostrar3 = JSON.parse("["+this.datociudadtodos11+"]");
-				// console.log("this.datociudadtodos11:"+this.datociudadtodos11);
-				this.datociudadtodos11 = "";
-				this.datociudadtodos21 = "";
-				var datociudad3;
-				var datociudad2;
-				var todostamano = this.datoSolMostrar3.length;
-				for(var a=0; a<todostamano; a++){
-					datociudad3 = "";
-					if(this.datoSolMostrar3[a].solEstado === "APROBADO"){
-						this.datosciudad13 = {
-							'solId':this.datoSolMostrar3[a].solId,
-							'solIdsolicitud': this.datoSolMostrar3[a].solIdsolicitud,
-							'solFecharealizacion' :this.datoSolMostrar3[a].solFecharealizacion,
-							'solEstado' : this.datoSolMostrar3[a].solEstado,
-							'solCiudades' : this.datoSolMostrar3[a].solCiudades,
-							'perNombrecompleto' : this.datoSolMostrar3[a].perNombrecompleto
-						};
-						datociudad3 = JSON.stringify(this.datosciudad13);
-						if(this.datociudadtodos11 == ""){
-							this.datociudadtodos11 = datociudad3;
-						}else{
-							this.datociudadtodos11 = this.datociudadtodos11+","+datociudad3;
-						}
-					}else{
-						this.datosciudad23 = {
-							'solId':this.datoSolMostrar3[a].solId,
-							'solIdsolicitud': this.datoSolMostrar3[a].solIdsolicitud,
-							'solFecharealizacion' :this.datoSolMostrar3[a].solFecharealizacion,
-							'solEstado' : this.datoSolMostrar3[a].solEstado,
-							'solCiudades' : this.datoSolMostrar3[a].solCiudades,
-							'perNombrecompleto' : this.datoSolMostrar3[a].perNombrecompleto
-						};
-						datociudad2 = JSON.stringify(this.datosciudad23);
-						if(this.datociudadtodos21 == ""){
-							this.datociudadtodos21 = datociudad2;
-						}else{
-							this.datociudadtodos21 = this.datociudadtodos21+","+datociudad2;
-						}
-					}
-				};
-				this.datoSolMostrarha = JSON.parse("["+this.datociudadtodos11+"]");
-				this.datoSolMostrarhp = JSON.parse("["+this.datociudadtodos21+"]");
-			}
-		},error => {
-			this.errorMessage = <any>error;
-			if(this.errorMessage != null){
-				console.log(this.errorMessage);
-				alert("Error en la peticion de solicitudes");
-			}
-		});
+
+				// for(var k=0; k<tamanodatos ; k++){
+					// 	var datociudad1 = "";
+					// 	itemsiguiente = k + 1;
+					// 	anterior = k-1;
+					// 	this.ciu11 = "";
+					// 	tamanodatos1 = tamanodatos;
+					// 	if(itemsiguiente < tamanodatos){
+						// 		if(this.datoSolMostrar12[k].solIdsolicitud === this.datoSolMostrar12[itemsiguiente].solIdsolicitud){
+							// 			for(var l=itemsiguiente ; l<tamanodatos1 ; l++){
+								// 				this.ciuIteracion1 = this.datoSolMostrar12[k].solCiudades;
+								// 				this.ciuIteracionl1 = this.datoSolMostrar12[l].solCiudades;
+								// 				if(this.datoSolMostrar12[k].solIdsolicitud === this.datoSolMostrar12[l].solIdsolicitud){
+									// 					if(this.ciu11 == ""){
+										// 						this.ciu11 = this.ciuIteracion1+","+this.ciuIteracionl1;
+										// 					}else{
+											// 						this.ciu11 = this.ciu11+","+this.ciuIteracionl1;
+											// 					}
+											// 				}else{
+												// 					l = tamanodatos1;
+												// 				}
+												// 			};
+												// 			this.datosciudad12 = {
+													// 				'solId':this.datoSolMostrar12[k].solId,
+													// 				'solIdsolicitud': this.datoSolMostrar12[k].solIdsolicitud,
+													// 				'solFecharealizacion' :this.datoSolMostrar12[k].solFecharealizacion,
+													// 				'solEstado' : this.datoSolMostrar12[k].solEstado,
+													// 				'solCiudades' : this.ciu11,
+													// 				'perNombrecompleto' : this.datoSolMostrar12[k].perNombrecompleto
+													// 			};
+													// 			datociudad1 = JSON.stringify(this.datosciudad12);
+													// 			if(this.datociudadtodos11 == ""){
+														// 				this.datociudadtodos11 = datociudad1;
+														// 			}else{
+															// 				this.datociudadtodos11 = this.datociudadtodos11+","+datociudad1;
+															// 			}
+															// 		}else{
+																// 			if(anterior > -1){
+																	// 				if(this.datoSolMostrar12[k].solIdsolicitud !== this.datoSolMostrar12[itemsiguiente].solIdsolicitud){
+																		// 					if(this.datoSolMostrar12[k].solIdsolicitud !== this.datoSolMostrar12[anterior].solIdsolicitud){
+																			// 						this.datosciudad12 = {
+																				// 							'solId':this.datoSolMostrar12[k].solId,
+																				// 							'solIdsolicitud': this.datoSolMostrar12[k].solIdsolicitud,
+																				// 							'solFecharealizacion' :this.datoSolMostrar12[k].solFecharealizacion,
+																				// 							'solEstado' : this.datoSolMostrar12[k].solEstado,
+																				// 							'solCiudades' : this.datoSolMostrar12[k].solCiudades,
+																				// 							'perNombrecompleto' : this.datoSolMostrar12[k].perNombrecompleto
+																				// 						};
+																				// 						datociudad1 = JSON.stringify(this.datosciudad12);
+																				// 						if(this.datociudadtodos11 == ""){
+																					// 							this.datociudadtodos11 = datociudad1;
+																					// 						}else{
+																						// 							this.datociudadtodos11 = this.datociudadtodos11+","+datociudad1;
+																						// 						}
+																						// 					}
+																						// 				}
+																						// 			}else{
+																							// 				this.datosciudad12 = {
+																								// 					'solId':this.datoSolMostrar12[k].solId,
+																								// 					'solIdsolicitud': this.datoSolMostrar12[k].solIdsolicitud,
+																								// 					'solFecharealizacion' :this.datoSolMostrar12[k].solFecharealizacion,
+																								// 					'solEstado' : this.datoSolMostrar12[k].solEstado,
+																								// 					'solCiudades' : this.datoSolMostrar12[k].solCiudades,
+																								// 					'perNombrecompleto' : this.datoSolMostrar12[k].perNombrecompleto
+																								// 				};
+																								// 				datociudad1 = JSON.stringify(this.datosciudad12);
+																								// 				if(this.datociudadtodos11 == ""){
+																									// 					this.datociudadtodos11 = datociudad1;
+																									// 				}else{
+																										// 					this.datociudadtodos11 = this.datociudadtodos11+","+datociudad1;
+																										// 				}
+																										// 			}
+																										// 		}
+																										// 	}
+																										// };
+
+																										this.datoSolMostrar3 = JSON.parse("["+this.datociudadtodos11+"]");
+																										// console.log("this.datociudadtodos11:"+this.datociudadtodos11);
+																										this.datociudadtodos11 = "";
+																										this.datociudadtodos21 = "";
+																										this.datociudadtodos31 = "";
+																										var datociudad3;
+																										var datociudad2;
+																										var datociudad5;
+																										var todostamano = this.datoSolMostrar3.length;
+																										for(var a=0; a<todostamano; a++){
+																											datociudad3 = "";
+																											if(this.datoSolMostrar3[a].solEstado === "APROBADO"){
+																												this.datosciudad13 = {
+																													'solId':this.datoSolMostrar3[a].solId,
+																													'solIdsolicitud': this.datoSolMostrar3[a].solIdsolicitud,
+																													'solFecharealizacion' :this.datoSolMostrar3[a].solFecharealizacion,
+																													'solEstado' : this.datoSolMostrar3[a].solEstado,
+																													'solCiudades' : this.datoSolMostrar3[a].solCiudades,
+																													'perNombrecompleto' : this.datoSolMostrar3[a].perNombrecompleto
+																												};
+																												datociudad3 = JSON.stringify(this.datosciudad13);
+																												if(this.datociudadtodos11 == ""){
+																													this.datociudadtodos11 = datociudad3;
+																												}else{
+																													this.datociudadtodos11 = this.datociudadtodos11+","+datociudad3;
+																												}
+																											}else if(this.datoSolMostrar3[a].solEstado === "CANCELADO"){
+																												this.datosciudad13 = {
+																													'solId':this.datoSolMostrar3[a].solId,
+																													'solIdsolicitud': this.datoSolMostrar3[a].solIdsolicitud,
+																													'solFecharealizacion' :this.datoSolMostrar3[a].solFecharealizacion,
+																													'solEstado' : this.datoSolMostrar3[a].solEstado,
+																													'solCiudades' : this.datoSolMostrar3[a].solCiudades,
+																													'perNombrecompleto' : this.datoSolMostrar3[a].perNombrecompleto
+																												};
+																												datociudad5 = JSON.stringify(this.datosciudad13);
+																												if(this.datociudadtodos31 == ""){
+																													this.datociudadtodos31 = datociudad5;
+																												}else{
+																													this.datociudadtodos31 = this.datociudadtodos31+","+datociudad5;
+																												}
+																											}else{
+																												this.datosciudad23 = {
+																													'solId':this.datoSolMostrar3[a].solId,
+																													'solIdsolicitud': this.datoSolMostrar3[a].solIdsolicitud,
+																													'solFecharealizacion' :this.datoSolMostrar3[a].solFecharealizacion,
+																													'solEstado' : this.datoSolMostrar3[a].solEstado,
+																													'solCiudades' : this.datoSolMostrar3[a].solCiudades,
+																													'perNombrecompleto' : this.datoSolMostrar3[a].perNombrecompleto
+																												};
+																												datociudad2 = JSON.stringify(this.datosciudad23);
+																												if(this.datociudadtodos21 == ""){
+																													this.datociudadtodos21 = datociudad2;
+																												}else{
+																													this.datociudadtodos21 = this.datociudadtodos21+","+datociudad2;
+																												}
+																											}
+																										};
+																										this.datoSolMostrarha = JSON.parse("["+this.datociudadtodos11+"]");
+																										this.datoSolMostrarhp = JSON.parse("["+this.datociudadtodos21+"]");
+																										this.datoSolMostrarhc = JSON.parse("["+this.datociudadtodos31+"]");
+																									}
+																								},error => {
+																									this.errorMessage = <any>error;
+																									if(this.errorMessage != null){
+																										console.log(this.errorMessage);
+																										alert("Error en la peticion de solicitudes");
+																									}
+																								});
 }
 
 
@@ -855,6 +1220,7 @@ OnfirmarSolicitud(){
 		response => {
 			let info = response;
 			this.info9 = info;
+			// console.log(this.info9);
 		},error => {
 			this.errorMessage = <any>error;
 			if(this.errorMessage != null){

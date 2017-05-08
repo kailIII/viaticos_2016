@@ -11,13 +11,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 // import { Router, ActivatedRoute, Params } from '@angular/router';
+var router_1 = require("@angular/router");
 var login_service_1 = require("../services/login.service");
 var solicitud_service_1 = require("../services/solicitud.service");
-// import * as $ from 'jquery';
 var SolicitudComponent = (function () {
-    function SolicitudComponent(_loginService, _solicitudService) {
+    function SolicitudComponent(_loginService, _solicitudService, _router, _route) {
         this._loginService = _loginService;
         this._solicitudService = _solicitudService;
+        this._router = _router;
+        this._route = _route;
         this.titulo = "Solicitud";
     }
     ;
@@ -30,6 +32,7 @@ var SolicitudComponent = (function () {
             'fun_id': this.identity.sub
         };
         this.OnVerDetalleSol();
+        this.OnporFirmar();
         this.detalleSolicitudRealizadas = {
             'DetsolIdsolicitud': ''
         };
@@ -131,19 +134,260 @@ var SolicitudComponent = (function () {
             'banperEstado': [],
             'banNombre': []
         };
-        this.transportessol2 = {
-            'trasolId': [],
-            'trasolRutainicio': [],
-            'trasolRutafin': [],
-            'trasolFechasalida': [],
-            'trasolHorasalida': [],
-            'trasolFechallegada': [],
-            'trasolHorallegada': [],
-            'tiptraNombre': [],
-            'tiptraTipo': []
-        };
     };
     SolicitudComponent.prototype.OnVerDetalleSol = function () {
+        var _this = this;
+        this._solicitudService.reporteSolicitud(this.token, this.funcionario).subscribe(function (response) {
+            var info = response;
+            _this.info = info;
+            // console.log("this.info:"+this.info);
+            if (_this.info.length <= 0) {
+                _this.NoMostrar = "No existen solicitudes realizadas";
+                return _this.NoMostrar;
+            }
+            else {
+                _this.datoSol = "";
+                _this.ciu1 = "";
+                var estanterior = 0;
+                var length1 = _this.info.length;
+                var itemsiguiente;
+                var itemsiguiente1;
+                var anterior;
+                var anterior1;
+                var tamanodatos1;
+                for (var j = 0; j < length1; j++) {
+                    var length = _this.info[j].length;
+                    for (var i = 0; i < length; i++) {
+                        if (_this.info[j][i].estsol.sol.solEstado === "A") {
+                            _this.datoSolIteracion1 = {
+                                'solId': _this.info[j][i].estsol.sol.solId,
+                                'solIdsolicitud': _this.info[j][i].estsol.sol.solIdsolicitud,
+                                'solFecharealizacion': _this.info[j][i].estsol.sol.solFecharealizacion,
+                                'solEstado': 'APROBADO',
+                                'solCiudades': _this.info[j][i].ciu.ciuNombre,
+                                'perNombrecompleto': _this.info[j][i].estsol.sol.per.perNombrecompleto
+                            };
+                        }
+                        else if (_this.info[j][i].estsol.sol.solEstado === "C") {
+                            _this.datoSolIteracion1 = {
+                                'solId': _this.info[j][i].estsol.sol.solId,
+                                'solIdsolicitud': _this.info[j][i].estsol.sol.solIdsolicitud,
+                                'solFecharealizacion': _this.info[j][i].estsol.sol.solFecharealizacion,
+                                'solEstado': 'CANCELADO',
+                                'solCiudades': _this.info[j][i].ciu.ciuNombre,
+                                'perNombrecompleto': _this.info[j][i].estsol.sol.per.perNombrecompleto
+                            };
+                        }
+                        else {
+                            _this.datoSolIteracion1 = {
+                                'solId': _this.info[j][i].estsol.sol.solId,
+                                'solIdsolicitud': _this.info[j][i].estsol.sol.solIdsolicitud,
+                                'solFecharealizacion': _this.info[j][i].estsol.sol.solFecharealizacion,
+                                'solEstado': 'PENDIENTE',
+                                'solCiudades': _this.info[j][i].ciu.ciuNombre,
+                                'perNombrecompleto': _this.info[j][i].estsol.sol.per.perNombrecompleto
+                            };
+                        }
+                        _this.datoSolIteracion = JSON.stringify(_this.datoSolIteracion1);
+                        // console.log("this.datoSolIteracion:"+this.datoSolIteracion);
+                        if (_this.datoSol == "") {
+                            _this.datoSol = _this.datoSolIteracion;
+                        }
+                        else {
+                            _this.datoSol = _this.datoSol + "," + _this.datoSolIteracion;
+                        }
+                    }
+                    ;
+                }
+                ;
+                _this.datoSolMostrar1 = JSON.parse("[" + _this.datoSol + "]");
+                // console.log("this.datoSolMostrar1:"+this.datoSolMostrar1);
+                var tamanodatos = _this.datoSolMostrar1.length;
+                _this.datociudadtodos = "";
+                for (var l = 0; l < tamanodatos; l++) {
+                    var datociudad1 = "";
+                    itemsiguiente1 = l + 1;
+                    anterior1 = l - 1;
+                    _this.ciuIteracion = _this.datoSolMostrar1[l].solCiudades;
+                    if (_this.ciu1 == "") {
+                        _this.ciu1 = _this.ciuIteracion;
+                    }
+                    else {
+                        _this.ciu1 = _this.ciu1 + "," + _this.ciuIteracion;
+                    }
+                    // console.log(l+" this.datoSolMostrar1[l].solId:"+this.datoSolMostrar1[l].solId);
+                    if (l > 0) {
+                        if (_this.datoSolMostrar1[l].solId !== _this.datoSolMostrar1[anterior1].solId && itemsiguiente1 === tamanodatos) {
+                            _this.datosciudad = {
+                                'solId': _this.datoSolMostrar1[l].solId,
+                                'solIdsolicitud': _this.datoSolMostrar1[l].solIdsolicitud,
+                                'solFecharealizacion': _this.datoSolMostrar1[l].solFecharealizacion,
+                                'solEstado': _this.datoSolMostrar1[l].solEstado,
+                                'solCiudades': _this.ciu1,
+                                'perNombrecompleto': _this.datoSolMostrar1[l].perNombrecompleto
+                            };
+                            datociudad1 = JSON.stringify(_this.datosciudad);
+                            if (_this.datociudadtodos == "") {
+                                _this.datociudadtodos = datociudad1;
+                            }
+                            else {
+                                _this.datociudadtodos = _this.datociudadtodos + "," + datociudad1;
+                            }
+                        }
+                        else {
+                            for (var k = itemsiguiente1; k < tamanodatos; k++) {
+                                if (_this.datoSolMostrar1[l].solId === _this.datoSolMostrar1[k].solId) {
+                                    // console.log("igual al this.ciu1 de "+l+" :"+this.ciu1);
+                                    _this.ciuIteracion = _this.datoSolMostrar1[k].solCiudades;
+                                    if (_this.ciu1 == "") {
+                                        _this.ciu1 = _this.ciuIteracion;
+                                    }
+                                    else {
+                                        _this.ciu1 = _this.ciu1 + "," + _this.ciuIteracion;
+                                    }
+                                    l = k;
+                                    // console.log("l:"+l);
+                                    if (k === tamanodatos - 1) {
+                                        _this.datosciudad = {
+                                            'solId': _this.datoSolMostrar1[l].solId,
+                                            'solIdsolicitud': _this.datoSolMostrar1[l].solIdsolicitud,
+                                            'solFecharealizacion': _this.datoSolMostrar1[l].solFecharealizacion,
+                                            'solEstado': _this.datoSolMostrar1[l].solEstado,
+                                            'solCiudades': _this.ciu1,
+                                            'perNombrecompleto': _this.datoSolMostrar1[l].perNombrecompleto
+                                        };
+                                        datociudad1 = JSON.stringify(_this.datosciudad);
+                                        if (_this.datociudadtodos == "") {
+                                            _this.datociudadtodos = datociudad1;
+                                        }
+                                        else {
+                                            _this.datociudadtodos = _this.datociudadtodos + "," + datociudad1;
+                                        }
+                                    }
+                                }
+                                else {
+                                    _this.datosciudad = {
+                                        'solId': _this.datoSolMostrar1[l].solId,
+                                        'solIdsolicitud': _this.datoSolMostrar1[l].solIdsolicitud,
+                                        'solFecharealizacion': _this.datoSolMostrar1[l].solFecharealizacion,
+                                        'solEstado': _this.datoSolMostrar1[l].solEstado,
+                                        'solCiudades': _this.ciu1,
+                                        'perNombrecompleto': _this.datoSolMostrar1[l].perNombrecompleto
+                                    };
+                                    datociudad1 = JSON.stringify(_this.datosciudad);
+                                    if (_this.datociudadtodos == "") {
+                                        _this.datociudadtodos = datociudad1;
+                                    }
+                                    else {
+                                        _this.datociudadtodos = _this.datociudadtodos + "," + datociudad1;
+                                    }
+                                    // console.log("en el else de desiguales this.datociudadtodos:"+this.datociudadtodos);
+                                    _this.ciu1 = "";
+                                    k = tamanodatos;
+                                }
+                            }
+                            ;
+                        }
+                    }
+                    else {
+                        _this.datosciudad = {
+                            'solId': _this.datoSolMostrar1[l].solId,
+                            'solIdsolicitud': _this.datoSolMostrar1[l].solIdsolicitud,
+                            'solFecharealizacion': _this.datoSolMostrar1[l].solFecharealizacion,
+                            'solEstado': _this.datoSolMostrar1[l].solEstado,
+                            'solCiudades': _this.ciu1,
+                            'perNombrecompleto': _this.datoSolMostrar1[l].perNombrecompleto
+                        };
+                        datociudad1 = JSON.stringify(_this.datosciudad);
+                        if (_this.datociudadtodos == "") {
+                            _this.datociudadtodos = datociudad1;
+                        }
+                        else {
+                            _this.datociudadtodos = _this.datociudadtodos + "," + datociudad1;
+                        }
+                    }
+                }
+                ;
+                _this.datoSolMostrar = JSON.parse("[" + _this.datociudadtodos + "]");
+                // console.log("this.datoSolMostrar:"+this.datoSolMostrar);
+                _this.datociudadtodos1 = "";
+                _this.datociudadtodos2 = "";
+                _this.datociudadtodos3 = "";
+                var datociudad3;
+                var datociudad2;
+                var datociudad4;
+                var todostamano = _this.datoSolMostrar.length;
+                for (var a = 0; a < todostamano; a++) {
+                    datociudad3 = "";
+                    if (_this.datoSolMostrar[a].solEstado === "APROBADO") {
+                        _this.datosciudad1 = {
+                            'solId': _this.datoSolMostrar[a].solId,
+                            'solIdsolicitud': _this.datoSolMostrar[a].solIdsolicitud,
+                            'solFecharealizacion': _this.datoSolMostrar[a].solFecharealizacion,
+                            'solEstado': _this.datoSolMostrar[a].solEstado,
+                            'solCiudades': _this.datoSolMostrar[a].solCiudades,
+                            'perNombrecompleto': _this.datoSolMostrar[a].perNombrecompleto
+                        };
+                        datociudad3 = JSON.stringify(_this.datosciudad1);
+                        if (_this.datociudadtodos1 == "") {
+                            _this.datociudadtodos1 = datociudad3;
+                        }
+                        else {
+                            _this.datociudadtodos1 = _this.datociudadtodos1 + "," + datociudad3;
+                        }
+                    }
+                    else if (_this.datoSolMostrar[a].solEstado === "CANCELADO") {
+                        _this.datosciudad1 = {
+                            'solId': _this.datoSolMostrar[a].solId,
+                            'solIdsolicitud': _this.datoSolMostrar[a].solIdsolicitud,
+                            'solFecharealizacion': _this.datoSolMostrar[a].solFecharealizacion,
+                            'solEstado': _this.datoSolMostrar[a].solEstado,
+                            'solCiudades': _this.datoSolMostrar[a].solCiudades,
+                            'perNombrecompleto': _this.datoSolMostrar[a].perNombrecompleto
+                        };
+                        datociudad4 = JSON.stringify(_this.datosciudad1);
+                        if (_this.datociudadtodos3 == "") {
+                            _this.datociudadtodos3 = datociudad4;
+                        }
+                        else {
+                            _this.datociudadtodos3 = _this.datociudadtodos3 + "," + datociudad4;
+                        }
+                    }
+                    else {
+                        _this.datosciudad2 = {
+                            'solId': _this.datoSolMostrar[a].solId,
+                            'solIdsolicitud': _this.datoSolMostrar[a].solIdsolicitud,
+                            'solFecharealizacion': _this.datoSolMostrar[a].solFecharealizacion,
+                            'solEstado': _this.datoSolMostrar[a].solEstado,
+                            'solCiudades': _this.datoSolMostrar[a].solCiudades,
+                            'perNombrecompleto': _this.datoSolMostrar[a].perNombrecompleto
+                        };
+                        datociudad2 = JSON.stringify(_this.datosciudad2);
+                        if (_this.datociudadtodos2 == "") {
+                            _this.datociudadtodos2 = datociudad2;
+                        }
+                        else {
+                            _this.datociudadtodos2 = _this.datociudadtodos2 + "," + datociudad2;
+                        }
+                    }
+                }
+                ;
+                _this.datoSolMostrara = JSON.parse("[" + _this.datociudadtodos1 + "]");
+                _this.datoSolMostrarp = JSON.parse("[" + _this.datociudadtodos2 + "]");
+                _this.datoSolMostrarc = JSON.parse("[" + _this.datociudadtodos3 + "]");
+                // console.log("this.datoSolMostrara:"+this.datoSolMostrara);
+                // console.log("this.datoSolMostrarp:"+this.datoSolMostrarp);
+                // console.log("this.datoSolMostrarc:"+this.datoSolMostrarc);
+            }
+        }, function (error) {
+            _this.errorMessage = error;
+            if (_this.errorMessage != null) {
+                console.log(_this.errorMessage);
+                alert("Error en la peticion de solicitudes");
+            }
+        });
+    };
+    SolicitudComponent.prototype.OnVerDetalleSol1 = function () {
         var _this = this;
         this._solicitudService.reporteSolicitud(this.token, this.funcionario).subscribe(function (response) {
             var info = response;
@@ -168,6 +412,16 @@ var SolicitudComponent = (function () {
                                 'solIdsolicitud': _this.info[j][i].estsol.sol.solIdsolicitud,
                                 'solFecharealizacion': _this.info[j][i].estsol.sol.solFecharealizacion,
                                 'solEstado': 'APROBADO',
+                                'solCiudades': _this.info[j][i].ciu.ciuNombre,
+                                'perNombrecompleto': _this.info[j][i].estsol.sol.per.perNombrecompleto
+                            };
+                        }
+                        else if (_this.info[j][i].estsol.sol.solEstado === "C") {
+                            _this.datoSolIteracion1 = {
+                                'solId': _this.info[j][i].estsol.sol.solId,
+                                'solIdsolicitud': _this.info[j][i].estsol.sol.solIdsolicitud,
+                                'solFecharealizacion': _this.info[j][i].estsol.sol.solFecharealizacion,
+                                'solEstado': 'CANCELADO',
                                 'solCiudades': _this.info[j][i].ciu.ciuNombre,
                                 'perNombrecompleto': _this.info[j][i].estsol.sol.per.perNombrecompleto
                             };
@@ -216,6 +470,7 @@ var SolicitudComponent = (function () {
                                     }
                                 }
                                 else {
+                                    k = l + 1;
                                     l = tamanodatos1;
                                 }
                             }
@@ -335,6 +590,13 @@ var SolicitudComponent = (function () {
             }
         });
     };
+    SolicitudComponent.prototype.OnMostrarDetalleSol = function (a) {
+        // window.location.href='/solicitud';
+        console.log("a:" + JSON.stringify(a));
+        // console.log("this.equis:"+JSON.stringify(this.equis));
+        // 	console.log("this.solifecfun2:"+JSON.stringify(this.solifecfun2));
+        // this._router.navigate(['/versolicitud']);
+    };
     SolicitudComponent.prototype.OnMostrarDetalle = function (DetalleSolMostrar) {
         var _this = this;
         this.detalleSolicitudRealizadas = {
@@ -421,6 +683,7 @@ var SolicitudComponent = (function () {
                     _this.personasssol1 = JSON.stringify(_this.info[0].personasssol);
                     _this.personasssol = JSON.parse("[" + _this.personasssol1 + "]");
                 }
+                console.log("this.personasssol:" + JSON.stringify(_this.personasssol));
                 if (_this.info[0].ciudadessol.length > 0) {
                     // console.log("ciudadessol.length no undefined");
                     _this.ciudadessol = _this.info[0].ciudadessol;
@@ -559,6 +822,16 @@ var SolicitudComponent = (function () {
                                 'perNombrecompleto': _this.info11[j][i].estsol.sol.per.perNombrecompleto
                             };
                         }
+                        else if (_this.info11[j][i].estsol.sol.solEstado === "C") {
+                            _this.datoSolIteracion11 = {
+                                'solId': _this.info11[j][i].estsol.sol.solId,
+                                'solIdsolicitud': _this.info11[j][i].estsol.sol.solIdsolicitud,
+                                'solFecharealizacion': _this.info11[j][i].estsol.sol.solFecharealizacion,
+                                'solEstado': 'CANCELADO',
+                                'solCiudades': _this.info11[j][i].ciu.ciuNombre,
+                                'perNombrecompleto': _this.info11[j][i].estsol.sol.per.perNombrecompleto
+                            };
+                        }
                         else {
                             _this.datoSolIteracion11 = {
                                 'solId': _this.info11[j][i].estsol.sol.solId,
@@ -583,39 +856,29 @@ var SolicitudComponent = (function () {
                 _this.datoSolMostrar12 = JSON.parse("[" + _this.datoSol1 + "]");
                 var tamanodatos = _this.datoSolMostrar12.length;
                 _this.datociudadtodos11 = "";
-                for (var k = 0; k < tamanodatos; k++) {
+                for (var l = 0; l < tamanodatos; l++) {
                     var datociudad1 = "";
-                    itemsiguiente = k + 1;
-                    anterior = k - 1;
-                    _this.ciu11 = "";
-                    tamanodatos1 = tamanodatos;
-                    if (itemsiguiente < tamanodatos) {
-                        if (_this.datoSolMostrar12[k].solIdsolicitud === _this.datoSolMostrar12[itemsiguiente].solIdsolicitud) {
-                            for (var l = itemsiguiente; l < tamanodatos1; l++) {
-                                _this.ciuIteracion1 = _this.datoSolMostrar12[k].solCiudades;
-                                _this.ciuIteracionl1 = _this.datoSolMostrar12[l].solCiudades;
-                                if (_this.datoSolMostrar12[k].solIdsolicitud === _this.datoSolMostrar12[l].solIdsolicitud) {
-                                    if (_this.ciu11 == "") {
-                                        _this.ciu11 = _this.ciuIteracion1 + "," + _this.ciuIteracionl1;
-                                    }
-                                    else {
-                                        _this.ciu11 = _this.ciu11 + "," + _this.ciuIteracionl1;
-                                    }
-                                }
-                                else {
-                                    l = tamanodatos1;
-                                }
-                            }
-                            ;
-                            _this.datosciudad12 = {
-                                'solId': _this.datoSolMostrar12[k].solId,
-                                'solIdsolicitud': _this.datoSolMostrar12[k].solIdsolicitud,
-                                'solFecharealizacion': _this.datoSolMostrar12[k].solFecharealizacion,
-                                'solEstado': _this.datoSolMostrar12[k].solEstado,
+                    itemsiguiente = l + 1;
+                    anterior = l - 1;
+                    _this.ciuIteracion1 = _this.datoSolMostrar12[l].solCiudades;
+                    if (_this.ciu11 == "") {
+                        _this.ciu11 = _this.ciuIteracion1;
+                    }
+                    else {
+                        _this.ciu11 = _this.ciu11 + "," + _this.ciuIteracion1;
+                    }
+                    // console.log(l+" this.datoSolMostrar1[l].solId:"+this.datoSolMostrar1[l].solId);
+                    if (l > 0) {
+                        if (_this.datoSolMostrar12[l].solId !== _this.datoSolMostrar12[anterior].solId && itemsiguiente === tamanodatos) {
+                            _this.datosciudad = {
+                                'solId': _this.datoSolMostrar12[l].solId,
+                                'solIdsolicitud': _this.datoSolMostrar12[l].solIdsolicitud,
+                                'solFecharealizacion': _this.datoSolMostrar12[l].solFecharealizacion,
+                                'solEstado': _this.datoSolMostrar12[l].solEstado,
                                 'solCiudades': _this.ciu11,
-                                'perNombrecompleto': _this.datoSolMostrar12[k].perNombrecompleto
+                                'perNombrecompleto': _this.datoSolMostrar12[l].perNombrecompleto
                             };
-                            datociudad1 = JSON.stringify(_this.datosciudad12);
+                            datociudad1 = JSON.stringify(_this.datosciudad);
                             if (_this.datociudadtodos11 == "") {
                                 _this.datociudadtodos11 = datociudad1;
                             }
@@ -624,18 +887,28 @@ var SolicitudComponent = (function () {
                             }
                         }
                         else {
-                            if (anterior > -1) {
-                                if (_this.datoSolMostrar12[k].solIdsolicitud !== _this.datoSolMostrar12[itemsiguiente].solIdsolicitud) {
-                                    if (_this.datoSolMostrar12[k].solIdsolicitud !== _this.datoSolMostrar12[anterior].solIdsolicitud) {
-                                        _this.datosciudad12 = {
-                                            'solId': _this.datoSolMostrar12[k].solId,
-                                            'solIdsolicitud': _this.datoSolMostrar12[k].solIdsolicitud,
-                                            'solFecharealizacion': _this.datoSolMostrar12[k].solFecharealizacion,
-                                            'solEstado': _this.datoSolMostrar12[k].solEstado,
-                                            'solCiudades': _this.datoSolMostrar12[k].solCiudades,
-                                            'perNombrecompleto': _this.datoSolMostrar12[k].perNombrecompleto
+                            for (var k = itemsiguiente; k < tamanodatos; k++) {
+                                if (_this.datoSolMostrar12[l].solId === _this.datoSolMostrar12[k].solId) {
+                                    // console.log("igual al this.ciu1 de "+l+" :"+this.ciu1);
+                                    _this.ciuIteracion1 = _this.datoSolMostrar12[k].solCiudades;
+                                    if (_this.ciu11 == "") {
+                                        _this.ciu11 = _this.ciuIteracion1;
+                                    }
+                                    else {
+                                        _this.ciu11 = _this.ciu11 + "," + _this.ciuIteracion1;
+                                    }
+                                    l = k;
+                                    // console.log("l:"+l);
+                                    if (k === tamanodatos - 1) {
+                                        _this.datosciudad = {
+                                            'solId': _this.datoSolMostrar12[l].solId,
+                                            'solIdsolicitud': _this.datoSolMostrar12[l].solIdsolicitud,
+                                            'solFecharealizacion': _this.datoSolMostrar12[l].solFecharealizacion,
+                                            'solEstado': _this.datoSolMostrar12[l].solEstado,
+                                            'solCiudades': _this.ciu11,
+                                            'perNombrecompleto': _this.datoSolMostrar12[l].perNombrecompleto
                                         };
-                                        datociudad1 = JSON.stringify(_this.datosciudad12);
+                                        datociudad1 = JSON.stringify(_this.datosciudad);
                                         if (_this.datociudadtodos11 == "") {
                                             _this.datociudadtodos11 = datociudad1;
                                         }
@@ -644,34 +917,114 @@ var SolicitudComponent = (function () {
                                         }
                                     }
                                 }
-                            }
-                            else {
-                                _this.datosciudad12 = {
-                                    'solId': _this.datoSolMostrar12[k].solId,
-                                    'solIdsolicitud': _this.datoSolMostrar12[k].solIdsolicitud,
-                                    'solFecharealizacion': _this.datoSolMostrar12[k].solFecharealizacion,
-                                    'solEstado': _this.datoSolMostrar12[k].solEstado,
-                                    'solCiudades': _this.datoSolMostrar12[k].solCiudades,
-                                    'perNombrecompleto': _this.datoSolMostrar12[k].perNombrecompleto
-                                };
-                                datociudad1 = JSON.stringify(_this.datosciudad12);
-                                if (_this.datociudadtodos11 == "") {
-                                    _this.datociudadtodos11 = datociudad1;
-                                }
                                 else {
-                                    _this.datociudadtodos11 = _this.datociudadtodos11 + "," + datociudad1;
+                                    _this.datosciudad = {
+                                        'solId': _this.datoSolMostrar12[l].solId,
+                                        'solIdsolicitud': _this.datoSolMostrar12[l].solIdsolicitud,
+                                        'solFecharealizacion': _this.datoSolMostrar12[l].solFecharealizacion,
+                                        'solEstado': _this.datoSolMostrar12[l].solEstado,
+                                        'solCiudades': _this.ciu11,
+                                        'perNombrecompleto': _this.datoSolMostrar12[l].perNombrecompleto
+                                    };
+                                    datociudad1 = JSON.stringify(_this.datosciudad);
+                                    if (_this.datociudadtodos11 == "") {
+                                        _this.datociudadtodos11 = datociudad1;
+                                    }
+                                    else {
+                                        _this.datociudadtodos11 = _this.datociudadtodos11 + "," + datociudad1;
+                                    }
+                                    // console.log("en el else de desiguales this.datociudadtodos:"+this.datociudadtodos);
+                                    _this.ciu11 = "";
+                                    k = tamanodatos;
                                 }
                             }
+                            ;
                         }
                     }
                 }
                 ;
+                // for(var k=0; k<tamanodatos ; k++){
+                // 	var datociudad1 = "";
+                // 	itemsiguiente = k + 1;
+                // 	anterior = k-1;
+                // 	this.ciu11 = "";
+                // 	tamanodatos1 = tamanodatos;
+                // 	if(itemsiguiente < tamanodatos){
+                // 		if(this.datoSolMostrar12[k].solIdsolicitud === this.datoSolMostrar12[itemsiguiente].solIdsolicitud){
+                // 			for(var l=itemsiguiente ; l<tamanodatos1 ; l++){
+                // 				this.ciuIteracion1 = this.datoSolMostrar12[k].solCiudades;
+                // 				this.ciuIteracionl1 = this.datoSolMostrar12[l].solCiudades;
+                // 				if(this.datoSolMostrar12[k].solIdsolicitud === this.datoSolMostrar12[l].solIdsolicitud){
+                // 					if(this.ciu11 == ""){
+                // 						this.ciu11 = this.ciuIteracion1+","+this.ciuIteracionl1;
+                // 					}else{
+                // 						this.ciu11 = this.ciu11+","+this.ciuIteracionl1;
+                // 					}
+                // 				}else{
+                // 					l = tamanodatos1;
+                // 				}
+                // 			};
+                // 			this.datosciudad12 = {
+                // 				'solId':this.datoSolMostrar12[k].solId,
+                // 				'solIdsolicitud': this.datoSolMostrar12[k].solIdsolicitud,
+                // 				'solFecharealizacion' :this.datoSolMostrar12[k].solFecharealizacion,
+                // 				'solEstado' : this.datoSolMostrar12[k].solEstado,
+                // 				'solCiudades' : this.ciu11,
+                // 				'perNombrecompleto' : this.datoSolMostrar12[k].perNombrecompleto
+                // 			};
+                // 			datociudad1 = JSON.stringify(this.datosciudad12);
+                // 			if(this.datociudadtodos11 == ""){
+                // 				this.datociudadtodos11 = datociudad1;
+                // 			}else{
+                // 				this.datociudadtodos11 = this.datociudadtodos11+","+datociudad1;
+                // 			}
+                // 		}else{
+                // 			if(anterior > -1){
+                // 				if(this.datoSolMostrar12[k].solIdsolicitud !== this.datoSolMostrar12[itemsiguiente].solIdsolicitud){
+                // 					if(this.datoSolMostrar12[k].solIdsolicitud !== this.datoSolMostrar12[anterior].solIdsolicitud){
+                // 						this.datosciudad12 = {
+                // 							'solId':this.datoSolMostrar12[k].solId,
+                // 							'solIdsolicitud': this.datoSolMostrar12[k].solIdsolicitud,
+                // 							'solFecharealizacion' :this.datoSolMostrar12[k].solFecharealizacion,
+                // 							'solEstado' : this.datoSolMostrar12[k].solEstado,
+                // 							'solCiudades' : this.datoSolMostrar12[k].solCiudades,
+                // 							'perNombrecompleto' : this.datoSolMostrar12[k].perNombrecompleto
+                // 						};
+                // 						datociudad1 = JSON.stringify(this.datosciudad12);
+                // 						if(this.datociudadtodos11 == ""){
+                // 							this.datociudadtodos11 = datociudad1;
+                // 						}else{
+                // 							this.datociudadtodos11 = this.datociudadtodos11+","+datociudad1;
+                // 						}
+                // 					}
+                // 				}
+                // 			}else{
+                // 				this.datosciudad12 = {
+                // 					'solId':this.datoSolMostrar12[k].solId,
+                // 					'solIdsolicitud': this.datoSolMostrar12[k].solIdsolicitud,
+                // 					'solFecharealizacion' :this.datoSolMostrar12[k].solFecharealizacion,
+                // 					'solEstado' : this.datoSolMostrar12[k].solEstado,
+                // 					'solCiudades' : this.datoSolMostrar12[k].solCiudades,
+                // 					'perNombrecompleto' : this.datoSolMostrar12[k].perNombrecompleto
+                // 				};
+                // 				datociudad1 = JSON.stringify(this.datosciudad12);
+                // 				if(this.datociudadtodos11 == ""){
+                // 					this.datociudadtodos11 = datociudad1;
+                // 				}else{
+                // 					this.datociudadtodos11 = this.datociudadtodos11+","+datociudad1;
+                // 				}
+                // 			}
+                // 		}
+                // 	}
+                // };
                 _this.datoSolMostrar3 = JSON.parse("[" + _this.datociudadtodos11 + "]");
                 // console.log("this.datociudadtodos11:"+this.datociudadtodos11);
                 _this.datociudadtodos11 = "";
                 _this.datociudadtodos21 = "";
+                _this.datociudadtodos31 = "";
                 var datociudad3;
                 var datociudad2;
+                var datociudad5;
                 var todostamano = _this.datoSolMostrar3.length;
                 for (var a = 0; a < todostamano; a++) {
                     datociudad3 = "";
@@ -690,6 +1043,23 @@ var SolicitudComponent = (function () {
                         }
                         else {
                             _this.datociudadtodos11 = _this.datociudadtodos11 + "," + datociudad3;
+                        }
+                    }
+                    else if (_this.datoSolMostrar3[a].solEstado === "CANCELADO") {
+                        _this.datosciudad13 = {
+                            'solId': _this.datoSolMostrar3[a].solId,
+                            'solIdsolicitud': _this.datoSolMostrar3[a].solIdsolicitud,
+                            'solFecharealizacion': _this.datoSolMostrar3[a].solFecharealizacion,
+                            'solEstado': _this.datoSolMostrar3[a].solEstado,
+                            'solCiudades': _this.datoSolMostrar3[a].solCiudades,
+                            'perNombrecompleto': _this.datoSolMostrar3[a].perNombrecompleto
+                        };
+                        datociudad5 = JSON.stringify(_this.datosciudad13);
+                        if (_this.datociudadtodos31 == "") {
+                            _this.datociudadtodos31 = datociudad5;
+                        }
+                        else {
+                            _this.datociudadtodos31 = _this.datociudadtodos31 + "," + datociudad5;
                         }
                     }
                     else {
@@ -713,6 +1083,7 @@ var SolicitudComponent = (function () {
                 ;
                 _this.datoSolMostrarha = JSON.parse("[" + _this.datociudadtodos11 + "]");
                 _this.datoSolMostrarhp = JSON.parse("[" + _this.datociudadtodos21 + "]");
+                _this.datoSolMostrarhc = JSON.parse("[" + _this.datociudadtodos31 + "]");
             }
         }, function (error) {
             _this.errorMessage = error;
@@ -732,6 +1103,7 @@ var SolicitudComponent = (function () {
         this._solicitudService.firmarSolicitud(this.token, this.firmaSolicitudRealizadas).subscribe(function (response) {
             var info = response;
             _this.info9 = info;
+            // console.log(this.info9);
         }, function (error) {
             _this.errorMessage = error;
             if (_this.errorMessage != null) {
@@ -742,6 +1114,10 @@ var SolicitudComponent = (function () {
     };
     return SolicitudComponent;
 }());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], SolicitudComponent.prototype, "name", void 0);
 SolicitudComponent = __decorate([
     core_1.Component({
         selector: 'solicitud',
@@ -749,7 +1125,9 @@ SolicitudComponent = __decorate([
         providers: [login_service_1.LoginService, solicitud_service_1.SolicitudService]
     }),
     __metadata("design:paramtypes", [login_service_1.LoginService,
-        solicitud_service_1.SolicitudService])
+        solicitud_service_1.SolicitudService,
+        router_1.Router,
+        router_1.ActivatedRoute])
 ], SolicitudComponent);
 exports.SolicitudComponent = SolicitudComponent;
 //# sourceMappingURL=solicitud.component.js.map

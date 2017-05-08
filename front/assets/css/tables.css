@@ -1,3 +1,19 @@
+.titulo_sol{
+    font-size: 14px;
+    text-align: center;
+}
+.titulo_referencial{
+    font-size: 8px;
+}
+.notas_referencial{
+    font-size: 8px;
+}
+#datosincorrectos{
+    font-size: 14px;
+    color:red;
+    padding-bottom: 2%;
+    padding-top: 0;
+}
 .infoprincipal{
     /*margin-top: 2%;*/
     /*border-radius: 5px;*/

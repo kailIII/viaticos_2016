@@ -51,9 +51,11 @@ export class AppComponent implements OnInit{
 		if(this.identity){
 			this.menuUsuario();
 			this.OnCuenta();
-		}else{
-			this.Onloguearse();
 		}
+		// else{
+		// 	// this.Onloguearse();
+		// 	this.logout();
+		// }
 	}
 
 	menuUsuario(){

@@ -19,9 +19,9 @@ var LoginComponent = (function () {
         this._solicitudService = _solicitudService;
         this._router = _router;
         this._route = _route;
-        this.errorMsg = '';
     }
     LoginComponent.prototype.ngOnInit = function () {
+        this.errorMsg = false;
         this.user = {
             'email': "",
             'password': "",
@@ -90,6 +90,9 @@ var LoginComponent = (function () {
                         }
                     });
                 }
+                else {
+                    _this.errorMsg = true;
+                }
             }
         }, function (error) {
             _this.errorMessage = error;
@@ -98,6 +101,9 @@ var LoginComponent = (function () {
                 alert("Error en la petición 1");
             }
         });
+    };
+    LoginComponent.prototype.corregirDatos = function () {
+        this.errorMsg = false;
     };
     return LoginComponent;
 }());

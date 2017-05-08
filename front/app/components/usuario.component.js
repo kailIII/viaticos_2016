@@ -22,12 +22,8 @@ var UsuarioComponent = (function () {
     }
     UsuarioComponent.prototype.ngOnInit = function () {
         var _this = this;
-        // this.usuario = [];
         this.identity = this._loginService.getIdentity();
         var json_identity = JSON.stringify(this.identity);
-        // console.log(json_identity);
-        // alert("json_identity : "+json_identity);
-        // alert("Punto 2");
         if (json_identity !== "null") {
             this.funcionario = {
                 'id_fun': this.identity.sub
@@ -35,12 +31,6 @@ var UsuarioComponent = (function () {
             this._loginService.ver_user(this.funcionario).subscribe(function (response) {
                 var info = response;
                 _this.datoUsuario = info;
-                // 	var length = this.datoUsuario.length;
-                // 		for (var i = 0; i < length; i++) {
-                // 	this.datoUsuarioIteracion = this.datoUsuario[i];
-                // }
-                // 	console.log(this.datoUsuarioIteracion);
-                // 	return this.datoUsuarioIteracion;
                 if (_this.datoUsuario.length <= 0) {
                     alert("Error en el servidor 5");
                 }
@@ -60,8 +50,6 @@ var UsuarioComponent = (function () {
                         }
                         ;
                         _this.datoUsuarioMostrar = JSON.parse("[" + _this.UsuarioInicial + "]");
-                        // console.log(this.datoUsuarioMostrar);
-                        return _this.datoUsuarioMostrar;
                     }
                 }
             }, function (error) {
@@ -72,6 +60,9 @@ var UsuarioComponent = (function () {
                 }
             });
         }
+    };
+    UsuarioComponent.prototype.toggleTitle = function () {
+        $('.title').slideToggle();
     };
     return UsuarioComponent;
 }());

@@ -3,8 +3,6 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-// use Symfony\Component\Form\Extension\Core\Type\DateType;
-// use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,6 +18,8 @@ use BackBundle\Entity\PersonaComision;
 use BackBundle\Entity\Fondo;
 use BackBundle\Entity\TipoTransporte;
 use BackBundle\Entity\TransporteSolicitado;
+use BackBundle\Entity\Anexo;
+// use BackBundle\Entity\Nousado;
 
 class SolicitudController extends Controller {
 	public function nuevoAction(Request $request) {
@@ -33,264 +33,426 @@ class SolicitudController extends Controller {
 			$identity = $helpers->authCheck($hash, true);
 			if ($json != null) {
 				$correo = (isset($params->correo)) ? $params->correo : null;
+				$funcionarios_sol = (isset($params->funcionarios_sol)) ? $params->funcionarios_sol : null;
 				$Fecha_sol = (isset($params->Fecha_sol)) ? $params->Fecha_sol : null;
-				$fecha = $Fecha_sol;
+				$FechaDesde_sol = (isset($params->FechaDesde_sol)) ? $params->FechaDesde_sol : null;
+				$HoraDesde_sol = (isset($params->HoraDesde_sol)) ? $params->HoraDesde_sol : null;
+				$FechaHasta_sol = (isset($params->FechaHasta_sol)) ? $params->FechaHasta_sol : null;
+				$HoraHasta_sol = (isset($params->HoraHasta_sol)) ? $params->HoraHasta_sol : null;
+				$actividadessol = (isset($params->actividadessol)) ? $params->actividadessol : null;
+				$observacionsol = (isset($params->observacionsol)) ? $params->observacionsol : null;
+				$ciudades_sol = (isset($params->ciudades_sol)) ? $params->ciudades_sol : null;
+				$solotransporteSol = (isset($params->solotransporteSol)) ? $params->solotransporteSol : null;
+				$fondovalor = (isset($params->fondovalor)) ? $params->fondovalor : null;
+				$fondoobservacion = (isset($params->fondoobservacion)) ? $params->fondoobservacion : null;
+				$anexotitulo = (isset($params->anexotitulo)) ? $params->anexotitulo : null;
+				$aneodescripcion = (isset($params->aneodescripcion)) ? $params->aneodescripcion : null;
+				$anexoruta = (isset($params->anexoruta)) ? $params->anexoruta : null;
+
+				// $fechaDesde = $FechaDesde_sol;
+				// $fechaHasta = $FechaHasta_sol;
+				// $HoraDesde = $HoraDesde_sol;
+				// $HoraHasta = $HoraHasta_sol;
+				// $fecha = $Fecha_sol;
+
 				$em = $this->getDoctrine()->getManager();
-//inicio crear solicitud
-				$isset_persona = $em->getRepository('BackBundle:Persona')->findOneBy(
+
+
+				$isset_funsol = $em->getRepository('BackBundle:Persona')->findOneBy(
 					array(
 						"perCorreoelectronico" => $correo,
 						"perEstado"=> "A"
 						)
 					);
-				$isset_solicitud = $em->getRepository('BackBundle:Solicitud')->findBy(
-					array(
-						"solFecharealizacion" => $fecha, 
-						"per" => $isset_persona,
-						"solEstado" => "P"
-						)
-					);
-				if (count($isset_solicitud) == 0){
-					$soloanio = (new \DateTime())->format('Y');
-					$departamento = $em->getRepository('BackBundle:Departamento')->findBy(
-						array(
-							"depEstado" => "A"
-							)
-						);
-					$cargo = $em->getRepository('BackBundle:Cargo')->findBy(
-						array(
-							"dep" => $departamento
-							)
-						);
-					$cargo_persona = $em->getRepository('BackBundle:CargoPersona')->findBy(
-						array(
-							"car" => $cargo,
-							"per"=> $isset_persona,
-							"carperEstado" => "A"
-							)
-						);
-					$secuencial = $em->getRepository('BackBundle:Solicitud')->findBy(
-						array(
-							"solAnio" => $soloanio,
-							"per" => $isset_persona
-							)
-						);
-					if(count($secuencial) == 0){
-						$idsecuencial = 1;
-					}else{
-						$idsecuencial = count($secuencial)+1;
-					}
-					$numsol = trim($cargo_persona[0]->getCar()->getDep()->getDepSiglas())."-".date('Y')."-SAPCSI-".trim($isset_persona->getPerIniciales())."-".$idsecuencial;
-					$solicitud = new Solicitud();
-					$solicitud->setSolSecuencial($idsecuencial);
-					$solicitud->setSolIdsolicitud($numsol);
-					$solicitud->setSolFecharealizacion($fecha);
-					$solicitud->setSolNumeroactualizacion("0");
-					$solicitud->setSolEstado("P");
-					$solicitud->setSolAnio($soloanio);
-					$solicitud->setPer($isset_persona);
-					$em->persist($solicitud);
-					$em->flush();
-//inicio crear estado solicitud
-					$FechaDesde_sol = (isset($params->FechaDesde_sol)) ? $params->FechaDesde_sol : null;
-					$HoraDesde_sol = (isset($params->HoraDesde_sol)) ? $params->HoraDesde_sol : null;
-					$FechaHasta_sol = (isset($params->FechaHasta_sol)) ? $params->FechaHasta_sol : null;
-					$HoraHasta_sol = (isset($params->HoraHasta_sol)) ? $params->HoraHasta_sol : null;
-					$actividadessol = (isset($params->actividadessol)) ? $params->actividadessol : null;
-					$observacionsol = (isset($params->observacionsol)) ? $params->observacionsol : null;
 
-					// $datetime = new \DateTime();
-// $newDate = $datetime->createFromFormat('d/m/Y', '23/05/2013');
+				$mostrar_sol = Array();
+				// $mostrar_sol = [];
 
-					$fechaDesde = $FechaDesde_sol;
-					$fechaHasta = $FechaHasta_sol;
-					$HoraDesde = $HoraDesde_sol;
-					$HoraHasta = $HoraHasta_sol;
+				$existe_solicitud_comisionados = $em->getRepository('BackBundle:PersonaComision')->findAll();
 
-					
-					// $fechaDesde = $datetime->createFromFormat('d-m-Y', $FechaDesde_sol);
-					// $fechaHasta = $datetime->createFromFormat('d-m-Y', $FechaHasta_sol);
-					// $HoraDesde = $datetime->createFromFormat('d-m-Y', $HoraDesde_sol);
-					// $HoraHasta = $datetime->createFromFormat('d-m-Y', $HoraHasta_sol);
-
-					// $fechaDesde = new \DateTime($FechaDesde_sol);
-					// $fechaHasta = new \DateTime($FechaHasta_sol);
-					// $HoraDesde = new \DateTime($HoraDesde_sol);
-					// $HoraHasta = new \DateTime($HoraHasta_sol);
-
-// $fechastotales = ("fechaDesde: ".$fechaDesde." fechaHasta: ".$fechaHasta. " HoraDesde: ".$HoraDesde." HoraHasta: ".$HoraHasta);
-
-// $fechastotales = ("fechaDesde: ".$fechaDesde." fechaHasta: ".$fechaHasta);
-
-
-					// return $helpers->json($fechastotales);
-
-					$rutasol = "pdf/".trim($isset_persona->getPerIdentificacion())."/".$numsol.".pdf";
-
-					$existe_estado_solicitud = $em->getRepository('BackBundle:EstadoSolicitud')->findBy(
-						array(
-							"sol" => $solicitud
-							)
-						);
-					// return $helpers->json($existe_estado_solicitud);
-					if (count($existe_estado_solicitud) == 0){
-						$estado_solicitud = new EstadoSolicitud();
-						$estado_solicitud->setEstsolFechasalida($fechaDesde);
-						$estado_solicitud->setEstsolHorasalida($HoraDesde);
-						$estado_solicitud->setEstsolFechallegada($fechaHasta);
-						$estado_solicitud->setEstsolHorallegada($HoraHasta);
-						$estado_solicitud->setEstsolActividades($actividadessol);
-						$estado_solicitud->setEstsolEstado("A");
-						$estado_solicitud->setEstsolNumeroactualizacion("0");
-						$estado_solicitud->setEstsolRutapdf($rutasol);
-						$estado_solicitud->setEstsolObservacion($observacionsol);
-						$estado_solicitud->setSol($solicitud);
-						$em->persist($estado_solicitud);
-						$em->flush();
-// return $helpers->json($estado_solicitud);
-
-// inicio crear ciudad solicitud		
-						$existe_solicitud_ciudad = $em->getRepository('BackBundle:CiudadSolicitud')->findBy(
-							array(
-								"estsol" => $estado_solicitud
-								)
-							);
-						if (count($existe_solicitud_ciudad) == 0){
-							$ciudades_sol = (isset($params->ciudades_sol)) ? $params->ciudades_sol : null;
-							$ciudad_sol = Array();
-							$ciudad_sol = explode(',', $ciudades_sol);
-							foreach ($ciudad_sol as $isset_ciudad) {
-								$ciudad = $em->getRepository('BackBundle:Ciudad')->findOneBy(
-									array(
-										"ciuId" => $isset_ciudad
-										)
-									);
-								if (count($ciudad) !== 0){
-									$ciudad_solicitud = new CiudadSolicitud();
-									$ciudad_solicitud->setCiu($ciudad);
-									$ciudad_solicitud->setEstsol($estado_solicitud);
-									$em->persist($ciudad_solicitud);
-									$em->flush();
-								}else {
-									$data = array(
-										"status" => "error",
-										"code" => 400,
-										"msg" => "Ciudad no existe, por favor ingrese los datos correctos"
-										);
-								}
-							}
-//crear personas que integran la solicitud
-							$existe_solicitud_comisionados = $em->getRepository('BackBundle:PersonaComision')->findBy(
-								array(
-									"sol" => $solicitud
-									)
-								);
-							if (count($existe_solicitud_comisionados) == 0){
-								$funcionarios_sol = (isset($params->funcionarios_sol)) ? $params->funcionarios_sol : null;
-								$funcionarios = Array();
-								$funcionarios = explode(',', $funcionarios_sol);
-								foreach ($funcionarios as $sol_persona) {
-									$hay_persona = $em->getRepository('BackBundle:Persona')->findOneBy(
-										array(
-											"perNombrecompleto" => trim($sol_persona),
-											"perEstado"=> "A"
-											)
-										);
-									if (count($hay_persona) !== 0){
-										$personacomision = new PersonaComision();
-										$personacomision->setPer($hay_persona);
-										$personacomision->setSol($solicitud);
-										$em->persist($personacomision);
-										$em->flush();
-									}else {
-										$data = array(
-											"status" => "error",
-											"code" => 400,
-											"msg" => "Funcionario no existe, por favor ingrese los datos correctos1"
-											);
-									}
-										//inicio crear transporte solicitud
-									$transportesolicitado1 = $em->getRepository('BackBundle:TransporteSolicitado')->findBy(
-										array(
-											"estsol" => $estado_solicitud
-											)
-										);
-									if(count($transportesolicitado1)==0){
-										$solotransporteSol = (isset($params->solotransporteSol)) ? $params->solotransporteSol : null;
-										$traruta_sol = Array();
-										$traruta_sol = explode(';', $solotransporteSol);
-										foreach ($traruta_sol as $existe_transporte) {
-											$isset_transporte = Array();
-											$isset_transporte = explode(',', $existe_transporte);
-											$Tiptramod = $isset_transporte[1];
-											$TrasolRutainicio = $isset_transporte[2];
-											$TrasolRutafin = $isset_transporte[3];
-											$TrasolFechasalida = $isset_transporte[4];
-											$TrasolHorasalida = $isset_transporte[5];
-											$TrasolFechallegada = $isset_transporte[6];
-											$TrasolHorallegada = $isset_transporte[7];
-
-// $TrasolFechasalida = \DateTime::createFromFormat('d/m/Y', $isset_transporte[4]);
-// 												$TrasolHorasalida = new \DateTime($isset_transporte[5]);
-// 												$TrasolFechallegada = \DateTime::createFromFormat('d/m/Y', $isset_transporte[6]);
-// 												$TrasolHorallegada = new \DateTime($isset_transporte[7]);
-
-											$tiptra = $em->getRepository('BackBundle:TipoTransporte')->findOneBy(
-												array(
-													"tiptraNombre" => $Tiptramod
-													)
-												);
-											$transporte_solicitud = new TransporteSolicitado();
-											$transporte_solicitud->setTrasolRutainicio($TrasolRutainicio);
-											$transporte_solicitud->setTrasolRutafin($TrasolRutafin);
-											$transporte_solicitud->setTrasolFechasalida($TrasolFechasalida);
-											$transporte_solicitud->setTrasolHorasalida($TrasolHorasalida);
-											$transporte_solicitud->setTrasolFechallegada($TrasolFechallegada);
-											$transporte_solicitud->setTrasolHorallegada($TrasolHorallegada);
-											$transporte_solicitud->setTiptra($tiptra);
-											$transporte_solicitud->setEstsol($estado_solicitud);
-											$em->persist($transporte_solicitud);
-											$em->flush();
-										}
-										$data["status"] = "success";
-										$data["msg"] = "Solicitud creada satisfactoriamente";
-									}
-//fin crear transporte solicitud
-								}
-// //fin crear transporte solicitud
-							}
-// fin crear comisionados solicitud
-						}else {
-							$data = array(
-								"status" => "error",
-								"code" => 400,
-								"msg" => "Ya existe la o las ciudades asignadas a la solicitud"
-								);
-						}
-// fin crear ciudad solicitud
-					}else {
-						$data = array(
-							"status" => "error",
-							"code" => 400,
-							"msg" => "No existe la solicitud, por favor cree una solicitud para poder continuar"
-							);
-					}
-//fin crear estado solicitud  //aqui
-				}else {
-					$data = array(
-						"status" => "error",
-						"code" => 400,
-						"msg" => "La solicitud ya existe, por favor ingrese una nueva solicitud"
-						);
+				if(count($existe_solicitud_comisionados) == 0){
+					$secuencialComision = 1;
+				}else{
+					// $secuencialComision = ($helpers->json(max($existe_solicitud_comisionados)->getPercomComision() +1));
+					$secuencialComision = 149;	
 				}
-//fin crear solicitud
+
+				if($funcionarios_sol == ""){
+					$funcionarios_sol = $isset_funsol->getPerNombrecompleto();
+				}else{
+					$funcionarios_sol = $isset_funsol->getPerNombrecompleto().",".$funcionarios_sol;
+				}
+
+				// return $helpers->json($funcionarios_sol);
+
+				$funcionarios = Array();
+				$funcionarios = explode(',', $funcionarios_sol);
+				foreach ($funcionarios as $sol_persona) {
+
+					$hay_persona = $em->getRepository('BackBundle:Persona')->findOneBy(
+						array(
+							"perNombrecompleto" => trim($sol_persona),
+							"perEstado"=> "A"
+							)
+						);
+
+
+// 					$query_isset_solicitud = $em->createQuery('SELECT estadosol 
+// 						FROM BackBundle:EstadoSolicitud estadosol
+// 						JOIN BackBundle:Solicitud soli 
+// 						WHERE es.estsolFechasalida >= :fechasalida AND es.estsolFechallegada <= :fechallegada 
+// 						AND soli.per = :per');
+
+
+//  $qb = $em->createQueryBuilder()
+// *         ->select('u')
+// *         ->from('User', 'u')
+// *         ->where('u.id = :user_id')
+// *         ->setParameter(':user_id', 1);
+
+				// 	$query_isset_solicitud = $em->createQueryBuilder()
+				// 	->select('s')
+				// 	->from('BackBundle:Solicitud', 's')
+				// 	->left('BackBundle:EstadoSolicitud','es')
+				// 	// ->Where('es.sol = s.solId')
+    // // ->orWhere('cat.iconKey LIKE :searchTerm')
+				// 	->andWhere('es.estsolFechasalida >= :fechasalida')
+				// 	->andWhere('es.estsolFechallegada <= :fechallegada')
+
+				// 	->andWhere('s.per = :per')
+
+				// 	->setParameter('fechasalida', '27/4/2017')
+				// 	->setParameter('fechallegada', '14/6/2017')
+				// 	->setParameter('per', $hay_persona)
+
+				// 	->getQuery()
+				// 	->execute();
+
+					$query_isset_solicitud = $em->createQueryBuilder('s')
+					->add('select', 's')
+					->add('from', 'BackBundle:Solicitud s')
+					->join('BackBundle:EstadoSolicitud', 'es')
+					->where('es.sol = s.solId')
+					->andWhere('es.estsolFechasalida >= :fechasalida')
+					->andWhere('es.estsolFechallegada <= :fechallegada')
+					->andWhere('s.per = :per')
+					->setParameter('per', $hay_persona)
+					// ->setParameter('per', 25)
+
+					->setParameter('fechasalida', $FechaDesde_sol)
+					->setParameter('fechallegada', $FechaHasta_sol)
+
+             //... // some other conditions if you need
+					->getQuery()
+					->getResult();
+
+
+					// $query_isset_solicitud->setParameter('fechasalida','27/4/2017');
+					// $query_isset_solicitud->setParameter('fechallegada','14/6/2017');
+					// $query_isset_solicitud->setParameter('per', $hay_persona);
+
+					// $isset_solicitud = $query_isset_solicitud->getResult();
+
+					// return $helpers->json(count($query_isset_solicitud));
+					if(count($query_isset_solicitud) > 0){
+// echo "1";
+						$data = $query_isset_solicitud;
+					}else{
+						// echo "0";
+						$data = $query_isset_solicitud;
+						// echo "1";
+					}
+return $helpers->json(count($data));
+					// array_push($mostrar_sol, $query_isset_solicitud);
+					// if (count($isset_solicitud) > 0){
+					// 	// if(count($mostrar_sol) == 0){
+
+					// 	// $mostrar_sol = $query_isset_solicitud;
+					// 	// }else{
+					// 	// 	$mostrar_sol = $mostrar_sol.",".$query_isset_solicitud;
+					// 	// }
+
+
+					// 	// return $helpers->json($hay_persona);
+					// 	// // var_dump($hay_persona);
+					// 	// echo "- igual a 0<br/>";
+					// }else{
+					// 	// if(count($mostrar_sol) == 0){
+
+					// 	// $mostrar_sol = $query_isset_solicitud;
+					// 	// }else{
+					// 	// 	$mostrar_sol = $mostrar_sol.",".$query_isset_solicitud;
+					// 	// }
+					// 	// array_push($mostrar_sol, $isset_solicitud);
+					// }
+
+// return $helpers->json($mostrar_sol);
+					
+// return $helpers->json($FechaHasta_sol);
+					// echo ($FechaDesde_sol);
+					// echo ($FechaHasta_sol);
+						// $isset_persona = $em->getRepository('BackBundle:Persona')->findOneBy(
+						// 	array(
+						// 		"perNombrecompleto" => trim($sol_persona),
+						// 		"perEstado"=> "A"
+						// 		)
+						// 	);
+						// $soloanio = (new \DateTime())->format('Y');
+						// $departamento = $em->getRepository('BackBundle:Departamento')->findBy(
+						// 	array(
+						// 		"depEstado" => "A"
+						// 		)
+						// 	);
+						// $cargo = $em->getRepository('BackBundle:Cargo')->findBy(
+						// 	array(
+						// 		"dep" => $departamento
+						// 		)
+						// 	);
+						// $cargo_persona = $em->getRepository('BackBundle:CargoPersona')->findBy(
+						// 	array(
+						// 		"car" => $cargo,
+						// 		"per"=> $isset_persona,
+						// 		"carperEstado" => "A"
+						// 		)
+						// 	);
+						// $secuencial = $em->getRepository('BackBundle:Solicitud')->findBy(
+						// 	array(
+						// 		"solAnio" => $soloanio,
+						// 		"per" => $isset_persona
+						// 		)
+						// 	);
+						// if(count($secuencial) == 0){
+						// 	$idsecuencial = 1;
+						// }else{
+						// 	$idsecuencial = count($secuencial)+1;
+						// }
+						// $numsol = trim($cargo_persona[0]->getCar()->getDep()->getDepSiglas())."-".date('Y')."-SAPCSI-".trim($isset_persona->getPerIniciales())."-".$idsecuencial;
+						// $solicitud = new Solicitud();
+						// $solicitud->setSolSecuencial($idsecuencial);
+						// $solicitud->setSolIdsolicitud($numsol);
+						// $solicitud->setSolFecharealizacion($fecha);
+						// $solicitud->setSolNumeroactualizacion("0");
+						// $solicitud->setSolEstado("P");
+						// $solicitud->setSolAnio($soloanio);
+						// $solicitud->setPer($isset_persona);
+						// $em->persist($solicitud);
+						// $em->flush();
+
+						// $rutasol = "pdf/".trim($isset_persona->getPerIdentificacion())."/".$numsol.".pdf";
+
+						// $existe_estado_solicitud = $em->getRepository('BackBundle:EstadoSolicitud')->findBy(
+						// 	array(
+						// 		"sol" => $solicitud
+						// 		)
+						// 	);
+
+						// if (count($existe_estado_solicitud) == 0){
+						// 	$estado_solicitud = new EstadoSolicitud();
+						// 	$estado_solicitud->setEstsolFechasalida($fechaDesde);
+						// 	$estado_solicitud->setEstsolHorasalida($HoraDesde);
+						// 	$estado_solicitud->setEstsolFechallegada($fechaHasta);
+						// 	$estado_solicitud->setEstsolHorallegada($HoraHasta);
+						// 	$estado_solicitud->setEstsolActividades($actividadessol);
+						// 	$estado_solicitud->setEstsolEstado("A");
+						// 	$estado_solicitud->setEstsolNumeroactualizacion("0");
+						// 	$estado_solicitud->setEstsolRutapdf($rutasol);
+						// 	$estado_solicitud->setEstsolObservacion($observacionsol);
+						// 	$estado_solicitud->setSol($solicitud);
+						// 	$em->persist($estado_solicitud);
+						// 	$em->flush();
+
+						// 	$existe_solicitud_ciudad = $em->getRepository('BackBundle:CiudadSolicitud')->findBy(
+						// 		array(
+						// 			"estsol" => $estado_solicitud
+						// 			)
+						// 		);
+
+						// 	if (count($existe_solicitud_ciudad) == 0){
+						// 		$ciudad_sol = Array();
+						// 		$ciudad_sol = explode(',', $ciudades_sol);
+						// 		foreach ($ciudad_sol as $isset_ciudad) {
+						// 			$ciudad = $em->getRepository('BackBundle:Ciudad')->findOneBy(
+						// 				array(
+						// 					"ciuId" => $isset_ciudad
+						// 					)
+						// 				);
+						// 			if (count($ciudad) !== 0){
+						// 				$ciudad_solicitud = new CiudadSolicitud();
+						// 				$ciudad_solicitud->setCiu($ciudad);
+						// 				$ciudad_solicitud->setEstsol($estado_solicitud);
+						// 				$em->persist($ciudad_solicitud);
+						// 				$em->flush();
+						// 			}else {
+						// 				$data = array(
+						// 					"status" => "error",
+						// 					"code" => 400,
+						// 					"msg" => "Ciudad no existe, por favor ingrese los datos correctos"
+						// 					);
+						// 			}
+						// 		}
+
+
+
+						// 		$hay_persona = $em->getRepository('BackBundle:Persona')->findOneBy(
+						// 			array(
+						// 				"perNombrecompleto" => trim($sol_persona),
+						// 				"perEstado"=> "A"
+						// 				)
+						// 			);
+						// 		if (count($hay_persona) !== 0){
+						// 			$personacomision = new PersonaComision();
+						// 			$personacomision->setPer($hay_persona);
+						// 			$personacomision->setSol($solicitud);
+						// 			$personacomision->setPercomComision($secuencialComision);
+						// 			$em->persist($personacomision);
+						// 			$em->flush();
+						// 		}else {
+						// 			$data = array(
+						// 				"status" => "error",
+						// 				"code" => 400,
+						// 				"msg" => "Funcionario no existe, por favor ingrese los datos correctos1"
+						// 				);
+						// 		}
+
+						// 		$transportesolicitado1 = $em->getRepository('BackBundle:TransporteSolicitado')->findBy(
+						// 			array(
+						// 				"estsol" => $estado_solicitud
+						// 				)
+						// 			);
+						// 		if(count($transportesolicitado1)==0){
+						// 			$traruta_sol = Array();
+						// 			$traruta_sol = explode(';', $solotransporteSol);
+						// 			foreach ($traruta_sol as $existe_transporte) {
+						// 				$isset_transporte = Array();
+						// 				$isset_transporte = explode(',', $existe_transporte);
+
+						// 					// return $helpers->json($existe_transporte);
+
+						// 				$Tiptramod = $isset_transporte[1];
+						// 				$TrasolRutainicio = $isset_transporte[2];
+						// 				$TrasolRutafin = $isset_transporte[3];
+						// 				$TrasolFechasalida = $isset_transporte[4];
+						// 				$TrasolHorasalida = $isset_transporte[5];
+						// 				$TrasolFechallegada = $isset_transporte[6];
+						// 				$TrasolHorallegada = $isset_transporte[7];
+
+						// 					// return $helpers->json($Tiptramod);
+
+						// 				$tiptra = $em->getRepository('BackBundle:TipoTransporte')->findOneBy(
+						// 					array(
+						// 						"tiptraNombre" => $Tiptramod
+						// 						)
+						// 					);
+						// 				$transporte_solicitud = new TransporteSolicitado();
+						// 				$transporte_solicitud->setTrasolRutainicio($TrasolRutainicio);
+						// 				$transporte_solicitud->setTrasolRutafin($TrasolRutafin);
+						// 				$transporte_solicitud->setTrasolFechasalida($TrasolFechasalida);
+						// 				$transporte_solicitud->setTrasolHorasalida($TrasolHorasalida);
+						// 				$transporte_solicitud->setTrasolFechallegada($TrasolFechallegada);
+						// 				$transporte_solicitud->setTrasolHorallegada($TrasolHorallegada);
+						// 				$transporte_solicitud->setTiptra($tiptra);
+						// 				$transporte_solicitud->setEstsol($estado_solicitud);
+						// 				$em->persist($transporte_solicitud);
+						// 				$em->flush();
+						// 			}
+						// 				//inicio ingreso fondo
+
+						// 			$isset_fondo = $em->getRepository('BackBundle:Fondo')->findOneBy(
+						// 				array(
+						// 					"sol" => $solicitud
+						// 					)
+						// 				);
+
+						// 			if(count($isset_fondo)==0){
+						// 				$fondo = new Fondo();
+						// 				$fondo->setFonValor($fondovalor);
+						// 				$fondo->setFonFecha(new \DateTime());
+						// 				$fondo->setFonObservacion($fondoobservacion);
+						// 				$fondo->setSol($solicitud);
+						// 				$em->persist($fondo);
+						// 				$em->flush();
+						// 			}
+						// 				//fin ingreso fondo
+
+						// 				//inicio ingreso anexos
+						// 			$isset_anexo = $em->getRepository('BackBundle:Anexo')->findBy(
+						// 				array(
+						// 					"estsol" => $estado_solicitud
+						// 					)
+						// 				);
+
+						// 			if(count($isset_anexo)==0){
+						// 				$anexosol = new Anexo();
+						// 				$anexosol->setSolanexTitulo($anexotitulo);
+						// 				$anexosol->setSolanexDescripcion($aneodescripcion);
+						// 				$anexosol->setSolanexRuta($anexoruta);
+						// 				$anexosol->setEstsol($estado_solicitud);
+						// 				$em->persist($anexosol);
+						// 				$em->flush();
+						// 			}
+						// 				//fin ingreso anexos
+
+						// 			$data["status"] = "success";
+						// 			$data["msg"] = "Solicitud creada satisfactoriamente";
+						// 		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						// 	}else {
+						// 		$data = array(
+						// 			"status" => "error",
+						// 			"code" => 400,
+						// 			"msg" => "Ya existe la o las ciudades asignadas a la solicitud"
+						// 			);
+						// 	}
+
+						// }else {
+						// 	$data = array(
+						// 		"status" => "error",
+						// 		"code" => 400,
+						// 		"msg" => "No existe la solicitud, por favor cree una solicitud para poder continuar"
+						// 		);
+						// }
+
+
+
+
+					// }else {
+					// 	$data = array(
+					// 		"status" => "error",
+					// 		"code" => 400,
+					// 		"msg" => "La solicitud ya existe dentro del rango de fechas indicadas, por favor modifique las fechas"
+					// 		);
+					// }
+				}
+				// return $helpers->json($mostrar_sol);
 			} else {
 				$data = array(
 					"status" => "error",
 					"code" => 400,
 					"msg" => "No existen datos, por favor ingrese los datos"
 					);
-			}
+			}	
 		} else {
 			$data = array(
 				"status" => "error",
@@ -318,25 +480,6 @@ class SolicitudController extends Controller {
 			if ($json != null) {
 				$fun_id = (isset($params->fun_id)) ? $params->fun_id : null;
 				$em = $this->getDoctrine()->getManager();
-
-				// $cargoPer = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
-				// 	array(
-				// 		"per" => $fun_id,
-				// 		"carperEstado"=> "A"
-				// 		)
-				// 	);
-				// // $cargos = $em->getRepository('BackBundle:Cargo')->findOneBy(
-				// 	array(
-				// 		"carId" => $cargoPer->getCar()
-				// 		)
-				// 	);
-				// $cargoPadre = $em->getRepository('BackBundle:Cargo')->findBy(
-				// 	array(
-				// 		"carJefe" => $cargos
-				// 		)
-				// 	);
-				// if(count($cargoPadre)==0){
-				// if(count($cargoPer) > 0){
 				$solPer = $em->getRepository('BackBundle:Solicitud')->findBy(
 					array(
 						"per" => $fun_id
@@ -347,55 +490,19 @@ class SolicitudController extends Controller {
 						"sol" => $solPer
 						)
 					);
+				// $valormasuno=0;
 				foreach ($estsolPer as $estsolPer1) {
 					$ciuPer = $em->getRepository('BackBundle:CiudadSolicitud')->findBy(
 						array(
 							"estsol" => $estsolPer1
 							)
 						);
-					// return $helpers->json($ciuPer);
-					if(count($ciuPer)>0){
+				// return $helpers->json(count($ciuPer));
+					if(count($ciuPer) > 0){
 						array_push($reporte, $ciuPer);
 					}
 				}
 				return $helpers->json($reporte);
-
-				// }else{
-				// 	$cargoPer1 = $em->getRepository('BackBundle:CargoPersona')->findBy(
-				// 		array(
-				// 			"car" => $cargoPadre,
-				// 			"carperEstado"=> "A"
-				// 			)
-				// 		);
-				// 	$solicitudPer = array();
-				// 	// $solicitudPer = null;
-				// 	foreach ($cargoPer1 as $cargoHijo) {
-				// 		// return $helpers->json($cargoHijo);
-				// 		$solPer1 = $em->getRepository('BackBundle:Solicitud')->findBy(
-				// 			array(
-				// 				"per" => $cargoHijo->getPer()
-				// 				)
-				// 			);
-				// 		$estsolPer1 = $em->getRepository('BackBundle:EstadoSolicitud')->findBy(
-				// 			array(
-				// 				"sol" => $solPer1
-				// 				)
-				// 			);
-				// 		$ciuPer1 = $em->getRepository('BackBundle:CiudadSolicitud')->findBy(
-				// 			array(
-				// 				"estsol" => $estsolPer1
-				// 				)
-				// 			);
-				// 		// if(count($solPer1) > 0){
-				// 		// 	$solicitudPer = $solPer1;
-				// 		// }
-				// 		if(count($ciuPer1) > 0){
-				// 			array_push($solicitudPer,$ciuPer1);
-				// 		}
-				// 	}
-				// 		// return $helpers->json($solPer1);
-				// 	return $helpers->json($solicitudPer);
-				// }
 			} else {
 				$data = array(
 					"status" => "error",
@@ -667,6 +774,62 @@ class SolicitudController extends Controller {
 		}
 		return $helpers->json($data);
 	}
+	public function detallejefeAction(Request $request) {
+		$helpers = $this->get("app.helpers");
+
+		$json = $request->get("json", null);
+		$params = json_decode($json);
+
+		$hash = $request->get("authorization", null);
+		$authCheck = $helpers->authCheck($hash);
+
+		$data = array();
+		$reporte = array();
+
+		if ($authCheck == true) {
+			$identity = $helpers->authCheck($hash, true);
+			if ($json != null) {
+				$fun_id = (isset($params->fun_id)) ? $params->fun_id : null;
+				$em = $this->getDoctrine()->getManager();
+
+				$cargoPer = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
+					array(
+						"per" => $fun_id,
+						"carperEstado"=> "A"
+						)
+					);
+				$cargos = $em->getRepository('BackBundle:Cargo')->findOneBy(
+					array(
+						"carId" => $cargoPer->getCar()
+						)
+					);
+				$cargoPadre = $em->getRepository('BackBundle:Cargo')->findBy(
+					array(
+						"carJefe" => $cargos
+						)
+					);
+				// if(count($cargoPadre) > 0){
+
+				return $helpers->json($cargoPadre);
+					// }
+				// }
+
+			} else {
+				$data = array(
+					"status" => "error",
+					"code" => 400,
+					"msg" => "No existen datos, por favor ingrese los datos"
+					);
+			}
+		} else {
+			$data = array(
+				"status" => "error",
+				"code" => 400,
+				"msg" => "Los datos de acceso son incorrectos"
+				);
+		}
+		return $helpers->json($data);
+	}
 	public function firmarAction(Request $request) {
 		$helpers = $this->get("app.helpers");
 		$json = $request->get("json", null);
@@ -723,5 +886,5 @@ class SolicitudController extends Controller {
 		}
 	}
 
-	
+
 }

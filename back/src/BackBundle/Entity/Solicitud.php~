@@ -53,7 +53,7 @@ class Solicitud
     /**
      * @var string
      *
-     * @ORM\Column(name="sol_estado", type="string", length=1, nullable=true)
+     * @ORM\Column(name="sol_estado", type="string", length=3, nullable=true)
      */
     private $solEstado;
 

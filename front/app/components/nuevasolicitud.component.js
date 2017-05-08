@@ -31,8 +31,9 @@ var NuevasolicitudComponent = (function () {
         this.FechaDesde_sol = [];
         this.FechaHasta_sol = [];
         this.ciudadtra = [];
-        this.item = { firstName: 'Peter', lastName: 'Parker' };
-        this.buildPdf = new buildPdf();
+        // public item: {firstName: string, lastName: string} = {firstName: 'Peter', lastName: 'Parker'};
+        // public pdf: any;
+        // public buildPdf: any = new buildPdf();
         // public uploader:FileUploader;
         // public URLupload: string;
         // public uploader:FileUploader = new FileUploader({url: URLupload});
@@ -105,20 +106,38 @@ var NuevasolicitudComponent = (function () {
             'ciudades_sol': "",
             'vehiculo_solicitud': "",
             'funcionarios_sol': "",
-            "solotransporteSol": "",
-            "fondovalor": "",
-            "fondoobservacion": "",
-            "anexotitulo": "",
-            "aneodescripcion": "",
-            "anexoruta": ""
+            'solotransporteSol': "",
+            'fondovalor': "",
+            'fondoobservacion': "",
+            'anexotitulo': "",
+            'aneodescripcion': "",
+            'anexoruta': ""
         };
+        this.transporteSol1 = {
+            'tratipo': "",
+            'tramodelo': "",
+            'trarutaInicio': "",
+            'trarutaFin': "",
+            'trafechaInicio': "",
+            'trafechaFin': "",
+            'trahoraInicio': "",
+            'trahoraFin': "",
+        };
+        this.transporteSol = [];
     };
-    NuevasolicitudComponent.prototype.openPdf = function () {
-        this.pdf = pdfMake;
-        this.buildPdf = buildPdf;
-        this.pdf.createPdf(buildPdf(this.item)).open();
-        // this.pdf.createPdf(buildPdf(this.item)).print();
-        this.pdf.createPdf(buildPdf(this.item)).download();
+    // openPdf() {
+    // 	this.pdf = pdfMake;
+    // 	this.buildPdf = buildPdf;
+    // 	this.pdf.createPdf(buildPdf(this.item)).open();
+    // 	// this.pdf.createPdf(buildPdf(this.item)).print();
+    // 	this.pdf.createPdf(buildPdf(this.item)).download();
+    // }
+    NuevasolicitudComponent.prototype.toggleTitle = function () {
+        $('.title').slideToggle();
+        // console.log(i);
+    };
+    NuevasolicitudComponent.prototype.delete = function (i) {
+        this.transporteSol.splice(this.transporteSol.indexOf(i), 1);
     };
     NuevasolicitudComponent.prototype.OnCiudad = function () {
         var _this = this;
@@ -227,84 +246,97 @@ var NuevasolicitudComponent = (function () {
     };
     NuevasolicitudComponent.prototype.OnDiferenciaFechas = function (f1, f2) {
         this.dias = [];
-        var fechaInicio = new Date(f1).getTime();
+        console.log("f1:" + f1);
+        console.log("f2:" + f2);
+        var fechaInicio = new Date(f1).toLocaleDateString();
+        // var fechaInicio = new Date(f1).getUTCDate();
         var fechaFin = new Date(f2).getTime();
-        var diff = fechaFin - fechaInicio;
-        var diasdiff = diff / (24 * 60 * 60 * 1000);
-        for (var i = 0; i <= diasdiff; i++) {
-            var date = new Date(f1);
-            date.setDate(date.getDate() + i);
-            this.dias.push(date.toLocaleDateString());
-        }
-        ;
+        console.log("fechaInicio:" + fechaInicio);
+        console.log("fechaFin:" + fechaFin);
+        // var diff = fechaFin - fechaInicio;
+        // let diasdiff = diff/(24*60*60*1000)
+        // for (var i = 0; i <= diasdiff; i++) {
+        // 	// var date = f1;
+        // 	var date = new Date(f1);
+        // 	console.log("date:"+date);
+        // 	date.setDate(date.getDate() + i); 
+        // 	this.dias.push(date.toLocaleDateString());
+        // };
     };
     NuevasolicitudComponent.prototype.Onpaso2 = function () {
-        this.comision.Fecha_sol = (((JSON.stringify(new Date(this.Fecha_sol).toLocaleDateString()).replace('"', '')).replace('"', '')).replace('/', '-')).replace('/', '-');
-        this.comision.FechaDesde_sol = (((JSON.stringify(new Date(this.FechaDesde_solicitud).toLocaleDateString()).replace('"', '')).replace('"', '')).replace('/', '-')).replace('/', '-');
-        this.comision.HoraDesde_sol = (JSON.stringify(new Date(this.HoraDesde_sol).toLocaleTimeString()).replace('"', '')).replace('"', '');
-        this.comision.FechaHasta_sol = (((JSON.stringify(new Date(this.FechaHasta_solicitud).toLocaleDateString()).replace('"', '')).replace('"', '')).replace('/', '-')).replace('/', '-');
-        this.comision.HoraHasta_sol = (JSON.stringify(new Date(this.HoraHasta_sol).toLocaleTimeString()).replace('"', '')).replace('"', '');
-        this.OnDiferenciaFechas(this.FechaDesde_solicitud, this.FechaHasta_solicitud);
-        var fechaactividades;
-        var length = this.dias.length;
-        fechaactividades = '';
-        for (var i = 0; i < length; i++) {
-            var fechas = this.dias[i];
-            // fechaactividades += '<p class="ql-align-center"><strong>'+fechas+'</strong></p><ul><li></li></ul>';
-            fechaactividades += '<p class="centrado ql-align-center"><strong>' + fechas + '</strong></p><ul><li></li></ul>';
-        }
-        ;
-        this.comision.actividadessol = fechaactividades;
+        this.comision.Fecha_sol = this.Fecha_sol;
+        this.comision.FechaDesde_sol = this.FechaDesde_solicitud;
+        this.comision.HoraDesde_sol = this.HoraDesde_sol;
+        this.comision.FechaHasta_sol = this.FechaHasta_solicitud;
+        this.comision.HoraHasta_sol = this.HoraHasta_sol;
+        // this.comision.Fecha_sol = (((JSON.stringify(new Date(this.Fecha_sol).toLocaleDateString()).replace('"','')).replace('"','')).replace('/','-')).replace('/','-');
+        // this.comision.FechaDesde_sol = (((JSON.stringify(new Date(this.FechaDesde_solicitud).toLocaleDateString()).replace('"','')).replace('"','')).replace('/','-')).replace('/','-');
+        // this.comision.HoraDesde_sol = (JSON.stringify(new Date(this.HoraDesde_sol).toLocaleTimeString()).replace('"','')).replace('"','');
+        // this.comision.FechaHasta_sol = (((JSON.stringify(new Date(this.FechaHasta_solicitud).toLocaleDateString()).replace('"','')).replace('"','')).replace('/','-')).replace('/','-');
+        // this.comision.HoraHasta_sol = (JSON.stringify(new Date(this.HoraHasta_sol).toLocaleTimeString()).replace('"','')).replace('"','');
+        // this.OnDiferenciaFechas(this.FechaDesde_solicitud,this.FechaHasta_solicitud);
+        // let fechaactividades;
+        // var length = this.dias.length;
+        // fechaactividades = '';
+        // for (var i = 0; i < length; i++) {
+        // 	let fechas = this.dias[i];
+        // 	// fechaactividades += '<p class="ql-align-center"><strong>'+fechas+'</strong></p><ul><li></li></ul>';
+        // 	fechaactividades += '<p class="centrado ql-align-center"><strong>'+fechas+'</strong></p><ul><li></li></ul>';
+        // };
+        // this.comision.actividadessol = fechaactividades;
         this.comision.correo = this._loginService.getIdentity().aperUsuario;
         if (this.funcionarios_sol_ini !== undefined) {
-            this.comision.funcionarios_sol = ((JSON.stringify(this.funcionarios_sol_ini).replace('["', '')).replace('"]', '')).replace('","', ',');
+            this.comision.funcionarios_sol = (((JSON.stringify(this.funcionarios_sol_ini).replace('["', '')).replace('"]', '')).replace('","', ',')).replace(/\"/g, '');
         }
         if (this.ciudades_sol_ini !== undefined) {
             this.comision.ciudades_sol = (JSON.stringify(this.ciudades_sol_ini).replace('[', '')).replace(']', '');
         }
+        // console.log("this.comision:"+JSON.stringify(this.comision));
         this.inicial = true;
     };
     NuevasolicitudComponent.prototype.Onpaso3 = function () {
+        // console.log("this.comision:"+JSON.stringify(this.comision));
         this.paso2 = true;
     };
     NuevasolicitudComponent.prototype.Onpaso4 = function () {
-        var tblBody = document.getElementById("tbody_trareq_dialog");
-        var hilera = tblBody.getElementsByTagName("tr");
-        var filas = hilera.length;
-        var vehiculo_solicitud;
-        var ciudades_solicitud;
-        var trahoraFin;
-        var trahoraInicio;
-        var trarutaFin;
-        var trarutaInicio;
-        for (var i = 0; i < filas; i++) {
-            var datos = hilera[i].getElementsByTagName("td");
-            var columna = datos.length;
-            var data1;
-            var data2;
-            if (data1 !== undefined) {
-                data1 = data1 + ";";
+        var solotransporteSol = "";
+        var solotransporteSolConvert = "";
+        var registros = this.transporteSol.length;
+        for (var l = 0; l < registros; l++) {
+            if (solotransporteSol == "") {
+                solotransporteSol = this.transporteSol[l].tratipo + "," + this.transporteSol[l].tramodelo + "," + this.transporteSol[l].trarutaInicio + "," + this.transporteSol[l].trarutaFin + "," + this.transporteSol[l].trafechaInicio + "," + this.transporteSol[l].trahoraInicio + "," + this.transporteSol[l].trafechaFin + "," + this.transporteSol[l].trahoraFin + ";";
             }
-            for (var j = 0; j < columna - 1; j++) {
-                var informaciontra = datos[j].firstChild.nodeValue;
-                if (data1 == undefined) {
-                    data1 = informaciontra;
-                }
-                else {
-                    data1 = data1.replace(";,", ";") + "," + informaciontra;
-                    data2 = data1;
-                }
+            else {
+                solotransporteSol = solotransporteSol + this.transporteSol[l].tratipo + "," + this.transporteSol[l].tramodelo + "," + this.transporteSol[l].trarutaInicio + "," + this.transporteSol[l].trarutaFin + "," + this.transporteSol[l].trafechaInicio + "," + this.transporteSol[l].trahoraInicio + "," + this.transporteSol[l].trafechaFin + "," + this.transporteSol[l].trahoraFin + ";";
             }
         }
-        this.comision.solotransporteSol = data2;
+        // solotransporteSolConvert = '"'+solotransporteSol+'"';
+        solotransporteSolConvert = solotransporteSol + '"';
+        this.comision.solotransporteSol = (solotransporteSolConvert.replace(';"', ''));
+        // console.log("this.comision.solotransporteSol:"+this.comision.solotransporteSol);
+        // console.log(this.comision);
+        console.log("this.comision:" + JSON.stringify(this.comision));
         this.paso3 = true;
     };
     NuevasolicitudComponent.prototype.Onpaso5 = function () {
-        this.fondovalor = 0;
-        this.fondoobservacion = 0;
-        this.anexotitulo = 0;
-        this.aneodescripcion = 0;
-        this.anexoruta = 0;
+        // this.fondovalor = 0;
+        // this.fondoobservacion = "";
+        // this.anexotitulo = "";
+        // this.aneodescripcion = "";
+        // this.anexoruta = "";
+        if (this.fondovalor == undefined) {
+            this.comision.fondovalor = 0;
+        }
+        else {
+            this.comision.fondovalor = this.fondovalor;
+        }
+        if (this.fondoobservacion == undefined) {
+            this.comision.fondoobservacion = "N/A";
+        }
+        else {
+            this.comision.fondoobservacion = this.fondoobservacion;
+        }
+        // console.log("this.comision:"+JSON.stringify(this.comision));
     };
     NuevasolicitudComponent.prototype.OnbotonAtras = function () {
         if (this.inicial == false && this.paso2 == false && this.paso3 == false && this.paso4 == false) {
@@ -351,7 +383,22 @@ var NuevasolicitudComponent = (function () {
         if (this.mostrar_trareq === false) {
             this.mostrar_trareq = true;
         }
-        this.OnAgregarbtnEliminar();
+        // this.OnAgregarbtnEliminar();
+        this.OnAgregarRuta();
+    };
+    NuevasolicitudComponent.prototype.OnAgregarRuta = function () {
+        this.transporteSol1 = {
+            'tratipo': document.getElementById("combo_tiptra").value,
+            'tramodelo': document.getElementById("combo_vehiculo").value,
+            'trarutaInicio': this.RinicioTrans,
+            'trarutaFin': this.RfinTrans,
+            'trafechaInicio': new Date(this.FinicioTrans).toLocaleDateString(),
+            'trafechaFin': new Date(this.FfinTrans).toLocaleDateString(),
+            'trahoraInicio': new Date(this.FinicioTrans).toLocaleTimeString(),
+            'trahoraFin': new Date(this.FfinTrans).toLocaleTimeString(),
+        };
+        this.transporteSol.push(this.transporteSol1);
+        // console.log("this.transporteSol:"+JSON.stringify(this.transporteSol));
     };
     NuevasolicitudComponent.prototype.OnEliminarTraReq = function () {
         var hilera = document.getElementById("TransporteReqDet");
@@ -479,13 +526,26 @@ var NuevasolicitudComponent = (function () {
     NuevasolicitudComponent.prototype.OnBloquearBotones = function () {
     };
     NuevasolicitudComponent.prototype.onEnviarSol = function () {
-        var _this = this;
+        // console.log("this.fondovalor:"+JSON.stringify(this.fondovalor));
+        // console.log("this.fondoobservacion:"+JSON.stringify(this.fondoobservacion));
+        // console.log("this.comision.fondovalor:"+JSON.stringify(this.comision.fondovalor));
+        // console.log("this.comision.fondoobservacion:"+JSON.stringify(this.comision.fondoobservacion));
         // console.log("this.comision:"+JSON.stringify(this.comision));
+        var _this = this;
         var token = this._loginService.getToken();
         this._SolicitudService.AddSolicitud(token, this.comision).subscribe(function (response) {
-            alert("La solicitud ha sido creada satisfactoriamente");
-            // window.location.href='/solicitud';
-            _this._router.navigate(['/solicitud']);
+            var guardar = response;
+            _this.guardar = guardar;
+            if (_this.guardar.status === "success") {
+                // alert("La solicitud ha sido creada satisfactoriamente");
+                alert(_this.guardar.msg);
+                window.location.href = '/solicitud';
+            }
+            else {
+                alert(_this.guardar.msg);
+            }
+            // this._router.navigate(['/solicitud']);
+            // }
         }, function (error) {
             _this.errorMessage = error;
             if (_this.errorMessage != null) {

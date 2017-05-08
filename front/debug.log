@@ -7,3 +7,21 @@
 [0113/002705:WARNING:in_range_cast.h(38)] value 2043999440754 out of range
 [0113/002705:WARNING:in_range_cast.h(38)] value 2043999424100 out of range
 [0113/002705:WARNING:in_range_cast.h(38)] value 2043999427206 out of range
+[0420/112719.970:ERROR:process_info.cc(625)] range at 0x8821676200000000, size 0x21a fully unreadable
+[0420/112719.986:ERROR:process_info.cc(625)] range at 0x882167c400000000, size 0x21a fully unreadable
+[0420/112719.986:ERROR:process_info.cc(625)] range at 0x0, size 0x21a fully unreadable
+[0425/124254.902:ERROR:process_info.cc(625)] range at 0x414f67aa00000000, size 0x27e fully unreadable
+[0425/124254.909:ERROR:process_info.cc(625)] range at 0x414f680c00000000, size 0x27e fully unreadable
+[0425/124254.909:ERROR:process_info.cc(625)] range at 0x0, size 0x27e fully unreadable
+[0425/124255.120:ERROR:process_reader_win.cc(233)] ReadMemory at 0x27e452ceb00 of 512 bytes failed: Solo se completó una parte de una solicitud ReadProcessMemory o WriteProcessMemory. (0x12B)
+[0425/124255.135:ERROR:crash_report_exception_handler.cc(111)] WriteEverything failed
+[0425/124346.200:ERROR:process_info.cc(625)] range at 0x863867aa00000000, size 0x176 fully unreadable
+[0425/124346.200:ERROR:process_info.cc(625)] range at 0x8638680c00000000, size 0x176 fully unreadable
+[0425/124346.200:ERROR:process_info.cc(625)] range at 0x0, size 0x176 fully unreadable
+[0425/124346.255:ERROR:process_reader_win.cc(233)] ReadMemory at 0x17689d5eb00 of 512 bytes failed: Solo se completó una parte de una solicitud ReadProcessMemory o WriteProcessMemory. (0x12B)
+[0425/124346.255:ERROR:crash_report_exception_handler.cc(111)] WriteEverything failed
+[0425/124449.872:ERROR:process_info.cc(625)] range at 0xb7c867aa00000000, size 0x1ae fully unreadable
+[0425/124449.872:ERROR:process_info.cc(625)] range at 0xb7c8680c00000000, size 0x1ae fully unreadable
+[0425/124449.872:ERROR:process_info.cc(625)] range at 0x0, size 0x1ae fully unreadable
+[0425/124449.924:ERROR:process_reader_win.cc(233)] ReadMemory at 0x1aebb5beb00 of 512 bytes failed: Solo se completó una parte de una solicitud ReadProcessMemory o WriteProcessMemory. (0x12B)
+[0425/124449.924:ERROR:crash_report_exception_handler.cc(111)] WriteEverything failed

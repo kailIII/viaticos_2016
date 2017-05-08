@@ -47,7 +47,7 @@ class JwtAuth {
                 // "iat" => time(),
                 // "exp" => time()+ (1 * 2 * 60 * 60)
                 "iat" => date_timestamp_get(new \DateTime(date('Y-m-d H:i:s'))),
-                "exp" => date_timestamp_get(new \DateTime(date('Y-m-d H:i:s')))+ (1 * 2 * 60 * 60)
+                "exp" => date_timestamp_get(new \DateTime(date('Y-m-d H:i:s')))+ (1 * 1 * 60 * 60)
             );
             $jwt = JWT::encode($token, $key, 'HS256');
             $decoded = JWT::decode($jwt, $key, array('HS256'));

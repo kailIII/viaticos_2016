@@ -12,37 +12,15 @@ import {LoginComponent} from "./components/login.component";
 import {UsuarioComponent} from "./components/usuario.component";
 import { AppComponent }  from './app.component';
 import {ImprimirsolicitudComponent} from "./components/imprimirsolicitud.component";
+import {VersolicitudComponent} from "./components/versolicitud.component";
 
 import { routing, appRoutingProviders } from './app.routing';
-// import {InputTextModule, DataTableModule, ButtonModule, DialogModule} from 'primeng/primeng';
-// import {DataTableModule} from "angular2-datatable";
 import {EditorModule, SharedModule, MultiSelectModule,CalendarModule, DropdownModule,TabViewModule,DataTableModule, PanelModule} from 'primeng/primeng';
-// import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { CommonModule } from '@angular/common';
-
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { DatePipe } from './pipes/formatDate.pipe';
-
 import {ModalModule} from "ng2-modal";
-// import { FileUploader } from 'ng2-file-upload';
 import {FileUploadModule } from 'ng2-file-upload';
-// import {SMTP} from "emailjs";
-// import { ModalModule } from 'angular2-modal';
-// import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
-
-// import { AlertComponent } from 'ng2-bootstrap/ng2-bootstrap';
-// import { DatepickerModule } from 'ng2-bootstrap';
-// import { Ng2SmartTableModule } from 'ng2-smart-table';
-// import {InputTextModule} from 'primeng/components/inputtext/inputtext';
-// import {DataTableModule} from 'primeng/components/datatable/datatable';
-// import {ButtonModule} from 'primeng/components/button/button';
-// import {DialogModule} from 'primeng/components/dialog/dialog';
-
-
-// import {RestaurantesDetailComponent} from "./components/restaurantes-detail.component";
-// import {RestauranteAddComponent} from "./components/restaurante-add.component";
-// import {RestauranteEditComponent} from "./components/restaurante-edit.component";
-
 
 @NgModule({
   imports:      [ 
@@ -52,27 +30,15 @@ import {FileUploadModule } from 'ng2-file-upload';
               routing, 
               CommonModule,
               PanelModule,
-              // InputTextModule, 
-              // DataTableModule, 
-              // ButtonModule, 
-              // DialogModule 
-              DataTableModule/*,
-              DatepickerModule*/
-              ,
+              DataTableModule,
               EditorModule,
               SharedModule,
               MultiSelectModule,
               CalendarModule,
               DropdownModule,
               TabViewModule,
-              FileUploadModule/*
-              SMTP
-              AlertComponent*/
-    //           , 
-    // ModalModule.forRoot(),
-    // BootstrapModalModule
-    ,
-    ModalModule
+              FileUploadModule,
+              ModalModule
   ],
   declarations: [ 
               AppComponent,
@@ -85,7 +51,8 @@ import {FileUploadModule } from 'ng2-file-upload';
               UsuarioComponent,
               PdfViewerComponent,
               ImprimirsolicitudComponent,
-              DatePipe
+              DatePipe,
+              VersolicitudComponent
   ],
   providers:    [ appRoutingProviders],
   bootstrap:    [ AppComponent ],

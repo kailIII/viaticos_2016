@@ -1,14 +1,23 @@
+<div id="datosincorrectos" *ngIf="errorMsg == true">
+<div id="logoerror">
+	<img src="assets/images/ImgCritical.png"  width="32" height="32" />
+</div>
+<div id="mensajeerror">
+	<p>Correo electrónico o Contraseña incorrectos</p>
+	<p>Por favor ingrese los datos correctamente</p>
+</div>
+</div>
 <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-				<div>
-					<label>Correo electrónico:</label>
-					<input type="text" id="email" name="email" #email="ngModel" [(ngModel)]="user.email" required autocomplete="on" />
-					<div *ngIf="!email.valid && email.touched">El email es necesario</div>
-				</div>
-				<div>
-					<label>Contraseña:</label>
-					<input type="password" id="password" name="password" #password="ngModel" [(ngModel)]="user.password" required/>
-					<div *ngIf="!password.valid && password.touched">La contraseña es necesaria</div>
-				</div>
-				<input type="submit" value="Enviar" class="btn btn-primary"/>
-				<!-- <button type="submit" class="btn btn-primary"/>Enviar</button> -->
-			</form>
+	<div>
+		<label>Correo electrónico:</label>
+		<input type="text" id="email" name="email" #email="ngModel" [(ngModel)]="user.email" required autocomplete="on" (click)="corregirDatos()"/>
+		<div *ngIf="!email.valid && email.touched">El email es necesario</div>
+	</div>
+	<div>
+		<label>Contraseña:</label>
+		<input type="password" id="password" name="password" #password="ngModel" [(ngModel)]="user.password" required (click)="corregirDatos()"/>
+		<div *ngIf="!password.valid && password.touched">La contraseña es necesaria</div>
+	</div>
+	<input type="submit" value="Enviar" class="btn btn-primary"/>
+	<!-- <button type="submit" class="btn btn-primary"/>Enviar</button> -->
+</form>

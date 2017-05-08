@@ -34,9 +34,10 @@ var AppComponent = (function () {
             this.menuUsuario();
             this.OnCuenta();
         }
-        else {
-            this.Onloguearse();
-        }
+        // else{
+        // 	// this.Onloguearse();
+        // 	this.logout();
+        // }
     };
     AppComponent.prototype.menuUsuario = function () {
         var _this = this;

@@ -52,6 +52,13 @@ class PersonaComision
      */
     private $sol;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="percom_comision", type="integer", nullable=true)
+     */
+    private $percomComision;
+
 
 
     /**
@@ -134,5 +141,29 @@ class PersonaComision
     public function getSol()
     {
         return $this->sol;
+    }
+
+    /**
+     * Set percomComision
+     *
+     * @param integer $percomComision
+     *
+     * @return PersonaComision
+     */
+    public function setPercomComision($percomComision)
+    {
+        $this->percomComision = $percomComision;
+
+        return $this;
+    }
+
+    /**
+     * Get percomComision
+     *
+     * @return integer
+     */
+    public function getPercomComision()
+    {
+        return $this->percomComision;
     }
 }
