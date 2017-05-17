@@ -1,0 +1,33 @@
+BackBundle\Entity\CalLibres:
+    type: entity
+    table: cal_libres
+    indexes:
+    id:
+        libId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: lib_id
+            generator:
+                strategy: SEQUENCE
+    fields:
+        libFecha:
+            type: string
+            nullable: true
+            length: 20
+            column: lib_fecha
+        libAnio:
+            type: smallint
+            nullable: true
+            options:
+                unsigned: false
+            column: lib_anio
+        libMes:
+            type: smallint
+            nullable: true
+            options:
+                unsigned: false
+            column: lib_mes
+    lifecycleCallbacks: {  }
