@@ -20,6 +20,9 @@ use BackBundle\Entity\TipoTransporte;
 use BackBundle\Entity\TransporteSolicitado;
 use BackBundle\Entity\Anexo;
 use BackBundle\Entity\CalLibres;
+use BackBundle\Entity\AutorizadoSolicitud;
+use BackBundle\Entity\Autorizacion;
+
 
 class SolicitudController extends Controller {
 	public function nuevoAction(Request $request) {
@@ -138,7 +141,6 @@ class SolicitudController extends Controller {
 						->getResult();
 
 						if(count($query_isset_solicitud) > 0){
-						// $data = $query_isset_solicitud;
 							$solicitud = new Solicitud();
 							$solicitud->setSolSecuencial($idsecuencial);
 							$solicitud->setSolIdsolicitud($numsol);
@@ -161,9 +163,6 @@ class SolicitudController extends Controller {
 							$em->persist($solicitud);
 							$em->flush();
 						}
-
-						// return $secuencialComision;
-
 						$personacomision = new PersonaComision();
 						$personacomision->setPer($isset_persona);
 						$personacomision->setSol($solicitud);
@@ -215,19 +214,12 @@ class SolicitudController extends Controller {
 										$em->persist($ciudad_solicitud);
 										$em->flush();
 
-										// $transportesolicitado1 = $em->getRepository('BackBundle:TransporteSolicitado')->findBy(
-										// 	array(
-										// 		"estsol" => $estado_solicitud
-										// 		)
-										// 	);
 										if($solotransporteSol != null){
-										// return $helpers->json(count($solotransporteSol));
 											$traruta_sol = Array();
 											$traruta_sol = explode(';', $solotransporteSol);
 											foreach ($traruta_sol as $existe_transporte) {
 												$isset_transporte = Array();
 												$isset_transporte = explode(',', $existe_transporte);
-
 												$Tiptramod = $isset_transporte[1];
 												$TrasolRutainicio = $isset_transporte[2];
 												$TrasolRutafin = $isset_transporte[3];
@@ -270,12 +262,53 @@ class SolicitudController extends Controller {
 													$em->flush();
 												}
 											}
+// Aqui va para enviar las solicitudes para las firmas
+					// if($isset_funsol->getPerNombrecompleto() === $isset_persona->getPerNombrecompleto()){
+					if($solicitud->getSolEstado() === "P"){
+
+						$cargoPer = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
+							array(
+								"per" => $isset_persona,
+								"carperEstado"=> "A"
+								)
+							);
+						$cargoPer1 = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
+							array(
+								"car" => $cargoPer->getCar()->getCarJefe(),
+								"carperEstado"=> "A"
+								)
+							);
+						$isset_autorizacion = $em->getRepository('BackBundle:Autorizacion')->findOneBy(
+							array(
+								"per" => $cargoPer1->getPer(),
+								"autEstado" => "A"
+								)
+							);
+						$isset_solicitud_jefe = $em->getRepository('BackBundle:AutorizadoSolicitud')->findBy(
+							array(
+								"estsol" => $estado_solicitud,
+								// "per" => $isset_autorizacion->getPer(),
+								"aut" => $isset_autorizacion
+								)
+							);
+						if(count($isset_solicitud_jefe) == 0){
+							$envio_firma_jefe = new AutorizadoSolicitud();
+							$envio_firma_jefe->setEstsol($estado_solicitud);
+							// $envio_firma_jefe->setPer($isset_autorizacion->getPer());
+							$envio_firma_jefe->setAut($isset_autorizacion);
+							$em->persist($envio_firma_jefe);
+							$em->flush();
+						}else{
+							$data = array(
+								"status" => "error",
+								"code" => 400,
+								"msg" => "Ya se encuentra enviada esta solicitud para la firma"
+								);
+						}
+					}
+//Fin enviar las solicitudes para las firmas
 											$data["status"] = "success";
 											$data["msg"] = "Solicitud creada satisfactoriamente";
-// Aqui va para enviar las solicitudes para las firmas
-
-//
-
 										}else {
 											$data = array(
 												"status" => "error",
@@ -717,7 +750,7 @@ class SolicitudController extends Controller {
 		}
 	}
 
-	public function enviarCorreoAction(Request $request) {
+	public function enviarCorreoSolJefeAction(Request $request) {
 		$helpers = $this->get("app.helpers");
 		$json = $request->get("json", null);
 		$params = json_decode($json);
@@ -727,30 +760,41 @@ class SolicitudController extends Controller {
 		if ($authCheck == true) {
 			$identity = $helpers->authCheck($hash, true);
 			if ($json != null) {
-				$mailto = (isset($params->mailto)) ? $params->mailto : null;
-				$mailfrom = (isset($params->mailfrom)) ? $params->mailfrom : null;
-				$mailheader = (isset($params->mailheader)) ? $params->mailheader: null;
-				$mailmsg = (isset($params->mailmsg)) ? $params->mailmsg : null;
-				$mailviatico = (isset($params->mailviatico)) ? $params->mailviatico : null;
+
+				$Idsolicitud = (isset($params->Idsolicitud)) ? $params->Idsolicitud : null;
+				// $fecha = $Fecha_sol;
+				$em = $this->getDoctrine()->getManager();
+
+				$isset_solicitud = $em->getRepository('BackBundle:Solicitud')->findOneBy(
+					array(
+						"solIdsolicitud" => $Idsolicitud
+						)
+					);
+				return $helpers->json($isset_solicitud);
 
 
 
-				// echo 'Enviando correo';
-				// $to = $mailto;
-				// $subject = "Nueva Solicitud de Viatico: ". $mailviatico;
-				// $txt = "Hola es un placer saludar desde el correo en pruebas!";
-				// $headers = "From: aquiotrocorreo@ejemplo.com" . "\r\n" .
-				// "CC: yaquiotrocorreocomocc@aprenderaprogramar.com";
-				// mail($to,$subject,$txt,$headers);
 
-				$helpers->correosol($mailviatico,$mailto,$mailfrom);
+
+				// $mailto = (isset($params->mailto)) ? $params->mailto : null;
+				// $mailfrom = (isset($params->mailfrom)) ? $params->mailfrom : null;
+				// $mailheader = (isset($params->mailheader)) ? $params->mailheader: null;
+				// $mailmsg = (isset($params->mailmsg)) ? $params->mailmsg : null;
+				// $mailviatico = (isset($params->mailviatico)) ? $params->mailviatico : null;
+
+
+
+				// // echo 'Enviando correo';
+				// // $to = $mailto;
+				// // $subject = "Nueva Solicitud de Viatico: ". $mailviatico;
+				// // $txt = "Hola es un placer saludar desde el correo en pruebas!";
+				// // $headers = "From: aquiotrocorreo@ejemplo.com" . "\r\n" .
+				// // "CC: yaquiotrocorreocomocc@aprenderaprogramar.com";
+				// // mail($to,$subject,$txt,$headers);
+
+				// $helpers->correosol($mailviatico,$mailto,$mailfrom);
 			}
 		}
-	}
-
-	public function VerificarDiasLibresAction(Request $request) {
-
-		
 	}
 
 

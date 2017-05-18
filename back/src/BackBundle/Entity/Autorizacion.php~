@@ -30,6 +30,13 @@ class Autorizacion
     private $autClave;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="aut_estado", type="string", length=1, nullable=true)
+     */
+    private $autEstado;
+
+    /**
      * @var \Persona
      *
      * @ORM\ManyToOne(targetEntity="Persona")
@@ -73,6 +80,30 @@ class Autorizacion
     public function getAutClave()
     {
         return $this->autClave;
+    }
+
+    /**
+     * Set autEstado
+     *
+     * @param string $autEstado
+     *
+     * @return Autorizacion
+     */
+    public function setAutEstado($autEstado)
+    {
+        $this->autEstado = $autEstado;
+
+        return $this;
+    }
+
+    /**
+     * Get autEstado
+     *
+     * @return string
+     */
+    public function getAutEstado()
+    {
+        return $this->autEstado;
     }
 
     /**

@@ -27,6 +27,13 @@ BackBundle\Entity\Autorizacion:
             options:
                 fixed: false
             column: aut_clave
+        autEstado:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: false
+            column: aut_estado
     manyToOne:
         per:
             targetEntity: Persona
