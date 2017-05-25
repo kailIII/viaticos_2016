@@ -264,48 +264,48 @@ class SolicitudController extends Controller {
 											}
 // Aqui va para enviar las solicitudes para las firmas
 					// if($isset_funsol->getPerNombrecompleto() === $isset_persona->getPerNombrecompleto()){
-					if($solicitud->getSolEstado() === "P"){
+											if($solicitud->getSolEstado() === "P"){
 
-						$cargoPer = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
-							array(
-								"per" => $isset_persona,
-								"carperEstado"=> "A"
-								)
-							);
-						$cargoPer1 = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
-							array(
-								"car" => $cargoPer->getCar()->getCarJefe(),
-								"carperEstado"=> "A"
-								)
-							);
-						$isset_autorizacion = $em->getRepository('BackBundle:Autorizacion')->findOneBy(
-							array(
-								"per" => $cargoPer1->getPer(),
-								"autEstado" => "A"
-								)
-							);
-						$isset_solicitud_jefe = $em->getRepository('BackBundle:AutorizadoSolicitud')->findBy(
-							array(
-								"estsol" => $estado_solicitud,
+												$cargoPer = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
+													array(
+														"per" => $isset_persona,
+														"carperEstado"=> "A"
+														)
+													);
+												$cargoPer1 = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
+													array(
+														"car" => $cargoPer->getCar()->getCarJefe(),
+														"carperEstado"=> "A"
+														)
+													);
+												$isset_autorizacion = $em->getRepository('BackBundle:Autorizacion')->findOneBy(
+													array(
+														"per" => $cargoPer1->getPer(),
+														"autEstado" => "A"
+														)
+													);
+												$isset_solicitud_jefe = $em->getRepository('BackBundle:AutorizadoSolicitud')->findBy(
+													array(
+														"estsol" => $estado_solicitud,
 								// "per" => $isset_autorizacion->getPer(),
-								"aut" => $isset_autorizacion
-								)
-							);
-						if(count($isset_solicitud_jefe) == 0){
-							$envio_firma_jefe = new AutorizadoSolicitud();
-							$envio_firma_jefe->setEstsol($estado_solicitud);
+														"aut" => $isset_autorizacion
+														)
+													);
+												if(count($isset_solicitud_jefe) == 0){
+													$envio_firma_jefe = new AutorizadoSolicitud();
+													$envio_firma_jefe->setEstsol($estado_solicitud);
 							// $envio_firma_jefe->setPer($isset_autorizacion->getPer());
-							$envio_firma_jefe->setAut($isset_autorizacion);
-							$em->persist($envio_firma_jefe);
-							$em->flush();
-						}else{
-							$data = array(
-								"status" => "error",
-								"code" => 400,
-								"msg" => "Ya se encuentra enviada esta solicitud para la firma"
-								);
-						}
-					}
+													$envio_firma_jefe->setAut($isset_autorizacion);
+													$em->persist($envio_firma_jefe);
+													$em->flush();
+												}else{
+													$data = array(
+														"status" => "error",
+														"code" => 400,
+														"msg" => "Ya se encuentra enviada esta solicitud para la firma"
+														);
+												}
+											}
 //Fin enviar las solicitudes para las firmas
 											$data["status"] = "success";
 											$data["msg"] = "Solicitud creada satisfactoriamente";
@@ -750,50 +750,57 @@ class SolicitudController extends Controller {
 		}
 	}
 
-	public function enviarCorreoSolJefeAction(Request $request) {
+	public function correojiAction(Request $request) {
 		$helpers = $this->get("app.helpers");
 		$json = $request->get("json", null);
 		$params = json_decode($json);
 		$hash = $request->get("authorization", null);
 		$authCheck = $helpers->authCheck($hash);
+
+
+		// $datos = array();
 		$data = array();
 		if ($authCheck == true) {
 			$identity = $helpers->authCheck($hash, true);
 			if ($json != null) {
+				$nombre = (isset($params->nombre)) ? $params->nombre : null;
+				$sendTo = (isset($params->sendTo)) ? $params->sendTo : null;
+				$email = (isset($params->email)) ? $params->email : null;
+				$subject = (isset($params->subject)) ? $params->subject : null;
+				$message = (isset($params->message)) ? $params->message : null;
 
-				$Idsolicitud = (isset($params->Idsolicitud)) ? $params->Idsolicitud : null;
-				// $fecha = $Fecha_sol;
-				$em = $this->getDoctrine()->getManager();
+				// return $helpers->json($json);
 
-				$isset_solicitud = $em->getRepository('BackBundle:Solicitud')->findOneBy(
-					array(
-						"solIdsolicitud" => $Idsolicitud
-						)
-					);
-				return $helpers->json($isset_solicitud);
+				$message = \Swift_Message::newInstance()
+				->setSubject($subject)
+				->setFrom($email)
+				->setTo($sendTo)
+				->setBody($message);
 
+				$this->get('mailer')->send($message);
 
-
-
-
-				// $mailto = (isset($params->mailto)) ? $params->mailto : null;
-				// $mailfrom = (isset($params->mailfrom)) ? $params->mailfrom : null;
-				// $mailheader = (isset($params->mailheader)) ? $params->mailheader: null;
-				// $mailmsg = (isset($params->mailmsg)) ? $params->mailmsg : null;
-				// $mailviatico = (isset($params->mailviatico)) ? $params->mailviatico : null;
+				// $datos = $helpers->json($json);
+				$data = $helpers->json($json);
 
 
+			return $this->render('Email/registration.html.twig', array('data' => $data)); 
+			// return $this->render('Email/registration.html.twig', $data); 
 
-				// // echo 'Enviando correo';
-				// // $to = $mailto;
-				// // $subject = "Nueva Solicitud de Viatico: ". $mailviatico;
-				// // $txt = "Hola es un placer saludar desde el correo en pruebas!";
-				// // $headers = "From: aquiotrocorreo@ejemplo.com" . "\r\n" .
-				// // "CC: yaquiotrocorreocomocc@aprenderaprogramar.com";
-				// // mail($to,$subject,$txt,$headers);
+			// return $this->render('Email/registration.html.twig', 
+			// 		$data = array(
+			// 			'nombre' => $nombre,
+			// 			'sendTo' => $sendTo,
+			// 			'email' => $email,
+			// 			'subject' => $subject,
+			// 			'message' => $message
+			// 			)
 
-				// $helpers->correosol($mailviatico,$mailto,$mailfrom);
+			// 	); 
+
 			}
+
+// // return $this->render('Email/registration.html.twig',
+// // 											$data["datos"] = $json);
 		}
 	}
 

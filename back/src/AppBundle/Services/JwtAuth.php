@@ -18,6 +18,7 @@ class JwtAuth {
 
     public function signup($email, $password, $getHash = NULL) {
         $key = $this->key;
+
         $user = $this->manager->getRepository('BackBundle:AccesoPersona')->findOneBy(
                 array(
                     "aperUsuario" => $email,
