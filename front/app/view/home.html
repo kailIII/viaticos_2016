@@ -39,7 +39,9 @@
 					{{identity.perNombre}}<br>
 					{{identity.perApellido}}
 					<br/>
-					<a (click)="logout()">Salir de sistema</a>
+					<a [routerLink]="['/cambiarclave']"><img src="assets/images/menubar/clave.png"/> Cambiar de clave</a>
+					<br/>
+					<a (click)="logout()"><img src="assets/images/menubar/salir.png"/> Salir de sistema</a>
 				</div>
 				<!-- <hr> -->
 			</div>

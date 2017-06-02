@@ -124,6 +124,8 @@ var NuevasolicitudComponent = (function () {
             'trahoraFin': "",
         };
         this.transporteSol = [];
+        // this.OnHoraFinicioTra();
+        // this.OnHoraFfinTra();
     };
     // openPdf() {
     // 	this.pdf = pdfMake;
@@ -387,19 +389,67 @@ var NuevasolicitudComponent = (function () {
         this.OnAgregarRuta();
     };
     NuevasolicitudComponent.prototype.OnAgregarRuta = function () {
-        this.transporteSol1 = {
-            'tratipo': document.getElementById("combo_tiptra").value,
-            'tramodelo': document.getElementById("combo_vehiculo").value,
-            'trarutaInicio': this.RinicioTrans,
-            'trarutaFin': this.RfinTrans,
-            'trafechaInicio': new Date(this.FinicioTrans).toLocaleDateString(),
-            'trafechaFin': new Date(this.FfinTrans).toLocaleDateString(),
-            'trahoraInicio': new Date(this.FinicioTrans).toLocaleTimeString(),
-            'trahoraFin': new Date(this.FfinTrans).toLocaleTimeString(),
-        };
-        this.transporteSol.push(this.transporteSol1);
-        // console.log("this.transporteSol:"+JSON.stringify(this.transporteSol));
+        if (this.RinicioTrans === undefined || this.RinicioTrans == "") {
+            this.RinicioTrans = "Cuenca-Azuay";
+            // rutInicio_trareq = document.createTextNode(this.RinicioTrans);
+        }
+        var rurFin_trareq;
+        if (this.RfinTrans === undefined || this.RfinTrans == "") {
+            this.RfinTrans = "Cuenca-Azuay";
+            // rurFin_trareq = document.createTextNode(this.RfinTrans);
+        }
+        // else{
+        // 	rurFin_trareq = document.createTextNode(this.RfinTrans);
+        // }
+        // this.ciudadestra = (this.comision.ciudades_sol).split('-');
+        if (this.transporteSol.length == 0 && this.RinicioTrans === "Quito-Pichincha" && document.getElementById("combo_tiptra").value === "Aereo") {
+            this.transporteSol1 = {
+                'tratipo': document.getElementById("combo_tiptra").value,
+                'tramodelo': document.getElementById("combo_vehiculo").value,
+                'trarutaInicio': "Tababela-Pichincha",
+                'trarutaFin': this.RfinTrans,
+                'trafechaInicio': new Date(this.FinicioTrans).toLocaleDateString(),
+                'trahoraInicio': new Date(this.FinicioTrans).toLocaleTimeString(),
+                'trafechaFin': new Date(this.FfinTrans).toLocaleDateString(),
+                'trahoraFin': new Date(this.FfinTrans).toLocaleTimeString()
+            };
+            this.transporteSolInicial = {
+                'tratipo': "Terrestre",
+                'tramodelo': "Institucional",
+                'trarutaInicio': "Quito-Pichincha",
+                'trarutaFin': "Tababela-Pichincha",
+                'trafechaInicio': this.comision.FechaDesde_sol,
+                'trahoraInicio': this.comision.HoraDesde_sol,
+                'trafechaFin': this.comision.FechaHasta_sol,
+                'trahoraFin': this.comision.HoraHasta_sol
+            };
+            this.transporteSol.push(this.transporteSolInicial);
+            this.transporteSol.push(this.transporteSol1);
+        }
+        else {
+            this.transporteSol1 = {
+                'tratipo': document.getElementById("combo_tiptra").value,
+                'tramodelo': document.getElementById("combo_vehiculo").value,
+                'trarutaInicio': this.RinicioTrans,
+                'trarutaFin': this.RfinTrans,
+                'trafechaInicio': this.FinicioTrans,
+                'trahoraInicio': this.HinicioTrans,
+                'trafechaFin': this.FfinTrans,
+                'trahoraFin': this.HfinTrans
+            };
+            this.transporteSol.push(this.transporteSol1);
+        }
     };
+    // OnHoraFfinTra(){
+    // 	$('#timeFinicioTrans').datetimepicker({
+    // 		language: 'pt-BR'
+    // 	});
+    // }
+    // OnHoraFinicioTra(){
+    // 	$('#timeFfinTrans').datetimepicker({
+    // 		language: 'pt-BR'
+    // 	});
+    // }
     NuevasolicitudComponent.prototype.OnEliminarTraReq = function () {
         var hilera = document.getElementById("TransporteReqDet");
         hilera.remove();

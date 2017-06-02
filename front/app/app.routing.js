@@ -10,6 +10,8 @@ var nuevasolicitud_component_1 = require("./components/nuevasolicitud.component"
 var login_component_1 = require("./components/login.component");
 var imprimirsolicitud_component_1 = require("./components/imprimirsolicitud.component");
 var versolicitud_component_1 = require("./components/versolicitud.component");
+var configuracion_component_1 = require("./components/configuracion.component");
+var cambiarclave_component_1 = require("./components/cambiarclave.component");
 // import { AppComponent }  from './app.component';
 // import {AppComponent} from "./app.component";
 var appRoutes = [
@@ -28,6 +30,8 @@ var appRoutes = [
     { path: "usuario", component: usuario_component_1.UsuarioComponent },
     { path: "imprimir_solicitud", component: imprimirsolicitud_component_1.ImprimirsolicitudComponent },
     { path: "versolicitud", component: versolicitud_component_1.VersolicitudComponent },
+    { path: "configuracion", component: configuracion_component_1.ConfiguracionComponent },
+    { path: "cambiarclave", component: cambiarclave_component_1.CambiarclaveComponent },
 ];
 exports.appRoutingProviders = [];
 exports.routing = router_1.RouterModule.forRoot(appRoutes);

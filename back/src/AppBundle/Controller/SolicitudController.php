@@ -756,51 +756,47 @@ class SolicitudController extends Controller {
 		$params = json_decode($json);
 		$hash = $request->get("authorization", null);
 		$authCheck = $helpers->authCheck($hash);
-
-
-		// $datos = array();
 		$data = array();
 		if ($authCheck == true) {
 			$identity = $helpers->authCheck($hash, true);
 			if ($json != null) {
-				$nombre = (isset($params->nombre)) ? $params->nombre : null;
 				$sendTo = (isset($params->sendTo)) ? $params->sendTo : null;
-				$email = (isset($params->email)) ? $params->email : null;
-				$subject = (isset($params->subject)) ? $params->subject : null;
+				// $email = (isset($params->email)) ? $params->email : null;
+				$subject = "Prueba de envio de correo electronico desde Sistema de Viaticos VPR";
 				$message = (isset($params->message)) ? $params->message : null;
 
-				// return $helpers->json($json);
+				$em = $this->getDoctrine()->getManager();
 
-				$message = \Swift_Message::newInstance()
-				->setSubject($subject)
-				->setFrom($email)
-				->setTo($sendTo)
-				->setBody($message);
+				$email = $this->getParameter('mailer_user');
+				$data['subject'] = $subject;
+				$data['message'] = $message;
 
-				$this->get('mailer')->send($message);
+				$sendTo1 = array();
+				$sendTo1 = explode(",", $sendTo);
+				foreach ($sendTo1 as $sendTo2) {
+					$isset_solicitud = $em->getRepository('BackBundle:Persona')->findOneBy(
+						array(
+							"perCorreoelectronico" => trim($sendTo2)
+							)
+						);
+					$data['nombre'] = $isset_solicitud->getPerNombrecompleto();
 
-				// $datos = $helpers->json($json);
-				$data = $helpers->json($json);
-
-
-			return $this->render('Email/registration.html.twig', array('data' => $data)); 
-			// return $this->render('Email/registration.html.twig', $data); 
-
-			// return $this->render('Email/registration.html.twig', 
-			// 		$data = array(
-			// 			'nombre' => $nombre,
-			// 			'sendTo' => $sendTo,
-			// 			'email' => $email,
-			// 			'subject' => $subject,
-			// 			'message' => $message
-			// 			)
-
-			// 	); 
-
+					$message = \Swift_Message::newInstance()
+					->setSubject($subject)
+					->setFrom($email)
+					->setTo(trim($sendTo2))
+				// ->setBody($message);
+					->setBody(
+						$this->renderView(
+							'Email/registration.html.twig',
+							array('data' => $data)
+							),
+						'text/html'
+						);
+					$this->get('mailer')->send($message);
+				}
+				return $helpers->json("Correo enviado");
 			}
-
-// // return $this->render('Email/registration.html.twig',
-// // 											$data["datos"] = $json);
 		}
 	}
 

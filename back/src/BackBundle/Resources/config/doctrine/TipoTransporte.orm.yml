@@ -37,4 +37,11 @@ BackBundle\Entity\TipoTransporte:
             options:
                 fixed: true
             column: tiptra_sigla
+        tiptraEstado:
+            type: string
+            nullable: true
+            length: 4
+            options:
+                fixed: true
+            column: tiptra_estado
     lifecycleCallbacks: {  }

@@ -28,7 +28,8 @@ class TransporteController extends Controller {
 				$em = $this->getDoctrine()->getManager();
 				$isset_tritra = $em->getRepository('BackBundle:TipoTransporte')->findBy(
 					array(
-						"tiptraTipo" => $tritra
+						"tiptraTipo" => $tritra,
+						"tiptraEstado" => "A"
 						)
 					);
 				if(count($isset_tritra) != 0){

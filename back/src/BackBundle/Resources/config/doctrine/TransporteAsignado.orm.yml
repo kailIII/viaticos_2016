@@ -5,9 +5,6 @@ BackBundle\Entity\TransporteAsignado:
         sol_traasi_fk:
             columns:
                 - estsol_id
-        tsolext_traasi_fk:
-            columns:
-                - trasol_id2
         vps_traasi_fk:
             columns:
                 - vps_id
@@ -80,6 +77,12 @@ BackBundle\Entity\TransporteAsignado:
             options:
                 fixed: false
             column: traasi_observacion
+        traasiReactivado:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: traasi_reactivado
     manyToOne:
         estsol:
             targetEntity: EstadoSolicitud
@@ -100,16 +103,6 @@ BackBundle\Entity\TransporteAsignado:
             joinColumns:
                 tiptra_id:
                     referencedColumnName: tiptra_id
-            orphanRemoval: false
-        trasol2:
-            targetEntity: TransporteSolicitadoextra
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                trasol_id2:
-                    referencedColumnName: trasol_id2
             orphanRemoval: false
         vps:
             targetEntity: VehiculoPersonaComision

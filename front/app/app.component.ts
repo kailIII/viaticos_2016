@@ -30,6 +30,7 @@ export class AppComponent implements OnInit{
 	public contador;
 	public salida;
 	public info15;
+	public cambio;
 	@Output() progress: EventEmitter<any> = new EventEmitter();
 
 	constructor(
@@ -52,10 +53,6 @@ export class AppComponent implements OnInit{
 			this.menuUsuario();
 			this.OnCuenta();
 		}
-		// else{
-		// 	// this.Onloguearse();
-		// 	this.logout();
-		// }
 	}
 
 	menuUsuario(){
@@ -72,120 +69,136 @@ export class AppComponent implements OnInit{
 					if(this.info.length <=0){
 						alert("Error en el servidor 5");
 					}else{ 	
-						// if(!this.info.status){
-							this.datoMenu = "";
-							var length = this.info.length;
-							for (var i = 0; i < length; i++) {
-								this.datoMenuIteracion = JSON.stringify(this.info[i].mod);
-								if(this.datoMenu == ""){
-									this.datoMenu = this.datoMenuIteracion;
-								}else{
-									this.datoMenu = this.datoMenu+","+this.datoMenuIteracion;
-								}
-							};  
-							this.datoMenuMostrar = JSON.parse("["+this.datoMenu+"]");  
-							return this.datoMenuMostrar;
-
-							// }
-						}
-					},error => {
-						window.location.reload();
-					});
+						this.datoMenu = "";
+						var length = this.info.length;
+						for (var i = 0; i < length; i++) {
+							this.datoMenuIteracion = JSON.stringify(this.info[i].mod);
+							if(this.datoMenu == ""){
+								this.datoMenu = this.datoMenuIteracion;
+							}else{
+								this.datoMenu = this.datoMenu+","+this.datoMenuIteracion;
+							}
+						};  
+						this.datoMenuMostrar = JSON.parse("["+this.datoMenu+"]");  
+						return this.datoMenuMostrar;
+					}
+				},error => {
+					window.location.reload();
+				});
 		}else{
 			alert("Su sesión ha expirado, por favor ingrese nuevamente sus credenciales");
 			this.logout();
 		}
 	}
 
-	Onloguearse(){
+	// Onloguearse(){
 
-		if(!this._loginService.checkCredentials(this._loginService.getToken())){
-			this._loginService.signup(this.user).subscribe(
-				response => {
-					let identity = response;
-					this.identity = identity;
-					if(this.identity.length <= 1){
-						alert("Error en el servidor 4");
-					}else{ 	
-						if(!this.identity.status){
-							localStorage.setItem('identity', JSON.stringify(identity));
-							// sessionStorage.setItem('identity', JSON.stringify(identity));
-							this.user.gethash = "true";
-							this._loginService.signup(this.user).subscribe(
-								response => {
-									let token = response;
-									this.token = token;
-									if(this.token.length <= 0){
-										alert("Error en el servidor 3");
-									}else{
-										if(!this.token.status){
-											localStorage.setItem('token',token);
-											// sessionStorage.setItem('token',token);
-											if(this._loginService.checkCredentials(this._loginService.getToken())){
-												// this._router.navigate(['/principal']);
-												// window.location.href='/principal';
-												// this.funcionario = {
-												// 	'fun_id': this.identity.sub
-												// };
-												// this._solicitudService.jefeSolicitud(this.token,this.funcionario).subscribe(
-												// 	response => {
-												// 		let info = response;
-												// 		this.info15 = info;
-												// 		if(this.info15 > 0){
-												// 			localStorage.setItem('je', "S");
-												// 		}else{
-												// 			localStorage.setItem('je', "N");
-												// 		}
-														// if(this._loginService.checkCredentials(this._loginService.getToken())){
-															// this._router.navigate(['/principal']);
-															window.location.href='/principal';
+	// 	if(!this._loginService.checkCredentials(this._loginService.getToken())){
+	// 		this._loginService.signup(this.user).subscribe(
+	// 			response => {
+	// 				let identity = response;
+	// 				this.identity = identity;
+	// 				if(this.identity.length <= 1){
+	// 					alert("Error en el servidor 4");
+	// 				}else{ 	
+	// 					if(!this.identity.status){
+	// 						localStorage.setItem('identity', JSON.stringify(identity));
+	// 						this.user.gethash = "true";
+	// 						this._loginService.signup(this.user).subscribe(
+	// 							response => {
+	// 								let token = response;
+	// 								this.token = token;
+	// 								if(this.token.length <= 0){
+	// 									alert("Error en el servidor 3");
+	// 								}else{
+	// 									if(!this.token.status){
+	// 										localStorage.setItem('token',token);
+	// 										if(this._loginService.checkCredentials(this._loginService.getToken())){
+	// 											// this._router.navigate(['/principal']);
+	// 											// window.location.href='/principal';
+	// 											// this.funcionario = {
+	// 												// 	'fun_id': this.identity.sub
+	// 												// };
+	// 												// this._solicitudService.jefeSolicitud(this.token,this.funcionario).subscribe(
+	// 												// 	response => {
+	// 													// 		let info = response;
+	// 													// 		this.info15 = info;
+	// 													// 		if(this.info15 > 0){
+	// 														// 			localStorage.setItem('je', "S");
+	// 														// 		}else{
+	// 															// 			localStorage.setItem('je', "N");
+	// 															// 		}
+	// 															// if(this._loginService.checkCredentials(this._loginService.getToken())){
+	// 																// this._router.navigate(['/principal']);
+	// 														// 		this._loginService.forzarcambio(this.user).subscribe(
+	// 														// 			response => {
+	// 														// 				let cambio = response;
+	// 														// 				this.cambio = cambio;
+
+	// 														// 				if(this.cambio.aperCambioclave == 1){
+	// 														// 	window.location.href='/principal';
+	// 														// }else{
+	// 														// 	window.location.href='/principal';
+	// 														// 	this._router.navigate(['/cambiarclave']);
+	// 														// }
 
 
-															// else{
-																// 	this.mostrarmenufirma = 0;
-															// 	// }
-															// },error => {
-															// 	this.errorMessage = <any>error;
-															// 	if(this.errorMessage != null){
-															// 		console.log(this.errorMessage);
-															// 		alert("Error en la peticion de solicitudes");
-															// 	}
-															// });
-											}else{
-												// this._router.navigate(['/']);
-												window.location.href='/';
-												this.logout();
-											}
-										}else{
-											// this._router.navigate(['/']);
-											window.location.href='/';
-											this.logout();
-										}
-									}
-								// }
-							},
-							error =>{
-								this.errorMessage = <any>error;
-								if(this.errorMessage != null){
-									console.log(this.errorMessage);
-									alert("Error en la petición 2");
-									this.logout();
-								}
-							}
-							);
-						}
-					}
-				},
-				error => {
-					this.errorMessage = <any>error;
-					if(this.errorMessage != null){
-						console.log(this.errorMessage);
-						alert("Error en al iniciar Apache");
-					}
-				}
-				);
-		}
-	}
+
+	// 																		window.location.href='/principal';
+
+
+	// 																		// else{
+	// 																			// 	this.mostrarmenufirma = 0;
+	// 																			// 	// }
+	// 																			// },error => {
+	// 																				// 	this.errorMessage = <any>error;
+	// 																				// 	if(this.errorMessage != null){
+	// 																					// 		console.log(this.errorMessage);
+	// 																					// 		alert("Error en la peticion de solicitudes");
+	// 																					// 	}
+	// 																					// });
+
+	// 																				// },
+	// 																				// error => {
+	// 																				// 	this.errorMessage = <any>error;
+	// 																				// 	if(this.errorMessage != null){
+	// 																				// 		console.log(this.errorMessage);
+	// 																				// 		alert("Error en al iniciar Apache");
+	// 																				// 	}
+	// 																				// }
+	// 																				// );
+	// 															}else{
+	// 																window.location.href='/';
+	// 																this.logout();
+	// 															}
+	// 														}else{
+	// 															window.location.href='/';
+	// 															this.logout();
+	// 														}
+	// 													}
+	// 												},
+	// 												error =>{
+	// 													this.errorMessage = <any>error;
+	// 													if(this.errorMessage != null){
+	// 														console.log(this.errorMessage);
+	// 														alert("Error en la petición 2");
+	// 														this.logout();
+	// 													}
+	// 												}
+	// 												);
+	// 					}
+	// 				}
+	// 			},
+	// 			error => {
+	// 				this.errorMessage = <any>error;
+	// 				if(this.errorMessage != null){
+	// 					console.log(this.errorMessage);
+	// 					alert("Error en al iniciar Apache");
+	// 				}
+	// 			}
+	// 			);
+	// 	}
+	// }
 
 	logout() {
 		this.salida = true;
@@ -203,7 +216,6 @@ export class AppComponent implements OnInit{
 	}
 
 	Oncuentaregresiva(){
-		// var fechasesioninicio = this._loginService.identity.iat;
 		var fechasesionfin = this._loginService.identity.exp;
 
 		var hoyini=new Date(new Date().toLocaleString("en-US")).getTime();
@@ -227,13 +239,13 @@ export class AppComponent implements OnInit{
 			if(horas > 0){
 				this.contador =/*'Restan ' + dias + ' D&iacute;as, ' +*/ horas + ' Hora, ' + minutos + ' Minutos, ' + segundos + ' Segundos'
 			}else if(minutos > 0){
-				this.contador =/*'Restan ' + dias + ' D&iacute;as, ' + horas + ' Hora, ' +*/ minutos + ' Minutos, ' + segundos + ' Segundos'
+				this.contador = minutos + ' Minutos, ' + segundos + ' Segundos'
 			}else if(segundos > 1){
-				this.contador =/*'Restan ' + dias + ' D&iacute;as, ' + horas + ' Hora, ' + minutos + ' Minutos, ' +*/ segundos + ' Segundos'
+				this.contador = segundos + ' Segundos'
 			}else if(segundos == 1){
-				this.contador =/*'Restan ' + dias + ' D&iacute;as, ' + horas + ' Hora, ' + minutos + ' Minutos, ' +*/ segundos + ' Segundo'
+				this.contador = segundos + ' Segundo'
 			}else{
-				this.contador =/*'Restan ' + dias + ' D&iacute;as, ' + horas + ' Hora, ' + minutos + ' Minutos, ' +*/ segundos + ' Segundos'
+				this.contador = segundos + ' Segundos'
 			}
 
 			this.progress.emit(diferencia);
@@ -249,4 +261,3 @@ export class AppComponent implements OnInit{
 		setInterval(() => this.Oncuentaregresiva(), 1000);
 	}
 }
-// }

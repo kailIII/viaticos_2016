@@ -41,3 +41,7 @@ app_transporte:
 app_buscar:
   resource: "@AppBundle/Resources/config/routing/buscar.yml"
   prefix: /buscar
+
+app_clave:
+  resource: "@AppBundle/Resources/config/routing/clave.yml"
+  prefix: /clave

@@ -1,0 +1,5 @@
+clave_cambiar:
+    path:   /cambiar
+    defaults: { _controller: "AppBundle:Clave:cambiar"}
+    methods:  POST
+    

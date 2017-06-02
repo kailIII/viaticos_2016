@@ -86,6 +86,13 @@ class TransporteAsignado
     private $traasiObservacion;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="traasi_reactivado", type="integer", nullable=true)
+     */
+    private $traasiReactivado;
+
+    /**
      * @var \EstadoSolicitud
      *
      * @ORM\ManyToOne(targetEntity="EstadoSolicitud")
@@ -104,16 +111,6 @@ class TransporteAsignado
      * })
      */
     private $tiptra;
-
-    /**
-     * @var \TransporteSolicitadoextra
-     *
-     * @ORM\ManyToOne(targetEntity="TransporteSolicitadoextra")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="trasol_id2", referencedColumnName="trasol_id2")
-     * })
-     */
-    private $trasol2;
 
     /**
      * @var \VehiculoPersonaComision
@@ -354,6 +351,30 @@ class TransporteAsignado
     }
 
     /**
+     * Set traasiReactivado
+     *
+     * @param integer $traasiReactivado
+     *
+     * @return TransporteAsignado
+     */
+    public function setTraasiReactivado($traasiReactivado)
+    {
+        $this->traasiReactivado = $traasiReactivado;
+
+        return $this;
+    }
+
+    /**
+     * Get traasiReactivado
+     *
+     * @return integer
+     */
+    public function getTraasiReactivado()
+    {
+        return $this->traasiReactivado;
+    }
+
+    /**
      * Set estsol
      *
      * @param \BackBundle\Entity\EstadoSolicitud $estsol
@@ -399,30 +420,6 @@ class TransporteAsignado
     public function getTiptra()
     {
         return $this->tiptra;
-    }
-
-    /**
-     * Set trasol2
-     *
-     * @param \BackBundle\Entity\TransporteSolicitadoextra $trasol2
-     *
-     * @return TransporteAsignado
-     */
-    public function setTrasol2(\BackBundle\Entity\TransporteSolicitadoextra $trasol2 = null)
-    {
-        $this->trasol2 = $trasol2;
-
-        return $this;
-    }
-
-    /**
-     * Get trasol2
-     *
-     * @return \BackBundle\Entity\TransporteSolicitadoextra
-     */
-    public function getTrasol2()
-    {
-        return $this->trasol2;
     }
 
     /**

@@ -17,7 +17,7 @@
 			<div class="td2">
 				<td>Fecha Solicitud:</td>
 				<td>
-				<input type="date" [(ngModel)]="Fecha_sol" [ngModelOptions]="{standalone: true}">
+					<input type="date" [(ngModel)]="Fecha_sol" [ngModelOptions]="{standalone: true}">
 					<!-- <p-calendar [showIcon]="true" [locale]="es" [(ngModel)]="Fecha_sol" [ngModelOptions]="{standalone: true}" dateFormat="dd/mm/yy"></p-calendar> -->
 				</td>
 			</div>
@@ -29,23 +29,23 @@
 					<tr>
 						<td class="td2">Fecha Inicio:</td>
 						<td class="td2">
-						<input type="date" [(ngModel)]="FechaDesde_solicitud" [ngModelOptions]="{standalone: true}">
+							<input type="date" [(ngModel)]="FechaDesde_solicitud" [ngModelOptions]="{standalone: true}">
 							<!-- <p-calendar [style]="{'width':'auto'}" [showIcon]="true" [locale]="es" [(ngModel)]="FechaDesde_solicitud" [ngModelOptions]="{standalone: true}" dateFormat="yy-mm-dd"></p-calendar>  -->
 						</td>
 						<td class="td2">Hora Inicio:</td>
 						<td class="td2">
-						<input type="time" [(ngModel)]="HoraDesde_sol" [ngModelOptions]="{standalone: true}">
+							<input type="time" [(ngModel)]="HoraDesde_sol" [ngModelOptions]="{standalone: true}">
 							<!-- <p-calendar [style]="{'width':'auto'}" [(ngModel)]="HoraDesde_sol" [timeOnly]="true" hourFormat="24" [ngModelOptions]="{standalone: true}"></p-calendar> -->
 						</td>
 						<td>-</td> 
 						<td class="td2">Fecha Fin:</td>
 						<td class="td2">
-						<input type="date" [(ngModel)]="FechaHasta_solicitud" [ngModelOptions]="{standalone: true}">
+							<input type="date" [(ngModel)]="FechaHasta_solicitud" [ngModelOptions]="{standalone: true}">
 							<!-- <p-calendar [style]="{'width':'auto'}" [showIcon]="true" [locale]="es" [(ngModel)]="FechaHasta_solicitud" [ngModelOptions]="{standalone: true}" dateFormat="yy-mm-dd"></p-calendar> -->
 						</td>
 						<td class="td2">Hora Fin:</td>
 						<td class="td2">
-						<input type="time" [(ngModel)]="HoraHasta_sol" [ngModelOptions]="{standalone: true}">
+							<input type="time" [(ngModel)]="HoraHasta_sol" [ngModelOptions]="{standalone: true}">
 							<!-- <p-calendar [style]="{'width':'auto'}" [(ngModel)]="HoraHasta_sol" [timeOnly]="true" hourFormat="24" [ngModelOptions]="{standalone: true}"></p-calendar> -->
 						</td>
 					</tr>
@@ -172,9 +172,13 @@
 						</th>
 						<th style="width: 10%">Fecha Inicio
 						</th>
+						<th style="width: 7%">Hora Inicio
+						</th>
 						<th style="width: 10%">Fecha Fin
 						</th>
-						<th style="width: 10%">Agregar Ruta
+						<th style="width: 7%">Hora Fin
+						</th>
+						<th style="width: 6%">Agregar Ruta
 						</th>
 					</tr>
 				</thead>
@@ -209,12 +213,43 @@
 								</div>
 							</p-dropdown>
 						</td>
-						<td style="width: 22.50%">
-							<p-calendar [style]="{'width':'100%'}" [showIcon]="true" [locale]="es" [showTime]="true" [(ngModel)]="FinicioTrans" [ngModelOptions]="{standalone: true}"></p-calendar>
+						<td>
+							
+						<input type="date" [(ngModel)]="FinicioTrans" [ngModelOptions]="{standalone: true}">
 						</td>
-						<td style="width: 22.50%">
-							<p-calendar [style]="{'width':'100%'}" [showIcon]="true" [locale]="es" [showTime]="true"  [(ngModel)]="FfinTrans" [ngModelOptions]="{standalone: true}"></p-calendar>
+						<td>
+							
+						<input type="time" [(ngModel)]="HinicioTrans" [ngModelOptions]="{standalone: true}">
 						</td>
+						<td>
+							
+						<input type="date" [(ngModel)]="FfinTrans" [ngModelOptions]="{standalone: true}">
+						</td>
+						<td>
+							
+						<input type="time" [(ngModel)]="HfinTrans" [ngModelOptions]="{standalone: true}">
+						</td>
+						<!-- <td style="width: 22.50%">
+							<!-- <div id="timeFinicioTrans" class="input-append date">
+							 <input data-format="dd/MM/yyyy hh:mm:ss" type="text">
+								 <span class="add-on">
+									<i data-time-icon="icon-time" data-date-icon="icon-calendar">
+									</i>
+								</span> 
+							</div> -->
+							<!-- <p-calendar [style]="{'width':'100%'}" [showIcon]="true" [showTime]="true" [timeZone]="gtm-5" [(ngModel)]="FinicioTrans" [ngModelOptions]="{standalone: true}"></p-calendar> -->
+							<!-- <input type="datetime" icon="data-time-icon"> -->
+						<!--</td> 
+						<td style="width: 22.50%"> -->
+							<!-- <div id="timeFfinTrans" class="input-append date">
+							<!-- <input data-format="dd/MM/yyyy hh:mm:ss" type="text"></input>
+								<span class="add-on">
+									<i data-time-icon="icon-time" data-date-icon="icon-calendar">
+									</i>
+								</span>
+							</div> -->
+							<!-- <p-calendar [style]="{'width':'100%'}" [showIcon]="true" [locale]="es" [showTime]="true" [timeZone]="gtm-5" [(ngModel)]="FfinTrans" [ngModelOptions]="{standalone: true}"></p-calendar> -->
+						<!-- </td> -->
 						<td  style="width: 10%">
 							<a class="btn btn-success btn-xs glyphicon glyphicon-plus" (click)="OnAgregarTraReq()">
 							</a>
@@ -223,32 +258,32 @@
 				</tbody>
 			</table>
 			<div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none; text-align: right;">
-		<i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-		<input #gb1 type="text" pInputText size="25" placeholder="Buscar">
-	</div>
-	<p-dataTable id="tbody_trareq_dialog" [value]="transporteSol" [rows]="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [globalFilter]="gb1">
-		<p-column [style]="{'width':'11.25%'}" field="tratipo" header="Tipo" [ordered]="true" [sortable]="false" ></p-column>
-		<p-column [style]="{'width':'11.25%'}" field="tramodelo" dateformat="yyyy-MM-dd" header="Modelo"  [sortable]="false"></p-column>
-		<p-column  [style]="{'width':'11.25%'}" field="trarutaInicio" header="Ruta Inicio" [sortable]="false"></p-column>
-		<p-column [style]="{'width':'11.25%'}" field="trarutaFin" header="Ruta Fin" [sortable]="false"></p-column>
-		<p-column [style]="{'width':'11.25%'}" field="trafechaInicio" header="Fecha Inicio" [sortable]="false"></p-column>
-		<p-column [style]="{'width':'11.25%'}" field="trafechaFin" header="Fecha Fin" [sortable]="false"></p-column>
-		<p-column [style]="{'width':'11.25%'}" field="trahoraInicio" header="Hora Inicio" [sortable]="false"></p-column>
-		<p-column [style]="{'width':'11.25%'}" field="trahoraFin" header="Hora Fin" [sortable]="false"></p-column>
+				<i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+				<input #gb1 type="text" pInputText size="25" placeholder="Buscar">
+			</div>
+			<p-dataTable id="tbody_trareq_dialog" [value]="transporteSol" [rows]="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [globalFilter]="gb1">
+				<p-column [style]="{'width':'11.25%'}" field="tratipo" header="Tipo" [ordered]="true" [sortable]="false" ></p-column>
+				<p-column [style]="{'width':'11.25%'}" field="tramodelo" dateformat="yyyy-MM-dd" header="Modelo"  [sortable]="false"></p-column>
+				<p-column  [style]="{'width':'11.25%'}" field="trarutaInicio" header="Ruta Inicio" [sortable]="false"></p-column>
+				<p-column [style]="{'width':'11.25%'}" field="trarutaFin" header="Ruta Fin" [sortable]="false"></p-column>
+				<p-column [style]="{'width':'11.25%'}" field="trafechaInicio" header="Fecha Inicio" [sortable]="false"></p-column>
+				<p-column [style]="{'width':'11.25%'}" field="trafechaFin" header="Fecha Fin" [sortable]="false"></p-column>
+				<p-column [style]="{'width':'11.25%'}" field="trahoraInicio" header="Hora Inicio" [sortable]="false"></p-column>
+				<p-column [style]="{'width':'11.25%'}" field="trahoraFin" header="Hora Fin" [sortable]="false"></p-column>
 
 
 
 
 
 
-		<p-column [style]="{'width':'10%'}" styleClass="col-button" header="Eliminar">
-			<template let-car="rowData" pTemplate="body">
-				<!-- <button type="button" pButton (click)="findSelectedCarIndex(car)" icon="fa-eye" data-toggle="tooltip" data-placement="bottom" title="Index"></button> -->
-				<button type="button" pButton (click)="delete(car)" icon="fa-pencil" data-toggle="tooltip" data-placement="bottom" title="Ver"></button>
-			</template>
-		</p-column>
-	</p-dataTable>
-	
+				<p-column [style]="{'width':'10%'}" styleClass="col-button" header="Eliminar">
+					<template let-car="rowData" pTemplate="body">
+						<!-- <button type="button" pButton (click)="findSelectedCarIndex(car)" icon="fa-eye" data-toggle="tooltip" data-placement="bottom" title="Index"></button> -->
+						<button type="button" pButton (click)="delete(car)" icon="fa-trash" data-toggle="tooltip" data-placement="bottom" title="Eliminar"></button>
+					</template>
+				</p-column>
+			</p-dataTable>
+
 
 
 			<!-- <table *ngIf="mostrar_trareq === true">
@@ -287,9 +322,9 @@
 			<div>
 				<p><ins>Ingresar los fondos asignados</ins></p>
 				<label>Cantidad del fondo asignado:</label>
-					<input type="text" id="fonvalor" name="fonvalor" [(ngModel)]="fondovalor"/>
+				<input type="text" id="fonvalor" name="fonvalor" [(ngModel)]="fondovalor"/>
 				<label>Descripción del fondo asignado:</label>
-					<input type="text" id="fondes" name="fondes" [(ngModel)]="fondoobservacion"/>
+				<input type="text" id="fondes" name="fondes" [(ngModel)]="fondoobservacion"/>
 			</div>
 			<div>
 				<p><ins>Adjuntar archivos</ins></p>

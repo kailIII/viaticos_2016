@@ -43,6 +43,13 @@ class TipoTransporte
      */
     private $tiptraSigla;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tiptra_estado", type="string", length=1, nullable=true)
+     */
+    private $tiptraEstado;
+
 
 
     /**
@@ -125,5 +132,31 @@ class TipoTransporte
     public function getTiptraSigla()
     {
         return $this->tiptraSigla;
+    }
+
+    
+    /**
+     * Set tiptraEstado
+     *
+     * @param string $tiptraEstado
+     *
+     * @return TipoTransporte
+     */
+
+    public function setTiptraEstado($tiptraEstado)
+    {
+        $this->tiptraEstado = $tiptraEstado;
+
+        return $this;
+    }
+
+    /**
+     * Get tiptraEstado
+     *
+     * @return string
+     */
+    public function getTiptraEstado()
+    {
+        return $this->tiptraEstado;
     }
 }

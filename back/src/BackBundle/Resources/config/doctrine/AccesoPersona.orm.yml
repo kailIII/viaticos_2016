@@ -28,6 +28,13 @@ BackBundle\Entity\AccesoPersona:
             options:
                 fixed: false
             column: aper_clave
+        aperCambioclave:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: false
+            column: aper_cambioclave
     manyToOne:
         per:
             targetEntity: Persona

@@ -25,6 +25,8 @@ export class LoginComponent implements OnInit {
 	public datoMenuMostrar: Array<any>;
 	public validaridentity;
 	public info15;
+	public cambio;
+	public paracambiar;
 
 	constructor(
 		private _loginService: LoginService,
@@ -40,6 +42,7 @@ export class LoginComponent implements OnInit {
 			'password': "",
 			'gethash': "false"
 		};
+		// this.paracambiar = "A";
 	}
 	onSubmit(){
 		this._loginService.signup(this.user).subscribe(
@@ -63,36 +66,68 @@ export class LoginComponent implements OnInit {
 									if(!this.token.status){
 										localStorage.setItem('token',token);
 										// sessionStorage.setItem('token',token);
-										 if(this._loginService.checkCredentials(this._loginService.getToken())){
+										if(this._loginService.checkCredentials(this._loginService.getToken())){
 											// this._router.navigate(['/principal']);
 
 											this.funcionario = {
-													'fun_id': this.identity.sub
-												};
-												this._solicitudService.jefeSolicitud(this.token,this.funcionario).subscribe(
-													response => {
-														let info = response;
-														this.info15 = info;
-														if(this.info15 > 0){
-															localStorage.setItem('je', "S");
-															// this.je="S";
-														}else{
-															localStorage.setItem('je', "N");
-															// this.je="N";
-														}
-											window.location.href='/principal';
-											},error => {
-																this.errorMessage = <any>error;
-																if(this.errorMessage != null){
-																	console.log(this.errorMessage);
-																	alert("Error en la peticion de solicitudes");
-																}
-															});
+												'fun_id': this.identity.sub
+											};
+											this._solicitudService.jefeSolicitud(this.token,this.funcionario).subscribe(
+												response => {
+													let info = response;
+													this.info15 = info;
+													if(this.info15 > 0){
+														localStorage.setItem('je', "S");
+														// this.je="S";
+													}else{
+														localStorage.setItem('je', "N");
+														// this.je="N";
+													}
+													// this._loginService.forzarcambio(this.user).subscribe(
+													// 	response => {
+													// 		let cambio = response;
+													// 		this.cambio = cambio;
 
-										 }else{
-										 	// this._router.navigate(['/']);
-										 	window.location.href='/';
-										 }
+													// 		// console.log(this.cambio.aperCambioclave);
+
+													// 		if(this.cambio.aperCambioclave === "A"){
+																window.location.href='/principal';
+														// 	}else{
+														// 		// this.paracambiar = "C"
+														// 		window.location.href='/principal';
+														// 		this._router.navigate(['/cambiarclave']);
+														// 	}
+
+
+
+
+														// 	// window.location.href='/principal';
+
+
+														// },
+														// error => {
+														// 	this.errorMessage = <any>error;
+														// 	if(this.errorMessage != null){
+														// 		console.log(this.errorMessage);
+														// 		alert("Error en al iniciar Apache");
+														// 	}
+														// }
+														// );
+
+
+
+												},error => {
+													this.errorMessage = <any>error;
+													if(this.errorMessage != null){
+														console.log(this.errorMessage);
+														alert("Error en la peticion de solicitudes");
+													}
+												});
+
+										}else{
+											// this._router.navigate(['/']);
+											window.location.href='/';
+										}
 									}
 								}
 							},
@@ -123,56 +158,56 @@ export class LoginComponent implements OnInit {
 		this.errorMsg = false;
 	}
 	// menuUsuario(idpersona:any){
-	// 	// this.identity = this._loginService.getIdentity();
-	// 	let json_identity = JSON.stringify(idpersona);
-	// 	if(json_identity !== "null"){
-	// 		this.funcionario = {
-	// 			'id_fun': this.identity.sub
-	// 		};
-	// 		this._loginService.menuUsuario(this.funcionario).subscribe(
-	// 			response => {
-	// 				let info = response;
-	// 				this.info = info;
-	// 				if(this.info.length <=0){
-	// 					alert("Error en el servidor 5");
-	// 				}else{ 	
-	// 					if(!this.info.status){
-	// 						this.datoMenu = "";
-	// 						var length = this.info.length;
-	// 						for (var i = 0; i < length; i++) {
-	// 							this.datoMenuIteracion = JSON.stringify(this.info[i].mod);
-	// 							if(this.datoMenu == ""){
-	// 								this.datoMenu = this.datoMenuIteracion;
-	// 							}else{
-	// 								this.datoMenu = this.datoMenu+","+this.datoMenuIteracion;
-	// 							}
-	// 						};  
-	// 						this.datoMenuMostrar = JSON.parse("["+this.datoMenu+"]");  
-	// 						return this.datoMenuMostrar;
-	// 					}
-	// 				}
-	// 			},error => {
-	// 				this.errorMessage = <any>error;
+		// 	// this.identity = this._loginService.getIdentity();
+		// 	let json_identity = JSON.stringify(idpersona);
+		// 	if(json_identity !== "null"){
+			// 		this.funcionario = {
+				// 			'id_fun': this.identity.sub
+				// 		};
+				// 		this._loginService.menuUsuario(this.funcionario).subscribe(
+				// 			response => {
+					// 				let info = response;
+					// 				this.info = info;
+					// 				if(this.info.length <=0){
+						// 					alert("Error en el servidor 5");
+						// 				}else{ 	
+							// 					if(!this.info.status){
+								// 						this.datoMenu = "";
+								// 						var length = this.info.length;
+								// 						for (var i = 0; i < length; i++) {
+									// 							this.datoMenuIteracion = JSON.stringify(this.info[i].mod);
+									// 							if(this.datoMenu == ""){
+										// 								this.datoMenu = this.datoMenuIteracion;
+										// 							}else{
+											// 								this.datoMenu = this.datoMenu+","+this.datoMenuIteracion;
+											// 							}
+											// 						};  
+											// 						this.datoMenuMostrar = JSON.parse("["+this.datoMenu+"]");  
+											// 						return this.datoMenuMostrar;
+											// 					}
+											// 				}
+											// 			},error => {
+												// 				this.errorMessage = <any>error;
 
-	// 				if(this.errorMessage != null){
-	// 					console.log(this.errorMessage);
-	// 					alert("Error en la peticion de OnMenu")
-	// 				}
-	// 			});
-	// 	}
-	// }
-	// logout() {
-	// 	//      		this._route.params.subscribe(params => {
-	// 		// let logout = +params["id"];
-	// 		// if(logout == 1){
-	// 			localStorage.removeItem('identity');
-	// 			localStorage.removeItem('token');
-	// 			sessionStorage.removeItem('identity');
-	// 			sessionStorage.removeItem('token');
-	// 			this.identity = null;
-	// 			this.token = null;
-	// 			this._router.navigate(['']);
-	// 			// 	// }
-	// 			// });
-	// 		}
-}
+												// 				if(this.errorMessage != null){
+													// 					console.log(this.errorMessage);
+													// 					alert("Error en la peticion de OnMenu")
+													// 				}
+													// 			});
+													// 	}
+													// }
+													// logout() {
+														// 	//      		this._route.params.subscribe(params => {
+															// 		// let logout = +params["id"];
+															// 		// if(logout == 1){
+																// 			localStorage.removeItem('identity');
+																// 			localStorage.removeItem('token');
+																// 			sessionStorage.removeItem('identity');
+																// 			sessionStorage.removeItem('token');
+																// 			this.identity = null;
+																// 			this.token = null;
+																// 			this._router.navigate(['']);
+																// 			// 	// }
+																// 			// });
+																// 		}
+															}

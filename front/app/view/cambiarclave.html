@@ -1,0 +1,27 @@
+{{titulo}}
+
+<!-- <div *ngIf = "paracambiar === C"> -->
+	<p>
+		Por favor cambie su clave para el ingreso al sistema
+	</p>
+<!-- </div> -->
+
+<p>
+	<label>
+		<p>Clave anterior</p>
+	</label>
+	<input type="text" id="antpass" name="antpass" #antpass="ngModel" [(ngModel)]="cla.antpass" required autocomplete="off">
+</p>
+<p>
+	<label>
+		<p>Clave nueva</p>
+	</label>
+	<input type="text" id="newpass" name="newpass" #newpass="ngModel" [(ngModel)]="cla.newpass" required autocomplete="off">
+</p>
+<p>
+	<label>
+		<p>Repetrir clave anterior</p>
+	</label>
+	<input type="text" id="renewpass" name="renewpass" #renewpass="ngModel" [(ngModel)]="cla.renewpass" required autocomplete="off">
+</p>
+<button (click)="GuardarCambioClave()">Guardar Cambio Clave</button>

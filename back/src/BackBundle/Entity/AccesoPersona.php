@@ -29,6 +29,13 @@ class AccesoPersona
     private $aperClave;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="aper_cambioclave", type="string", length=1, nullable=true)
+     */
+    private $aperCambioclave;
+
+    /**
      * @var \Persona
      *
      * @ORM\ManyToOne(targetEntity="Persona")
@@ -84,6 +91,30 @@ class AccesoPersona
     public function getAperClave()
     {
         return $this->aperClave;
+    }
+
+    /**
+     * Set aperCambioclave
+     *
+     * @param string $aperCambioclave
+     *
+     * @return AccesoPersona
+     */
+    public function setAperCambioclave($aperCambioclave)
+    {
+        $this->aperCambioclave = $aperCambioclave;
+
+        return $this;
+    }
+
+    /**
+     * Get aperCambioclave
+     *
+     * @return string
+     */
+    public function getAperCambioclave()
+    {
+        return $this->aperCambioclave;
     }
 
     /**

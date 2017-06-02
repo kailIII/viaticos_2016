@@ -27,6 +27,7 @@ var LoginComponent = (function () {
             'password': "",
             'gethash': "false"
         };
+        // this.paracambiar = "A";
     };
     LoginComponent.prototype.onSubmit = function () {
         var _this = this;
@@ -67,7 +68,28 @@ var LoginComponent = (function () {
                                             localStorage.setItem('je', "N");
                                             // this.je="N";
                                         }
+                                        // this._loginService.forzarcambio(this.user).subscribe(
+                                        // 	response => {
+                                        // 		let cambio = response;
+                                        // 		this.cambio = cambio;
+                                        // 		// console.log(this.cambio.aperCambioclave);
+                                        // 		if(this.cambio.aperCambioclave === "A"){
                                         window.location.href = '/principal';
+                                        // 	}else{
+                                        // 		// this.paracambiar = "C"
+                                        // 		window.location.href='/principal';
+                                        // 		this._router.navigate(['/cambiarclave']);
+                                        // 	}
+                                        // 	// window.location.href='/principal';
+                                        // },
+                                        // error => {
+                                        // 	this.errorMessage = <any>error;
+                                        // 	if(this.errorMessage != null){
+                                        // 		console.log(this.errorMessage);
+                                        // 		alert("Error en al iniciar Apache");
+                                        // 	}
+                                        // }
+                                        // );
                                     }, function (error) {
                                         _this.errorMessage = error;
                                         if (_this.errorMessage != null) {

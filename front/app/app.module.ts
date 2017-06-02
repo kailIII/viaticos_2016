@@ -13,6 +13,8 @@ import {UsuarioComponent} from "./components/usuario.component";
 import { AppComponent }  from './app.component';
 import {ImprimirsolicitudComponent} from "./components/imprimirsolicitud.component";
 import {VersolicitudComponent} from "./components/versolicitud.component";
+import {ConfiguracionComponent} from "./components/configuracion.component";
+import {CambiarclaveComponent} from "./components/cambiarclave.component";
 
 import { routing, appRoutingProviders } from './app.routing';
 import {EditorModule, SharedModule, MultiSelectModule,CalendarModule, DropdownModule,TabViewModule,DataTableModule, PanelModule} from 'primeng/primeng';
@@ -21,6 +23,7 @@ import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { DatePipe } from './pipes/formatDate.pipe';
 import {ModalModule} from "ng2-modal";
 import {FileUploadModule } from 'ng2-file-upload';
+
 
 @NgModule({
   imports:      [ 
@@ -52,7 +55,9 @@ import {FileUploadModule } from 'ng2-file-upload';
               PdfViewerComponent,
               ImprimirsolicitudComponent,
               DatePipe,
-              VersolicitudComponent
+              VersolicitudComponent,
+              ConfiguracionComponent,
+              CambiarclaveComponent
   ],
   providers:    [ appRoutingProviders],
   bootstrap:    [ AppComponent ],

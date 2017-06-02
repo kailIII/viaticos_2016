@@ -93,6 +93,13 @@ var LoginService = (function () {
         return this._http.post(this.url + "/persona/ver", params, { headers: headers })
             .map(function (res) { return res.json(); });
     };
+    LoginService.prototype.forzarcambio = function (user_to_view) {
+        var json = JSON.stringify(user_to_view);
+        var params = "json=" + json + "&authorization=" + this.getToken();
+        var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+        return this._http.post(this.url + "/forzarcambio", params, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
     return LoginService;
 }());
 LoginService = __decorate([

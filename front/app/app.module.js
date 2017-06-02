@@ -20,6 +20,8 @@ var usuario_component_1 = require("./components/usuario.component");
 var app_component_1 = require("./app.component");
 var imprimirsolicitud_component_1 = require("./components/imprimirsolicitud.component");
 var versolicitud_component_1 = require("./components/versolicitud.component");
+var configuracion_component_1 = require("./components/configuracion.component");
+var cambiarclave_component_1 = require("./components/cambiarclave.component");
 var app_routing_1 = require("./app.routing");
 var primeng_1 = require("primeng/primeng");
 var common_1 = require("@angular/common");
@@ -63,7 +65,9 @@ AppModule = __decorate([
             ng2_pdf_viewer_1.PdfViewerComponent,
             imprimirsolicitud_component_1.ImprimirsolicitudComponent,
             formatDate_pipe_1.DatePipe,
-            versolicitud_component_1.VersolicitudComponent
+            versolicitud_component_1.VersolicitudComponent,
+            configuracion_component_1.ConfiguracionComponent,
+            cambiarclave_component_1.CambiarclaveComponent
         ],
         providers: [app_routing_1.appRoutingProviders],
         bootstrap: [app_component_1.AppComponent],

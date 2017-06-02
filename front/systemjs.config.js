@@ -34,7 +34,8 @@
       'ng2-modal': 'npm:ng2-modal',
       'ng2-file-upload': 'npm:ng2-file-upload',
       'ng2-bootstrap': 'npm:ng2-bootstrap',
-      // 'pdfmake': 'npm:pdfmake',
+      // 'crypto-js': 'npm:crypto-js',
+      'js-sha256': 'npm:js-sha256',
       // 'emailjs': 'npm:emailjs',
       // 'angular2-modal': 'npm:angular2-modal',
       'jquery':'npm:jquery'/*,
@@ -80,10 +81,14 @@
         main: 'ng2-file-upload.js',
         defaultExtension: 'js'
       },
-      // 'pdfmake': { 
-      //   main: 'webpack.config.js', 
+      // 'crypto-js': { 
+      //   main: 'crypto-js.js', 
       //   defaultExtension: 'js' 
       // },
+      'js-sha256': { 
+        main: 'src/sha256.js', 
+        defaultExtension: 'js' 
+      },
       // 'emailjs': {
       //   main: 'email',
       //   defaultExtension: 'js'

@@ -10,6 +10,8 @@ import {NuevasolicitudComponent} from "./components/nuevasolicitud.component";
 import {LoginComponent} from "./components/login.component";
 import {ImprimirsolicitudComponent} from "./components/imprimirsolicitud.component";
 import {VersolicitudComponent} from "./components/versolicitud.component";
+import {ConfiguracionComponent} from "./components/configuracion.component";
+import {CambiarclaveComponent} from "./components/cambiarclave.component";
 // import { AppComponent }  from './app.component';
 
 // import {AppComponent} from "./app.component";
@@ -30,6 +32,8 @@ const appRoutes: Routes = [
 	{path: "usuario", component: UsuarioComponent},
 	{path: "imprimir_solicitud", component: ImprimirsolicitudComponent},
 	{path: "versolicitud", component: VersolicitudComponent},
+	{path: "configuracion", component: ConfiguracionComponent},
+	{path: "cambiarclave", component: CambiarclaveComponent},
 
 	// {path: "crear-restaurante", component: RestauranteAddComponent},
 	// {path: "editar-restaurante/:id", component: RestauranteEditComponent},

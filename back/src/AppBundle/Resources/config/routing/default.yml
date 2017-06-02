@@ -12,3 +12,8 @@ default_pruebas:
     path:   /revisar
     defaults: { _controller: "AppBundle:Default:revisar"}
     methods:  POST
+
+default_forzarcambio:
+    path:   /forzarcambio
+    defaults: { _controller: "AppBundle:Default:forzarcambio"}
+    methods:  POST

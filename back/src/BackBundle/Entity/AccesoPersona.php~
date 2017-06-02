@@ -29,6 +29,13 @@ class AccesoPersona
     private $aperClave;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="aper_cambioclave", type="string", length=1, nullable=true)
+     */
+    private $aperCambioclave;
+
+    /**
      * @var \Persona
      *
      * @ORM\ManyToOne(targetEntity="Persona")
