@@ -104,12 +104,16 @@
        defaultExtension: 'js'
      },*/
      'moment':{
-       format: 'cjs'
+       main: 'moment.js', 
+       type: 'cjs',
+       defaultExtension: 'js'
+       // format: 'cjs'
+
      },
-      'jquery': { 
-        main: 'dist/jquery.js',
-        defaultExtension: 'js' 
-      }
-   }
- });
+     'jquery': { 
+      main: 'dist/jquery.js',
+      defaultExtension: 'js' 
+    }
+  }
+});
 })(this);

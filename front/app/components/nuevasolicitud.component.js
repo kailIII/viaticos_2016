@@ -15,6 +15,7 @@ var transporte_service_1 = require("../services/transporte.service");
 var solicitud_service_1 = require("../services/solicitud.service");
 var login_service_1 = require("../services/login.service");
 var ng2_file_upload_1 = require("ng2-file-upload/ng2-file-upload");
+var moment = require('moment');
 var URLupload = 'file://localhost:3000/pdfSol1/';
 var NuevasolicitudComponent = (function () {
     // filesToUpload: Array<File>;
@@ -295,6 +296,8 @@ var NuevasolicitudComponent = (function () {
         }
         // console.log("this.comision:"+JSON.stringify(this.comision));
         this.inicial = true;
+        // alert(this.FechaHasta_solicitud+"T"+this.HoraHasta_sol);
+        // alert((Date.parse(this.FechaHasta_solicitud+"T"+this.HoraHasta_sol)));
     };
     NuevasolicitudComponent.prototype.Onpaso3 = function () {
         // console.log("this.comision:"+JSON.stringify(this.comision));
@@ -389,42 +392,88 @@ var NuevasolicitudComponent = (function () {
         this.OnAgregarRuta();
     };
     NuevasolicitudComponent.prototype.OnAgregarRuta = function () {
+        this.nuevahorainicio = moment(this.comision.FechaDesde_sol + " " + this.comision.HoraDesde_sol);
+        this.nuevafechainicio = (this.nuevahorainicio.add(1, "hour")).format('YYYY-MM-DD/HH:mm');
+        this.nuevafechainicio1 = (this.nuevafechainicio).split("/");
+        this.nuevahorafin = moment(this.FfinTrans + " " + this.HfinTrans);
+        this.nuevafechafin = (this.nuevahorafin.add(1, "hour")).format('YYYY-MM-DD/HH:mm');
+        // this.nuevafechafin = (this.nuevahorafin.subtract(1,"hour")).format('YYYY-MM-DD/HH:mm');
+        this.nuevafechafin1 = (this.nuevafechafin).split("/");
+        // alert(this.nuevafecha);
+        // console.log(this.nuevafechafin1[0]);
+        // console.log(this.nuevafechafin1[1]);
         if (this.RinicioTrans === undefined || this.RinicioTrans == "") {
             this.RinicioTrans = "Cuenca-Azuay";
-            // rutInicio_trareq = document.createTextNode(this.RinicioTrans);
         }
         var rurFin_trareq;
         if (this.RfinTrans === undefined || this.RfinTrans == "") {
             this.RfinTrans = "Cuenca-Azuay";
-            // rurFin_trareq = document.createTextNode(this.RfinTrans);
         }
-        // else{
-        // 	rurFin_trareq = document.createTextNode(this.RfinTrans);
-        // }
-        // this.ciudadestra = (this.comision.ciudades_sol).split('-');
         if (this.transporteSol.length == 0 && this.RinicioTrans === "Quito-Pichincha" && document.getElementById("combo_tiptra").value === "Aereo") {
             this.transporteSol1 = {
                 'tratipo': document.getElementById("combo_tiptra").value,
                 'tramodelo': document.getElementById("combo_vehiculo").value,
                 'trarutaInicio': "Tababela-Pichincha",
                 'trarutaFin': this.RfinTrans,
-                'trafechaInicio': new Date(this.FinicioTrans).toLocaleDateString(),
-                'trahoraInicio': new Date(this.FinicioTrans).toLocaleTimeString(),
-                'trafechaFin': new Date(this.FfinTrans).toLocaleDateString(),
-                'trahoraFin': new Date(this.FfinTrans).toLocaleTimeString()
+                // 'trafechaInicio': new Date(this.FinicioTrans).toLocaleDateString(),
+                // 'trahoraInicio': new Date(this.FinicioTrans).toLocaleTimeString(),
+                // 'trafechaFin': new Date(this.FfinTrans).toLocaleDateString(),
+                // 'trahoraFin': new Date(this.FfinTrans).toLocaleTimeString()
+                'trafechaInicio': this.FinicioTrans,
+                'trahoraInicio': this.HinicioTrans,
+                'trafechaFin': this.FfinTrans,
+                'trahoraFin': this.HfinTrans
             };
             this.transporteSolInicial = {
                 'tratipo': "Terrestre",
                 'tramodelo': "Institucional",
                 'trarutaInicio': "Quito-Pichincha",
                 'trarutaFin': "Tababela-Pichincha",
+                // 'trafechaInicio': this.comision.FechaDesde_sol,
+                // 'trahoraInicio': this.comision.HoraDesde_sol,
+                // 'trafechaFin': this.comision.FechaHasta_sol,
+                // 'trahoraFin': this.comision.HoraHasta_sol
                 'trafechaInicio': this.comision.FechaDesde_sol,
                 'trahoraInicio': this.comision.HoraDesde_sol,
-                'trafechaFin': this.comision.FechaHasta_sol,
-                'trahoraFin': this.comision.HoraHasta_sol
+                'trafechaFin': this.nuevafechainicio1[0],
+                'trahoraFin': this.nuevafechainicio1[1]
             };
             this.transporteSol.push(this.transporteSolInicial);
             this.transporteSol.push(this.transporteSol1);
+        }
+        else if (this.transporteSol.length > 0 && this.RfinTrans === "Quito-Pichincha" && document.getElementById("combo_tiptra").value === "Aereo") {
+            this.transporteSol1 = {
+                'tratipo': document.getElementById("combo_tiptra").value,
+                'tramodelo': document.getElementById("combo_vehiculo").value,
+                'trarutaInicio': this.RinicioTrans,
+                'trarutaFin': "Tababela-Pichincha",
+                // 'trafechaInicio': new Date(this.FinicioTrans).toLocaleDateString(),
+                // 'trahoraInicio': new Date(this.FinicioTrans).toLocaleTimeString(),
+                // 'trafechaFin': new Date(this.FfinTrans).toLocaleDateString(),
+                // 'trahoraFin': new Date(this.FfinTrans).toLocaleTimeString()
+                'trafechaInicio': this.FinicioTrans,
+                'trahoraInicio': this.HinicioTrans,
+                'trafechaFin': this.FfinTrans,
+                'trahoraFin': this.HfinTrans
+            };
+            this.transporteSolInicial = {
+                'tratipo': "Terrestre",
+                'tramodelo': "Institucional",
+                'trarutaInicio': "Tababela-Pichincha",
+                'trarutaFin': "Quito-Pichincha",
+                // 'trafechaInicio': this.comision.FechaDesde_sol,
+                // 'trahoraInicio': this.comision.HoraDesde_sol,
+                // 'trafechaFin': this.comision.FechaHasta_sol,
+                // 'trahoraFin': this.comision.HoraHasta_sol
+                'trafechaInicio': this.FfinTrans,
+                'trahoraInicio': this.HfinTrans,
+                'trafechaFin': this.nuevafechafin1[0],
+                'trahoraFin': this.nuevafechafin1[1]
+            };
+            this.transporteSol.push(this.transporteSol1);
+            this.transporteSol.push(this.transporteSolInicial);
+            this.comision.FechaHasta_sol = this.nuevafechafin1[0];
+            this.comision.HoraHasta_sol = this.nuevafechafin1[1];
         }
         else {
             this.transporteSol1 = {
@@ -440,16 +489,6 @@ var NuevasolicitudComponent = (function () {
             this.transporteSol.push(this.transporteSol1);
         }
     };
-    // OnHoraFfinTra(){
-    // 	$('#timeFinicioTrans').datetimepicker({
-    // 		language: 'pt-BR'
-    // 	});
-    // }
-    // OnHoraFinicioTra(){
-    // 	$('#timeFfinTrans').datetimepicker({
-    // 		language: 'pt-BR'
-    // 	});
-    // }
     NuevasolicitudComponent.prototype.OnEliminarTraReq = function () {
         var hilera = document.getElementById("TransporteReqDet");
         hilera.remove();
