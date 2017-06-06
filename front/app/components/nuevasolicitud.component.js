@@ -114,6 +114,12 @@ var NuevasolicitudComponent = (function () {
             'aneodescripcion': "",
             'anexoruta': ""
         };
+        this.datoscorreo = {
+            'sendTo': ""
+        };
+        this.datosfun = {
+            'nombre': this._loginService.getIdentity().perNombre + " " + this._loginService.getIdentity().perApellido
+        };
         this.transporteSol1 = {
             'tratipo': "",
             'tramodelo': "",
@@ -267,6 +273,13 @@ var NuevasolicitudComponent = (function () {
         // };
     };
     NuevasolicitudComponent.prototype.Onpaso2 = function () {
+        console.log(this.Fecha_sol);
+        console.log(this.FechaDesde_solicitud);
+        console.log(this.HoraDesde_sol);
+        console.log(this.FechaHasta_solicitud);
+        console.log(this.HoraHasta_sol);
+        console.log("this.comision:" + JSON.stringify(this.comision));
+        // if(this.FechaDesde_solicitud == "undefined" || this.HoraDesde_sol == undefined || this.FechaHasta_solicitud == undefined || this.HoraHasta_sol == undefined){
         this.comision.Fecha_sol = this.Fecha_sol;
         this.comision.FechaDesde_sol = this.FechaDesde_solicitud;
         this.comision.HoraDesde_sol = this.HoraDesde_sol;
@@ -298,9 +311,31 @@ var NuevasolicitudComponent = (function () {
         this.inicial = true;
         // alert(this.FechaHasta_solicitud+"T"+this.HoraHasta_sol);
         // alert((Date.parse(this.FechaHasta_solicitud+"T"+this.HoraHasta_sol)));
+        // }else{
+        // 	// if(this.comision.Fecha_sol == ""){
+        // 	// 	alert("Por favor ingrese la fecha de la solicitud");
+        // 	// 	(<HTMLInputElement>document.getElementById("Fecha_sol")).focus;
+        // 	// }
+        // 	if(this.FechaDesde_solicitud == "undefined"){
+        // 		alert("Por favor ingrese la fecha de salida de la comisión");
+        // 		(<HTMLInputElement>document.getElementById("FechaDesde_solicitud")).focus;
+        // 	}
+        // 	if(this.HoraDesde_sol == undefined){
+        // 		alert("Por favor ingrese la hora de salida de la comisión");
+        // 		(<HTMLInputElement>document.getElementById("HoraDesde_sol")).focus;
+        // 	}
+        // 	if(this.FechaHasta_solicitud == undefined){
+        // 		alert("Por favor ingrese la fecha de regreso de la comisión");
+        // 		(<HTMLInputElement>document.getElementById("FechaHasta_solicitud")).focus;
+        // 	}
+        // 	if(this.HoraHasta_sol == undefined){
+        // 		alert("Por favor ingrese la hora de regreso de la comisión");
+        // 		(<HTMLInputElement>document.getElementById("HoraHasta_sol")).focus;
+        // 	}
+        // }
     };
     NuevasolicitudComponent.prototype.Onpaso3 = function () {
-        // console.log("this.comision:"+JSON.stringify(this.comision));
+        console.log("this.comision:" + JSON.stringify(this.comision));
         this.paso2 = true;
     };
     NuevasolicitudComponent.prototype.Onpaso4 = function () {
@@ -619,19 +654,52 @@ var NuevasolicitudComponent = (function () {
         // console.log("this.fondoobservacion:"+JSON.stringify(this.fondoobservacion));
         // console.log("this.comision.fondovalor:"+JSON.stringify(this.comision.fondovalor));
         // console.log("this.comision.fondoobservacion:"+JSON.stringify(this.comision.fondoobservacion));
-        // console.log("this.comision:"+JSON.stringify(this.comision));
         var _this = this;
+        // console.log("this.comision:"+JSON.stringify(this.comision));
+        // this.datoscorreo = {
+        // 	'sendTo': this.datosfun.nombre+","+this.comision.funcionarios_sol
+        // 	// 'sendTo': this.comision.funcionarios_sol
+        // };
+        // console.log("this.datoscorreo:"+JSON.stringify(this.datoscorreo));
+        this.Onpaso5();
         var token = this._loginService.getToken();
         this._SolicitudService.AddSolicitud(token, this.comision).subscribe(function (response) {
             var guardar = response;
             _this.guardar = guardar;
             if (_this.guardar.status === "success") {
-                // alert("La solicitud ha sido creada satisfactoriamente");
-                alert(_this.guardar.msg);
-                window.location.href = '/solicitud';
+                _this.OnEnviarCorreoAfuncionarios(_this.comision.funcionarios_sol);
             }
             else {
                 alert(_this.guardar.msg);
+            }
+        }, function (error) {
+            _this.errorMessage = error;
+            if (_this.errorMessage != null) {
+                console.log(_this.errorMessage);
+                alert("Error al guardar datos");
+            }
+        });
+    };
+    NuevasolicitudComponent.prototype.OnEnviarCorreoAfuncionarios = function (a) {
+        var _this = this;
+        var token = this._loginService.getToken();
+        this.datoscorreo = {
+            'sendTo': this.datosfun.nombre + "," + a
+            // 'sendTo': this.comision.funcionarios_sol
+        };
+        console.log("this.datoscorreo:" + JSON.stringify(this.datoscorreo));
+        this._SolicitudService.enviar1Solicitud(token, this.datoscorreo).subscribe(function (response) {
+            var guardar1 = response;
+            _this.guardar1 = guardar1;
+            console.log("this.guardar1:" + JSON.stringify(_this.guardar1));
+            if (_this.guardar1 === "Correo enviado") {
+                console.log("Información guardada satisfactoriamente");
+                alert(_this.guardar.msg);
+                // window.location.href='/solicitud';
+                _this._router.navigate(['/solicitud']);
+            }
+            else {
+                alert("No se pudo enviar el correo electrónico");
             }
             // this._router.navigate(['/solicitud']);
             // }

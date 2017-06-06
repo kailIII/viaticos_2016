@@ -761,9 +761,13 @@ class SolicitudController extends Controller {
 			$identity = $helpers->authCheck($hash, true);
 			if ($json != null) {
 				$sendTo = (isset($params->sendTo)) ? $params->sendTo : null;
+				$solicitud = (isset($params->solicitud)) ? $params->solicitud : null;
 				// $email = (isset($params->email)) ? $params->email : null;
-				$subject = "Prueba de envio de correo electronico desde Sistema de Viaticos VPR";
-				$message = (isset($params->message)) ? $params->message : null;
+				$subject = "Notificación Sistema de Viaticos VPR";
+				// $message = (isset($params->message)) ? $params->message : null;
+				$message = "";
+				
+				// return $helpers->json($sendTo);
 
 				$em = $this->getDoctrine()->getManager();
 
@@ -771,20 +775,52 @@ class SolicitudController extends Controller {
 				$data['subject'] = $subject;
 				$data['message'] = $message;
 
+				// foreach ($sendToNombre as $sendToNombre1) {
+				// 	$nombre = $em->getRepository('BackBundle:Persona')->findOneBy(
+				// 		array(
+				// 			"perNombrecompleto" => trim($sendToNombre1)
+				// 			)
+				// 		);
+				// 	return $helpers->json($nombre);
+				// 	if($sendTo = ""){
+				// 		$sendTo = $nombre->getPerNombrecompleto();
+				// 	}else{
+				// 		$sendTo = $sendTo.",".$nombre->getPerNombrecompleto();
+				// 	}
+				// }
+
+				// return $sendTo;
+
 				$sendTo1 = array();
 				$sendTo1 = explode(",", $sendTo);
 				foreach ($sendTo1 as $sendTo2) {
-					$isset_solicitud = $em->getRepository('BackBundle:Persona')->findOneBy(
+					$isset_persona = $em->getRepository('BackBundle:Persona')->findOneBy(
 						array(
-							"perCorreoelectronico" => trim($sendTo2)
+							"perNombrecompleto" => trim($sendTo2)
+							// "perCorreoelectronico" => trim($sendTo2)
+
 							)
 						);
-					$data['nombre'] = $isset_solicitud->getPerNombrecompleto();
+					$isset_solicitud = $em->getRepository('BackBundle:Solicitud')->findOneBy(
+						array(
+							"per" => $isset_persona
+							// "perCorreoelectronico" => trim($sendTo2)
+
+							), array('solId' => 'DESC'),1
+						);
+					// $data['nombre'] = $isset_solicitud->getPerNombrecompleto();
+
+					// return $helpers->json($isset_solicitud);
+					$data['nombre'] = trim($sendTo2);
+					$data['solicitud'] = $isset_solicitud->getSolIdsolicitud();
+
 
 					$message = \Swift_Message::newInstance()
 					->setSubject($subject)
 					->setFrom($email)
-					->setTo(trim($sendTo2))
+					->setTo(trim($isset_persona->getPerCorreoelectronico()))
+					// ->setTo(trim($sendTo2))
+
 				// ->setBody($message);
 					->setBody(
 						$this->renderView(

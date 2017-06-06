@@ -2,9 +2,6 @@
 	<div class="collapse navbar-collapse">
 		<ul class="nav navbar-nav">
 			<button (click)="OnbotonAtras()">Atrás</button>
-			<div>
-				<button (click)="openPdf()">Open PDF</button>
-			</div>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			<p>Módulo actual: <span>{{titulo}}</span></p>
@@ -17,8 +14,7 @@
 			<div class="td2">
 				<td>Fecha Solicitud:</td>
 				<td>
-					<input type="date" [(ngModel)]="Fecha_sol" [ngModelOptions]="{standalone: true}">
-					<!-- <p-calendar [showIcon]="true" [locale]="es" [(ngModel)]="Fecha_sol" [ngModelOptions]="{standalone: true}" dateFormat="dd/mm/yy"></p-calendar> -->
+					<input type="date" id="Fecha_sol" [(ngModel)]="Fecha_sol" [ngModelOptions]="{standalone: true}">
 				</td>
 			</div>
 			<table id="mytable" class="table2">
@@ -29,24 +25,20 @@
 					<tr>
 						<td class="td2">Fecha Inicio:</td>
 						<td class="td2">
-							<input type="date" [(ngModel)]="FechaDesde_solicitud" [ngModelOptions]="{standalone: true}">
-							<!-- <p-calendar [style]="{'width':'auto'}" [showIcon]="true" [locale]="es" [(ngModel)]="FechaDesde_solicitud" [ngModelOptions]="{standalone: true}" dateFormat="yy-mm-dd"></p-calendar>  -->
+							<input type="date" id="FechaDesde_solicitud" [(ngModel)]="FechaDesde_solicitud" [ngModelOptions]="{standalone: true}">
 						</td>
 						<td class="td2">Hora Inicio:</td>
 						<td class="td2">
-							<input type="time" [(ngModel)]="HoraDesde_sol" [ngModelOptions]="{standalone: true}">
-							<!-- <p-calendar [style]="{'width':'auto'}" [(ngModel)]="HoraDesde_sol" [timeOnly]="true" hourFormat="24" [ngModelOptions]="{standalone: true}"></p-calendar> -->
+							<input type="time" id="HoraDesde_sol" [(ngModel)]="HoraDesde_sol" [ngModelOptions]="{standalone: true}">
 						</td>
 						<td>-</td> 
 						<td class="td2">Fecha Fin:</td>
 						<td class="td2">
-							<input type="date" [(ngModel)]="FechaHasta_solicitud" [ngModelOptions]="{standalone: true}">
-							<!-- <p-calendar [style]="{'width':'auto'}" [showIcon]="true" [locale]="es" [(ngModel)]="FechaHasta_solicitud" [ngModelOptions]="{standalone: true}" dateFormat="yy-mm-dd"></p-calendar> -->
+							<input type="date" id="FechaHasta_solicitud" [(ngModel)]="FechaHasta_solicitud" [ngModelOptions]="{standalone: true}">
 						</td>
 						<td class="td2">Hora Fin:</td>
 						<td class="td2">
-							<input type="time" [(ngModel)]="HoraHasta_sol" [ngModelOptions]="{standalone: true}">
-							<!-- <p-calendar [style]="{'width':'auto'}" [(ngModel)]="HoraHasta_sol" [timeOnly]="true" hourFormat="24" [ngModelOptions]="{standalone: true}"></p-calendar> -->
+							<input type="time" id="HoraHasta_sol" [(ngModel)]="HoraHasta_sol" [ngModelOptions]="{standalone: true}">
 						</td>
 					</tr>
 				</tbody>
@@ -215,41 +207,20 @@
 						</td>
 						<td>
 							
-						<input type="date" [(ngModel)]="FinicioTrans" [ngModelOptions]="{standalone: true}">
+							<input type="date" [(ngModel)]="FinicioTrans" [ngModelOptions]="{standalone: true}">
 						</td>
 						<td>
 							
-						<input type="time" [(ngModel)]="HinicioTrans" [ngModelOptions]="{standalone: true}">
+							<input type="time" [(ngModel)]="HinicioTrans" [ngModelOptions]="{standalone: true}">
 						</td>
 						<td>
 							
-						<input type="date" [(ngModel)]="FfinTrans" [ngModelOptions]="{standalone: true}">
+							<input type="date" [(ngModel)]="FfinTrans" [ngModelOptions]="{standalone: true}">
 						</td>
 						<td>
 							
-						<input type="time" [(ngModel)]="HfinTrans" [ngModelOptions]="{standalone: true}">
+							<input type="time" [(ngModel)]="HfinTrans" [ngModelOptions]="{standalone: true}">
 						</td>
-						<!-- <td style="width: 22.50%">
-							<!-- <div id="timeFinicioTrans" class="input-append date">
-							 <input data-format="dd/MM/yyyy hh:mm:ss" type="text">
-								 <span class="add-on">
-									<i data-time-icon="icon-time" data-date-icon="icon-calendar">
-									</i>
-								</span> 
-							</div> -->
-							<!-- <p-calendar [style]="{'width':'100%'}" [showIcon]="true" [showTime]="true" [timeZone]="gtm-5" [(ngModel)]="FinicioTrans" [ngModelOptions]="{standalone: true}"></p-calendar> -->
-							<!-- <input type="datetime" icon="data-time-icon"> -->
-						<!--</td> 
-						<td style="width: 22.50%"> -->
-							<!-- <div id="timeFfinTrans" class="input-append date">
-							<!-- <input data-format="dd/MM/yyyy hh:mm:ss" type="text"></input>
-								<span class="add-on">
-									<i data-time-icon="icon-time" data-date-icon="icon-calendar">
-									</i>
-								</span>
-							</div> -->
-							<!-- <p-calendar [style]="{'width':'100%'}" [showIcon]="true" [locale]="es" [showTime]="true" [timeZone]="gtm-5" [(ngModel)]="FfinTrans" [ngModelOptions]="{standalone: true}"></p-calendar> -->
-						<!-- </td> -->
 						<td  style="width: 10%">
 							<a class="btn btn-success btn-xs glyphicon glyphicon-plus" (click)="OnAgregarTraReq()">
 							</a>
@@ -261,59 +232,22 @@
 				<i class="fa fa-search" style="margin:4px 4px 0 0"></i>
 				<input #gb1 type="text" pInputText size="25" placeholder="Buscar">
 			</div>
-			<p-dataTable id="tbody_trareq_dialog" [value]="transporteSol" [rows]="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [globalFilter]="gb1">
+			<p-dataTable id="tbody_trareq_dialog" [value]="transporteSol" [rows]="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [globalFilter]="gb1" [editable]="true">
 				<p-column [style]="{'width':'11.25%'}" field="tratipo" header="Tipo" [ordered]="true" [sortable]="false" ></p-column>
 				<p-column [style]="{'width':'11.25%'}" field="tramodelo" dateformat="yyyy-MM-dd" header="Modelo"  [sortable]="false"></p-column>
-				<p-column  [style]="{'width':'11.25%'}" field="trarutaInicio" header="Ruta Inicio" [sortable]="false"></p-column>
-				<p-column [style]="{'width':'11.25%'}" field="trarutaFin" header="Ruta Fin" [sortable]="false"></p-column>
-				<p-column [style]="{'width':'11.25%'}" field="trafechaInicio" header="Fecha Inicio" [sortable]="false"></p-column>
-				<p-column [style]="{'width':'11.25%'}" field="trafechaFin" header="Fecha Fin" [sortable]="false"></p-column>
-				<p-column [style]="{'width':'11.25%'}" field="trahoraInicio" header="Hora Inicio" [sortable]="false"></p-column>
-				<p-column [style]="{'width':'11.25%'}" field="trahoraFin" header="Hora Fin" [sortable]="false"></p-column>
-
-
-
-
-
-
+				<p-column [style]="{'width':'11.25%'}" field="trarutaInicio" header="Ruta Inicio" [editable]="true" [sortable]="false"></p-column>
+				<p-column [style]="{'width':'11.25%'}" field="trarutaFin" header="Ruta Fin" [editable]="true" [sortable]="false"></p-column>
+				<p-column [style]="{'width':'11.25%'}" field="trafechaInicio" header="Fecha Inicio" [editable]="true" [sortable]="false">
+				</p-column>
+				<p-column [style]="{'width':'11.25%'}" field="trafechaFin" header="Fecha Fin" [editable]="true" [sortable]="false"></p-column>
+				<p-column [style]="{'width':'11.25%'}" field="trahoraInicio" header="Hora Inicio" [editable]="true" [sortable]="false"></p-column>
+				<p-column [style]="{'width':'11.25%'}" field="trahoraFin" header="Hora Fin" [editable]="true" [sortable]="false"></p-column>
 				<p-column [style]="{'width':'10%'}" styleClass="col-button" header="Eliminar">
 					<template let-car="rowData" pTemplate="body">
-						<!-- <button type="button" pButton (click)="findSelectedCarIndex(car)" icon="fa-eye" data-toggle="tooltip" data-placement="bottom" title="Index"></button> -->
 						<button type="button" pButton (click)="delete(car)" icon="fa-trash" data-toggle="tooltip" data-placement="bottom" title="Eliminar"></button>
 					</template>
 				</p-column>
 			</p-dataTable>
-
-
-
-			<!-- <table *ngIf="mostrar_trareq === true">
-				<thead id="TransporteReqEnc">
-					<tr>
-						<th style="width: 10%">Tipo
-						</th>
-						<th style="width: 10%">Modelo
-						</th>
-						<th style="width: 20%">Ruta Inicio
-						</th>
-						<th style="width: 20%">Ruta Fin
-						</th>
-						<th style="width: 10%">Fecha Inicio
-						</th>
-						<th style="width: 10%">Hora Inicio
-						</th>
-						<th style="width: 10%">Fecha Fin
-						</th>
-						<th style="width: 10%">Hora Fin
-						</th>
-						<th style="width: 10%">Eliminar
-						</th>
-					</tr>
-				</thead>
-			</table>
-			<table class="table table-striped">
-				<tbody id="tbody_trareq_dialog">
-				</tbody>
-			</table> -->
 			<div class="pagination pull-CENTER">
 				<button (click)="Onpaso4()">Ingresar Anexos y Fondos</button>
 			</div>
@@ -326,78 +260,12 @@
 				<label>Descripción del fondo asignado:</label>
 				<input type="text" id="fondes" name="fondes" [(ngModel)]="fondoobservacion"/>
 			</div>
-			<div>
-				<p><ins>Adjuntar archivos</ins></p>
-				<input type="file" ng2FileSelect [uploader]="uploader" multiple  /><br/>
-				<div class="col-md-9" style="margin-bottom: 40px">
-					<p>Cantidad de archivos a subir: {{ uploader?.queue?.length }}</p>
-					<table class="table">
-						<thead>
-							<tr>
-								<th width="50%">Nombre</th>
-								<th>Estado</th>
-								<th>Acciones</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr *ngFor="let item of uploader.queue">
-								<td><strong>{{ item?.file?.name }}</strong></td>
-								<td *ngIf="uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
-								<td *ngIf="uploader.isHTML5">
-									<div class="progress" style="margin-bottom: 0;">
-										<div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
-									</div>
-								</td>
-								<td class="text-center">
-									<span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
-									<span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
-									<span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
-								</td>
-								<td nowrap>
-									<button type="button" class="btn btn-success btn-xs"
-									(click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
-									<span class="glyphicon glyphicon-upload"></span> Subir
-								</button>
-								<button type="button" class="btn btn-warning btn-xs"
-								(click)="item.cancel()" [disabled]="!item.isUploading">
-								<span class="glyphicon glyphicon-ban-circle"></span> Cancelar
-							</button>
-							<button type="button" class="btn btn-danger btn-xs"
-							(click)="item.remove()">
-							<span class="glyphicon glyphicon-trash"></span> Quitar
-						</button>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<div>
-			<div>
-				Progreso:
-				<div class="progress" style="">
-					<div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
-				</div>
-			</div>
-			<button type="button" class="btn btn-success btn-s"
-			(click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
-			<span class="glyphicon glyphicon-upload"></span> Subir todos
-		</button>
-		<button type="button" class="btn btn-warning btn-s"
-		(click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
-		<span class="glyphicon glyphicon-ban-circle"></span> Cancelar todos
-	</button>
-	<button type="button" class="btn btn-danger btn-s"
-	(click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
-	<span class="glyphicon glyphicon-trash"></span> Quitar todos
-</button>
-</div>
-</div>
-</div>
-<ul class="pagination pull-CENTER">
-	<button (click)="onGuardarSol()">GUARDAR</button>
-	<button (click)="Onpaso5()">ENVIAR</button>
-	<button (click)="OnImprimirSol()">IMPRIMIR</button>
-	<button (click)="OnCancelarSol()">CANCELAR</button>
-</ul>
-</div>
-</form>
+			<ul class="pagination pull-CENTER">
+				<button (click)="onGuardarSol()">GUARDAR(nada)</button>
+				<button type="submit">ENVIAR</button>
+				<button (click)="OnImprimirSol()">IMPRIMIR(nada)</button>
+				<button (click)="OnCancelarSol()">CANCELAR(nada)</button>
+			</ul>
+		</div>
+	</form>
 </div>
