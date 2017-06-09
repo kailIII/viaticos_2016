@@ -750,7 +750,7 @@ class SolicitudController extends Controller {
 		}
 	}
 
-	public function correojiAction(Request $request) {
+	public function correoAction(Request $request) {
 		$helpers = $this->get("app.helpers");
 		$json = $request->get("json", null);
 		$params = json_decode($json);
@@ -824,16 +824,139 @@ class SolicitudController extends Controller {
 				// ->setBody($message);
 					->setBody(
 						$this->renderView(
-							'Email/registration.html.twig',
+							'Email/solicitud.html.twig',
 							array('data' => $data)
 							),
 						'text/html'
 						);
 					$this->get('mailer')->send($message);
 				}
-				return $helpers->json("Correo enviado");
+				$datos["status"] = "success";
+				$datos["msg"] = "Correo enviado correctamente";
+
+			} else {
+				$datos = array(
+					"status" => "error",
+					"code" => 400,
+					"msg" => "No existen datos, por favor ingrese los datos"
+					);
 			}
+		} else {
+			$datos = array(
+				"status" => "error",
+				"code" => 400,
+				"msg" => "Los datos de acceso son incorrectos"
+				);
 		}
+		return $helpers->json($datos);
+	}
+
+	public function correojiAction(Request $request) {
+		$helpers = $this->get("app.helpers");
+		$json = $request->get("json", null);
+		$params = json_decode($json);
+		$hash = $request->get("authorization", null);
+		$authCheck = $helpers->authCheck($hash);
+		$dato = array();
+		$datos = array();
+		if ($authCheck == true) {
+			$identity = $helpers->authCheck($hash, true);
+			if ($json != null) {
+				// $personajefe = (isset($params->personajefe)) ? $params->personajefe : null;
+				// $sendTo = (isset($params->sendTo)) ? $params->sendTo : null;
+				$solicitud = (isset($params->solicitud)) ? $params->solicitud : null;
+				// $email = (isset($params->email)) ? $params->email : null;
+				$subject = "Notificación Sistema de Viaticos VPR";
+				// $message = (isset($params->message)) ? $params->message : null;
+				$message = "";
+
+				$em = $this->getDoctrine()->getManager();
+
+				$email = $this->getParameter('mailer_user');
+				$dato['subject'] = $subject;
+				$dato['message'] = $message;
+
+				$sol_com = $em->getRepository('BackBundle:PersonaComision')->findOneBy(
+					array(
+						"sol" => $solicitud
+							// "perCorreoelectronico" => trim($sendTo2)
+						)
+					);
+				$sol_com1 = $em->getRepository('BackBundle:PersonaComision')->findBy(
+					array(
+						"percomComision" => $sol_com->getPercomComision()
+							// "perCorreoelectronico" => trim($sendTo2)
+
+						)
+					);
+				foreach ($sol_com1 as $sendTo2) {
+					// return $helpers->json($sendTo2);
+					$isset_fun = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
+						array(
+							"per" => $sendTo2->getPer()
+							// "perCorreoelectronico" => trim($sendTo2)
+							)
+						);
+
+					$cargo_fun = $em->getRepository('BackBundle:Cargo')->findOneBy(
+						array(
+							"carId" => $isset_fun->getCar()
+							// "perCorreoelectronico" => trim($sendTo2)
+
+							)
+						);
+					// return $helpers->json($cargo_fun);
+					$cargo_jefe = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
+						array(
+							"car" => $cargo_fun->getCarJefe()
+							// "perCorreoelectronico" => trim($sendTo2)
+
+							)
+						);
+					// return $helpers->json($cargo_jefe->getPer()->getPerCorreoelectronico());
+
+//fin aqui obtengo datos del jefe
+					$dato['parajefe'] = $cargo_jefe->getPer()->getPerNombrecompleto();
+					$dato['nombrefun'] = trim($sendTo2->getPer()->getPerNombrecompleto());
+					$dato['solicitud'] = $sendTo2->getSol()->getSolIdsolicitud();
+					$dato['enlace'] =  "Por favor ingrese al Sistema de Viáticos para firmar la solicitud N°.";
+
+					// return $helpers->json($dato);
+
+					$message = \Swift_Message::newInstance()
+					->setSubject($subject)
+					->setFrom($email)
+					->setTo(trim($cargo_jefe->getPer()->getPerCorreoelectronico()))
+					// ->setTo(trim($sendTo2))
+
+				// ->setBody($message);
+					->setBody(
+						$this->renderView(
+							'Email/firmasolicitud.html.twig',
+							array('dato' => $dato)
+							),
+						'text/html'
+						);
+					$this->get('mailer')->send($message);
+				}
+				$datos["status"] = "success";
+				$datos["msg"] = "Correo enviado correctamente";
+
+			} else {
+				$datos = array(
+					"status" => "error",
+					"code" => 400,
+					"msg" => "No existen datos, por favor ingrese los datos"
+					);
+			}
+		} else {
+			$datos = array(
+				"status" => "error",
+				"code" => 400,
+				"msg" => "Los datos de acceso son incorrectos"
+				);
+		}
+		return $helpers->json($datos);
 	}
 
 

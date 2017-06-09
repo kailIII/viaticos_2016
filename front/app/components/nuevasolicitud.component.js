@@ -650,17 +650,7 @@ var NuevasolicitudComponent = (function () {
     NuevasolicitudComponent.prototype.OnBloquearBotones = function () {
     };
     NuevasolicitudComponent.prototype.onEnviarSol = function () {
-        // console.log("this.fondovalor:"+JSON.stringify(this.fondovalor));
-        // console.log("this.fondoobservacion:"+JSON.stringify(this.fondoobservacion));
-        // console.log("this.comision.fondovalor:"+JSON.stringify(this.comision.fondovalor));
-        // console.log("this.comision.fondoobservacion:"+JSON.stringify(this.comision.fondoobservacion));
         var _this = this;
-        // console.log("this.comision:"+JSON.stringify(this.comision));
-        // this.datoscorreo = {
-        // 	'sendTo': this.datosfun.nombre+","+this.comision.funcionarios_sol
-        // 	// 'sendTo': this.comision.funcionarios_sol
-        // };
-        // console.log("this.datoscorreo:"+JSON.stringify(this.datoscorreo));
         this.Onpaso5();
         var token = this._loginService.getToken();
         this._SolicitudService.AddSolicitud(token, this.comision).subscribe(function (response) {
@@ -692,7 +682,7 @@ var NuevasolicitudComponent = (function () {
             var guardar1 = response;
             _this.guardar1 = guardar1;
             console.log("this.guardar1:" + JSON.stringify(_this.guardar1));
-            if (_this.guardar1 === "Correo enviado") {
+            if (_this.guardar1.status === "success") {
                 console.log("Información guardada satisfactoriamente");
                 alert(_this.guardar.msg);
                 // window.location.href='/solicitud';

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit,Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit,Input, EventEmitter, Output } from '@angular/core';
 // import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {LoginService} from '../services/login.service';
@@ -142,6 +142,15 @@ export class SolicitudComponent {
 	public datociudadtodos3;
 	public datociudadtodos31;
 	public info9;
+
+	// public solicitudInfo: Array<any>;
+
+	@Input() solicitudInfo: Array<any>;
+
+	// @Output() solicitudInfo = new EventEmitter();
+
+
+	
 
 	constructor(
 		private _loginService: LoginService,
@@ -707,207 +716,212 @@ OnVerDetalleSol1(){
 
 OnMostrarDetalleSol(a){
 	// window.location.href='/solicitud';
+	// this.solicitudInfo = a;
+
+	// this.solicitudInfo.emit({a: a});
 	console.log("a:"+JSON.stringify(a));
+	this.solicitudInfo = a;
+	console.log("this.solicitudInfo:"+JSON.stringify(this.solicitudInfo));
 	// console.log("this.equis:"+JSON.stringify(this.equis));
 	// 	console.log("this.solifecfun2:"+JSON.stringify(this.solifecfun2));
-	// this._router.navigate(['/versolicitud']);
+	this._router.navigate(['/versolicitud']);
 }
 
-OnMostrarDetalle(DetalleSolMostrar){
-	this.detalleSolicitudRealizadas = {
-		'DetsolIdsolicitud': DetalleSolMostrar.solIdsolicitud
-	};
-	this._solicitudService.detallesolrealizadas(this.token,this.detalleSolicitudRealizadas).subscribe(
-		response => {
-			let info = response;
-			this.info1 = JSON.stringify(info);
-			this.info = JSON.parse("["+this.info1+"]"); 
-			if(this.info.length <=0){
-				this.NoMostrar = "No existen solicitudes realizadas";
-				return this.NoMostrar;
-			}else{ 	
-				this.cargocotosol2 = {
-					'carperId' : this.info[0].cargocotosol.carperId,
-					'carperDesde' : this.info[0].cargocotosol.carperDesde,
-					'carperHasta' : this.info[0].cargocotosol.carperHasta,
-					'carperTipo' : this.info[0].cargocotosol.carperTipo,
-					'carperEstado' : this.info[0].cargocotosol.carperEstado,
-					'carNombre' : this.info[0].cargocotosol.car.carNombre,
-					'depNombre' :this.info[0].cargocotosol.car.dep.depNombre,
-					'depSiglas' : this.info[0].cargocotosol.car.dep.depSiglas,
-					'depEstado' : this.info[0].cargocotosol.car.dep.depEstado,
-					'rolNombre' : this.info[0].cargocotosol.car.rol.rolNombre,
-					'rolEstado' : this.info[0].cargocotosol.car.rol.rolEstado,
-					'perCorreoelectronico' : this.info[0].cargocotosol.per.perCorreoelectronico,
-					'perNombrecompleto' : this.info[0].cargocotosol.per.perNombrecompleto
-				};
+// OnMostrarDetalle(DetalleSolMostrar){
+// 	this.detalleSolicitudRealizadas = {
+// 		'DetsolIdsolicitud': DetalleSolMostrar.solIdsolicitud
+// 	};
+// 	this._solicitudService.detallesolrealizadas(this.token,this.detalleSolicitudRealizadas).subscribe(
+// 		response => {
+// 			let info = response;
+// 			this.info1 = JSON.stringify(info);
+// 			this.info = JSON.parse("["+this.info1+"]"); 
+// 			if(this.info.length <=0){
+// 				this.NoMostrar = "No existen solicitudes realizadas";
+// 				return this.NoMostrar;
+// 			}else{ 	
+// 				this.cargocotosol2 = {
+// 					'carperId' : this.info[0].cargocotosol.carperId,
+// 					'carperDesde' : this.info[0].cargocotosol.carperDesde,
+// 					'carperHasta' : this.info[0].cargocotosol.carperHasta,
+// 					'carperTipo' : this.info[0].cargocotosol.carperTipo,
+// 					'carperEstado' : this.info[0].cargocotosol.carperEstado,
+// 					'carNombre' : this.info[0].cargocotosol.car.carNombre,
+// 					'depNombre' :this.info[0].cargocotosol.car.dep.depNombre,
+// 					'depSiglas' : this.info[0].cargocotosol.car.dep.depSiglas,
+// 					'depEstado' : this.info[0].cargocotosol.car.dep.depEstado,
+// 					'rolNombre' : this.info[0].cargocotosol.car.rol.rolNombre,
+// 					'rolEstado' : this.info[0].cargocotosol.car.rol.rolEstado,
+// 					'perCorreoelectronico' : this.info[0].cargocotosol.per.perCorreoelectronico,
+// 					'perNombrecompleto' : this.info[0].cargocotosol.per.perNombrecompleto
+// 				};
 
-				this.cargojefesol2 = {
-					'carperId' : this.info[0].cargojefesol.carperId,
-					'carperDesde' : this.info[0].cargojefesol.carperDesde,
-					'carperHasta' : this.info[0].cargojefesol.carperHasta,
-					'carperTipo' : this.info[0].cargojefesol.carperTipo,
-					'carperEstado' : this.info[0].cargojefesol.carperEstado,
-					'carNombre' : this.info[0].cargojefesol.car.carNombre,
-					'depNombre' :this.info[0].cargojefesol.car.dep.depNombre,
-					'depSiglas' : this.info[0].cargojefesol.car.dep.depSiglas,
-					'depEstado' : this.info[0].cargojefesol.car.dep.depEstado,
-					'rolNombre' : this.info[0].cargojefesol.car.rol.rolNombre,
-					'rolEstado' : this.info[0].cargojefesol.car.rol.rolEstado,
-					'perCorreoelectronico' : this.info[0].cargojefesol.per.perCorreoelectronico,
-					'perNombrecompleto' : this.info[0].cargojefesol.per.perNombrecompleto
-				};
+// 				this.cargojefesol2 = {
+// 					'carperId' : this.info[0].cargojefesol.carperId,
+// 					'carperDesde' : this.info[0].cargojefesol.carperDesde,
+// 					'carperHasta' : this.info[0].cargojefesol.carperHasta,
+// 					'carperTipo' : this.info[0].cargojefesol.carperTipo,
+// 					'carperEstado' : this.info[0].cargojefesol.carperEstado,
+// 					'carNombre' : this.info[0].cargojefesol.car.carNombre,
+// 					'depNombre' :this.info[0].cargojefesol.car.dep.depNombre,
+// 					'depSiglas' : this.info[0].cargojefesol.car.dep.depSiglas,
+// 					'depEstado' : this.info[0].cargojefesol.car.dep.depEstado,
+// 					'rolNombre' : this.info[0].cargojefesol.car.rol.rolNombre,
+// 					'rolEstado' : this.info[0].cargojefesol.car.rol.rolEstado,
+// 					'perCorreoelectronico' : this.info[0].cargojefesol.per.perCorreoelectronico,
+// 					'perNombrecompleto' : this.info[0].cargojefesol.per.perNombrecompleto
+// 				};
 
-				if(this.info[0].transportessol.length >0){
-					this.transportessol = this.info[0].transportessol;
+// 				if(this.info[0].transportessol.length >0){
+// 					this.transportessol = this.info[0].transportessol;
 
-				}else if(this.info[0].transportessol.length == 0){
-					this.transportessol = this.info[0].transportessol;
+// 				}else if(this.info[0].transportessol.length == 0){
+// 					this.transportessol = this.info[0].transportessol;
 
-				}else{
-					this.transportessol1 = JSON.stringify(this.info[0].transportessol);
-					this.transportessol = JSON.parse("["+this.transportessol1+"]");
-				}
-				if(this.info[0].bancosol.banperTipocuenta == "A"){
-					this.bancosol2 = {
-						'banperId': this.info[0].bancosol.banperId,
-						'banperTipocuenta': 'AHORROS',
-						'banperNumerocuenta': this.info[0].bancosol.banperNumerocuenta,
-						'banperEstado': this.info[0].bancosol.banperEstado,
-						'banNombre': this.info[0].bancosol.ban.banNombre
-					};
-				}else{
-					this.bancosol2 = {
-						'banperId': this.info[0].bancosol.banperId,
-						'banperTipocuenta': 'CORRIENTE',
-						'banperNumerocuenta': this.info[0].bancosol.banperNumerocuenta,
-						'banperEstado': this.info[0].bancosol.banperEstado,
-						'banNombre': this.info[0].bancosol.ban.banNombre
-					};
-				}
+// 				}else{
+// 					this.transportessol1 = JSON.stringify(this.info[0].transportessol);
+// 					this.transportessol = JSON.parse("["+this.transportessol1+"]");
+// 				}
+// 				if(this.info[0].bancosol.banperTipocuenta == "A"){
+// 					this.bancosol2 = {
+// 						'banperId': this.info[0].bancosol.banperId,
+// 						'banperTipocuenta': 'AHORROS',
+// 						'banperNumerocuenta': this.info[0].bancosol.banperNumerocuenta,
+// 						'banperEstado': this.info[0].bancosol.banperEstado,
+// 						'banNombre': this.info[0].bancosol.ban.banNombre
+// 					};
+// 				}else{
+// 					this.bancosol2 = {
+// 						'banperId': this.info[0].bancosol.banperId,
+// 						'banperTipocuenta': 'CORRIENTE',
+// 						'banperNumerocuenta': this.info[0].bancosol.banperNumerocuenta,
+// 						'banperEstado': this.info[0].bancosol.banperEstado,
+// 						'banNombre': this.info[0].bancosol.ban.banNombre
+// 					};
+// 				}
 
-				if(this.info[0].personasssol.length > 0){
-					// console.log("personasssol.length no undefined");
-					this.personasssol = this.info[0].personasssol;
-					// console.log("this.personasssol[0]:"+JSON.stringify(this.personasssol[0]));
+// 				if(this.info[0].personasssol.length > 0){
+// 					// console.log("personasssol.length no undefined");
+// 					this.personasssol = this.info[0].personasssol;
+// 					// console.log("this.personasssol[0]:"+JSON.stringify(this.personasssol[0]));
 
-				}else if(this.info[0].personasssol.length == 0){
-					// console.log("personasssol.length no undefined");
-					this.personasssol = this.info[0].personasssol;
-				}else{
-					// console.log("personasssol.length == undefined");
-					this.personasssol1 = JSON.stringify(this.info[0].personasssol);
-					this.personasssol = JSON.parse("["+this.personasssol1+"]");
-				}
-				console.log("this.personasssol:"+JSON.stringify(this.personasssol));
+// 				}else if(this.info[0].personasssol.length == 0){
+// 					// console.log("personasssol.length no undefined");
+// 					this.personasssol = this.info[0].personasssol;
+// 				}else{
+// 					// console.log("personasssol.length == undefined");
+// 					this.personasssol1 = JSON.stringify(this.info[0].personasssol);
+// 					this.personasssol = JSON.parse("["+this.personasssol1+"]");
+// 				}
+// 				console.log("this.personasssol:"+JSON.stringify(this.personasssol));
 
-				if(this.info[0].ciudadessol.length>0){
-					// console.log("ciudadessol.length no undefined");
-					this.ciudadessol = this.info[0].ciudadessol;
-					// console.log("this.ciudadessol[0]:"+JSON.stringify(this.ciudadessol[0]));
+// 				if(this.info[0].ciudadessol.length>0){
+// 					// console.log("ciudadessol.length no undefined");
+// 					this.ciudadessol = this.info[0].ciudadessol;
+// 					// console.log("this.ciudadessol[0]:"+JSON.stringify(this.ciudadessol[0]));
 
 
-				}else if(this.info[0].ciudadessol.length == 0){
-					// console.log("ciudadessol.length no undefined");
-					this.ciudadessol = this.info[0].ciudadessol;
+// 				}else if(this.info[0].ciudadessol.length == 0){
+// 					// console.log("ciudadessol.length no undefined");
+// 					this.ciudadessol = this.info[0].ciudadessol;
 
-				}else{
-					// console.log("ciudadessol.length == undefined");
-					this.ciudadessol1 = JSON.stringify(this.info[0].ciudadessol);
-					this.ciudadessol = JSON.parse("["+this.ciudadessol1+"]");
-				}
+// 				}else{
+// 					// console.log("ciudadessol.length == undefined");
+// 					this.ciudadessol1 = JSON.stringify(this.info[0].ciudadessol);
+// 					this.ciudadessol = JSON.parse("["+this.ciudadessol1+"]");
+// 				}
 
-				if(this.info[0].estadosol.length>0){
-					this.estadosol = this.info[0].estadosol;
-					this.estsolActividades = this.estadosol[0].estsolActividades;
-					if(JSON.stringify(this.estadosol[0].estsolFechasalida) === JSON.stringify(this.estadosol[0].estsolFechallegada) ){
-						this.equis = {
-							'viaticos': '',
-							'movilizaciones':'X',
-							'subsistencias':'X',
-							'alimentacion':'X'
-						};
-					}else{
-						this.equis = {
-							'viaticos':'X',
-							'movilizaciones':'X',
-							'subsistencias':'X',
-							'alimentacion':'X'
-						};
-					}
-					// console.log("this.estadosol[0]:"+JSON.stringify(this.estadosol[0]));	
-				}else if(this.info[0].estadosol.length == 0){
-					// console.log("estadosol.length no undefined");
-					this.estadosol = this.info[0].estadosol;
-					// this.estsolActividades = (JSON.stringify(this.info[0].estadosol.estsolActividades).replace('"<p','<p')).replace('ul>"','ul>');
-					// console.log("this.estadosol:"+JSON.stringify(this.estadosol));
-				}else{
-					// console.log("estadosol.length == undefined");
-					this.estadosol1 = JSON.stringify(this.info[0].estadosol);
-					this.estadosol = JSON.parse("["+this.estadosol1+"]");
-					// this.estsolActividades = (JSON.stringify(this.info[0].estadosol.estsolActividades).replace('"<p','<p')).replace('ul>"','ul>');
-					// console.log("this.estadosol:"+JSON.stringify(this.estadosol));
-				}
+// 				if(this.info[0].estadosol.length>0){
+// 					this.estadosol = this.info[0].estadosol;
+// 					this.estsolActividades = this.estadosol[0].estsolActividades;
+// 					if(JSON.stringify(this.estadosol[0].estsolFechasalida) === JSON.stringify(this.estadosol[0].estsolFechallegada) ){
+// 						this.equis = {
+// 							'viaticos': '',
+// 							'movilizaciones':'X',
+// 							'subsistencias':'X',
+// 							'alimentacion':'X'
+// 						};
+// 					}else{
+// 						this.equis = {
+// 							'viaticos':'X',
+// 							'movilizaciones':'X',
+// 							'subsistencias':'X',
+// 							'alimentacion':'X'
+// 						};
+// 					}
+// 					// console.log("this.estadosol[0]:"+JSON.stringify(this.estadosol[0]));	
+// 				}else if(this.info[0].estadosol.length == 0){
+// 					// console.log("estadosol.length no undefined");
+// 					this.estadosol = this.info[0].estadosol;
+// 					// this.estsolActividades = (JSON.stringify(this.info[0].estadosol.estsolActividades).replace('"<p','<p')).replace('ul>"','ul>');
+// 					// console.log("this.estadosol:"+JSON.stringify(this.estadosol));
+// 				}else{
+// 					// console.log("estadosol.length == undefined");
+// 					this.estadosol1 = JSON.stringify(this.info[0].estadosol);
+// 					this.estadosol = JSON.parse("["+this.estadosol1+"]");
+// 					// this.estsolActividades = (JSON.stringify(this.info[0].estadosol.estsolActividades).replace('"<p','<p')).replace('ul>"','ul>');
+// 					// console.log("this.estadosol:"+JSON.stringify(this.estadosol));
+// 				}
 
-				if(this.info[0].cardep.length >0){
-					// console.log("cardep.length no undefined");
-					this.cardep = this.info[0].cardep;
+// 				if(this.info[0].cardep.length >0){
+// 					// console.log("cardep.length no undefined");
+// 					this.cardep = this.info[0].cardep;
 
-				}else if(this.info[0].cardep.length == 0){
-					// console.log("cardep.length no undefined");
-					this.cardep = this.info[0].cardep;
+// 				}else if(this.info[0].cardep.length == 0){
+// 					// console.log("cardep.length no undefined");
+// 					this.cardep = this.info[0].cardep;
 
-				}else{
-					// console.log("cardep.length == undefined");
-					this.cardep1 = JSON.stringify(this.info[0].cardep);
-					this.cardep = JSON.parse("["+this.cardep1+"]");
+// 				}else{
+// 					// console.log("cardep.length == undefined");
+// 					this.cardep1 = JSON.stringify(this.info[0].cardep);
+// 					this.cardep = JSON.parse("["+this.cardep1+"]");
 
-					this.cardep2 = {
-						'carId':this.info[0].cardep.carId,
-						'carNombre':this.info[0].cardep.carNombre,
-						'carJefe':this.info[0].cardep.carJefe,
-						'depNombre':this.info[0].cardep.dep.depNombre,
-						'depSiglas':this.info[0].cardep.dep.depSiglas,
-						'depPadre':this.info[0].cardep.dep.depPadre,
-						'depEstado':this.info[0].cardep.dep.depEstado,
-						'rolNombre':this.info[0].cardep.rol.rolNombre,
-						'rolEstado':this.info[0].cardep.rol.rolEstado
-					};
-					// console.log("this.cardep1:"+this.cardep1);
-				}
+// 					this.cardep2 = {
+// 						'carId':this.info[0].cardep.carId,
+// 						'carNombre':this.info[0].cardep.carNombre,
+// 						'carJefe':this.info[0].cardep.carJefe,
+// 						'depNombre':this.info[0].cardep.dep.depNombre,
+// 						'depSiglas':this.info[0].cardep.dep.depSiglas,
+// 						'depPadre':this.info[0].cardep.dep.depPadre,
+// 						'depEstado':this.info[0].cardep.dep.depEstado,
+// 						'rolNombre':this.info[0].cardep.rol.rolNombre,
+// 						'rolEstado':this.info[0].cardep.rol.rolEstado
+// 					};
+// 					// console.log("this.cardep1:"+this.cardep1);
+// 				}
 
-				if(this.info[0].solifecfun.length>0){
-					// console.log("solifecfun.length no undefined");
+// 				if(this.info[0].solifecfun.length>0){
+// 					// console.log("solifecfun.length no undefined");
 
-				}else if(this.info[0].solifecfun.length == 0){
-					// console.log("solifecfun.length no undefined");
+// 				}else if(this.info[0].solifecfun.length == 0){
+// 					// console.log("solifecfun.length no undefined");
 
-				}else{
-					this.solifecfun2 = {
-						'solSecuencial':this.info[0].solifecfun.solSecuencial,
-						'solIdsolicitud':this.info[0].solifecfun.solIdsolicitud,
-						'solFecharealizacion':this.info[0].solifecfun.solFecharealizacion,
-						'solNumeroactualizacion':this.info[0].solifecfun.solNumeroactualizacion,
-						'perIdentificacion': this.info[0].solifecfun.per.perIdentificacion,
-						'perCorreoelectronico':this.info[0].solifecfun.per.perIdentificacion,
-						'perCreado': this.info[0].solifecfun.per.perCreado,
-						'perNombrecompleto':this.info[0].solifecfun.per.perNombrecompleto
-					};
-				}
-			}
-		},error => {
-			this.errorMessage = <any>error;
+// 				}else{
+// 					this.solifecfun2 = {
+// 						'solSecuencial':this.info[0].solifecfun.solSecuencial,
+// 						'solIdsolicitud':this.info[0].solifecfun.solIdsolicitud,
+// 						'solFecharealizacion':this.info[0].solifecfun.solFecharealizacion,
+// 						'solNumeroactualizacion':this.info[0].solifecfun.solNumeroactualizacion,
+// 						'perIdentificacion': this.info[0].solifecfun.per.perIdentificacion,
+// 						'perCorreoelectronico':this.info[0].solifecfun.per.perIdentificacion,
+// 						'perCreado': this.info[0].solifecfun.per.perCreado,
+// 						'perNombrecompleto':this.info[0].solifecfun.per.perNombrecompleto
+// 					};
+// 				}
+// 			}
+// 		},error => {
+// 			this.errorMessage = <any>error;
 
-			if(this.errorMessage != null){
-				console.log(this.errorMessage);
-				alert("Error en la peticion de solicitudes");
-			}
-		});
+// 			if(this.errorMessage != null){
+// 				console.log(this.errorMessage);
+// 				alert("Error en la peticion de solicitudes");
+// 			}
+// 		});
 
-this.detalle = {
-	'DetsolIdsolicitud': DetalleSolMostrar.solIdsolicitud
-};
-}
+// this.detalle = {
+// 	'DetsolIdsolicitud': DetalleSolMostrar.solIdsolicitud
+// };
+// }
 
 OnbotonAtrasSolicitud(){
 	this.detalleSol = false;
@@ -1061,150 +1075,74 @@ OnporFirmar(){
 
 				};
 
-				// for(var k=0; k<tamanodatos ; k++){
-					// 	var datociudad1 = "";
-					// 	itemsiguiente = k + 1;
-					// 	anterior = k-1;
-					// 	this.ciu11 = "";
-					// 	tamanodatos1 = tamanodatos;
-					// 	if(itemsiguiente < tamanodatos){
-						// 		if(this.datoSolMostrar12[k].solIdsolicitud === this.datoSolMostrar12[itemsiguiente].solIdsolicitud){
-							// 			for(var l=itemsiguiente ; l<tamanodatos1 ; l++){
-								// 				this.ciuIteracion1 = this.datoSolMostrar12[k].solCiudades;
-								// 				this.ciuIteracionl1 = this.datoSolMostrar12[l].solCiudades;
-								// 				if(this.datoSolMostrar12[k].solIdsolicitud === this.datoSolMostrar12[l].solIdsolicitud){
-									// 					if(this.ciu11 == ""){
-										// 						this.ciu11 = this.ciuIteracion1+","+this.ciuIteracionl1;
-										// 					}else{
-											// 						this.ciu11 = this.ciu11+","+this.ciuIteracionl1;
-											// 					}
-											// 				}else{
-												// 					l = tamanodatos1;
-												// 				}
-												// 			};
-												// 			this.datosciudad12 = {
-													// 				'solId':this.datoSolMostrar12[k].solId,
-													// 				'solIdsolicitud': this.datoSolMostrar12[k].solIdsolicitud,
-													// 				'solFecharealizacion' :this.datoSolMostrar12[k].solFecharealizacion,
-													// 				'solEstado' : this.datoSolMostrar12[k].solEstado,
-													// 				'solCiudades' : this.ciu11,
-													// 				'perNombrecompleto' : this.datoSolMostrar12[k].perNombrecompleto
-													// 			};
-													// 			datociudad1 = JSON.stringify(this.datosciudad12);
-													// 			if(this.datociudadtodos11 == ""){
-														// 				this.datociudadtodos11 = datociudad1;
-														// 			}else{
-															// 				this.datociudadtodos11 = this.datociudadtodos11+","+datociudad1;
-															// 			}
-															// 		}else{
-																// 			if(anterior > -1){
-																	// 				if(this.datoSolMostrar12[k].solIdsolicitud !== this.datoSolMostrar12[itemsiguiente].solIdsolicitud){
-																		// 					if(this.datoSolMostrar12[k].solIdsolicitud !== this.datoSolMostrar12[anterior].solIdsolicitud){
-																			// 						this.datosciudad12 = {
-																				// 							'solId':this.datoSolMostrar12[k].solId,
-																				// 							'solIdsolicitud': this.datoSolMostrar12[k].solIdsolicitud,
-																				// 							'solFecharealizacion' :this.datoSolMostrar12[k].solFecharealizacion,
-																				// 							'solEstado' : this.datoSolMostrar12[k].solEstado,
-																				// 							'solCiudades' : this.datoSolMostrar12[k].solCiudades,
-																				// 							'perNombrecompleto' : this.datoSolMostrar12[k].perNombrecompleto
-																				// 						};
-																				// 						datociudad1 = JSON.stringify(this.datosciudad12);
-																				// 						if(this.datociudadtodos11 == ""){
-																					// 							this.datociudadtodos11 = datociudad1;
-																					// 						}else{
-																						// 							this.datociudadtodos11 = this.datociudadtodos11+","+datociudad1;
-																						// 						}
-																						// 					}
-																						// 				}
-																						// 			}else{
-																							// 				this.datosciudad12 = {
-																								// 					'solId':this.datoSolMostrar12[k].solId,
-																								// 					'solIdsolicitud': this.datoSolMostrar12[k].solIdsolicitud,
-																								// 					'solFecharealizacion' :this.datoSolMostrar12[k].solFecharealizacion,
-																								// 					'solEstado' : this.datoSolMostrar12[k].solEstado,
-																								// 					'solCiudades' : this.datoSolMostrar12[k].solCiudades,
-																								// 					'perNombrecompleto' : this.datoSolMostrar12[k].perNombrecompleto
-																								// 				};
-																								// 				datociudad1 = JSON.stringify(this.datosciudad12);
-																								// 				if(this.datociudadtodos11 == ""){
-																									// 					this.datociudadtodos11 = datociudad1;
-																									// 				}else{
-																										// 					this.datociudadtodos11 = this.datociudadtodos11+","+datociudad1;
-																										// 				}
-																										// 			}
-																										// 		}
-																										// 	}
-																										// };
-
-																										this.datoSolMostrar3 = JSON.parse("["+this.datociudadtodos11+"]");
-																										// console.log("this.datociudadtodos11:"+this.datociudadtodos11);
-																										this.datociudadtodos11 = "";
-																										this.datociudadtodos21 = "";
-																										this.datociudadtodos31 = "";
-																										var datociudad3;
-																										var datociudad2;
-																										var datociudad5;
-																										var todostamano = this.datoSolMostrar3.length;
-																										for(var a=0; a<todostamano; a++){
-																											datociudad3 = "";
-																											if(this.datoSolMostrar3[a].solEstado === "APROBADO"){
-																												this.datosciudad13 = {
-																													'solId':this.datoSolMostrar3[a].solId,
-																													'solIdsolicitud': this.datoSolMostrar3[a].solIdsolicitud,
-																													'solFecharealizacion' :this.datoSolMostrar3[a].solFecharealizacion,
-																													'solEstado' : this.datoSolMostrar3[a].solEstado,
-																													'solCiudades' : this.datoSolMostrar3[a].solCiudades,
-																													'perNombrecompleto' : this.datoSolMostrar3[a].perNombrecompleto
-																												};
-																												datociudad3 = JSON.stringify(this.datosciudad13);
-																												if(this.datociudadtodos11 == ""){
-																													this.datociudadtodos11 = datociudad3;
-																												}else{
-																													this.datociudadtodos11 = this.datociudadtodos11+","+datociudad3;
-																												}
-																											}else if(this.datoSolMostrar3[a].solEstado === "CANCELADO"){
-																												this.datosciudad13 = {
-																													'solId':this.datoSolMostrar3[a].solId,
-																													'solIdsolicitud': this.datoSolMostrar3[a].solIdsolicitud,
-																													'solFecharealizacion' :this.datoSolMostrar3[a].solFecharealizacion,
-																													'solEstado' : this.datoSolMostrar3[a].solEstado,
-																													'solCiudades' : this.datoSolMostrar3[a].solCiudades,
-																													'perNombrecompleto' : this.datoSolMostrar3[a].perNombrecompleto
-																												};
-																												datociudad5 = JSON.stringify(this.datosciudad13);
-																												if(this.datociudadtodos31 == ""){
-																													this.datociudadtodos31 = datociudad5;
-																												}else{
-																													this.datociudadtodos31 = this.datociudadtodos31+","+datociudad5;
-																												}
-																											}else{
-																												this.datosciudad23 = {
-																													'solId':this.datoSolMostrar3[a].solId,
-																													'solIdsolicitud': this.datoSolMostrar3[a].solIdsolicitud,
-																													'solFecharealizacion' :this.datoSolMostrar3[a].solFecharealizacion,
-																													'solEstado' : this.datoSolMostrar3[a].solEstado,
-																													'solCiudades' : this.datoSolMostrar3[a].solCiudades,
-																													'perNombrecompleto' : this.datoSolMostrar3[a].perNombrecompleto
-																												};
-																												datociudad2 = JSON.stringify(this.datosciudad23);
-																												if(this.datociudadtodos21 == ""){
-																													this.datociudadtodos21 = datociudad2;
-																												}else{
-																													this.datociudadtodos21 = this.datociudadtodos21+","+datociudad2;
-																												}
-																											}
-																										};
-																										this.datoSolMostrarha = JSON.parse("["+this.datociudadtodos11+"]");
-																										this.datoSolMostrarhp = JSON.parse("["+this.datociudadtodos21+"]");
-																										this.datoSolMostrarhc = JSON.parse("["+this.datociudadtodos31+"]");
-																									}
-																								},error => {
-																									this.errorMessage = <any>error;
-																									if(this.errorMessage != null){
-																										console.log(this.errorMessage);
-																										alert("Error en la peticion de solicitudes");
-																									}
-																								});
+				this.datoSolMostrar3 = JSON.parse("["+this.datociudadtodos11+"]");
+				this.datociudadtodos11 = "";
+				this.datociudadtodos21 = "";
+				this.datociudadtodos31 = "";
+				var datociudad3;
+				var datociudad2;
+				var datociudad5;
+				var todostamano = this.datoSolMostrar3.length;
+				for(var a=0; a<todostamano; a++){
+					datociudad3 = "";
+					if(this.datoSolMostrar3[a].solEstado === "APROBADO"){
+						this.datosciudad13 = {
+							'solId':this.datoSolMostrar3[a].solId,
+							'solIdsolicitud': this.datoSolMostrar3[a].solIdsolicitud,
+							'solFecharealizacion' :this.datoSolMostrar3[a].solFecharealizacion,
+							'solEstado' : this.datoSolMostrar3[a].solEstado,
+							'solCiudades' : this.datoSolMostrar3[a].solCiudades,
+							'perNombrecompleto' : this.datoSolMostrar3[a].perNombrecompleto
+						};
+						datociudad3 = JSON.stringify(this.datosciudad13);
+						if(this.datociudadtodos11 == ""){
+							this.datociudadtodos11 = datociudad3;
+						}else{
+							this.datociudadtodos11 = this.datociudadtodos11+","+datociudad3;
+						}
+					}else if(this.datoSolMostrar3[a].solEstado === "CANCELADO"){
+						this.datosciudad13 = {
+							'solId':this.datoSolMostrar3[a].solId,
+							'solIdsolicitud': this.datoSolMostrar3[a].solIdsolicitud,
+							'solFecharealizacion' :this.datoSolMostrar3[a].solFecharealizacion,
+							'solEstado' : this.datoSolMostrar3[a].solEstado,
+							'solCiudades' : this.datoSolMostrar3[a].solCiudades,
+							'perNombrecompleto' : this.datoSolMostrar3[a].perNombrecompleto
+						};
+						datociudad5 = JSON.stringify(this.datosciudad13);
+						if(this.datociudadtodos31 == ""){
+							this.datociudadtodos31 = datociudad5;
+						}else{
+							this.datociudadtodos31 = this.datociudadtodos31+","+datociudad5;
+						}
+					}else{
+						this.datosciudad23 = {
+							'solId':this.datoSolMostrar3[a].solId,
+							'solIdsolicitud': this.datoSolMostrar3[a].solIdsolicitud,
+							'solFecharealizacion' :this.datoSolMostrar3[a].solFecharealizacion,
+							'solEstado' : this.datoSolMostrar3[a].solEstado,
+							'solCiudades' : this.datoSolMostrar3[a].solCiudades,
+							'perNombrecompleto' : this.datoSolMostrar3[a].perNombrecompleto
+						};
+						datociudad2 = JSON.stringify(this.datosciudad23);
+						if(this.datociudadtodos21 == ""){
+							this.datociudadtodos21 = datociudad2;
+						}else{
+							this.datociudadtodos21 = this.datociudadtodos21+","+datociudad2;
+						}
+					}
+				};
+				this.datoSolMostrarha = JSON.parse("["+this.datociudadtodos11+"]");
+				this.datoSolMostrarhp = JSON.parse("["+this.datociudadtodos21+"]");
+				this.datoSolMostrarhc = JSON.parse("["+this.datociudadtodos31+"]");
+			}
+		},error => {
+			this.errorMessage = <any>error;
+			if(this.errorMessage != null){
+				console.log(this.errorMessage);
+				alert("Error en la peticion de solicitudes");
+			}
+		});
 }
 
 
@@ -1229,9 +1167,6 @@ OnfirmarSolicitud(){
 			}
 		});
 }
-
-
-
 
 }
 

@@ -35,5 +35,10 @@ solicitud_firmar:
 
 solicitud_enviarcorreo1:
     path:   /enviarcorreo1
+    defaults: { _controller: "AppBundle:Solicitud:correo"}
+    methods:  POST
+
+solicitud_enviarcorreo:
+    path:   /enviarcorreo
     defaults: { _controller: "AppBundle:Solicitud:correoji"}
     methods:  POST
