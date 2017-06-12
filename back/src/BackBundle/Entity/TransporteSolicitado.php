@@ -65,6 +65,13 @@ class TransporteSolicitado
     private $trasolHorallegada;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="trasol_estado", type="string", length=1, nullable=true)
+     */
+    private $trasolEstado;
+
+    /**
      * @var \TipoTransporte
      *
      * @ORM\ManyToOne(targetEntity="TipoTransporte")
@@ -238,6 +245,30 @@ class TransporteSolicitado
     public function getTrasolHorallegada()
     {
         return $this->trasolHorallegada;
+    }
+
+    /**
+     * Set trasolEstado
+     *
+     * @param string $trasolEstado
+     *
+     * @return TransporteSolicitado
+     */
+    public function setTrasolEstado($trasolEstado)
+    {
+        $this->trasolEstado = $trasolEstado;
+
+        return $this;
+    }
+
+    /**
+     * Get trasolEstado
+     *
+     * @return string
+     */
+    public function getTrasolEstado()
+    {
+        return $this->trasolEstado;
     }
 
     /**

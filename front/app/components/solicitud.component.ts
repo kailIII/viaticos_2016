@@ -142,6 +142,7 @@ export class SolicitudComponent {
 	public datociudadtodos3;
 	public datociudadtodos31;
 	public info9;
+	public SolAJefe;
 
 	// public solicitudInfo: Array<any>;
 
@@ -722,9 +723,14 @@ OnMostrarDetalleSol(a){
 	console.log("a:"+JSON.stringify(a));
 	this.solicitudInfo = a;
 	console.log("this.solicitudInfo:"+JSON.stringify(this.solicitudInfo));
+
+	// this.SolAJefe = {
+	// 	'$solicitud':,
+	// 	'$sendToFun2':
+	// }
 	// console.log("this.equis:"+JSON.stringify(this.equis));
 	// 	console.log("this.solifecfun2:"+JSON.stringify(this.solifecfun2));
-	this._router.navigate(['/versolicitud']);
+	// this._router.navigate(['/versolicitud']);
 }
 
 // OnMostrarDetalle(DetalleSolMostrar){

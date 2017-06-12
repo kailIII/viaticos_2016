@@ -57,6 +57,11 @@ BackBundle\Entity\TransporteSolicitado:
             nullable: true
             length: 20
             column: trasol_horallegada
+        trasolEstado:
+            type: string
+            nullable: true
+            length: 1
+            column: trasol_estado
     manyToOne:
         tiptra:
             targetEntity: TipoTransporte

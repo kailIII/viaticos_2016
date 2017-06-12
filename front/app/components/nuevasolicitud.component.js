@@ -131,6 +131,10 @@ var NuevasolicitudComponent = (function () {
             'trahoraFin': "",
         };
         this.transporteSol = [];
+        this.datoscorreoAJefe = {
+            'solicitud': "",
+            'sendToFun2': ""
+        };
         // this.OnHoraFinicioTra();
         // this.OnHoraFfinTra();
     };
@@ -273,33 +277,11 @@ var NuevasolicitudComponent = (function () {
         // };
     };
     NuevasolicitudComponent.prototype.Onpaso2 = function () {
-        console.log(this.Fecha_sol);
-        console.log(this.FechaDesde_solicitud);
-        console.log(this.HoraDesde_sol);
-        console.log(this.FechaHasta_solicitud);
-        console.log(this.HoraHasta_sol);
-        console.log("this.comision:" + JSON.stringify(this.comision));
-        // if(this.FechaDesde_solicitud == "undefined" || this.HoraDesde_sol == undefined || this.FechaHasta_solicitud == undefined || this.HoraHasta_sol == undefined){
         this.comision.Fecha_sol = this.Fecha_sol;
         this.comision.FechaDesde_sol = this.FechaDesde_solicitud;
         this.comision.HoraDesde_sol = this.HoraDesde_sol;
         this.comision.FechaHasta_sol = this.FechaHasta_solicitud;
         this.comision.HoraHasta_sol = this.HoraHasta_sol;
-        // this.comision.Fecha_sol = (((JSON.stringify(new Date(this.Fecha_sol).toLocaleDateString()).replace('"','')).replace('"','')).replace('/','-')).replace('/','-');
-        // this.comision.FechaDesde_sol = (((JSON.stringify(new Date(this.FechaDesde_solicitud).toLocaleDateString()).replace('"','')).replace('"','')).replace('/','-')).replace('/','-');
-        // this.comision.HoraDesde_sol = (JSON.stringify(new Date(this.HoraDesde_sol).toLocaleTimeString()).replace('"','')).replace('"','');
-        // this.comision.FechaHasta_sol = (((JSON.stringify(new Date(this.FechaHasta_solicitud).toLocaleDateString()).replace('"','')).replace('"','')).replace('/','-')).replace('/','-');
-        // this.comision.HoraHasta_sol = (JSON.stringify(new Date(this.HoraHasta_sol).toLocaleTimeString()).replace('"','')).replace('"','');
-        // this.OnDiferenciaFechas(this.FechaDesde_solicitud,this.FechaHasta_solicitud);
-        // let fechaactividades;
-        // var length = this.dias.length;
-        // fechaactividades = '';
-        // for (var i = 0; i < length; i++) {
-        // 	let fechas = this.dias[i];
-        // 	// fechaactividades += '<p class="ql-align-center"><strong>'+fechas+'</strong></p><ul><li></li></ul>';
-        // 	fechaactividades += '<p class="centrado ql-align-center"><strong>'+fechas+'</strong></p><ul><li></li></ul>';
-        // };
-        // this.comision.actividadessol = fechaactividades;
         this.comision.correo = this._loginService.getIdentity().aperUsuario;
         if (this.funcionarios_sol_ini !== undefined) {
             this.comision.funcionarios_sol = (((JSON.stringify(this.funcionarios_sol_ini).replace('["', '')).replace('"]', '')).replace('","', ',')).replace(/\"/g, '');
@@ -309,30 +291,6 @@ var NuevasolicitudComponent = (function () {
         }
         // console.log("this.comision:"+JSON.stringify(this.comision));
         this.inicial = true;
-        // alert(this.FechaHasta_solicitud+"T"+this.HoraHasta_sol);
-        // alert((Date.parse(this.FechaHasta_solicitud+"T"+this.HoraHasta_sol)));
-        // }else{
-        // 	// if(this.comision.Fecha_sol == ""){
-        // 	// 	alert("Por favor ingrese la fecha de la solicitud");
-        // 	// 	(<HTMLInputElement>document.getElementById("Fecha_sol")).focus;
-        // 	// }
-        // 	if(this.FechaDesde_solicitud == "undefined"){
-        // 		alert("Por favor ingrese la fecha de salida de la comisión");
-        // 		(<HTMLInputElement>document.getElementById("FechaDesde_solicitud")).focus;
-        // 	}
-        // 	if(this.HoraDesde_sol == undefined){
-        // 		alert("Por favor ingrese la hora de salida de la comisión");
-        // 		(<HTMLInputElement>document.getElementById("HoraDesde_sol")).focus;
-        // 	}
-        // 	if(this.FechaHasta_solicitud == undefined){
-        // 		alert("Por favor ingrese la fecha de regreso de la comisión");
-        // 		(<HTMLInputElement>document.getElementById("FechaHasta_solicitud")).focus;
-        // 	}
-        // 	if(this.HoraHasta_sol == undefined){
-        // 		alert("Por favor ingrese la hora de regreso de la comisión");
-        // 		(<HTMLInputElement>document.getElementById("HoraHasta_sol")).focus;
-        // 	}
-        // }
     };
     NuevasolicitudComponent.prototype.Onpaso3 = function () {
         console.log("this.comision:" + JSON.stringify(this.comision));
@@ -359,11 +317,6 @@ var NuevasolicitudComponent = (function () {
         this.paso3 = true;
     };
     NuevasolicitudComponent.prototype.Onpaso5 = function () {
-        // this.fondovalor = 0;
-        // this.fondoobservacion = "";
-        // this.anexotitulo = "";
-        // this.aneodescripcion = "";
-        // this.anexoruta = "";
         if (this.fondovalor == undefined) {
             this.comision.fondovalor = 0;
         }
@@ -376,7 +329,6 @@ var NuevasolicitudComponent = (function () {
         else {
             this.comision.fondoobservacion = this.fondoobservacion;
         }
-        // console.log("this.comision:"+JSON.stringify(this.comision));
     };
     NuevasolicitudComponent.prototype.OnbotonAtras = function () {
         if (this.inicial == false && this.paso2 == false && this.paso3 == false && this.paso4 == false) {
@@ -653,11 +605,13 @@ var NuevasolicitudComponent = (function () {
         var _this = this;
         this.Onpaso5();
         var token = this._loginService.getToken();
+        var nombrecompleto = this._loginService.getIdentity().perNombre + " " + this._loginService.getIdentity().perApellido;
         this._SolicitudService.AddSolicitud(token, this.comision).subscribe(function (response) {
             var guardar = response;
             _this.guardar = guardar;
             if (_this.guardar.status === "success") {
-                _this.OnEnviarCorreoAfuncionarios(_this.comision.funcionarios_sol);
+                _this.datoscorreoAJefe.solicitud = _this.guardar.code;
+                _this.OnEnviarCorreoAfun(_this.comision.funcionarios_sol);
             }
             else {
                 alert(_this.guardar.msg);
@@ -670,21 +624,52 @@ var NuevasolicitudComponent = (function () {
             }
         });
     };
-    NuevasolicitudComponent.prototype.OnEnviarCorreoAfuncionarios = function (a) {
+    NuevasolicitudComponent.prototype.OnEnviarCorreoAfun = function (a) {
         var _this = this;
         var token = this._loginService.getToken();
         this.datoscorreo = {
-            'sendTo': this.datosfun.nombre + "," + a
-            // 'sendTo': this.comision.funcionarios_sol
+            'sendTo': this.datosfun.nombre + "," + a,
+            'sendToFun': this.datosfun.nombre
         };
-        console.log("this.datoscorreo:" + JSON.stringify(this.datoscorreo));
+        // console.log("this.datoscorreo:"+JSON.stringify(this.datoscorreo));
         this._SolicitudService.enviar1Solicitud(token, this.datoscorreo).subscribe(function (response) {
             var guardar1 = response;
             _this.guardar1 = guardar1;
-            console.log("this.guardar1:" + JSON.stringify(_this.guardar1));
+            // console.log("this.guardar1:"+JSON.stringify(this.guardar1));
             if (_this.guardar1.status === "success") {
-                console.log("Información guardada satisfactoriamente");
-                alert(_this.guardar.msg);
+                _this.OnEnviarCorreofunAJefe();
+                // console.log("Información guardada satisfactoriamente");
+                // alert(this.guardar.msg);
+                // window.location.href='/solicitud';
+                // this._router.navigate(['/solicitud']);
+            }
+            else {
+                alert("No se pudo enviar el correo electrónico");
+            }
+            // this._router.navigate(['/solicitud']);
+            // }
+        }, function (error) {
+            _this.errorMessage = error;
+            if (_this.errorMessage != null) {
+                console.log(_this.errorMessage);
+                alert("Error al guardar datos");
+            }
+        });
+    };
+    NuevasolicitudComponent.prototype.OnEnviarCorreofunAJefe = function () {
+        var _this = this;
+        var token = this._loginService.getToken();
+        this.datoscorreoAJefe.sendToFun2 = this.datosfun.nombre;
+        // console.log("this.datoscorreoAJefe:"+JSON.stringify(this.datoscorreoAJefe));
+        this._SolicitudService.enviarjiSolicitud(token, this.datoscorreoAJefe).subscribe(function (response) {
+            var guardar1 = response;
+            _this.guardar1 = guardar1;
+            // console.log("this.guardar1:"+JSON.stringify(this.guardar1));
+            if (_this.guardar1.status === "success") {
+                // console.log("Información guardada satisfactoriamente");
+                // alert(this.guardar.msg);
+                // alert(this.guardar1.msg);
+                alert("Solicitud creada satisfactoriamente");
                 // window.location.href='/solicitud';
                 _this._router.navigate(['/solicitud']);
             }

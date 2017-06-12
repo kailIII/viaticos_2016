@@ -308,6 +308,7 @@ class SolicitudController extends Controller {
 											}
 //Fin enviar las solicitudes para las firmas
 											$data["status"] = "success";
+											$data["code"] = $solicitud->getSolId();
 											$data["msg"] = "Solicitud creada satisfactoriamente";
 										}else {
 											$data = array(
@@ -762,12 +763,9 @@ class SolicitudController extends Controller {
 			if ($json != null) {
 				$sendTo = (isset($params->sendTo)) ? $params->sendTo : null;
 				$solicitud = (isset($params->solicitud)) ? $params->solicitud : null;
-				// $email = (isset($params->email)) ? $params->email : null;
+				$sendToFun = (isset($params->sendToFun)) ? $params->sendToFun : null;
 				$subject = "Notificación Sistema de Viaticos VPR";
-				// $message = (isset($params->message)) ? $params->message : null;
 				$message = "";
-				
-				// return $helpers->json($sendTo);
 
 				$em = $this->getDoctrine()->getManager();
 
@@ -775,61 +773,63 @@ class SolicitudController extends Controller {
 				$data['subject'] = $subject;
 				$data['message'] = $message;
 
-				// foreach ($sendToNombre as $sendToNombre1) {
-				// 	$nombre = $em->getRepository('BackBundle:Persona')->findOneBy(
-				// 		array(
-				// 			"perNombrecompleto" => trim($sendToNombre1)
-				// 			)
-				// 		);
-				// 	return $helpers->json($nombre);
-				// 	if($sendTo = ""){
-				// 		$sendTo = $nombre->getPerNombrecompleto();
-				// 	}else{
-				// 		$sendTo = $sendTo.",".$nombre->getPerNombrecompleto();
-				// 	}
-				// }
-
-				// return $sendTo;
-
 				$sendTo1 = array();
 				$sendTo1 = explode(",", $sendTo);
 				foreach ($sendTo1 as $sendTo2) {
 					$isset_persona = $em->getRepository('BackBundle:Persona')->findOneBy(
 						array(
 							"perNombrecompleto" => trim($sendTo2)
-							// "perCorreoelectronico" => trim($sendTo2)
-
 							)
 						);
 					$isset_solicitud = $em->getRepository('BackBundle:Solicitud')->findOneBy(
 						array(
 							"per" => $isset_persona
-							// "perCorreoelectronico" => trim($sendTo2)
-
 							), array('solId' => 'DESC'),1
 						);
-					// $data['nombre'] = $isset_solicitud->getPerNombrecompleto();
+					if(trim($sendTo2) === $sendToFun){
+						$data['nombre'] = trim($sendTo2);
+						$data['solicitud'] = $isset_solicitud->getSolIdsolicitud();
 
-					// return $helpers->json($isset_solicitud);
-					$data['nombre'] = trim($sendTo2);
-					$data['solicitud'] = $isset_solicitud->getSolIdsolicitud();
-
-
-					$message = \Swift_Message::newInstance()
-					->setSubject($subject)
-					->setFrom($email)
-					->setTo(trim($isset_persona->getPerCorreoelectronico()))
+						$message = \Swift_Message::newInstance()
+						->setSubject($subject)
+						->setFrom($email)
+						->setTo(trim($isset_persona->getPerCorreoelectronico()))
 					// ->setTo(trim($sendTo2))
 
 				// ->setBody($message);
-					->setBody(
-						$this->renderView(
-							'Email/solicitud.html.twig',
-							array('data' => $data)
-							),
-						'text/html'
-						);
-					$this->get('mailer')->send($message);
+						->setBody(
+							$this->renderView(
+								'Email/solicitudFun.html.twig',
+								array('data' => $data)
+								),
+							'text/html'
+							)
+						// ->attach(Swift_Attachment::fromPath('/ruta/hasta/el/archivo.zip'))
+						;
+						$this->get('mailer')->send($message);
+					}else{
+						$data['nombre'] = trim($sendTo2);
+						$data['solicitud'] = $isset_solicitud->getSolIdsolicitud();
+
+
+						$message = \Swift_Message::newInstance()
+						->setSubject($subject)
+						->setFrom($email)
+						->setTo(trim($isset_persona->getPerCorreoelectronico()))
+					// ->setTo(trim($sendTo2))
+
+				// ->setBody($message);
+						->setBody(
+							$this->renderView(
+								'Email/solicitudOtros.html.twig',
+								array('data' => $data)
+								),
+							'text/html'
+							)
+						// ->attach(Swift_Attachment::fromPath('/ruta/hasta/el/archivo.zip'))
+						;
+						$this->get('mailer')->send($message);
+					}
 				}
 				$datos["status"] = "success";
 				$datos["msg"] = "Correo enviado correctamente";
@@ -862,12 +862,10 @@ class SolicitudController extends Controller {
 		if ($authCheck == true) {
 			$identity = $helpers->authCheck($hash, true);
 			if ($json != null) {
-				// $personajefe = (isset($params->personajefe)) ? $params->personajefe : null;
-				// $sendTo = (isset($params->sendTo)) ? $params->sendTo : null;
 				$solicitud = (isset($params->solicitud)) ? $params->solicitud : null;
-				// $email = (isset($params->email)) ? $params->email : null;
+				$sendToFun2 = (isset($params->sendToFun2)) ? $params->sendToFun2 : null;
 				$subject = "Notificación Sistema de Viaticos VPR";
-				// $message = (isset($params->message)) ? $params->message : null;
+				$personasencomision = "";
 				$message = "";
 
 				$em = $this->getDoctrine()->getManager();
@@ -879,68 +877,67 @@ class SolicitudController extends Controller {
 				$sol_com = $em->getRepository('BackBundle:PersonaComision')->findOneBy(
 					array(
 						"sol" => $solicitud
-							// "perCorreoelectronico" => trim($sendTo2)
 						)
 					);
 				$sol_com1 = $em->getRepository('BackBundle:PersonaComision')->findBy(
 					array(
 						"percomComision" => $sol_com->getPercomComision()
-							// "perCorreoelectronico" => trim($sendTo2)
-
 						)
 					);
+				foreach ($sol_com1 as $comisiona) {
+						if($personasencomision === ""){
+							$personasencomision = ($comisiona->getPer()->getPerNombrecompleto());
+						}else{
+							$personasencomision = $personasencomision.",".($comisiona->getPer()->getPerNombrecompleto());
+						}
+				}
 				foreach ($sol_com1 as $sendTo2) {
-					// return $helpers->json($sendTo2);
-					$isset_fun = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
-						array(
-							"per" => $sendTo2->getPer()
-							// "perCorreoelectronico" => trim($sendTo2)
-							)
-						);
+						$funComision = str_replace($sendToFun2.","," ",$personasencomision);
+					if($sendTo2->getPer()->getPerNombrecompleto() === $sendToFun2){
+						$isset_fun = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
+							array(
+								"per" => $sendTo2->getPer()
+								)
+							);
 
-					$cargo_fun = $em->getRepository('BackBundle:Cargo')->findOneBy(
-						array(
-							"carId" => $isset_fun->getCar()
-							// "perCorreoelectronico" => trim($sendTo2)
-
-							)
-						);
-					// return $helpers->json($cargo_fun);
-					$cargo_jefe = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
-						array(
-							"car" => $cargo_fun->getCarJefe()
-							// "perCorreoelectronico" => trim($sendTo2)
-
-							)
-						);
-					// return $helpers->json($cargo_jefe->getPer()->getPerCorreoelectronico());
-
+						$cargo_fun = $em->getRepository('BackBundle:Cargo')->findOneBy(
+							array(
+								"carId" => $isset_fun->getCar()
+								)
+							);
+						$cargo_jefe = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
+							array(
+								"car" => $cargo_fun->getCarJefe()
+								)
+							);
 //fin aqui obtengo datos del jefe
-					$dato['parajefe'] = $cargo_jefe->getPer()->getPerNombrecompleto();
-					$dato['nombrefun'] = trim($sendTo2->getPer()->getPerNombrecompleto());
-					$dato['solicitud'] = $sendTo2->getSol()->getSolIdsolicitud();
-					$dato['enlace'] =  "Por favor ingrese al Sistema de Viáticos para firmar la solicitud N°.";
+						$dato['parajefe'] = $cargo_jefe->getPer()->getPerNombrecompleto();
+						$dato['nombrefun'] = trim($sendTo2->getPer()->getPerNombrecompleto());
+						$dato['solicitud'] = $sendTo2->getSol()->getSolIdsolicitud();
+						$dato['enlace'] =  "Por favor ingrese al Sistema de Viáticos para firmar la solicitud N°.";
+						$dato['comisionados'] = $funComision;
 
-					// return $helpers->json($dato);
-
-					$message = \Swift_Message::newInstance()
-					->setSubject($subject)
-					->setFrom($email)
-					->setTo(trim($cargo_jefe->getPer()->getPerCorreoelectronico()))
+						$message = \Swift_Message::newInstance()
+						->setSubject($subject)
+						->setFrom($email)
+						->setTo(trim($cargo_jefe->getPer()->getPerCorreoelectronico()))
 					// ->setTo(trim($sendTo2))
 
 				// ->setBody($message);
-					->setBody(
-						$this->renderView(
-							'Email/firmasolicitud.html.twig',
-							array('dato' => $dato)
-							),
-						'text/html'
-						);
-					$this->get('mailer')->send($message);
-				}
+						->setBody(
+							$this->renderView(
+								'Email/firmasolicitud.html.twig',
+								array('dato' => $dato)
+								),
+							'text/html'
+							)
+					// ->attach(Swift_Attachment::fromPath('/ruta/hasta/el/archivo.zip'))
+						;
+						$this->get('mailer')->send($message);
 				$datos["status"] = "success";
 				$datos["msg"] = "Correo enviado correctamente";
+					}
+				}
 
 			} else {
 				$datos = array(

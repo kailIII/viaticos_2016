@@ -166,6 +166,8 @@ export class VersolicitudComponent implements OnInit{
 
 	}
 
+	
+
 
 // 	OnMostrarDetalle(Det){
 // 		this.detalleSolicitudRealizadas = {
