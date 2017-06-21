@@ -41,6 +41,7 @@ export class PrincipalComponent implements OnInit{
 	public datociudadtodos2;
 	public datoSolMostrara: Array<any>;
 	public datoSolMostrarp: Array<any>;
+	public transporte;
 
 	constructor(
 		private _loginService: LoginService,
@@ -65,6 +66,7 @@ export class PrincipalComponent implements OnInit{
 			'perNombrecompleto' : ''
 		};
 		this.OnVerDetalleSol();
+		this.transporte = 1;
 	}
 
 OnVerDetalleSol(){

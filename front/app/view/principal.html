@@ -6,7 +6,50 @@
 		<a (click)="logout()" href="#">Click Here to logout</a>
 	</div>
 </div> -->
-<div class="principalarriba">
+<div >
+	<p-tabView>
+<p-tabPanel header="Solicitud">
+<p-dataTable [value]="datoSolMostrara" [rows]="3" [paginator]="true" [pageLinks]="3" [globalFilter]="gb2" >
+				<p-column [style]="{'width':'15%'}" field="solFecharealizacion" dateformat="yyyy-MM-dd" header="Fecha Realizado"  [sortable]="true"></p-column>
+				<p-column [style]="{'width':'30%'}" field="solIdsolicitud" header="Solicitud N°" [ordered]="true" [sortable]="true" ></p-column>
+				<p-column  [style]="{'width':'30%'}" field="solCiudades" header="Ciudades" [sortable]="true">
+				</p-column>
+				<!--<p-column  [style]="{'width':'15%'}" field="solEstado" header="Estado" [sortable]="true">
+				</p-column>
+				<p-column  [style]="{'width':'15%'}" field="solActualizacion" header="Accion" [sortable]="true">
+				</p-column> -->
+				<p-column [style]="{'width':'10%'}" field="solEstado" header="Estado" [sortable]="true"></p-column>
+				<p-column [style]="{'width':'10%'}" styleClass="col-button" header="Acción">
+					<template let-car="rowData" pTemplate="body">
+						<button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-eye" ></button>
+						<button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-edit" ></button>
+						<!-- <button class="btn btn-primary" (click)="lgModal.show()">Large modal</button> -->
+					</template>
+				</p-column> 
+			</p-dataTable>
+</p-tabPanel>	
+<p-tabPanel header="Informes pendientes">
+</p-tabPanel>
+	<div *ngIf="transporte==0" >
+<p-tabPanel header="Vuelos pendientes">
+</p-tabPanel>
+<p-tabPanel header="Proceso de pago">
+</p-tabPanel>
+<p-tabPanel header="Personal Comision">
+</p-tabPanel>
+	</div>
+	<div *ngIf="transporte==1">
+		
+<p-tabPanel header="Vuelos Solicitados">
+</p-tabPanel>
+<p-tabPanel header="Vehiculos Solicitados">
+</p-tabPanel>
+<p-tabPanel header="Vuelos pendientes">
+</p-tabPanel>
+	</div>
+</p-tabView>
+</div>
+<!-- <div class="principalarriba">
 	<div class="ultimosvuelos">
 		<p>ultimos vuelosssss</p>
 	</div>
@@ -24,14 +67,14 @@
 				<i class="fa fa-search" style="margin:4px 4px 0 0"></i>
 				<input #gb2 type="text" pInputText size="25" placeholder="Buscar">
 			</div> -->
-			<div class="infoprincipal">
+			<!-- <div class="infoprincipal">
 		<p>INFORMES PENDIENTES</p>
 				
 			<p-dataTable [value]="datoSolMostrara" [rows]="3" [paginator]="true" [pageLinks]="3" [globalFilter]="gb2">
 				<p-column [style]="{'width':'30%'}" field="solIdsolicitud" header="Informes pendientes" [ordered]="true" [sortable]="true" ></p-column>
 				<p-column [style]="{'width':'15%'}" field="solFecharealizacion" dateformat="yyyy-MM-dd" header="Fecha Realizado"  [sortable]="true"></p-column>
 				<p-column  [style]="{'width':'35%'}" field="solCiudades" header="Ciudades" [sortable]="true">
-				</p-column>
+				</p-column> -->
 				<!-- <p-column [style]="{'width':'10%'}" field="solEstado" header="Estado" [sortable]="true"></p-column> -->
 				<!-- <p-column [style]="{'width':'10%'}" styleClass="col-button" header="Acción">
 					<template let-car="rowData" pTemplate="body">
@@ -40,8 +83,8 @@
 						<!-- <button class="btn btn-primary" (click)="lgModal.show()">Large modal</button> -->
 					<!--</template>
 				</p-column> -->
-			</p-dataTable>
+			<!-- </p-dataTable>
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->

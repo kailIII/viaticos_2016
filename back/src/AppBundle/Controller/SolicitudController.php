@@ -66,6 +66,7 @@ class SolicitudController extends Controller {
 						"perEstado"=> "A"
 						)
 					);
+				// return $helpers->json($isset_funsol);
 
 				$existe_solicitud_comisionados = $em->createQuery('SELECT MAX(m.percomComision)+1 FROM BackBundle:PersonaComision m')->getSingleScalarResult();
 
@@ -264,7 +265,7 @@ class SolicitudController extends Controller {
 											}
 // Aqui va para enviar las solicitudes para las firmas
 					// if($isset_funsol->getPerNombrecompleto() === $isset_persona->getPerNombrecompleto()){
-											if($solicitud->getSolEstado() === "P"){
+											if($solicitud->getSolEstado() === "P" && $solicitud->getPer() === $isset_funsol->getPerId()){
 
 												$cargoPer = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
 													array(
@@ -521,15 +522,19 @@ class SolicitudController extends Controller {
 				//aqui se obtiene solicitud, fecha y funcionario
 				$solicitud = $em->getRepository('BackBundle:Solicitud')->findOneBy(
 					array(
-						"solIdsolicitud" => $DetsolIdsolicitud
+						"solId" => $DetsolIdsolicitud
+						// "solIdsolicitud" => $DetsolIdsolicitud
+
 						)
 					);
+
 				//aqui se obtiene cargo y departamento
 				$cargopersonasolicitud = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
 					array(
 						"per" => $solicitud->getPer()
 						)
 					);
+				// return $helpers->json($cargopersonasolicitud);
 				$cargosolicitud = $em->getRepository('BackBundle:Cargo')->findOneBy(
 					array(
 						"carId" => $cargopersonasolicitud->getCar()

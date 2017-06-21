@@ -38,6 +38,7 @@ var PrincipalComponent = (function () {
             'perNombrecompleto': ''
         };
         this.OnVerDetalleSol();
+        this.transporte = 1;
     };
     PrincipalComponent.prototype.OnVerDetalleSol = function () {
         var _this = this;

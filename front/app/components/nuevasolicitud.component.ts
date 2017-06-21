@@ -394,13 +394,13 @@ export class NuevasolicitudComponent implements OnInit{
 
 		OnDiferenciaFechas(f1,f2){
 			this.dias = [];
-			console.log("f1:"+f1);
-			console.log("f2:"+f2);
+			// console.log("f1:"+f1);
+			// console.log("f2:"+f2);
 			var fechaInicio = new Date(f1).toLocaleDateString();
 			// var fechaInicio = new Date(f1).getUTCDate();
 			var fechaFin    = new Date(f2).getTime();
-			console.log("fechaInicio:"+fechaInicio);
-			console.log("fechaFin:"+fechaFin);
+			// console.log("fechaInicio:"+fechaInicio);
+			// console.log("fechaFin:"+fechaFin);
 			// var diff = fechaFin - fechaInicio;
 			// let diasdiff = diff/(24*60*60*1000)
 			// for (var i = 0; i <= diasdiff; i++) {
@@ -434,7 +434,7 @@ export class NuevasolicitudComponent implements OnInit{
 			}
 
 			Onpaso3(){
-				console.log("this.comision:"+JSON.stringify(this.comision));
+				// console.log("this.comision:"+JSON.stringify(this.comision));
 				this.paso2 = true;
 			}
 
@@ -459,7 +459,7 @@ export class NuevasolicitudComponent implements OnInit{
 				// console.log("this.comision.solotransporteSol:"+this.comision.solotransporteSol);
 
 				// console.log(this.comision);
-				console.log("this.comision:"+JSON.stringify(this.comision));
+				// console.log("this.comision:"+JSON.stringify(this.comision));
 				this.paso3 = true;
 			}
 			Onpaso5(){
@@ -799,11 +799,20 @@ export class NuevasolicitudComponent implements OnInit{
 			}
 
 			OnEnviarCorreoAfun(a){
+				// console.log("a:"+a);
 				let token = this._loginService.getToken();
+				if(a === ""){
+					this.datoscorreo = {
+					'sendTo': this.datosfun.nombre,
+					'sendToFun': this.datosfun.nombre
+				};
+				}else{
+
 				this.datoscorreo = {
 					'sendTo': this.datosfun.nombre+","+a,
 					'sendToFun': this.datosfun.nombre
 				};
+				}
 
 				// console.log("this.datoscorreo:"+JSON.stringify(this.datoscorreo));
 

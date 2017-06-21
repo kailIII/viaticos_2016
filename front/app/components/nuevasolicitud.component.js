@@ -259,13 +259,13 @@ var NuevasolicitudComponent = (function () {
     };
     NuevasolicitudComponent.prototype.OnDiferenciaFechas = function (f1, f2) {
         this.dias = [];
-        console.log("f1:" + f1);
-        console.log("f2:" + f2);
+        // console.log("f1:"+f1);
+        // console.log("f2:"+f2);
         var fechaInicio = new Date(f1).toLocaleDateString();
         // var fechaInicio = new Date(f1).getUTCDate();
         var fechaFin = new Date(f2).getTime();
-        console.log("fechaInicio:" + fechaInicio);
-        console.log("fechaFin:" + fechaFin);
+        // console.log("fechaInicio:"+fechaInicio);
+        // console.log("fechaFin:"+fechaFin);
         // var diff = fechaFin - fechaInicio;
         // let diasdiff = diff/(24*60*60*1000)
         // for (var i = 0; i <= diasdiff; i++) {
@@ -293,7 +293,7 @@ var NuevasolicitudComponent = (function () {
         this.inicial = true;
     };
     NuevasolicitudComponent.prototype.Onpaso3 = function () {
-        console.log("this.comision:" + JSON.stringify(this.comision));
+        // console.log("this.comision:"+JSON.stringify(this.comision));
         this.paso2 = true;
     };
     NuevasolicitudComponent.prototype.Onpaso4 = function () {
@@ -313,7 +313,7 @@ var NuevasolicitudComponent = (function () {
         this.comision.solotransporteSol = (solotransporteSolConvert.replace(';"', ''));
         // console.log("this.comision.solotransporteSol:"+this.comision.solotransporteSol);
         // console.log(this.comision);
-        console.log("this.comision:" + JSON.stringify(this.comision));
+        // console.log("this.comision:"+JSON.stringify(this.comision));
         this.paso3 = true;
     };
     NuevasolicitudComponent.prototype.Onpaso5 = function () {
@@ -626,11 +626,20 @@ var NuevasolicitudComponent = (function () {
     };
     NuevasolicitudComponent.prototype.OnEnviarCorreoAfun = function (a) {
         var _this = this;
+        // console.log("a:"+a);
         var token = this._loginService.getToken();
-        this.datoscorreo = {
-            'sendTo': this.datosfun.nombre + "," + a,
-            'sendToFun': this.datosfun.nombre
-        };
+        if (a === "") {
+            this.datoscorreo = {
+                'sendTo': this.datosfun.nombre,
+                'sendToFun': this.datosfun.nombre
+            };
+        }
+        else {
+            this.datoscorreo = {
+                'sendTo': this.datosfun.nombre + "," + a,
+                'sendToFun': this.datosfun.nombre
+            };
+        }
         // console.log("this.datoscorreo:"+JSON.stringify(this.datoscorreo));
         this._SolicitudService.enviar1Solicitud(token, this.datoscorreo).subscribe(function (response) {
             var guardar1 = response;

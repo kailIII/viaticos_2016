@@ -32,6 +32,7 @@ const appRoutes: Routes = [
 	{path: "usuario", component: UsuarioComponent},
 	{path: "imprimir_solicitud", component: ImprimirsolicitudComponent},
 	{path: "versolicitud", component: VersolicitudComponent},
+	{path: 'versolicitud/:id', component: VersolicitudComponent},
 	{path: "configuracion", component: ConfiguracionComponent},
 	{path: "cambiarclave", component: CambiarclaveComponent},
 

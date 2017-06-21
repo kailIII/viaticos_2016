@@ -25,19 +25,23 @@
 						<input #gb1 type="text" pInputText size="25" placeholder="Buscar">
 					</div>
 					<p-dataTable [value]="datoSolMostrarp" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [globalFilter]="gb1">
-						<p-column [style]="{'width':'30%'}" field="solIdsolicitud" header="Solicitud" [ordered]="true" [sortable]="true" ></p-column>
-						<p-column [style]="{'width':'15%'}" field="solFecharealizacion" dateformat="yyyy-MM-dd" header="Fecha Realizado"  [sortable]="true"></p-column>
+						<p-column [style]="{'width':'15%'}" field="solFecharealizacion" dateformat="yyyy-MM-dd" header="Fecha Solicitud"  [sortable]="true"></p-column>
+						<p-column [style]="{'width':'30%'}" field="solIdsolicitud" header="Solicitud" [sortable]="true"></p-column>
 						<p-column  [style]="{'width':'35%'}" field="solCiudades" header="Ciudades" [sortable]="true">
 						</p-column>
 						<p-column [style]="{'width':'10%'}" field="solEstado" header="Estado" [sortable]="true"></p-column>
 						<p-column [style]="{'width':'10%'}" styleClass="col-button" header="Acción">
 							<template let-car="rowData" pTemplate="body">
 								<button type="button" pButton (click)="OnMostrarDetalleSol(car)" icon="fa-eye" data-toggle="tooltip" data-placement="bottom" title="Ver Solicitud"></button>
-								<button type="button" pButton (click)="OnMostrarDetalle(car)" icon="fa-pencil" data-toggle="tooltip" data-placement="bottom" title="Editar Solicitud"></button>
+								<button type="button" pButton (click)="OnMostrarDetalleSol(car)" icon="fa-pencil" data-toggle="tooltip" data-placement="bottom" title="Editar Solicitud"></button>
 							</template>
 						</p-column>
 					</p-dataTable>
 				</div>
+				<!-- <div *ngIf="solicitudInfo"> -->
+					
+<!-- <versolicitud [solicitudInfolocal]="solicitudInfo"></versolicitud>  -->
+				<!-- </div> -->
 
 
 
@@ -452,6 +456,7 @@
 					<p-column [style]="{'width':'10%'}" styleClass="col-button" header="Acción">
 						<template let-car="rowData" pTemplate="body">
 							<button type="button" pButton (click)="OnMostrarDetalleSol(car)" icon="fa-eye" data-toggle="tooltip" data-placement="bottom" title="Ver Solicitud"></button>
+							<button type="button" pButton (click)="myModal4.open();OnMostrarDetalle(car)" icon="glyphicon glyphicon-log-in" data-toggle="tooltip" data-placement="bottom" title="Alcance Solicitud"></button>
 						</template>
 					</p-column>
 				</p-dataTable>
@@ -659,6 +664,7 @@
 					<template let-car="rowData" pTemplate="body">
 						<button type="button" pButton (click)="myModal4.open();OnMostrarDetalle(car)" icon="fa-eye" data-toggle="tooltip" data-placement="bottom" title="Ver Solicitud"></button>
 						<button type="button" pButton (click)="myModal4.open();OnMostrarDetalle(car)" icon="fa-pencil" data-toggle="tooltip" data-placement="bottom" title="Editar Solicitud"></button>
+						<button type="button" pButton (click)="myModal4.open();OnMostrarDetalle(car)" icon="glyphicon glyphicon-log-in" data-toggle="tooltip" data-placement="bottom" title="Alcance Solicitud"></button>
 					</template>
 				</p-column>
 			</p-dataTable>

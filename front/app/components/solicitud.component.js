@@ -15,7 +15,7 @@ var router_1 = require("@angular/router");
 var login_service_1 = require("../services/login.service");
 var solicitud_service_1 = require("../services/solicitud.service");
 var SolicitudComponent = (function () {
-    // @Output() solicitudInfo = new EventEmitter();
+    // public solicitudInfolocal = new EventEmitter<string>();
     function SolicitudComponent(_loginService, _solicitudService, _router, _route) {
         this._loginService = _loginService;
         this._solicitudService = _solicitudService;
@@ -34,6 +34,7 @@ var SolicitudComponent = (function () {
         };
         this.OnVerDetalleSol();
         this.OnporFirmar();
+        this.Onequisviaticos();
         this.detalleSolicitudRealizadas = {
             'DetsolIdsolicitud': ''
         };
@@ -591,20 +592,33 @@ var SolicitudComponent = (function () {
             }
         });
     };
-    SolicitudComponent.prototype.OnMostrarDetalleSol = function (a) {
+    SolicitudComponent.prototype.Onequisviaticos = function () {
+        this.equis = {
+            'viaticos': '',
+            'movilizaciones': '',
+            'subsistencias': '',
+            'alimentacion': ''
+        };
+    };
+    SolicitudComponent.prototype.OnMostrarDetalleSol = function (valor) {
+        var value = valor['solId'];
         // window.location.href='/solicitud';
         // this.solicitudInfo = a;
         // this.solicitudInfo.emit({a: a});
-        console.log("a:" + JSON.stringify(a));
-        this.solicitudInfo = a;
-        console.log("this.solicitudInfo:" + JSON.stringify(this.solicitudInfo));
-        // this.SolAJefe = {
-        // 	'$solicitud':,
-        // 	'$sendToFun2':
-        // }
-        // console.log("this.equis:"+JSON.stringify(this.equis));
+        // console.log("a:"+JSON.stringify(a));
+        this.solicitudInfo = value;
+        this.equis_1 = this.equis;
+        this._router.navigate(['/versolicitud', value]);
+        // console.log("this.equis_1:"+JSON.stringify(this.equis_1));
+        // console.log(value);
+        // 	this.solicitudInfolocal.emit(value);
+        // // [a] = "equis"
+        // 	// this.SolAJefe = {
+        // 	// 	'$solicitud':,
+        // 	// 	'$sendToFun2':
+        // 	// }
+        // 	console.log("this.solicitudInfolocal:"+JSON.stringify(this.solicitudInfolocal));
         // 	console.log("this.solifecfun2:"+JSON.stringify(this.solifecfun2));
-        // this._router.navigate(['/versolicitud']);
     };
     // OnMostrarDetalle(DetalleSolMostrar){
     // 	this.detalleSolicitudRealizadas = {
@@ -1033,20 +1047,15 @@ var SolicitudComponent = (function () {
     };
     return SolicitudComponent;
 }());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], SolicitudComponent.prototype, "name", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Array)
-], SolicitudComponent.prototype, "solicitudInfo", void 0);
 SolicitudComponent = __decorate([
     core_1.Component({
         selector: 'solicitud',
         templateUrl: 'app/view/solicitud.html',
-        providers: [login_service_1.LoginService, solicitud_service_1.SolicitudService]
-    }),
+        providers: [login_service_1.LoginService, solicitud_service_1.SolicitudService] /*,
+        outputs: ['solicitudInfolocal']*/
+    })
+    // @Directive({ selector: '[versolicitud]' })
+    ,
     __metadata("design:paramtypes", [login_service_1.LoginService,
         solicitud_service_1.SolicitudService,
         router_1.Router,

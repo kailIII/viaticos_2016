@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit,Input, EventEmitter, Output } from '@angular/core';
+import { Directive,Component, OnInit, ViewChild, ElementRef, AfterViewInit,Input, EventEmitter, Output } from '@angular/core';
 // import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {LoginService} from '../services/login.service';
 import {SolicitudService} from '../services/solicitud.service';
 import {TabMenuModule,MenuItem} from 'primeng/primeng';
 
-import {VersolicitudComponent} from './versolicitud.component';
+// import {VersolicitudComponent} from './versolicitud.component';
 
 declare var jQuery:any;
 declare var $:any;
@@ -13,12 +13,13 @@ declare var $:any;
 @Component({
 	selector: 'solicitud',
 	templateUrl: 'app/view/solicitud.html',
-	providers: [LoginService, SolicitudService]
+	providers: [LoginService, SolicitudService]/*,
+	outputs: ['solicitudInfolocal']*/
 })
 
-export class SolicitudComponent {
+// @Directive({ selector: '[versolicitud]' })
 
-	@Input() name: string;
+export class SolicitudComponent {
 
 	public titulo = "Solicitud";
 	public identity;
@@ -143,15 +144,13 @@ export class SolicitudComponent {
 	public datociudadtodos31;
 	public info9;
 	public SolAJefe;
+	public equis_1;
 
-	// public solicitudInfo: Array<any>;
+	// @Input() solicitudInfolocal: string;
 
-	@Input() solicitudInfo: Array<any>;
+	public solicitudInfo;
+	// public solicitudInfolocal = new EventEmitter<string>();
 
-	// @Output() solicitudInfo = new EventEmitter();
-
-
-	
 
 	constructor(
 		private _loginService: LoginService,
@@ -171,6 +170,7 @@ export class SolicitudComponent {
 		};
 		this.OnVerDetalleSol();	
 		this.OnporFirmar();
+		this.Onequisviaticos();
 
 		this.detalleSolicitudRealizadas = {
 			'DetsolIdsolicitud': ''
@@ -518,6 +518,8 @@ export class SolicitudComponent {
 					// console.log("this.datoSolMostrara:"+this.datoSolMostrara);
 					// console.log("this.datoSolMostrarp:"+this.datoSolMostrarp);
 					// console.log("this.datoSolMostrarc:"+this.datoSolMostrarc);
+
+
 				}
 			},error => {
 				this.errorMessage = <any>error;
@@ -715,22 +717,42 @@ OnVerDetalleSol1(){
 		});
 }
 
-OnMostrarDetalleSol(a){
+Onequisviaticos(){
+	this.equis = {
+			'viaticos':'',
+			'movilizaciones':'',
+			'subsistencias':'',
+			'alimentacion':''
+		};
+}
+OnMostrarDetalleSol(valor:Array<any>){
+
+	let value = valor['solId'];
 	// window.location.href='/solicitud';
 	// this.solicitudInfo = a;
 
 	// this.solicitudInfo.emit({a: a});
-	console.log("a:"+JSON.stringify(a));
-	this.solicitudInfo = a;
-	console.log("this.solicitudInfo:"+JSON.stringify(this.solicitudInfo));
+	// console.log("a:"+JSON.stringify(a));
+	this.solicitudInfo = value;
 
-	// this.SolAJefe = {
-	// 	'$solicitud':,
-	// 	'$sendToFun2':
-	// }
-	// console.log("this.equis:"+JSON.stringify(this.equis));
+	this.equis_1 = this.equis;
+
+
+
+	this._router.navigate(['/versolicitud',value]);
+	// console.log("this.equis_1:"+JSON.stringify(this.equis_1));
+	// console.log(value);
+
+
+// 	this.solicitudInfolocal.emit(value);
+// // [a] = "equis"
+// 	// this.SolAJefe = {
+// 	// 	'$solicitud':,
+// 	// 	'$sendToFun2':
+// 	// }
+// 	console.log("this.solicitudInfolocal:"+JSON.stringify(this.solicitudInfolocal));
 	// 	console.log("this.solifecfun2:"+JSON.stringify(this.solifecfun2));
-	// this._router.navigate(['/versolicitud']);
+
 }
 
 // OnMostrarDetalle(DetalleSolMostrar){

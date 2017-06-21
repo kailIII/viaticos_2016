@@ -30,6 +30,7 @@ var appRoutes = [
     { path: "usuario", component: usuario_component_1.UsuarioComponent },
     { path: "imprimir_solicitud", component: imprimirsolicitud_component_1.ImprimirsolicitudComponent },
     { path: "versolicitud", component: versolicitud_component_1.VersolicitudComponent },
+    { path: 'versolicitud/:id', component: versolicitud_component_1.VersolicitudComponent },
     { path: "configuracion", component: configuracion_component_1.ConfiguracionComponent },
     { path: "cambiarclave", component: cambiarclave_component_1.CambiarclaveComponent },
 ];
