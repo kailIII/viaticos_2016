@@ -65,6 +65,13 @@ class Solicitud
     private $solAnio;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="sol_observacion", type="string", length=150, nullable=true)
+     */
+    private $solObservacion;
+
+    /**
      * @var \Persona
      *
      * @ORM\ManyToOne(targetEntity="Persona")
@@ -185,7 +192,7 @@ class Solicitud
     /**
      * Set solEstado
      *
-     * @param integer $solEstado
+     * @param string $solEstado
      *
      * @return Solicitud
      */
@@ -228,6 +235,30 @@ class Solicitud
     public function getSolAnio()
     {
         return $this->solAnio;
+    }
+
+    /**
+     * Set solObservacion
+     *
+     * @param string $solObservacion
+     *
+     * @return Solicitud
+     */
+    public function setSolObservacion($solObservacion)
+    {
+        $this->solObservacion = $solObservacion;
+
+        return $this;
+    }
+
+    /**
+     * Get solObservacion
+     *
+     * @return string
+     */
+    public function getSolObservacion()
+    {
+        return $this->solObservacion;
     }
 
     /**

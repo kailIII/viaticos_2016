@@ -32,15 +32,15 @@
 						<p-column [style]="{'width':'10%'}" field="solEstado" header="Estado" [sortable]="true"></p-column>
 						<p-column [style]="{'width':'10%'}" styleClass="col-button" header="Acción">
 							<template let-car="rowData" pTemplate="body">
-								<button type="button" pButton (click)="OnMostrarDetalleSol(car)" icon="fa-eye" data-toggle="tooltip" data-placement="bottom" title="Ver Solicitud"></button>
+								<button type="button" pButton (click)="OnMostrarDetalleSol(car) " icon="fa-eye" data-toggle="tooltip" data-placement="bottom" title="Ver Solicitud"></button>
 								<button type="button" pButton (click)="OnMostrarDetalleSol(car)" icon="fa-pencil" data-toggle="tooltip" data-placement="bottom" title="Editar Solicitud"></button>
 							</template>
 						</p-column>
 					</p-dataTable>
 				</div>
 				<!-- <div *ngIf="solicitudInfo"> -->
-					
-<!-- <versolicitud [solicitudInfolocal]="solicitudInfo"></versolicitud>  -->
+
+				<!-- <versolicitud [solicitudInfolocal]="solicitudInfo"></versolicitud>  -->
 				<!-- </div> -->
 
 
@@ -438,7 +438,7 @@
 </div>
 <!-- fin detalle solicitud realizadas -->
 </p-tabPanel>
-<div *ngIf="je === 'S'" >
+<div *ngIf="je == 'S'" >
 	<p-tabPanel header="Por Firmar">
 		<div class="formulario_solicitud" *ngIf="detalleSol == false">
 			<div *ngIf="datoSolMostrar">
@@ -824,6 +824,16 @@
 	</modal>
 </div> -->
 
+<modal #myModal>
+	<modal-header>
+		<h5>SOLICITUD DE AUTORIZACION PARA CUMPLIMIENTO DE SERVICIOS INSTITUCIONALES</h5> <!-- <h2>{{detalleSolicitudRealizadas.DetsolIdsolicitud}}</h2> -->
+	</modal-header>
+	<modal-content>
+	</modal-content>
+	<modal-footer>
+		<button class="btn btn-primary" (click)="myModal4.close()">Cerrar</button>
+	</modal-footer>
+</modal>
 
 
 

@@ -38,6 +38,10 @@ var VersolicitudComponent = (function () {
     }
     VersolicitudComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.clavefirma = {
+            'clave': ''
+        };
+        this.errorMsg = false;
         this.token = this._loginService.getToken();
         this._route.params.subscribe(function (params) {
             if (params['id'] != null) {
@@ -335,6 +339,18 @@ var VersolicitudComponent = (function () {
         // this.detalle = {
         // 	'DetsolIdsolicitud': DetalleSolMostrar.solIdsolicitud
         // };
+    };
+    VersolicitudComponent.prototype.FirmarSolicitud = function () {
+        this.clavefirma.clave = document.getElementById("clavefirma").value;
+        if (this.clavefirma.clave === "1") {
+            alert("ingreso a la firma");
+        }
+        else {
+            this.errorMsg = true;
+        }
+    };
+    VersolicitudComponent.prototype.corregirDatos = function () {
+        this.errorMsg = false;
     };
     // OnMostrarDetalleSol(a){
     // 	// window.location.href='/solicitud';

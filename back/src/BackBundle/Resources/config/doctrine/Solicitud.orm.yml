@@ -56,6 +56,12 @@ BackBundle\Entity\Solicitud:
             options:
                 fixed: true
             column: sol_anio
+        solObservacion:
+            type: string
+            nullable: true
+            options:
+                fixed: true
+            column: sol_observacion
     manyToOne:
         per:
             targetEntity: Persona

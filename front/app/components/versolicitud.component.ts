@@ -1,4 +1,4 @@
-import { Directive, Component, OnInit, Input/*, Output, EventEmitter*/ } from '@angular/core';
+import { Component, OnInit/*, Input, Output, EventEmitter*/ } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 // import {TransporteService} from '../services/transporte.service';
@@ -58,6 +58,8 @@ export class VersolicitudComponent implements OnInit{
 	public detalle;
 	public idSol;
 	public nuevaidSol;
+	public errorMsg;
+	public clavefirma;
 
 	// public solicitudInfolocal = new EventEmitter<any>();
 
@@ -85,7 +87,10 @@ export class VersolicitudComponent implements OnInit{
 	}
 
 	ngOnInit(){
-
+		this.clavefirma = {
+			'clave': ''
+		};
+		this.errorMsg = false;
 		this.token = this._loginService.getToken();
 		this._route.params.subscribe(params => {
 			if(params['id']!=null){
@@ -398,6 +403,18 @@ export class VersolicitudComponent implements OnInit{
 // 	'DetsolIdsolicitud': DetalleSolMostrar.solIdsolicitud
 // };
 }
+
+FirmarSolicitud(){
+	this.clavefirma.clave = (<HTMLInputElement>document.getElementById("clavefirma")).value
+	if(this.clavefirma.clave === "1"){
+		alert("ingreso a la firma");
+	}else{
+		this.errorMsg = true;
+	}
+}
+corregirDatos(){
+		this.errorMsg = false;
+	}
 
 	// OnMostrarDetalleSol(a){
 		// 	// window.location.href='/solicitud';

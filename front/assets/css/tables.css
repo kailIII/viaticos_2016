@@ -308,3 +308,15 @@ glyphicon{
     width: 10%;
     padding-left: 2%;
 }
+.panel-heading .accordion-toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+    /*content: "\e114"; */
+    content: "\e080";
+    float: right;        /* adjust as needed */
+    color: grey;         /* adjust as needed */
+}
+.panel-heading .accordion-toggle.collapsed:after {
+/*content: "\e080";*/
+content: "\e114";
+}

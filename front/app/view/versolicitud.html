@@ -208,7 +208,6 @@
 			</tr>
 			<tr style="height: 30%">
 				<td>
-
 				</td>
 			</tr>
 			<tr>
@@ -223,10 +222,37 @@
 			</tr>
 		</table>
 		<br>
-		</table>
-	<!-- <button class="btn btn-primary">Cerrar</button>  -->
-		<button class="btn btn-primary" (click)="OnRegresar1()">Cerrar</button>
+	</table>
+	<button class="btn btn-primary" (click)="myModal.open()">Firmar Solicitud</button> 
+	<button class="btn btn-primary" (click)="OnRegresar1()">Cerrar Ventana</button>
+</div>
+<modal #myModal>
+	<modal-header>
+	<h5>Seccion de firma de la solicitud</h5> <!-- <h2>{{detalleSolicitudRealizadas.DetsolIdsolicitud}}</h2> -->
+	</modal-header>
+	<modal-content>
+	<p>
+		Estimado(a):
+	</p>
+	<p>
+		{{cargojefesol2.perNombrecompleto}}
+	</p>
+	<p>
+		Por favor ingrese la contraseña para firmar la solicitud
+	</p>
+	<p>Ingrese la contraseña</p>
+	<!-- <input type="text" id="clavefirma" #clavefirma="ngModel" required> -->
+	<input type="text" id="clavefirma" name="clavefirma" #clavefirma="ngModel" [(ngModel)]="clavefirma.clave" required (click)="corregirDatos()">
 
+	<div id="mensajeerror" *ngIf="errorMsg == true">
+		<p>
+			Contraseña errónea por favor ingrese la correctamente
+		</p>
 	</div>
+	</modal-content>
+	<modal-footer>
+		<button class="btn btn-primary" (click)="FirmarSolicitud()">Firmar</button>
+		<button class="btn btn-primary" (click)="myModal.close()">Cerrar</button>
+	</modal-footer>
+</modal>
 
- 

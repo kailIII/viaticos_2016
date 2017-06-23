@@ -69,6 +69,7 @@ var NuevasolicitudComponent = (function () {
         this.OnCiudad();
         this.OnPersona();
         this.OnCiudadTransporte();
+        // this.expanderBloqueNuevaSol();
         this.es = {
             firstDayOfWeek: 1,
             dayNames: ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"],
@@ -137,6 +138,8 @@ var NuevasolicitudComponent = (function () {
         };
         // this.OnHoraFinicioTra();
         // this.OnHoraFfinTra();
+        // $('#seccion2').transition = false;
+        $(function () { $('#seccion2').transition = false; });
     };
     // openPdf() {
     // 	this.pdf = pdfMake;
@@ -694,6 +697,28 @@ var NuevasolicitudComponent = (function () {
                 alert("Error al guardar datos");
             }
         });
+    };
+    NuevasolicitudComponent.prototype.expanderBloqueNuevaSol = function () {
+        // $('#datosGenerales1')
+        //          .on('shown.bs.collapse', function() {
+        //              $(this)
+        //                  .parent()
+        //                  .find(".glyphicon-plus")
+        //                  .removeClass("glyphicon-plus")
+        //                  .addClass("glyphicon-minus");
+        //              })
+        //          .on('hidden.bs.collapse', function() {
+        //              $(this)
+        //                  .parent()
+        //                  .find(".glyphicon-minus")
+        //                  .removeClass("glyphicon-minus")
+        //                  .addClass("glyphicon-plus");
+        //              });
+    };
+    NuevasolicitudComponent.prototype.alerta = function () {
+        // $('#seccion2').transition = true;
+        $(function () { $('#seccion2').transition = true; });
+        // alert("click desde el collapse");
     };
     return NuevasolicitudComponent;
 }());

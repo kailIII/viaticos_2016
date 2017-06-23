@@ -8,8 +8,8 @@
 </div> -->
 <div >
 	<p-tabView>
-<p-tabPanel header="Solicitud">
-<p-dataTable [value]="datoSolMostrara" [rows]="3" [paginator]="true" [pageLinks]="3" [globalFilter]="gb2" >
+		<p-tabPanel header="Solicitud">
+			<p-dataTable [value]="datoSolMostrara" [rows]="3" [paginator]="true" [pageLinks]="3" [globalFilter]="gb2" >
 				<p-column [style]="{'width':'15%'}" field="solFecharealizacion" dateformat="yyyy-MM-dd" header="Fecha Realizado"  [sortable]="true"></p-column>
 				<p-column [style]="{'width':'30%'}" field="solIdsolicitud" header="Solicitud N°" [ordered]="true" [sortable]="true" ></p-column>
 				<p-column  [style]="{'width':'30%'}" field="solCiudades" header="Ciudades" [sortable]="true">
@@ -27,27 +27,47 @@
 					</template>
 				</p-column> 
 			</p-dataTable>
-</p-tabPanel>	
-<p-tabPanel header="Informes pendientes">
-</p-tabPanel>
-	<div *ngIf="transporte==0" >
-<p-tabPanel header="Vuelos pendientes">
-</p-tabPanel>
-<p-tabPanel header="Proceso de pago">
-</p-tabPanel>
-<p-tabPanel header="Personal Comision">
-</p-tabPanel>
-	</div>
-	<div *ngIf="transporte==1">
-		
-<p-tabPanel header="Vuelos Solicitados">
-</p-tabPanel>
-<p-tabPanel header="Vehiculos Solicitados">
-</p-tabPanel>
-<p-tabPanel header="Vuelos pendientes">
-</p-tabPanel>
-	</div>
-</p-tabView>
+		</p-tabPanel>	
+		<p-tabPanel header="Informes pendientes">
+		</p-tabPanel>
+		<div *ngIf="transporte==0" >
+			<p-tabPanel header="Vuelos pendientes">
+			</p-tabPanel>
+			<p-tabPanel header="Proceso de pago">
+			</p-tabPanel>
+			<p-tabPanel header="Personal Comision">
+			</p-tabPanel>
+		</div>
+		<div *ngIf="transporte==1">
+
+			<p-tabPanel header="Vuelos Solicitados">
+			</p-tabPanel>
+			<p-tabPanel header="Vehiculos Solicitados">
+			</p-tabPanel>
+			<p-tabPanel header="Vuelos pendientes">
+			</p-tabPanel>
+		<p-tabPanel header="Funcionarios en Comisión">
+		<p-dataTable [value]="datoSolMostrara" [rows]="3" [paginator]="true" [pageLinks]="3" [globalFilter]="gb2" >
+				<p-column [style]="{'width':'9%'}" field="solFecharealizacion" dateformat="yyyy-MM-dd" header="Fecha Realizado"  [sortable]="true"></p-column>
+				<p-column  [style]="{'width':'20%'}" field="solFuncionario" header="Funcionario" [sortable]="true">
+				</p-column>
+				<p-column [style]="{'width':'20%'}" field="solIdsolicitud" header="Solicitud N°" [ordered]="true" [sortable]="true" ></p-column>
+				<p-column  [style]="{'width':'30%'}" field="solCiudades" header="Ciudades" [sortable]="true">
+				</p-column>
+				<p-column  [style]="{'width':'6%'}" field="solActualizacion" header="Actual" [sortable]="true">
+				</p-column> 
+				<p-column [style]="{'width':'9%'}" field="solEstado" header="Estado" [sortable]="true"></p-column>
+				<p-column [style]="{'width':'6%'}" styleClass="col-button" header="Acción">
+					<template let-car="rowData" pTemplate="body">
+						<button type="button" pButton (click)="ExtenderComision(car)" icon="glyphicon glyphicon-resize-full" ></button>
+						<!-- <button type="button" pButton (click)="myModal2.open();OnMostrarDetalle(car)" icon="fa-edit" ></button> -->
+						<!-- <button class="btn btn-primary" (click)="lgModal.show()">Large modal</button> -->
+					</template>
+				</p-column> 
+			</p-dataTable>
+		</p-tabPanel>
+		</div>
+	</p-tabView>
 </div>
 <!-- <div class="principalarriba">
 	<div class="ultimosvuelos">

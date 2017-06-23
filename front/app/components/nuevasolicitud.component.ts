@@ -185,6 +185,7 @@ export class NuevasolicitudComponent implements OnInit{
 		this.OnCiudad();
 		this.OnPersona();
 		this.OnCiudadTransporte();
+		// this.expanderBloqueNuevaSol();
 
 		this.es = {
 			firstDayOfWeek: 1,
@@ -261,6 +262,8 @@ export class NuevasolicitudComponent implements OnInit{
 		};
 		// this.OnHoraFinicioTra();
 		// this.OnHoraFfinTra();
+		// $('#seccion2').transition = false;
+		$(function() { $('#seccion2').transition = false; })
 
 	}
 
@@ -882,5 +885,32 @@ export class NuevasolicitudComponent implements OnInit{
 					}
 					);
 			}
+
+				expanderBloqueNuevaSol(){
+		    
+// $('#datosGenerales1')
+//          .on('shown.bs.collapse', function() {
+//              $(this)
+//                  .parent()
+//                  .find(".glyphicon-plus")
+//                  .removeClass("glyphicon-plus")
+//                  .addClass("glyphicon-minus");
+//              })
+//          .on('hidden.bs.collapse', function() {
+//              $(this)
+//                  .parent()
+//                  .find(".glyphicon-minus")
+//                  .removeClass("glyphicon-minus")
+//                  .addClass("glyphicon-plus");
+//              });
+
+
+	}
+
+	alerta(){
+// $('#seccion2').transition = true;
+$(function() { $('#seccion2').transition = true; })
+		// alert("click desde el collapse");
+	}
 
 		}
