@@ -9,8 +9,7 @@
 	</div>
 </div>
 <div class="FormularioActivo">
-	<form (ngSubmit)="onEnviarSol()" #ComisionForm="ngForm">
-		<!-- <div *ngIf="inicial == false && paso2 == false  && paso3 == false && paso4 == false"> -->
+	<form #ComisionForm="ngForm">
 		<div class="panel-group" id="accordion1">
 			<div class="panel panel-default">
 				<div class="panel-heading">
@@ -85,248 +84,243 @@
 					</div>
 				</div>
 			</div>
-			<!-- </div> -->
-			<!-- <button (click)="Onpaso2()">Actividades a Realizar</button> -->
 		</div>
-		<!-- <div *ngIf="inicial == true && paso2 == false  && paso3 == false && paso4 == false"> -->
 		<div class="panel-group" id="accordion2">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#actividadesRealizar">
-							Sección: ACTIVIDADES A REALIZAR
+						<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#actividadesRealizar"  >
+							Sección: ACTIVIDADES A REALIZAR 
 						</a>
 					</h4>
 				</div>
 				<div id="actividadesRealizar" class="panel-collapse collapse">
 					<div class="panel-body">
 						<table id="mytable" class="table2">
-				<!-- <thead>
-					<p><ins>Actividades a realizar</ins></p>
-				</thead> -->
-				<tbody>
-					<tr>
-						<td>
-							<p-editor id="editor" [(ngModel)]="comision.actividadessol" [style]="{'height':'320px'}" [ngModelOptions]="{standalone: true}">
-								<header>
-									<span class="ql-formats" style="text-align: center; width: 100%;">
-										<table id="tabla_toolbar">
-											<tr>
-												<td>Estilo</td>
-											</tr>
-											<tr>
-												<td>
-													<span class="ql-formats">
-														<button class="ql-bold"></button>
-														<button class="ql-italic"></button>
-														<button class="ql-underline"></button>
-													</span>
-												</td>
-											</tr>
-										</table>
-										<table id="tabla_toolbar">
-											<tr>
-												<td>Tamaño</td>
-											</tr>
-											<tr>
-												<td>
-													<select class="ql-size">
-														<option selected></option>
-														<option value="large">Titulo</option>
-													</select>
-												</td>
-											</tr>
-										</table>
-										<table id="tabla_toolbar">
-											<tr>
-												<td>Alineación</td>
-											</tr>
-											<tr>
-												<td style="text-align: center;">
-													<span class="ql-formats">
-														<button class="ql-align"></button>
-														<button class="ql-align " value="center"></button>
-														<button class="ql-align" value="justify"></button>
-													</span>
-												</td>
-											</tr>
-										</table>
-										<table id="tabla_toolbar">
-											<tr>
-												<td>Ordenamiento</td>
-											</tr>
-											<tr>
-												<td style="text-align: center;">
-													<span class="ql-formats">
-														<button class="ql-list" value="bullet"></button>
-														<button class="ql-indent" value="-1"></button>
-														<button class="ql-indent" value="+1"></button>
-													</span>
-												</td>
-											</tr>
-										</table>
-									</span>
-								</header>
-							</p-editor>
-						</td>
-
-					</tr>
-				</tbody>
-			</table> 
+							<tbody>
+								<tr>
+									<td>
+										<p-editor id="editor" [(ngModel)]="comision.actividadessol" [style]="{'height':'320px'}" [ngModelOptions]="{standalone: true}">
+											<header>
+												<span class="ql-formats" style="text-align: center; width: 100%;">
+													<table id="tabla_toolbar">
+														<tr>
+															<td>Estilo</td>
+														</tr>
+														<tr>
+															<td>
+																<span class="ql-formats">
+																	<button class="ql-bold"></button>
+																	<button class="ql-italic"></button>
+																	<button class="ql-underline"></button>
+																</span>
+															</td>
+														</tr>
+													</table>
+													<table id="tabla_toolbar">
+														<tr>
+															<td>Tamaño</td>
+														</tr>
+														<tr>
+															<td>
+																<select class="ql-size">
+																	<option selected></option>
+																	<option value="large">Titulo</option>
+																</select>
+															</td>
+														</tr>
+													</table>
+													<table id="tabla_toolbar">
+														<tr>
+															<td>Alineación</td>
+														</tr>
+														<tr>
+															<td style="text-align: center;">
+																<span class="ql-formats">
+																	<button class="ql-align"></button>
+																	<button class="ql-align " value="center"></button>
+																	<button class="ql-align" value="justify"></button>
+																</span>
+															</td>
+														</tr>
+													</table>
+													<table id="tabla_toolbar">
+														<tr>
+															<td>Ordenamiento</td>
+														</tr>
+														<tr>
+															<td style="text-align: center;">
+																<span class="ql-formats">
+																	<button class="ql-list" value="bullet"></button>
+																	<button class="ql-indent" value="-1"></button>
+																	<button class="ql-indent" value="+1"></button>
+																</span>
+															</td>
+														</tr>
+													</table>
+												</span>
+											</header>
+										</p-editor>
+									</td>
+								</tr>
+							</tbody>
+						</table> 
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
-</div>
-<!-- </div> -->
-<!-- <button (click)="Onpaso3()">Escoger Transporte</button> -->
-</div>
-<!-- <div *ngIf="inicial == true && paso2 == true && paso3 == false && paso4 == false"> -->
 		<div class="panel-group" id="accordion3">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#transporteSolicitar">
+						<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#transporteSolicitar" (click)="datosGenerales()">
 							Sección: TRANSPORTES A SOLICITAR
 						</a>
 					</h4>
 				</div>
-				<div id="transporteSolicitar" class="panel-collapse collapse">
-					<div class="panel-body">
-				<!-- <p><ins>Escoger los transportes a requerir</ins></p> -->
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th style="width: 10%">Tipo
-							</th>
-							<th style="width: 10%">Modelo
-							</th>
-							<th style="width: 20%">Ruta Inicio
-							</th>
-							<th style="width: 20%">Ruta Fin
-							</th>
-							<th style="width: 10%">Fecha Inicio
-							</th>
-							<th style="width: 7%">Hora Inicio
-							</th>
-							<th style="width: 10%">Fecha Fin
-							</th>
-							<th style="width: 7%">Hora Fin
-							</th>
-							<th style="width: 6%">Agregar Ruta
-							</th>
-						</tr>
-					</thead>
-					<tbody id="tbody_trareq">
-						<tr>
-							<td style="width: 11.25%">
-								<select id="combo_tiptra" (change)="onSelect()" (change)="onCambiarModelTra()">
-									<option [value]="0">Escoja uno</option>
-									<option *ngFor="let tipodetransporte of tipotra" [value]="tipodetransporte.val">
-										{{tipodetransporte.name}}
-									</option>
-								</select>
-							</td>
-							<td style="width: 11.25%">
-								<select id="combo_vehiculo" *ngIf="modeltrans == false" >
-									<option [value]="0">Escoja uno</option>
-								</select> 
-								<select id="combo_vehiculo" *ngIf="modeltrans == true" >
-									<option *ngFor="let modelotransporte of modeltra" [value]="modelotransporte.tiptraNombre">
-										{{modelotransporte.tiptraNombre}}
-									</option>
-								</select> 
-							</td>
-							<td style="width: 11.25%">
-								<p-dropdown [style]="{'width':'auto'}" [options]="ciudadtra" [(ngModel)]="RinicioTrans" [filter]="true" [ngModelOptions]="{standalone: true}">
-								</p-dropdown>
-							</td>
-							<td style="width: 11.25%">
-								<p-dropdown [style]="{'width':'auto'}" [options]="ciudadtra" [(ngModel)]="RfinTrans" [filter]="true" [ngModelOptions]="{standalone: true}">
-									<div class="ui-helper-clearfix" style="position: relative;height: 12px;">
-										<div id="RfinTrans" style="font-size:10px;float:right;margin-top:1px">{{ciudadtra.label}}</div>
-									</div>
-								</p-dropdown>
-							</td>
-							<td>
-
-								<input type="date" [(ngModel)]="FinicioTrans" [ngModelOptions]="{standalone: true}">
-							</td>
-							<td>
-
-								<input type="time" [(ngModel)]="HinicioTrans" [ngModelOptions]="{standalone: true}">
-							</td>
-							<td>
-
-								<input type="date" [(ngModel)]="FfinTrans" [ngModelOptions]="{standalone: true}">
-							</td>
-							<td>
-
-								<input type="time" [(ngModel)]="HfinTrans" [ngModelOptions]="{standalone: true}">
-							</td>
-							<td  style="width: 10%">
-								<a class="btn btn-success btn-xs glyphicon glyphicon-plus" (click)="OnAgregarTraReq()">
-								</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none; text-align: right;">
-					<i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-					<input #gb1 type="text" pInputText size="25" placeholder="Buscar">
-				</div>
-				<p-dataTable id="tbody_trareq_dialog" [value]="transporteSol" [rows]="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [globalFilter]="gb1" [editable]="true">
-					<p-column [style]="{'width':'11.25%'}" field="tratipo" header="Tipo" [ordered]="true" [sortable]="false" ></p-column>
-					<p-column [style]="{'width':'11.25%'}" field="tramodelo" dateformat="yyyy-MM-dd" header="Modelo"  [sortable]="false"></p-column>
-					<p-column [style]="{'width':'11.25%'}" field="trarutaInicio" header="Ruta Inicio" [editable]="true" [sortable]="false"></p-column>
-					<p-column [style]="{'width':'11.25%'}" field="trarutaFin" header="Ruta Fin" [editable]="true" [sortable]="false"></p-column>
-					<p-column [style]="{'width':'11.25%'}" field="trafechaInicio" header="Fecha Inicio" [editable]="true" [sortable]="false">
-					</p-column>
-					<p-column [style]="{'width':'11.25%'}" field="trafechaFin" header="Fecha Fin" [editable]="true" [sortable]="false"></p-column>
-					<p-column [style]="{'width':'11.25%'}" field="trahoraInicio" header="Hora Inicio" [editable]="true" [sortable]="false"></p-column>
-					<p-column [style]="{'width':'11.25%'}" field="trahoraFin" header="Hora Fin" [editable]="true" [sortable]="false"></p-column>
-					<p-column [style]="{'width':'10%'}" styleClass="col-button" header="Eliminar">
-						<template let-car="rowData" pTemplate="body">
-							<button type="button" pButton (click)="delete(car)" icon="fa-trash" data-toggle="tooltip" data-placement="bottom" title="Eliminar"></button>
-						</template>
-					</p-column>
-				</p-dataTable>
-			</div>
-		</div>
-	</div>
-</div>
-			<!-- <div class="pagination pull-CENTER">
-				<button (click)="Onpaso4()">Ingresar Anexos y Fondos</button>
-			</div> -->
-			<!-- </div> -->
-			<!-- <div *ngIf="inicial == true && paso2 == true && paso3 == true && paso4 == false"> -->
-
-		<div class="panel-group" id="accordion4">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h4 class="panel-title">
-						<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#fondoSolicitar">
-							Sección: FONDOS A SOLICITAR
-						</a>
-					</h4>
-				</div>
-				<div id="fondoSolicitar" class="panel-collapse collapse">
-					<div class="panel-body">
-							<div>
-								<!-- <p><ins>Ingresar los fondos asignados</ins></p> -->
-								<label>Cantidad del fondo asignado:</label>
-								<input type="text" id="fonvalor" name="fonvalor" [(ngModel)]="fondovalor"/>
-								<label>Descripción del fondo asignado:</label>
-								<input type="text" id="fondes" name="fondes" [(ngModel)]="fondoobservacion"/>
+				<div *ngIf="existenDatosGenerales == true">
+					<div id="transporteSolicitar" class="panel-collapse collapse">
+						<div class="panel-body">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th style="width: 10%">Tipo
+										</th>
+										<th style="width: 10%">Modelo
+										</th>
+										<th style="width: 20%">Ruta Inicio
+										</th>
+										<th style="width: 20%">Ruta Fin
+										</th>
+										<th style="width: 10%">Fecha Inicio
+										</th>
+										<th style="width: 7%">Hora Inicio
+										</th>
+										<th style="width: 10%">Fecha Fin
+										</th>
+										<th style="width: 7%">Hora Fin
+										</th>
+										<th style="width: 6%">Agregar Ruta
+										</th>
+									</tr>
+								</thead>
+								<tbody id="tbody_trareq">
+									<tr>
+										<td style="width: 11.25%">
+											<select id="combo_tiptra" (change)="onSelect()">
+												<option [value]="0">Escoja uno</option>
+												<option *ngFor="let tipodetransporte of tipotra" [value]="tipodetransporte.val">
+													{{tipodetransporte.name}}
+												</option>
+											</select>
+										</td>
+										<td style="width: 11.25%">
+											<select id="combo_vehiculo" *ngIf="modeltrans == false" >
+												<option [value]="0">Escoja uno</option>
+											</select> 
+											<select id="combo_vehiculo" *ngIf="modeltrans == true" >
+												<option *ngFor="let modelotransporte of modeltra" [value]="modelotransporte.tiptraNombre">
+													{{modelotransporte.tiptraNombre}}
+												</option>
+											</select> 
+										</td>
+										<td style="width: 11.25%">
+											<p-dropdown [style]="{'width':'auto'}" [options]="ciudadtra" [(ngModel)]="RinicioTrans" [filter]="true" [ngModelOptions]="{standalone: true}">
+											</p-dropdown>
+										</td>
+										<td style="width: 11.25%">
+											<p-dropdown [style]="{'width':'auto'}" [options]="ciudadtra" [(ngModel)]="RfinTrans" [filter]="true" [ngModelOptions]="{standalone: true}">
+												<div class="ui-helper-clearfix" style="position: relative;height: 12px;">
+													<div id="RfinTrans" style="font-size:10px;float:right;margin-top:1px">{{ciudadtra.label}}</div>
+												</div>
+											</p-dropdown>
+										</td>
+										<td>
+											<input type="date" [(ngModel)]="FinicioTrans" [ngModelOptions]="{standalone: true}">
+										</td>
+										<td>
+											<input type="time" [(ngModel)]="HinicioTrans" [ngModelOptions]="{standalone: true}">
+										</td>
+										<td>
+											<input type="date" [(ngModel)]="FfinTrans" [ngModelOptions]="{standalone: true}">
+										</td>
+										<td>
+											<input type="time" [(ngModel)]="HfinTrans" [ngModelOptions]="{standalone: true}">
+										</td>
+										<td  style="width: 10%">
+											<a class="btn btn-success btn-xs glyphicon glyphicon-plus" (click)="OnAgregarTraReq()">
+											</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none; text-align: right;">
+								<i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+								<input #gb1 type="text" pInputText size="25" placeholder="Buscar">
 							</div>
-							<ul class="pagination pull-CENTER">
-								<button (click)="onGuardarSol()">GUARDAR(nada)</button>
-								<button type="submit">ENVIAR</button>
-								<button (click)="OnImprimirSol()">IMPRIMIR(nada)</button>
-								<button (click)="OnCancelarSol()">CANCELAR(nada)</button>
-							</ul>
-							<!-- </div> -->
+							<p-dataTable id="tbody_trareq_dialog" [value]="transporteSol" [rows]="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [globalFilter]="gb1" [editable]="true">
+								<p-column [style]="{'width':'11.25%'}" field="tratipo" header="Tipo" [ordered]="true" [sortable]="false" ></p-column>
+								<p-column [style]="{'width':'11.25%'}" field="tramodelo" dateformat="yyyy-MM-dd" header="Modelo"  [sortable]="false"></p-column>
+								<p-column [style]="{'width':'11.25%'}" field="trarutaInicio" header="Ruta Inicio" [editable]="true" [sortable]="false"></p-column>
+								<p-column [style]="{'width':'11.25%'}" field="trarutaFin" header="Ruta Fin" [editable]="true" [sortable]="false"></p-column>
+								<p-column [style]="{'width':'11.25%'}" field="trafechaInicio" header="Fecha Inicio" [editable]="true" [sortable]="false">
+								</p-column>
+								<p-column [style]="{'width':'11.25%'}" field="trafechaFin" header="Fecha Fin" [editable]="true" [sortable]="false"></p-column>
+								<p-column [style]="{'width':'11.25%'}" field="trahoraInicio" header="Hora Inicio" [editable]="true" [sortable]="false"></p-column>
+								<p-column [style]="{'width':'11.25%'}" field="trahoraFin" header="Hora Fin" [editable]="true" [sortable]="false"></p-column>
+								<p-column [style]="{'width':'10%'}" styleClass="col-button" header="Eliminar">
+									<template let-car="rowData" pTemplate="body">
+										<button type="button" pButton (click)="delete(car)" icon="fa-trash" data-toggle="tooltip" data-placement="bottom" title="Eliminar"></button>
+									</template>
+								</p-column>
+							</p-dataTable>
 						</div>
 					</div>
 				</div>
 			</div>
-		</form>
-	</div>
+		</div>
+		<modal #myModal [hideCloseButton]="true" [closeOnEscape]="false" [closeOnOutsideClick]="false"  modalClass="modal-sm">
+			<modal-content>
+				<div *ngIf="mensajeGuardado == 'false'" class="cargarSol">
+					<div class="mensajecargaSol">
+						<p>Por favor espere un momento, se esta guardando la solicitud</p>
+						<div>
+							<img src="assets/images/cargar.gif"/>
+						</div>
+					</div>
+					<img src="assets/images/cargar.gif"  width="32" height="32" />
+				</div>
+				<div *ngIf="mensajeGuardado === 'true'"  class="cargarSol">
+					<div class="mensajecargaSol">
+						<p>Solicitud creada correctamente</p>
+						<div>
+							<img src="assets/images/visto-verde.png"/>
+						</div>
+					</div>
+				</div>
+				<div *ngIf="mensajeGuardado === 'error'"  class="cargarSol">
+					<div class="mensajecargaSol">
+						<p>Solicitud con errores, por favor verifique los datos ingresados e intente nuevamente</p>
+						<div>
+							<img src="assets/images/ImgCritical.png"/>
+						</div>
+					</div>
+				</div>
+			</modal-content>
+			<modal-footer>
+				<div *ngIf="mensajeGuardado === 'true'"  class="cargarSol">
+					<button class="btn btn-primary" (click)="myModal.close();OnEnviaraRaizSolicitud()">Aceptar</button>
+				</div>
+				<div *ngIf="mensajeGuardado === 'error'"  class="cargarSol">
+					<button class="btn btn-primary" (click)="myModal.close()">Aceptar</button>
+				</div>
+			</modal-footer>
+		</modal>
+		<div >
+			<ul class="pagination pull-CENTER">
+				<button class="btn btn-primary" type="button" pButton (click)="myModal.open();onGuardarSol()" label="GUARDAR Y ENVIAR"></button>
+				<button (click)="OnCancelarSol()">NO GUARDAR Y SALIR</button>
+			</ul>
+		</div>
+	</form>
+</div>

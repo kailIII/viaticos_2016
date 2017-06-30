@@ -170,7 +170,7 @@ export class SolicitudComponent {
 		};
 		this.OnVerDetalleSol();	
 		this.OnporFirmar();
-		this.Onequisviaticos();
+		// this.Onequisviaticos();
 
 		this.detalleSolicitudRealizadas = {
 			'DetsolIdsolicitud': ''
@@ -284,6 +284,9 @@ export class SolicitudComponent {
 	}
 
 	OnVerDetalleSol(){
+		// console.log("this.token:"+this.token);
+		// console.log("this.funcionario:"+JSON.stringify(this.funcionario));
+
 		this._solicitudService.reporteSolicitud(this.token,this.funcionario).subscribe(
 			response => {
 				let info = response;
@@ -753,6 +756,10 @@ OnMostrarDetalleSol(valor:Array<any>){
 // 	console.log("this.solicitudInfolocal:"+JSON.stringify(this.solicitudInfolocal));
 	// 	console.log("this.solifecfun2:"+JSON.stringify(this.solifecfun2));
 
+}
+
+OnListarFuncionariosComision(){
+	
 }
 
 // OnMostrarDetalle(DetalleSolMostrar){

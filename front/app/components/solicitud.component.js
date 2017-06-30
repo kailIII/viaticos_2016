@@ -34,7 +34,7 @@ var SolicitudComponent = (function () {
         };
         this.OnVerDetalleSol();
         this.OnporFirmar();
-        this.Onequisviaticos();
+        // this.Onequisviaticos();
         this.detalleSolicitudRealizadas = {
             'DetsolIdsolicitud': ''
         };
@@ -138,6 +138,8 @@ var SolicitudComponent = (function () {
         };
     };
     SolicitudComponent.prototype.OnVerDetalleSol = function () {
+        // console.log("this.token:"+this.token);
+        // console.log("this.funcionario:"+JSON.stringify(this.funcionario));
         var _this = this;
         this._solicitudService.reporteSolicitud(this.token, this.funcionario).subscribe(function (response) {
             var info = response;
@@ -619,6 +621,8 @@ var SolicitudComponent = (function () {
         // 	// }
         // 	console.log("this.solicitudInfolocal:"+JSON.stringify(this.solicitudInfolocal));
         // 	console.log("this.solifecfun2:"+JSON.stringify(this.solifecfun2));
+    };
+    SolicitudComponent.prototype.OnListarFuncionariosComision = function () {
     };
     // OnMostrarDetalle(DetalleSolMostrar){
     // 	this.detalleSolicitudRealizadas = {

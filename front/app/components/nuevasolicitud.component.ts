@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import {TransporteService} from '../services/transporte.service';
@@ -8,13 +8,18 @@ import {LoginService} from '../services/login.service';
 import {SelectItem, OrderListModule} from 'primeng/primeng';
 import {FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 
+// import {Moment} from 'moment/moment';
+
 // declare var pdfMake: any;
 // declare var buildPdf: any;
 
 declare var JQuery:any;
 declare var $:any;
 
-var moment = require('moment');
+// var moment = require('moment');
+declare var moment: any;
+// var moment = require('moment/moment');
+// var moment = Moment;
 
 const URLupload = 'file://localhost:3000/pdfSol1/';
 
@@ -153,8 +158,12 @@ export class NuevasolicitudComponent implements OnInit{
 	public nuevafechainicio1: Array<any>;
 	public datoscorreo;
 	public guardar1;
+	public guardar2;
 	public datosfun;
 	public datoscorreoAJefe;
+	public existenDatosGenerales: boolean;
+	public mensajeGuardado;
+	// @Output() mensajeGuardado: EventEmitter<string> = new EventEmitter();
 
 	// filesToUpload: Array<File>;
 
@@ -170,13 +179,18 @@ export class NuevasolicitudComponent implements OnInit{
 	}
 
 	ngOnInit(){
-		this.ciudadComision ="";
+		this.mensajeGuardado = "false";
+		// this.mensajeGuardado.emit("true");
+		// console.log("this.mensajeGuardado:"+JSON.stringify(this.mensajeGuardado));
+		// console.log("this.mensajeGuardado:"+this.mensajeGuardado);
+		this.ciudadComision = "";
 		this.ciudadComisionJSON = "";
 		this.inicial = false;
 		this.paso2 = false;
 		this.paso3 = false;
 		this.paso4 = false;
 		this.modeltrans = false;
+		this.existenDatosGenerales = false;
 		this.transporte = {
 			'tritra':""
 		};
@@ -387,7 +401,9 @@ export class NuevasolicitudComponent implements OnInit{
 		}
 
 		OnTipoTransporte(){
-			let tipotransporte = document.createTextNode((<HTMLInputElement>document.getElementById("combo_tiptra")).value);
+			// let tipotransporte = document.createTextNode((<HTMLInputElement>document.getElementById("combo_tiptra")).value);
+			let tipotransporte = (<HTMLInputElement>document.getElementById("combo_tiptra")).value;
+
 			return tipotransporte;
 		}
 
@@ -755,7 +771,6 @@ export class NuevasolicitudComponent implements OnInit{
 							}
 						}
 						);
-
 				}
 			}
 
@@ -764,7 +779,7 @@ export class NuevasolicitudComponent implements OnInit{
 			}
 
 			OnImprimirSol(){
-				this._router.navigate(['/imprimir_solicitud']);
+				// this._router.navigate(['/imprimir_solicitud']);
 				// window.location.href='/principal';
 			}
 			OnBloquearBotones(){
@@ -779,14 +794,9 @@ export class NuevasolicitudComponent implements OnInit{
 					response =>{
 						let guardar = response;
 						this.guardar = guardar;
-
 						if(this.guardar.status === "success"){
 							this.datoscorreoAJefe.solicitud = this.guardar.code;
-
 							this.OnEnviarCorreoAfun(this.comision.funcionarios_sol);
-							
-							
-							
 						}else{
 							alert(this.guardar.msg);
 						}
@@ -802,41 +812,28 @@ export class NuevasolicitudComponent implements OnInit{
 			}
 
 			OnEnviarCorreoAfun(a){
-				// console.log("a:"+a);
 				let token = this._loginService.getToken();
 				if(a === ""){
 					this.datoscorreo = {
-					'sendTo': this.datosfun.nombre,
-					'sendToFun': this.datosfun.nombre
-				};
+						'sendTo': this.datosfun.nombre,
+						'sendToFun': this.datosfun.nombre
+					};
 				}else{
 
-				this.datoscorreo = {
-					'sendTo': this.datosfun.nombre+","+a,
-					'sendToFun': this.datosfun.nombre
-				};
+					this.datoscorreo = {
+						'sendTo': this.datosfun.nombre+","+a,
+						'sendToFun': this.datosfun.nombre
+					};
 				}
-
-				// console.log("this.datoscorreo:"+JSON.stringify(this.datoscorreo));
-
 				this._SolicitudService.enviar1Solicitud(token,this.datoscorreo).subscribe(
 					response =>{
 						let guardar1 = response;
 						this.guardar1 = guardar1;
-
-						// console.log("this.guardar1:"+JSON.stringify(this.guardar1));
-
 						if(this.guardar1.status === "success"){
 							this.OnEnviarCorreofunAJefe();
-							// console.log("Información guardada satisfactoriamente");
-							// alert(this.guardar.msg);
-							// window.location.href='/solicitud';
-							// this._router.navigate(['/solicitud']);
 						}else{
-							alert("No se pudo enviar el correo electrónico");
+							this.mensajeGuardado = "error";
 						}
-						// this._router.navigate(['/solicitud']);
-						// }
 					},
 					error =>{
 						this.errorMessage = <any>error;
@@ -846,35 +843,23 @@ export class NuevasolicitudComponent implements OnInit{
 						}
 					}
 					);
+			}
+			OnEnviaraRaizSolicitud(){
+				this._router.navigate(['/solicitud']);
 			}
 
 			OnEnviarCorreofunAJefe(){
 				let token = this._loginService.getToken();
 				this.datoscorreoAJefe.sendToFun2 = this.datosfun.nombre;
-			
-
-				// console.log("this.datoscorreoAJefe:"+JSON.stringify(this.datoscorreoAJefe));
-
 				this._SolicitudService.enviarjiSolicitud(token,this.datoscorreoAJefe).subscribe(
 					response =>{
 						let guardar1 = response;
-						this.guardar1 = guardar1;
-
-						// console.log("this.guardar1:"+JSON.stringify(this.guardar1));
-
-						if(this.guardar1.status === "success"){
-
-							// console.log("Información guardada satisfactoriamente");
-							// alert(this.guardar.msg);
-							// alert(this.guardar1.msg);
-							alert("Solicitud creada satisfactoriamente");
-							// window.location.href='/solicitud';
-							this._router.navigate(['/solicitud']);
+						this.guardar2 = guardar1;
+						if(this.guardar2.status === "success"){
+							this.mensajeGuardado = "true";
 						}else{
-							alert("No se pudo enviar el correo electrónico");
+							this.mensajeGuardado = "error";
 						}
-						// this._router.navigate(['/solicitud']);
-						// }
 					},
 					error =>{
 						this.errorMessage = <any>error;
@@ -886,31 +871,55 @@ export class NuevasolicitudComponent implements OnInit{
 					);
 			}
 
-				expanderBloqueNuevaSol(){
-		    
-// $('#datosGenerales1')
-//          .on('shown.bs.collapse', function() {
-//              $(this)
-//                  .parent()
-//                  .find(".glyphicon-plus")
-//                  .removeClass("glyphicon-plus")
-//                  .addClass("glyphicon-minus");
-//              })
-//          .on('hidden.bs.collapse', function() {
-//              $(this)
-//                  .parent()
-//                  .find(".glyphicon-minus")
-//                  .removeClass("glyphicon-minus")
-//                  .addClass("glyphicon-plus");
-//              });
+			onGuardarSol(){
 
+				let Fecha_sol  = (<HTMLInputElement>document.getElementById("Fecha_sol")).value;
+				let FechaDesde_sol  = (<HTMLInputElement>document.getElementById("FechaDesde_solicitud")).value;
+				let HoraDesde_sol  = (<HTMLInputElement>document.getElementById("HoraDesde_sol")).value;
+				let FechaHasta_sol  = (<HTMLInputElement>document.getElementById("FechaHasta_solicitud")).value;
+				let HoraHasta_sol  = (<HTMLInputElement>document.getElementById("HoraHasta_sol")).value;
+				let actividadessol  = (<HTMLInputElement>document.getElementById("actividadesRealizar")).value;
+				let ciudades_sol = this.ciudades_sol_ini;
+				let tablaTransporte = this.transporteSol.length;
 
-	}
+				// if(Fecha_sol === "" || FechaDesde_sol === "" || HoraDesde_sol === "" || FechaHasta_sol === "" || HoraHasta_sol === "" || this.comision.actividadessol === undefined || this.comision.actividadessol === null || this.comision.actividadessol === "" || ciudades_sol === undefined || ciudades_sol === null || ciudades_sol === "" || tablaTransporte == 0){
+					if(Fecha_sol == "" || FechaDesde_sol == "" || HoraDesde_sol == "" || FechaHasta_sol == "" || HoraHasta_sol == "" || ciudades_sol === undefined || ciudades_sol === null || ciudades_sol == ""){
+						alert("Faltan datos en la seccion Datos Generales");
+					}else if(this.comision.actividadessol === undefined || this.comision.actividadessol === null || this.comision.actividadessol == ""){
+						// console.log("ciudades_sol:"+ciudades_sol);
+						// console.log("actividadessol:"+this.comision.actividadessol);
+						alert("Faltan datos en la seccion Actividades");
+					}else if(tablaTransporte == 0){
+						// console.log("tablaTransporte:"+tablaTransporte);
+						alert("Faltan datos en la seccion Transporte");
+					}else{
+						this.Onpaso4();
+						this.onEnviarSol();
+					}
+				}
 
-	alerta(){
-// $('#seccion2').transition = true;
-$(function() { $('#seccion2').transition = true; })
-		// alert("click desde el collapse");
-	}
+				datosGenerales(){
+					// $('#seccion2').transition = true;
+					// $(function() { $('#seccion2').transition = true; })
+					if(this.FechaDesde_solicitud === undefined || this.FechaDesde_solicitud === "" || this.HoraDesde_sol === undefined || this.HoraDesde_sol === "" || this.FechaHasta_solicitud === undefined || this.FechaHasta_solicitud === "" || this.HoraHasta_sol === undefined || this.HoraHasta_sol === "" || this.ciudades_sol_ini === undefined || this.ciudades_sol_ini === ""){
+						alert("Falta ingresar datos requeridos, por favor ingrese los campos de la Sección DATOS GENERALES");
+						this.existenDatosGenerales = false;
+					}else{
+						this.existenDatosGenerales = true;
+						this.comision.Fecha_sol = this.Fecha_sol;
+						this.comision.FechaDesde_sol = this.FechaDesde_solicitud;
+						this.comision.HoraDesde_sol = this.HoraDesde_sol;
+						this.comision.FechaHasta_sol = this.FechaHasta_solicitud;
+						this.comision.HoraHasta_sol = this.HoraHasta_sol;
 
-		}
+						this.comision.correo = this._loginService.getIdentity().aperUsuario;
+						if(this.funcionarios_sol_ini !== undefined){
+							this.comision.funcionarios_sol  = (((JSON.stringify(this.funcionarios_sol_ini).replace('["','')).replace('"]','')).replace('","',',')).replace(/\"/g,'');
+						}
+						if(this.ciudades_sol_ini !== undefined){
+							this.comision.ciudades_sol  = (JSON.stringify(this.ciudades_sol_ini).replace('[','')).replace(']','');
+						}
+					}
+				}
+
+			}

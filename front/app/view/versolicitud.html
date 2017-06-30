@@ -14,27 +14,27 @@
 {{equis_1}}
 </solicitud> -->
 <div>
-	<div>
+	<div class="centrarVerviatico">
 		<img src="assets/images/logo.png"  width="150" height="50" />
 	</div>
-	<div>
+	<div class="centrarVerviatico">
 		<h5>SOLICITUD DE AUTORIZACION PARA CUMPLIMIENTO DE SERVICIOS INSTITUCIONALES</h5>
 	</div>
 </div>
-<div>
-	<table border="1">
+<div class="enc_sol" >
+	<table border="1" class="tablaVerviatico">
 		<tr>
-			<td style="width: 50%" class="enc_sol">
+			<td style="width: 50%;">
 				<p class="titulo_referencial">Nro.Solicitud de Autorización de servicios Institucionales</p>
 				<p>{{solifecfun2.solIdsolicitud}}</p>
 			</td>
-			<td style="width: 50%" class="enc_sol">
+			<td style="width: 50%;">
 				<p class="titulo_referencial">Fecha de Solicitud (dd-mm-aaaa):</p>
 				<p>{{solifecfun2.solFecharealizacion}}</p>
 			</td>
 		</tr>
 	</table>
-	<table border="1">
+	<table border="1" class="tablaVerviatico">
 		<tr>
 			<td style="width: 20%"><p>VIATICOS</p></td>
 			<td style="width: 5%"><p>{{equis.viaticos}}</p></td>
@@ -48,13 +48,13 @@
 	</table>
 	<br>
 	<div class="titulo_sol">DATOS GENERALES</div>
-	<table border="1">
+	<table border="1" class="tablaVerviatico">
 		<tr>
-			<td><p class="titulo_referencial">NOMBRES COMPLETOS DE LA O EL SERVIDOR:</p>
+			<td style="width: 50%"><p class="titulo_referencial">NOMBRES COMPLETOS DE LA O EL SERVIDOR:</p>
 				<p>{{solifecfun2.perNombrecompleto}}</p>
 				<p>{{solifecfun2.perIdentificacion}}</p>
 			</td>
-			<td>
+			<td style="width: 50%">
 				<p class="titulo_referencial">PUESTO QUE OCUPA:</p>
 				<p>{{cardep2.carNombre}}</p>
 
@@ -70,33 +70,34 @@
 				<p>{{cardep2.depNombre}}</p>
 			</td>
 		</tr>
-		<table border="1">
+			</table>
+		<table border="1" class="tablaVerviatico">
 			<tr *ngFor="let estadosolMostrar of estadosol">
-				<td>
+				<td style="width: 25%">
 					<p class="titulo_referencial">FECHA SALIDA (dd-mm-aa):</p>
 					<p>{{estadosolMostrar.estsolFechasalida}}</p>
 				</td>
-				<td>
+				<td style="width: 25%">
 					<p class="titulo_referencial">HORA SALIDA (hh:mm):</p>
 					<p>{{estadosolMostrar.estsolHorasalida}}</p>
 				</td>
-				<td>
+				<td style="width: 25%">
 					<p class="titulo_referencial">FECHA LLEGADA (dd-mm-aa):</p>
 					<p>{{estadosolMostrar.estsolFechallegada}}</p>
 				</td>
-				<td>
+				<td style="width: 25%">
 					<p class="titulo_referencial">HORA LLEGADA (hh:mm):</p>
 					<p>{{estadosolMostrar.estsolHorallegada}}</p>
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2">
+				<td colspan="2" class="tablaVerviatico">
 					<p class="titulo_referencial">SERVIDORES QUE INTEGRAN LOS SERVICIOS INSTITUCIONALES:</p>
 					<p *ngFor="let personasssolMostrar of personasssol">{{personasssolMostrar.per.perNombrecompleto}}</p>
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2">
+				<td colspan="2" class="tablaVerviatico">
 					<p class="titulo_referencial">DESCRIPCION DE LAS ACTIVIDADES A EJECUTARSE:</p>
 					<div>
 						<span [innerHTML]="estsolActividades"></span>
@@ -108,7 +109,7 @@
 		<br>
 		<div>
 			<div class="titulo_sol">TRANSPORTE</div> 
-			<table class="tabla-modal"  border="1">
+			<table class="tabla-modal tablaVerviatico"  border="1">
 				<thead>
 					<tr>
 						<th>Tipo</th>
@@ -135,7 +136,7 @@
 		</div>
 		<br>
 		<div class="titulo_sol">DATOS PARA TRANSFERENCIA</div> 
-		<table class="tabla-modal"  border="1">
+		<table class="tabla-modal tablaVerviatico"  border="1" >
 			<tr>
 				<td><p class="titulo_referencial">NOMBRE DEL BANCO:</p><p>{{bancosol2.banNombre}}</p></td>
 				<td><p class="titulo_referencial">TIPO DE CUENTA:</p><p>{{bancosol2.banperTipocuenta}}</p></td>
@@ -222,7 +223,7 @@
 			</tr>
 		</table>
 		<br>
-	</table>
+	<!-- </table> -->
 	<button class="btn btn-primary" (click)="myModal.open()">Firmar Solicitud</button> 
 	<button class="btn btn-primary" (click)="OnRegresar1()">Cerrar Ventana</button>
 </div>

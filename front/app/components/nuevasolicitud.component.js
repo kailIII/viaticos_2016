@@ -15,9 +15,11 @@ var transporte_service_1 = require("../services/transporte.service");
 var solicitud_service_1 = require("../services/solicitud.service");
 var login_service_1 = require("../services/login.service");
 var ng2_file_upload_1 = require("ng2-file-upload/ng2-file-upload");
-var moment = require('moment');
+// var moment = require('moment/moment');
+// var moment = Moment;
 var URLupload = 'file://localhost:3000/pdfSol1/';
 var NuevasolicitudComponent = (function () {
+    // @Output() mensajeGuardado: EventEmitter<string> = new EventEmitter();
     // filesToUpload: Array<File>;
     function NuevasolicitudComponent(_TransporteService, _SolicitudService, _loginService, _router, _route) {
         this._TransporteService = _TransporteService;
@@ -55,6 +57,10 @@ var NuevasolicitudComponent = (function () {
         this.hasAnotherDropZoneOver = e;
     };
     NuevasolicitudComponent.prototype.ngOnInit = function () {
+        this.mensajeGuardado = "false";
+        // this.mensajeGuardado.emit("true");
+        // console.log("this.mensajeGuardado:"+JSON.stringify(this.mensajeGuardado));
+        // console.log("this.mensajeGuardado:"+this.mensajeGuardado);
         this.ciudadComision = "";
         this.ciudadComisionJSON = "";
         this.inicial = false;
@@ -62,6 +68,7 @@ var NuevasolicitudComponent = (function () {
         this.paso3 = false;
         this.paso4 = false;
         this.modeltrans = false;
+        this.existenDatosGenerales = false;
         this.transporte = {
             'tritra': ""
         };
@@ -254,7 +261,8 @@ var NuevasolicitudComponent = (function () {
         });
     };
     NuevasolicitudComponent.prototype.OnTipoTransporte = function () {
-        var tipotransporte = document.createTextNode(document.getElementById("combo_tiptra").value);
+        // let tipotransporte = document.createTextNode((<HTMLInputElement>document.getElementById("combo_tiptra")).value);
+        var tipotransporte = document.getElementById("combo_tiptra").value;
         return tipotransporte;
     };
     NuevasolicitudComponent.prototype.today = function () {
@@ -599,7 +607,7 @@ var NuevasolicitudComponent = (function () {
         this.modeltrans = false;
     };
     NuevasolicitudComponent.prototype.OnImprimirSol = function () {
-        this._router.navigate(['/imprimir_solicitud']);
+        // this._router.navigate(['/imprimir_solicitud']);
         // window.location.href='/principal';
     };
     NuevasolicitudComponent.prototype.OnBloquearBotones = function () {
@@ -629,7 +637,6 @@ var NuevasolicitudComponent = (function () {
     };
     NuevasolicitudComponent.prototype.OnEnviarCorreoAfun = function (a) {
         var _this = this;
-        // console.log("a:"+a);
         var token = this._loginService.getToken();
         if (a === "") {
             this.datoscorreo = {
@@ -643,23 +650,15 @@ var NuevasolicitudComponent = (function () {
                 'sendToFun': this.datosfun.nombre
             };
         }
-        // console.log("this.datoscorreo:"+JSON.stringify(this.datoscorreo));
         this._SolicitudService.enviar1Solicitud(token, this.datoscorreo).subscribe(function (response) {
             var guardar1 = response;
             _this.guardar1 = guardar1;
-            // console.log("this.guardar1:"+JSON.stringify(this.guardar1));
             if (_this.guardar1.status === "success") {
                 _this.OnEnviarCorreofunAJefe();
-                // console.log("Información guardada satisfactoriamente");
-                // alert(this.guardar.msg);
-                // window.location.href='/solicitud';
-                // this._router.navigate(['/solicitud']);
             }
             else {
-                alert("No se pudo enviar el correo electrónico");
+                _this.mensajeGuardado = "error";
             }
-            // this._router.navigate(['/solicitud']);
-            // }
         }, function (error) {
             _this.errorMessage = error;
             if (_this.errorMessage != null) {
@@ -667,29 +666,23 @@ var NuevasolicitudComponent = (function () {
                 alert("Error al guardar datos");
             }
         });
+    };
+    NuevasolicitudComponent.prototype.OnEnviaraRaizSolicitud = function () {
+        this._router.navigate(['/solicitud']);
     };
     NuevasolicitudComponent.prototype.OnEnviarCorreofunAJefe = function () {
         var _this = this;
         var token = this._loginService.getToken();
         this.datoscorreoAJefe.sendToFun2 = this.datosfun.nombre;
-        // console.log("this.datoscorreoAJefe:"+JSON.stringify(this.datoscorreoAJefe));
         this._SolicitudService.enviarjiSolicitud(token, this.datoscorreoAJefe).subscribe(function (response) {
             var guardar1 = response;
-            _this.guardar1 = guardar1;
-            // console.log("this.guardar1:"+JSON.stringify(this.guardar1));
-            if (_this.guardar1.status === "success") {
-                // console.log("Información guardada satisfactoriamente");
-                // alert(this.guardar.msg);
-                // alert(this.guardar1.msg);
-                alert("Solicitud creada satisfactoriamente");
-                // window.location.href='/solicitud';
-                _this._router.navigate(['/solicitud']);
+            _this.guardar2 = guardar1;
+            if (_this.guardar2.status === "success") {
+                _this.mensajeGuardado = "true";
             }
             else {
-                alert("No se pudo enviar el correo electrónico");
+                _this.mensajeGuardado = "error";
             }
-            // this._router.navigate(['/solicitud']);
-            // }
         }, function (error) {
             _this.errorMessage = error;
             if (_this.errorMessage != null) {
@@ -698,27 +691,55 @@ var NuevasolicitudComponent = (function () {
             }
         });
     };
-    NuevasolicitudComponent.prototype.expanderBloqueNuevaSol = function () {
-        // $('#datosGenerales1')
-        //          .on('shown.bs.collapse', function() {
-        //              $(this)
-        //                  .parent()
-        //                  .find(".glyphicon-plus")
-        //                  .removeClass("glyphicon-plus")
-        //                  .addClass("glyphicon-minus");
-        //              })
-        //          .on('hidden.bs.collapse', function() {
-        //              $(this)
-        //                  .parent()
-        //                  .find(".glyphicon-minus")
-        //                  .removeClass("glyphicon-minus")
-        //                  .addClass("glyphicon-plus");
-        //              });
+    NuevasolicitudComponent.prototype.onGuardarSol = function () {
+        var Fecha_sol = document.getElementById("Fecha_sol").value;
+        var FechaDesde_sol = document.getElementById("FechaDesde_solicitud").value;
+        var HoraDesde_sol = document.getElementById("HoraDesde_sol").value;
+        var FechaHasta_sol = document.getElementById("FechaHasta_solicitud").value;
+        var HoraHasta_sol = document.getElementById("HoraHasta_sol").value;
+        var actividadessol = document.getElementById("actividadesRealizar").value;
+        var ciudades_sol = this.ciudades_sol_ini;
+        var tablaTransporte = this.transporteSol.length;
+        // if(Fecha_sol === "" || FechaDesde_sol === "" || HoraDesde_sol === "" || FechaHasta_sol === "" || HoraHasta_sol === "" || this.comision.actividadessol === undefined || this.comision.actividadessol === null || this.comision.actividadessol === "" || ciudades_sol === undefined || ciudades_sol === null || ciudades_sol === "" || tablaTransporte == 0){
+        if (Fecha_sol == "" || FechaDesde_sol == "" || HoraDesde_sol == "" || FechaHasta_sol == "" || HoraHasta_sol == "" || ciudades_sol === undefined || ciudades_sol === null || ciudades_sol == "") {
+            alert("Faltan datos en la seccion Datos Generales");
+        }
+        else if (this.comision.actividadessol === undefined || this.comision.actividadessol === null || this.comision.actividadessol == "") {
+            // console.log("ciudades_sol:"+ciudades_sol);
+            // console.log("actividadessol:"+this.comision.actividadessol);
+            alert("Faltan datos en la seccion Actividades");
+        }
+        else if (tablaTransporte == 0) {
+            // console.log("tablaTransporte:"+tablaTransporte);
+            alert("Faltan datos en la seccion Transporte");
+        }
+        else {
+            this.Onpaso4();
+            this.onEnviarSol();
+        }
     };
-    NuevasolicitudComponent.prototype.alerta = function () {
+    NuevasolicitudComponent.prototype.datosGenerales = function () {
         // $('#seccion2').transition = true;
-        $(function () { $('#seccion2').transition = true; });
-        // alert("click desde el collapse");
+        // $(function() { $('#seccion2').transition = true; })
+        if (this.FechaDesde_solicitud === undefined || this.FechaDesde_solicitud === "" || this.HoraDesde_sol === undefined || this.HoraDesde_sol === "" || this.FechaHasta_solicitud === undefined || this.FechaHasta_solicitud === "" || this.HoraHasta_sol === undefined || this.HoraHasta_sol === "" || this.ciudades_sol_ini === undefined || this.ciudades_sol_ini === "") {
+            alert("Falta ingresar datos requeridos, por favor ingrese los campos de la Sección DATOS GENERALES");
+            this.existenDatosGenerales = false;
+        }
+        else {
+            this.existenDatosGenerales = true;
+            this.comision.Fecha_sol = this.Fecha_sol;
+            this.comision.FechaDesde_sol = this.FechaDesde_solicitud;
+            this.comision.HoraDesde_sol = this.HoraDesde_sol;
+            this.comision.FechaHasta_sol = this.FechaHasta_solicitud;
+            this.comision.HoraHasta_sol = this.HoraHasta_sol;
+            this.comision.correo = this._loginService.getIdentity().aperUsuario;
+            if (this.funcionarios_sol_ini !== undefined) {
+                this.comision.funcionarios_sol = (((JSON.stringify(this.funcionarios_sol_ini).replace('["', '')).replace('"]', '')).replace('","', ',')).replace(/\"/g, '');
+            }
+            if (this.ciudades_sol_ini !== undefined) {
+                this.comision.ciudades_sol = (JSON.stringify(this.ciudades_sol_ini).replace('[', '')).replace(']', '');
+            }
+        }
     };
     return NuevasolicitudComponent;
 }());
