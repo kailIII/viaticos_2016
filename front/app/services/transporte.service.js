@@ -36,11 +36,11 @@ var TransporteService = (function () {
         return this._http.post(this.url + "/transporte/buscar", params, { headers: headers })
             .map(function (res) { return res.json(); });
     };
+    TransporteService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.Http])
+    ], TransporteService);
     return TransporteService;
 }());
-TransporteService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
-], TransporteService);
 exports.TransporteService = TransporteService;
 //# sourceMappingURL=transporte.service.js.map

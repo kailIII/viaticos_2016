@@ -12,14 +12,14 @@ var ConfiguracionComponent = (function () {
     function ConfiguracionComponent() {
         this.titulo = "Componente de Configuracion";
     }
+    ConfiguracionComponent = __decorate([
+        core_1.Component({
+            selector: 'configuracion',
+            templateUrl: 'app/view/configuracion.html'
+            // providers: [LoginService]
+        })
+    ], ConfiguracionComponent);
     return ConfiguracionComponent;
 }());
-ConfiguracionComponent = __decorate([
-    core_1.Component({
-        selector: 'configuracion',
-        templateUrl: 'app/view/configuracion.html'
-        // providers: [LoginService]
-    })
-], ConfiguracionComponent);
 exports.ConfiguracionComponent = ConfiguracionComponent;
 //# sourceMappingURL=configuracion.component.js.map

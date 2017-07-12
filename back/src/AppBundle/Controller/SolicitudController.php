@@ -24,6 +24,11 @@ use BackBundle\Entity\AutorizadoSolicitud;
 use BackBundle\Entity\Autorizacion;
 
 
+use Symfony\Component\HttpFoundation\Response;
+
+
+
+
 class SolicitudController extends Controller {
 	public function nuevoAction(Request $request) {
 		$helpers = $this->get("app.helpers");
@@ -959,6 +964,11 @@ class SolicitudController extends Controller {
 				);
 		}
 		return $helpers->json($datos);
+	}
+
+	public function generarpdfAction(Request $request) {
+
+
 	}
 
 

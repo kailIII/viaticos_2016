@@ -33,7 +33,7 @@
 						<p-column [style]="{'width':'10%'}" styleClass="col-button" header="Acción">
 							<template let-car="rowData" pTemplate="body">
 								<button type="button" pButton (click)="OnMostrarDetalleSol(car) " icon="fa-eye" data-toggle="tooltip" data-placement="bottom" title="Ver Solicitud"></button>
-								<button type="button" pButton (click)="OnMostrarDetalleSol(car)" icon="fa-pencil" data-toggle="tooltip" data-placement="bottom" title="Editar Solicitud"></button>
+								<button type="button" pButton (click)="generarPDFSolicitud()" icon="fa-pencil" data-toggle="tooltip" data-placement="bottom" title="Editar Solicitud"></button>
 							</template>
 						</p-column>
 					</p-dataTable>

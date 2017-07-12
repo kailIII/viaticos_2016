@@ -64,17 +64,17 @@ var UsuarioComponent = (function () {
     UsuarioComponent.prototype.toggleTitle = function () {
         $('.title').slideToggle();
     };
+    UsuarioComponent = __decorate([
+        core_1.Component({
+            selector: 'usuario',
+            templateUrl: 'app/view/usuario.html',
+            providers: [login_service_1.LoginService]
+        }),
+        __metadata("design:paramtypes", [login_service_1.LoginService,
+            router_1.Router,
+            router_1.ActivatedRoute])
+    ], UsuarioComponent);
     return UsuarioComponent;
 }());
-UsuarioComponent = __decorate([
-    core_1.Component({
-        selector: 'usuario',
-        templateUrl: 'app/view/usuario.html',
-        providers: [login_service_1.LoginService]
-    }),
-    __metadata("design:paramtypes", [login_service_1.LoginService,
-        router_1.Router,
-        router_1.ActivatedRoute])
-], UsuarioComponent);
 exports.UsuarioComponent = UsuarioComponent;
 //# sourceMappingURL=usuario.component.js.map

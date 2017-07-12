@@ -42,3 +42,8 @@ solicitud_enviarcorreo:
     path:   /enviarcorreo
     defaults: { _controller: "AppBundle:Solicitud:correoji"}
     methods:  POST
+
+solicitud_pdf:
+    path:   /pdf
+    defaults: { _controller: "AppBundle:Solicitud:generarpdf"}
+    methods:  POST

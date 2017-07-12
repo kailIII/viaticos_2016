@@ -89,11 +89,16 @@ var SolicitudService = (function () {
         return this._http.post(this.url + "/solicitud/enviarcorreo", params, { headers: headers })
             .map(function (res) { return res.json(); });
     };
+    SolicitudService.prototype.generarpdfSolicitud = function () {
+        var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+        return this._http.post(this.url + "/solicitud/pdf", { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    SolicitudService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.Http])
+    ], SolicitudService);
     return SolicitudService;
 }());
-SolicitudService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
-], SolicitudService);
 exports.SolicitudService = SolicitudService;
 //# sourceMappingURL=solicitud.service.js.map

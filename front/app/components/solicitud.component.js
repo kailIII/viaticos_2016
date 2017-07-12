@@ -1049,21 +1049,37 @@ var SolicitudComponent = (function () {
             }
         });
     };
+    SolicitudComponent.prototype.generarPDFSolicitud = function () {
+        // console.log("aqui va el codigo de la firma de la solicitud");
+        var _this = this;
+        // console.log("solicitud: "+this.detalleSolicitudRealizadas.DetsolIdsolicitud);
+        this._solicitudService.generarpdfSolicitud().subscribe(function (response) {
+            var info = response;
+            _this.info9 = info;
+            // console.log(this.info9);
+        }, function (error) {
+            _this.errorMessage = error;
+            if (_this.errorMessage != null) {
+                console.log(_this.errorMessage);
+                alert("Error en la peticion de solicitudes");
+            }
+        });
+    };
+    SolicitudComponent = __decorate([
+        core_1.Component({
+            selector: 'solicitud',
+            templateUrl: 'app/view/solicitud.html',
+            providers: [login_service_1.LoginService, solicitud_service_1.SolicitudService] /*,
+            outputs: ['solicitudInfolocal']*/
+        })
+        // @Directive({ selector: '[versolicitud]' })
+        ,
+        __metadata("design:paramtypes", [login_service_1.LoginService,
+            solicitud_service_1.SolicitudService,
+            router_1.Router,
+            router_1.ActivatedRoute])
+    ], SolicitudComponent);
     return SolicitudComponent;
 }());
-SolicitudComponent = __decorate([
-    core_1.Component({
-        selector: 'solicitud',
-        templateUrl: 'app/view/solicitud.html',
-        providers: [login_service_1.LoginService, solicitud_service_1.SolicitudService] /*,
-        outputs: ['solicitudInfolocal']*/
-    })
-    // @Directive({ selector: '[versolicitud]' })
-    ,
-    __metadata("design:paramtypes", [login_service_1.LoginService,
-        solicitud_service_1.SolicitudService,
-        router_1.Router,
-        router_1.ActivatedRoute])
-], SolicitudComponent);
 exports.SolicitudComponent = SolicitudComponent;
 //# sourceMappingURL=solicitud.component.js.map

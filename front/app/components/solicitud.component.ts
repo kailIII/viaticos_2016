@@ -1203,5 +1203,26 @@ OnfirmarSolicitud(){
 		});
 }
 
+
+generarPDFSolicitud(){
+	// console.log("aqui va el codigo de la firma de la solicitud");
+
+	// console.log("solicitud: "+this.detalleSolicitudRealizadas.DetsolIdsolicitud);
+
+	
+	this._solicitudService.generarpdfSolicitud().subscribe(
+		response => {
+			let info = response;
+			this.info9 = info;
+			// console.log(this.info9);
+		},error => {
+			this.errorMessage = <any>error;
+			if(this.errorMessage != null){
+				console.log(this.errorMessage);
+				alert("Error en la peticion de solicitudes");
+			}
+		});
+}
+
 }
 

@@ -127,18 +127,18 @@ var LoginComponent = (function () {
     LoginComponent.prototype.corregirDatos = function () {
         this.errorMsg = false;
     };
+    LoginComponent = __decorate([
+        core_1.Component({
+            selector: "login",
+            templateUrl: "app/view/login.html",
+            providers: [login_service_1.LoginService, solicitud_service_1.SolicitudService]
+        }),
+        __metadata("design:paramtypes", [login_service_1.LoginService,
+            solicitud_service_1.SolicitudService,
+            router_1.Router,
+            router_1.ActivatedRoute])
+    ], LoginComponent);
     return LoginComponent;
 }());
-LoginComponent = __decorate([
-    core_1.Component({
-        selector: "login",
-        templateUrl: "app/view/login.html",
-        providers: [login_service_1.LoginService, solicitud_service_1.SolicitudService]
-    }),
-    __metadata("design:paramtypes", [login_service_1.LoginService,
-        solicitud_service_1.SolicitudService,
-        router_1.Router,
-        router_1.ActivatedRoute])
-], LoginComponent);
 exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map

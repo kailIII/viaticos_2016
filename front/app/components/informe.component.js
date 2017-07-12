@@ -67,15 +67,15 @@ var InformeComponent = (function () {
         // // css('color','red');
         // $('button').click();
     };
+    InformeComponent = __decorate([
+        core_1.Component({
+            selector: 'informe',
+            templateUrl: 'app/view/informe.html'
+            // providers: [LoginService]
+        }),
+        __metadata("design:paramtypes", [core_1.ElementRef])
+    ], InformeComponent);
     return InformeComponent;
 }());
-InformeComponent = __decorate([
-    core_1.Component({
-        selector: 'informe',
-        templateUrl: 'app/view/informe.html'
-        // providers: [LoginService]
-    }),
-    __metadata("design:paramtypes", [core_1.ElementRef])
-], InformeComponent);
 exports.InformeComponent = InformeComponent;
 //# sourceMappingURL=informe.component.js.map

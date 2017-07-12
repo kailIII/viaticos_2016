@@ -105,4 +105,14 @@ export class SolicitudService{
 		.map(res => res.json());
 
 	}
+
+	generarpdfSolicitud(){
+		
+		let headers = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
+		return this._http.post(this.url+"/solicitud/pdf", {headers: headers})
+		.map(res => res.json());
+
+	}
+
+
 }

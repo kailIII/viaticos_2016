@@ -58,14 +58,14 @@ var PasajesComponent = (function () {
         // 		});
         // }
     }
+    PasajesComponent = __decorate([
+        core_1.Component({
+            selector: 'pasajes',
+            templateUrl: 'app/view/pasajes.html'
+            // providers: [LoginService]
+        })
+    ], PasajesComponent);
     return PasajesComponent;
 }());
-PasajesComponent = __decorate([
-    core_1.Component({
-        selector: 'pasajes',
-        templateUrl: 'app/view/pasajes.html'
-        // providers: [LoginService]
-    })
-], PasajesComponent);
 exports.PasajesComponent = PasajesComponent;
 //# sourceMappingURL=pasajes.component.js.map
