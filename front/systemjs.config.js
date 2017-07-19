@@ -62,7 +62,9 @@
         defaultExtension: 'js'
       },
       'ng2-pdf-viewer': { 
-        main: 'dist/pdf-viewer.component.js', 
+        // main: 'dist/pdf-viewer.component.js', 
+        main: 'dist/index.js', 
+
         defaultExtension: 'js' 
       },
       'ng2-modal': { 

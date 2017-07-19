@@ -547,22 +547,22 @@ var VersolicitudComponent = (function () {
         this._router.navigate(['/solicitud']);
         // window.location.href='/solicitud';
     };
-    VersolicitudComponent = __decorate([
-        core_1.Component({
-            selector: 'versolicitud',
-            templateUrl: 'app/view/versolicitud.html',
-            inputs: ['solicitudInfolocal'],
-            providers: [solicitud_service_1.SolicitudService, login_service_1.LoginService]
-            // inputs: ['solicitudInfolocal']
-            /*,
-            outputs: ['solicitudInfolocal']*/
-        }),
-        __metadata("design:paramtypes", [solicitud_service_1.SolicitudService,
-            login_service_1.LoginService,
-            router_1.Router,
-            router_1.ActivatedRoute])
-    ], VersolicitudComponent);
     return VersolicitudComponent;
 }());
+VersolicitudComponent = __decorate([
+    core_1.Component({
+        selector: 'versolicitud',
+        templateUrl: 'app/view/versolicitud.html',
+        inputs: ['solicitudInfolocal'],
+        providers: [solicitud_service_1.SolicitudService, login_service_1.LoginService]
+        // inputs: ['solicitudInfolocal']
+        /*,
+        outputs: ['solicitudInfolocal']*/
+    }),
+    __metadata("design:paramtypes", [solicitud_service_1.SolicitudService,
+        login_service_1.LoginService,
+        router_1.Router,
+        router_1.ActivatedRoute])
+], VersolicitudComponent);
 exports.VersolicitudComponent = VersolicitudComponent;
 //# sourceMappingURL=versolicitud.component.js.map

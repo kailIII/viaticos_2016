@@ -25,11 +25,11 @@ var ClaveService = (function () {
         return this._http.post(this.url + "/clave/cambiar", params, { headers: headers })
             .map(function (res) { return res.json(); });
     };
-    ClaveService = __decorate([
-        core_1.Injectable(),
-        __metadata("design:paramtypes", [http_1.Http])
-    ], ClaveService);
     return ClaveService;
 }());
+ClaveService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
+], ClaveService);
 exports.ClaveService = ClaveService;
 //# sourceMappingURL=clave.service.js.map

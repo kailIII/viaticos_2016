@@ -83,39 +83,7 @@ export class LoginComponent implements OnInit {
 														localStorage.setItem('je', "N");
 														// this.je="N";
 													}
-													// this._loginService.forzarcambio(this.user).subscribe(
-													// 	response => {
-													// 		let cambio = response;
-													// 		this.cambio = cambio;
-
-													// 		// console.log(this.cambio.aperCambioclave);
-
-													// 		if(this.cambio.aperCambioclave === "A"){
-																window.location.href='/principal';
-														// 	}else{
-														// 		// this.paracambiar = "C"
-														// 		window.location.href='/principal';
-														// 		this._router.navigate(['/cambiarclave']);
-														// 	}
-
-
-
-
-														// 	// window.location.href='/principal';
-
-
-														// },
-														// error => {
-														// 	this.errorMessage = <any>error;
-														// 	if(this.errorMessage != null){
-														// 		console.log(this.errorMessage);
-														// 		alert("Error en al iniciar Apache");
-														// 	}
-														// }
-														// );
-
-
-
+													window.location.href='/principal';
 												},error => {
 													this.errorMessage = <any>error;
 													if(this.errorMessage != null){
@@ -157,57 +125,5 @@ export class LoginComponent implements OnInit {
 	corregirDatos(){
 		this.errorMsg = false;
 	}
-	// menuUsuario(idpersona:any){
-		// 	// this.identity = this._loginService.getIdentity();
-		// 	let json_identity = JSON.stringify(idpersona);
-		// 	if(json_identity !== "null"){
-			// 		this.funcionario = {
-				// 			'id_fun': this.identity.sub
-				// 		};
-				// 		this._loginService.menuUsuario(this.funcionario).subscribe(
-				// 			response => {
-					// 				let info = response;
-					// 				this.info = info;
-					// 				if(this.info.length <=0){
-						// 					alert("Error en el servidor 5");
-						// 				}else{ 	
-							// 					if(!this.info.status){
-								// 						this.datoMenu = "";
-								// 						var length = this.info.length;
-								// 						for (var i = 0; i < length; i++) {
-									// 							this.datoMenuIteracion = JSON.stringify(this.info[i].mod);
-									// 							if(this.datoMenu == ""){
-										// 								this.datoMenu = this.datoMenuIteracion;
-										// 							}else{
-											// 								this.datoMenu = this.datoMenu+","+this.datoMenuIteracion;
-											// 							}
-											// 						};  
-											// 						this.datoMenuMostrar = JSON.parse("["+this.datoMenu+"]");  
-											// 						return this.datoMenuMostrar;
-											// 					}
-											// 				}
-											// 			},error => {
-												// 				this.errorMessage = <any>error;
 
-												// 				if(this.errorMessage != null){
-													// 					console.log(this.errorMessage);
-													// 					alert("Error en la peticion de OnMenu")
-													// 				}
-													// 			});
-													// 	}
-													// }
-													// logout() {
-														// 	//      		this._route.params.subscribe(params => {
-															// 		// let logout = +params["id"];
-															// 		// if(logout == 1){
-																// 			localStorage.removeItem('identity');
-																// 			localStorage.removeItem('token');
-																// 			sessionStorage.removeItem('identity');
-																// 			sessionStorage.removeItem('token');
-																// 			this.identity = null;
-																// 			this.token = null;
-																// 			this._router.navigate(['']);
-																// 			// 	// }
-																// 			// });
-																// 		}
-															}
+}

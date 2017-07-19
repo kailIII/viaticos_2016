@@ -12,13 +12,13 @@ var ImprimirsolicitudComponent = (function () {
         this.pdfSrc = '/pdf-test.pdf';
         this.page = 1;
     }
-    ImprimirsolicitudComponent = __decorate([
-        core_1.Component({
-            selector: 'imprimir_solicitud',
-            templateUrl: 'app/view/imprimirsolicitud.html',
-        })
-    ], ImprimirsolicitudComponent);
     return ImprimirsolicitudComponent;
 }());
+ImprimirsolicitudComponent = __decorate([
+    core_1.Component({
+        selector: 'imprimir_solicitud',
+        templateUrl: 'app/view/imprimirsolicitud.html',
+    })
+], ImprimirsolicitudComponent);
 exports.ImprimirsolicitudComponent = ImprimirsolicitudComponent;
 //# sourceMappingURL=imprimirsolicitud.component.js.map

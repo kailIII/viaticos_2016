@@ -26,8 +26,13 @@ use BackBundle\Entity\Autorizacion;
 
 use Symfony\Component\HttpFoundation\Response;
 
+// require __DIR__.'/vendor/autoload.php';
 
-
+use Spipu\Html2Pdf\Html2Pdf;
+// use Spipu\Html2Pdf\Html2Pdf_Html2Pdf;
+use Spipu\Html2Pdf\Exception\Html2PdfException;
+use Spipu\Html2Pdf\Exception\HtmlParsingException;
+use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 
 class SolicitudController extends Controller {
 	public function nuevoAction(Request $request) {
@@ -895,14 +900,14 @@ class SolicitudController extends Controller {
 						)
 					);
 				foreach ($sol_com1 as $comisiona) {
-						if($personasencomision === ""){
-							$personasencomision = ($comisiona->getPer()->getPerNombrecompleto());
-						}else{
-							$personasencomision = $personasencomision.",".($comisiona->getPer()->getPerNombrecompleto());
-						}
+					if($personasencomision === ""){
+						$personasencomision = ($comisiona->getPer()->getPerNombrecompleto());
+					}else{
+						$personasencomision = $personasencomision.",".($comisiona->getPer()->getPerNombrecompleto());
+					}
 				}
 				foreach ($sol_com1 as $sendTo2) {
-						$funComision = str_replace($sendToFun2.","," ",$personasencomision);
+					$funComision = str_replace($sendToFun2.","," ",$personasencomision);
 					if($sendTo2->getPer()->getPerNombrecompleto() === $sendToFun2){
 						$isset_fun = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
 							array(
@@ -944,8 +949,8 @@ class SolicitudController extends Controller {
 					// ->attach(Swift_Attachment::fromPath('/ruta/hasta/el/archivo.zip'))
 						;
 						$this->get('mailer')->send($message);
-				$datos["status"] = "success";
-				$datos["msg"] = "Correo enviado correctamente";
+						$datos["status"] = "success";
+						$datos["msg"] = "Correo enviado correctamente";
 					}
 				}
 
@@ -967,7 +972,192 @@ class SolicitudController extends Controller {
 	}
 
 	public function generarpdfAction(Request $request) {
+		$helpers = $this->get("app.helpers");
+		$json = $request->get("json", null);
+		$params = json_decode($json);
+		$hash = $request->get("authorization", null);
+		$authCheck = $helpers->authCheck($hash);
+		$dato = array();
+		$datos = array();
+		if ($authCheck == true) {
+			$identity = $helpers->authCheck($hash, true);
+			if ($json != null) {
+				$Idsolicitud = (isset($params->Idsolicitud)) ? $params->Idsolicitud : null;
+				// $FechaSolicitud = (isset($params->FechaSolicitud)) ? $params->FechaSolicitud : null;
+				// $SolCiudades = (isset($params->SolCiudades)) ? $params->SolCiudades : null;
+				
 
+				$em = $this->getDoctrine()->getManager();
+
+								$solicitud = $em->getRepository('BackBundle:Solicitud')->findOneBy(
+					array(
+						"solIdsolicitud" => $Idsolicitud
+						// "solIdsolicitud" => $DetsolIdsolicitud
+
+						)
+					);
+// return $helpers->json($solicitud);
+				//aqui se obtiene cargo y departamento
+				$cargopersonasolicitud = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
+					array(
+						"per" => $solicitud->getPer()
+						)
+					);
+				// return $helpers->json($cargopersonasolicitud);
+				$cargosolicitud = $em->getRepository('BackBundle:Cargo')->findOneBy(
+					array(
+						"carId" => $cargopersonasolicitud->getCar()
+						)
+					);
+				// return $helpers->json($cargosolicitud);
+				//aqui se obtiene fechas, horas solicitud y actividades
+				$estadosolicitud = $em->getRepository('BackBundle:EstadoSolicitud')->findBy(
+					array(
+						"sol" => $solicitud
+						)
+					);
+				// return $helpers->json($estadosolicitud);
+				//aqui se obtiene ciudades
+				$ciudadesporsolicitud = $em->getRepository('BackBundle:Ciudad')->findAll();
+				$ciudadsolicitud = $em->getRepository('BackBundle:CiudadSolicitud')->findBy(
+					array(
+						"estsol" => $estadosolicitud,
+						"ciu" => $ciudadesporsolicitud
+						)
+					);
+				// return $helpers->json($ciudadsolicitud);
+				//aqui se obtiene servidores integran
+				$funcionario = $em->getRepository('BackBundle:Persona')->findAll();
+				$personassolicitud = $em->getRepository('BackBundle:PersonaComision')->findBy(
+					array(
+						"sol" => $solicitud,
+						"per" => $funcionario
+						)
+					);
+				// return $helpers->json($personassolicitud);
+				//aqui se obtiene el transporte solicitado
+				$transporte = $em->getRepository('BackBundle:TipoTransporte')->findAll();
+				$transportesolicitud = $em->getRepository('BackBundle:TransporteSolicitado')->findBy(
+					array(
+						"estsol" => $estadosolicitud,
+						"tiptra" => $transporte
+						)
+					);
+				// return $helpers->json($transportesolicitud);
+				//aqui se obtiene el banco de persona
+				$banco = $em->getRepository('BackBundle:Banco')->findAll();
+				$bancopersonasolicitud = $em->getRepository('BackBundle:BancoPersona')->findOneBy(
+					array(
+						"ban" => $banco,
+						"per" => $solicitud->getPer(),
+						"banperEstado" => "A"
+						)
+					);
+				// return $helpers->json($bancopersonasolicitud);
+				//aqui se obtiene el jefe
+				$cargojefesolicitud = $em->getRepository('BackBundle:Cargo')->findOneBy(
+					array(
+						"carId" => $cargopersonasolicitud->getCar()->getCarJefe()
+						)
+					);
+				// return $helpers->json($cargojefesolicitud);
+				$cargopersonajefesolicitud = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
+					array(
+						"car" => $cargojefesolicitud
+						)
+					);
+				// return $helpers->json($cargopersonajefesolicitud);
+				//aqui se obtiene el coordinador administrativo Financiero
+				$cargocotosolicitud = $em->getRepository('BackBundle:Cargo')->findOneBy(
+					array(
+						"carNombre" => "COORDINADOR/A GENERAL ADMINISTRATIVO FINANCIERO"
+						)
+					);
+				// return $helpers->json($cargocotosolicitud);
+				$cargopersonacotosolicitud = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
+					array(
+						"car" => $cargocotosolicitud
+						)
+					);
+				// return $helpers->json($cargopersonacotosolicitud);
+				// $data = array('cargocotosol' => $cargopersonacotosolicitud, 'cargojefesol' => $cargopersonajefesolicitud, 'transportessol' => $transportesolicitud,'bancosol' => $bancopersonasolicitud,'personasssol' => $personassolicitud, 'ciudadessol' => $ciudadsolicitud,'estadosol' => $estadosolicitud, 'cardep' => $cargosolicitud, 'solifecfun' => $solicitud);
+
+
+
+				// $html2pdf = new \Spipu\Html2Pdf\Html2Pdf('P', 'A4', 'es');
+				// $filename = $Idsolicitud;
+				// $url = $Idsolicitud.".pdf";
+				$url = 'pdfSol/'.trim($Idsolicitud).".pdf";
+				$img1 = $this->container->getParameter('kernel.root_dir') . '\..\web\assets\images\logo.png';
+				$directoryPath = preg_replace("/app..../i", "", $img1);
+    // echo $directoryPath;
+				// $img = 'http://localhost/sistema_viaticos/back/web/assets/images/logo.png';
+
+				// $css = '<style>'.file_get_contents('PATH TO FILE/print2pdf.css').'</style>';
+
+				$css1 = $this->container->getParameter('kernel.root_dir') . '\..\web\assets\css\tables.css';
+				$cssPath = preg_replace("/app..../i", "", $css1);
+
+				// $css1 = file_get_contents('PATH TO FILE');
+
+				// return $helpers->json($cssPath);
+
+				$html = $this->renderView(
+					'PDF/solicitud.html.twig',
+					array(
+						// 'data' => $data
+						'cargocotosol' => $cargopersonacotosolicitud, 
+						'cargojefesol' => $cargopersonajefesolicitud, 
+						'transportessol' => $transportesolicitud,
+						'bancosol' => $bancopersonasolicitud,
+						'personasssol' => $personassolicitud, 
+						'ciudadessol' => $ciudadsolicitud,
+						'estadosol' => $estadosolicitud, 
+						'cardep' => $cargosolicitud, 
+						'solifecfun' => $solicitud,
+						'imagen' => $directoryPath
+
+						)
+					);
+				try {
+				ob_start();
+					$html2pdf = new \Spipu\Html2Pdf\Html2Pdf('P', 'A4', 'es', true, 'UTF-8',array(1.5,2.5,1.5,2.5));
+					$html2pdf->pdf->SetAuthor('Vicepresidencia de la República del Ecuador');
+					$html2pdf->setDefaultFont('Arial');
+					$html2pdf->pdf->SetDisplayMode('real');
+// 					$html2pdf->writeHTML("    <style>
+//     .centrarVerviatico h5{
+//     text-align: center;
+//     font-size: 40px;
+// }
+//     </style>".$html);
+					// $html2pdf->setCSS($cssPath);
+					$html2pdf->writeHTML($html);
+					$html2pdf->output($url,'FD');
+					ob_end_clean();
+					$datos["status"] = "success";
+					// $datos["url"] = $url;
+					$datos["msg"] = "Se creo correctamente el documento ".trim($Idsolicitud).".pdf";
+				} catch(HTML2PDF_exception $e) {
+					$datos["status"] = "error";
+					$datos["msg"] = "No se genero el documento ".trim($Idsolicitud).".pdf";
+					die($e);
+				}
+			} else {
+				$datos = array(
+					"status" => "error",
+					"code" => 400,
+					"msg" => "No existen datos, por favor ingrese los datos"
+					);
+			}
+		} else {
+			$datos = array(
+				"status" => "error",
+				"code" => 400,
+				"msg" => "Los datos de acceso son incorrectos"
+				);
+		}
+		return $helpers->json($datos);
 
 	}
 

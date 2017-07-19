@@ -231,22 +231,22 @@ var AppComponent = (function () {
         var _this = this;
         setInterval(function () { return _this.Oncuentaregresiva(); }, 1000);
     };
-    __decorate([
-        core_1.Output(),
-        __metadata("design:type", core_1.EventEmitter)
-    ], AppComponent.prototype, "progress", void 0);
-    AppComponent = __decorate([
-        core_1.Component({
-            selector: "mi-app",
-            templateUrl: "app/view/home.html",
-            providers: [login_service_1.LoginService, solicitud_service_1.SolicitudService]
-        }),
-        __metadata("design:paramtypes", [login_service_1.LoginService,
-            solicitud_service_1.SolicitudService,
-            router_1.Router,
-            router_1.ActivatedRoute])
-    ], AppComponent);
     return AppComponent;
 }());
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", core_1.EventEmitter)
+], AppComponent.prototype, "progress", void 0);
+AppComponent = __decorate([
+    core_1.Component({
+        selector: "mi-app",
+        templateUrl: "app/view/home.html",
+        providers: [login_service_1.LoginService, solicitud_service_1.SolicitudService]
+    }),
+    __metadata("design:paramtypes", [login_service_1.LoginService,
+        solicitud_service_1.SolicitudService,
+        router_1.Router,
+        router_1.ActivatedRoute])
+], AppComponent);
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map

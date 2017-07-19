@@ -145,12 +145,10 @@ export class SolicitudComponent {
 	public info9;
 	public SolAJefe;
 	public equis_1;
-
-	// @Input() solicitudInfolocal: string;
-
+	public datosPdf;
+	public pdfmsg;
+	public pdfSrc;
 	public solicitudInfo;
-	// public solicitudInfolocal = new EventEmitter<string>();
-
 
 	constructor(
 		private _loginService: LoginService,
@@ -170,7 +168,6 @@ export class SolicitudComponent {
 		};
 		this.OnVerDetalleSol();	
 		this.OnporFirmar();
-		// this.Onequisviaticos();
 
 		this.detalleSolicitudRealizadas = {
 			'DetsolIdsolicitud': ''
@@ -281,18 +278,16 @@ export class SolicitudComponent {
 			'banNombre':[]
 		};
 
+		this.datosPdf= {
+			'Idsolicitud': ''
+		};
 	}
 
 	OnVerDetalleSol(){
-		// console.log("this.token:"+this.token);
-		// console.log("this.funcionario:"+JSON.stringify(this.funcionario));
-
 		this._solicitudService.reporteSolicitud(this.token,this.funcionario).subscribe(
 			response => {
 				let info = response;
 				this.info = info;
-				// console.log("this.info:"+this.info);
-
 				if(this.info.length <=0){
 					this.NoMostrar = "No existen solicitudes realizadas";
 					return this.NoMostrar;
@@ -339,8 +334,6 @@ export class SolicitudComponent {
 							}
 
 							this.datoSolIteracion = JSON.stringify(this.datoSolIteracion1);
-							// console.log("this.datoSolIteracion:"+this.datoSolIteracion);
-
 							if(this.datoSol == ""){
 								this.datoSol = this.datoSolIteracion;
 							}else{
@@ -349,8 +342,7 @@ export class SolicitudComponent {
 						};
 					};
 					this.datoSolMostrar1 = JSON.parse("["+this.datoSol+"]");
-					// console.log("this.datoSolMostrar1:"+this.datoSolMostrar1);
-					
+
 					var tamanodatos = this.datoSolMostrar1.length
 					this.datociudadtodos = "";
 
@@ -364,8 +356,6 @@ export class SolicitudComponent {
 						}else{
 							this.ciu1 = this.ciu1+","+this.ciuIteracion;
 						}
-
-						// console.log(l+" this.datoSolMostrar1[l].solId:"+this.datoSolMostrar1[l].solId);
 						if(l > 0){
 
 							if(this.datoSolMostrar1[l].solId !== this.datoSolMostrar1[anterior1].solId && itemsiguiente1 === tamanodatos){
@@ -387,7 +377,6 @@ export class SolicitudComponent {
 
 								for(var k=itemsiguiente1; k<tamanodatos; k++){
 									if(this.datoSolMostrar1[l].solId === this.datoSolMostrar1[k].solId){
-										// console.log("igual al this.ciu1 de "+l+" :"+this.ciu1);
 										this.ciuIteracion = this.datoSolMostrar1[k].solCiudades;
 										if(this.ciu1 == ""){
 											this.ciu1 = this.ciuIteracion;
@@ -395,7 +384,6 @@ export class SolicitudComponent {
 											this.ciu1 = this.ciu1+","+this.ciuIteracion;
 										}
 										l = k;
-										// console.log("l:"+l);
 										if(k === tamanodatos -1){
 											this.datosciudad = {
 												'solId':this.datoSolMostrar1[l].solId,
@@ -427,8 +415,6 @@ export class SolicitudComponent {
 										}else{
 											this.datociudadtodos = this.datociudadtodos+","+datociudad1;
 										}
-
-										// console.log("en el else de desiguales this.datociudadtodos:"+this.datociudadtodos);
 										this.ciu1 = "";
 										k = tamanodatos; 
 									}
@@ -453,11 +439,7 @@ export class SolicitudComponent {
 						
 					};
 
-
 					this.datoSolMostrar = JSON.parse("["+this.datociudadtodos+"]");
-					// console.log("this.datoSolMostrar:"+this.datoSolMostrar);
-
-
 					this.datociudadtodos1 = "";
 					this.datociudadtodos2 = "";
 					this.datociudadtodos3 = "";
@@ -517,12 +499,6 @@ export class SolicitudComponent {
 					this.datoSolMostrara = JSON.parse("["+this.datociudadtodos1+"]");
 					this.datoSolMostrarp = JSON.parse("["+this.datociudadtodos2+"]");
 					this.datoSolMostrarc = JSON.parse("["+this.datociudadtodos3+"]");
-
-					// console.log("this.datoSolMostrara:"+this.datoSolMostrara);
-					// console.log("this.datoSolMostrarp:"+this.datoSolMostrarp);
-					// console.log("this.datoSolMostrarc:"+this.datoSolMostrarc);
-
-
 				}
 			},error => {
 				this.errorMessage = <any>error;
@@ -708,8 +684,6 @@ OnVerDetalleSol1(){
 				};
 				this.datoSolMostrara = JSON.parse("["+this.datociudadtodos1+"]");
 				this.datoSolMostrarp = JSON.parse("["+this.datociudadtodos2+"]");
-
-				// console.log("this.datoSolMostrarp:"+JSON.stringify(this.datoSolMostrarp));
 			}
 		},error => {
 			this.errorMessage = <any>error;
@@ -722,242 +696,23 @@ OnVerDetalleSol1(){
 
 Onequisviaticos(){
 	this.equis = {
-			'viaticos':'',
-			'movilizaciones':'',
-			'subsistencias':'',
-			'alimentacion':''
-		};
+		'viaticos':'',
+		'movilizaciones':'',
+		'subsistencias':'',
+		'alimentacion':''
+	};
 }
 OnMostrarDetalleSol(valor:Array<any>){
 
 	let value = valor['solId'];
-	// window.location.href='/solicitud';
-	// this.solicitudInfo = a;
-
-	// this.solicitudInfo.emit({a: a});
-	// console.log("a:"+JSON.stringify(a));
 	this.solicitudInfo = value;
-
 	this.equis_1 = this.equis;
-
-
-
 	this._router.navigate(['/versolicitud',value]);
-	// console.log("this.equis_1:"+JSON.stringify(this.equis_1));
-	// console.log(value);
-
-
-// 	this.solicitudInfolocal.emit(value);
-// // [a] = "equis"
-// 	// this.SolAJefe = {
-// 	// 	'$solicitud':,
-// 	// 	'$sendToFun2':
-// 	// }
-// 	console.log("this.solicitudInfolocal:"+JSON.stringify(this.solicitudInfolocal));
-	// 	console.log("this.solifecfun2:"+JSON.stringify(this.solifecfun2));
-
 }
 
 OnListarFuncionariosComision(){
-	
+
 }
-
-// OnMostrarDetalle(DetalleSolMostrar){
-// 	this.detalleSolicitudRealizadas = {
-// 		'DetsolIdsolicitud': DetalleSolMostrar.solIdsolicitud
-// 	};
-// 	this._solicitudService.detallesolrealizadas(this.token,this.detalleSolicitudRealizadas).subscribe(
-// 		response => {
-// 			let info = response;
-// 			this.info1 = JSON.stringify(info);
-// 			this.info = JSON.parse("["+this.info1+"]"); 
-// 			if(this.info.length <=0){
-// 				this.NoMostrar = "No existen solicitudes realizadas";
-// 				return this.NoMostrar;
-// 			}else{ 	
-// 				this.cargocotosol2 = {
-// 					'carperId' : this.info[0].cargocotosol.carperId,
-// 					'carperDesde' : this.info[0].cargocotosol.carperDesde,
-// 					'carperHasta' : this.info[0].cargocotosol.carperHasta,
-// 					'carperTipo' : this.info[0].cargocotosol.carperTipo,
-// 					'carperEstado' : this.info[0].cargocotosol.carperEstado,
-// 					'carNombre' : this.info[0].cargocotosol.car.carNombre,
-// 					'depNombre' :this.info[0].cargocotosol.car.dep.depNombre,
-// 					'depSiglas' : this.info[0].cargocotosol.car.dep.depSiglas,
-// 					'depEstado' : this.info[0].cargocotosol.car.dep.depEstado,
-// 					'rolNombre' : this.info[0].cargocotosol.car.rol.rolNombre,
-// 					'rolEstado' : this.info[0].cargocotosol.car.rol.rolEstado,
-// 					'perCorreoelectronico' : this.info[0].cargocotosol.per.perCorreoelectronico,
-// 					'perNombrecompleto' : this.info[0].cargocotosol.per.perNombrecompleto
-// 				};
-
-// 				this.cargojefesol2 = {
-// 					'carperId' : this.info[0].cargojefesol.carperId,
-// 					'carperDesde' : this.info[0].cargojefesol.carperDesde,
-// 					'carperHasta' : this.info[0].cargojefesol.carperHasta,
-// 					'carperTipo' : this.info[0].cargojefesol.carperTipo,
-// 					'carperEstado' : this.info[0].cargojefesol.carperEstado,
-// 					'carNombre' : this.info[0].cargojefesol.car.carNombre,
-// 					'depNombre' :this.info[0].cargojefesol.car.dep.depNombre,
-// 					'depSiglas' : this.info[0].cargojefesol.car.dep.depSiglas,
-// 					'depEstado' : this.info[0].cargojefesol.car.dep.depEstado,
-// 					'rolNombre' : this.info[0].cargojefesol.car.rol.rolNombre,
-// 					'rolEstado' : this.info[0].cargojefesol.car.rol.rolEstado,
-// 					'perCorreoelectronico' : this.info[0].cargojefesol.per.perCorreoelectronico,
-// 					'perNombrecompleto' : this.info[0].cargojefesol.per.perNombrecompleto
-// 				};
-
-// 				if(this.info[0].transportessol.length >0){
-// 					this.transportessol = this.info[0].transportessol;
-
-// 				}else if(this.info[0].transportessol.length == 0){
-// 					this.transportessol = this.info[0].transportessol;
-
-// 				}else{
-// 					this.transportessol1 = JSON.stringify(this.info[0].transportessol);
-// 					this.transportessol = JSON.parse("["+this.transportessol1+"]");
-// 				}
-// 				if(this.info[0].bancosol.banperTipocuenta == "A"){
-// 					this.bancosol2 = {
-// 						'banperId': this.info[0].bancosol.banperId,
-// 						'banperTipocuenta': 'AHORROS',
-// 						'banperNumerocuenta': this.info[0].bancosol.banperNumerocuenta,
-// 						'banperEstado': this.info[0].bancosol.banperEstado,
-// 						'banNombre': this.info[0].bancosol.ban.banNombre
-// 					};
-// 				}else{
-// 					this.bancosol2 = {
-// 						'banperId': this.info[0].bancosol.banperId,
-// 						'banperTipocuenta': 'CORRIENTE',
-// 						'banperNumerocuenta': this.info[0].bancosol.banperNumerocuenta,
-// 						'banperEstado': this.info[0].bancosol.banperEstado,
-// 						'banNombre': this.info[0].bancosol.ban.banNombre
-// 					};
-// 				}
-
-// 				if(this.info[0].personasssol.length > 0){
-// 					// console.log("personasssol.length no undefined");
-// 					this.personasssol = this.info[0].personasssol;
-// 					// console.log("this.personasssol[0]:"+JSON.stringify(this.personasssol[0]));
-
-// 				}else if(this.info[0].personasssol.length == 0){
-// 					// console.log("personasssol.length no undefined");
-// 					this.personasssol = this.info[0].personasssol;
-// 				}else{
-// 					// console.log("personasssol.length == undefined");
-// 					this.personasssol1 = JSON.stringify(this.info[0].personasssol);
-// 					this.personasssol = JSON.parse("["+this.personasssol1+"]");
-// 				}
-// 				console.log("this.personasssol:"+JSON.stringify(this.personasssol));
-
-// 				if(this.info[0].ciudadessol.length>0){
-// 					// console.log("ciudadessol.length no undefined");
-// 					this.ciudadessol = this.info[0].ciudadessol;
-// 					// console.log("this.ciudadessol[0]:"+JSON.stringify(this.ciudadessol[0]));
-
-
-// 				}else if(this.info[0].ciudadessol.length == 0){
-// 					// console.log("ciudadessol.length no undefined");
-// 					this.ciudadessol = this.info[0].ciudadessol;
-
-// 				}else{
-// 					// console.log("ciudadessol.length == undefined");
-// 					this.ciudadessol1 = JSON.stringify(this.info[0].ciudadessol);
-// 					this.ciudadessol = JSON.parse("["+this.ciudadessol1+"]");
-// 				}
-
-// 				if(this.info[0].estadosol.length>0){
-// 					this.estadosol = this.info[0].estadosol;
-// 					this.estsolActividades = this.estadosol[0].estsolActividades;
-// 					if(JSON.stringify(this.estadosol[0].estsolFechasalida) === JSON.stringify(this.estadosol[0].estsolFechallegada) ){
-// 						this.equis = {
-// 							'viaticos': '',
-// 							'movilizaciones':'X',
-// 							'subsistencias':'X',
-// 							'alimentacion':'X'
-// 						};
-// 					}else{
-// 						this.equis = {
-// 							'viaticos':'X',
-// 							'movilizaciones':'X',
-// 							'subsistencias':'X',
-// 							'alimentacion':'X'
-// 						};
-// 					}
-// 					// console.log("this.estadosol[0]:"+JSON.stringify(this.estadosol[0]));	
-// 				}else if(this.info[0].estadosol.length == 0){
-// 					// console.log("estadosol.length no undefined");
-// 					this.estadosol = this.info[0].estadosol;
-// 					// this.estsolActividades = (JSON.stringify(this.info[0].estadosol.estsolActividades).replace('"<p','<p')).replace('ul>"','ul>');
-// 					// console.log("this.estadosol:"+JSON.stringify(this.estadosol));
-// 				}else{
-// 					// console.log("estadosol.length == undefined");
-// 					this.estadosol1 = JSON.stringify(this.info[0].estadosol);
-// 					this.estadosol = JSON.parse("["+this.estadosol1+"]");
-// 					// this.estsolActividades = (JSON.stringify(this.info[0].estadosol.estsolActividades).replace('"<p','<p')).replace('ul>"','ul>');
-// 					// console.log("this.estadosol:"+JSON.stringify(this.estadosol));
-// 				}
-
-// 				if(this.info[0].cardep.length >0){
-// 					// console.log("cardep.length no undefined");
-// 					this.cardep = this.info[0].cardep;
-
-// 				}else if(this.info[0].cardep.length == 0){
-// 					// console.log("cardep.length no undefined");
-// 					this.cardep = this.info[0].cardep;
-
-// 				}else{
-// 					// console.log("cardep.length == undefined");
-// 					this.cardep1 = JSON.stringify(this.info[0].cardep);
-// 					this.cardep = JSON.parse("["+this.cardep1+"]");
-
-// 					this.cardep2 = {
-// 						'carId':this.info[0].cardep.carId,
-// 						'carNombre':this.info[0].cardep.carNombre,
-// 						'carJefe':this.info[0].cardep.carJefe,
-// 						'depNombre':this.info[0].cardep.dep.depNombre,
-// 						'depSiglas':this.info[0].cardep.dep.depSiglas,
-// 						'depPadre':this.info[0].cardep.dep.depPadre,
-// 						'depEstado':this.info[0].cardep.dep.depEstado,
-// 						'rolNombre':this.info[0].cardep.rol.rolNombre,
-// 						'rolEstado':this.info[0].cardep.rol.rolEstado
-// 					};
-// 					// console.log("this.cardep1:"+this.cardep1);
-// 				}
-
-// 				if(this.info[0].solifecfun.length>0){
-// 					// console.log("solifecfun.length no undefined");
-
-// 				}else if(this.info[0].solifecfun.length == 0){
-// 					// console.log("solifecfun.length no undefined");
-
-// 				}else{
-// 					this.solifecfun2 = {
-// 						'solSecuencial':this.info[0].solifecfun.solSecuencial,
-// 						'solIdsolicitud':this.info[0].solifecfun.solIdsolicitud,
-// 						'solFecharealizacion':this.info[0].solifecfun.solFecharealizacion,
-// 						'solNumeroactualizacion':this.info[0].solifecfun.solNumeroactualizacion,
-// 						'perIdentificacion': this.info[0].solifecfun.per.perIdentificacion,
-// 						'perCorreoelectronico':this.info[0].solifecfun.per.perIdentificacion,
-// 						'perCreado': this.info[0].solifecfun.per.perCreado,
-// 						'perNombrecompleto':this.info[0].solifecfun.per.perNombrecompleto
-// 					};
-// 				}
-// 			}
-// 		},error => {
-// 			this.errorMessage = <any>error;
-
-// 			if(this.errorMessage != null){
-// 				console.log(this.errorMessage);
-// 				alert("Error en la peticion de solicitudes");
-// 			}
-// 		});
-
-// this.detalle = {
-// 	'DetsolIdsolicitud': DetalleSolMostrar.solIdsolicitud
-// };
-// }
-
 OnbotonAtrasSolicitud(){
 	this.detalleSol = false;
 }
@@ -1204,17 +959,22 @@ OnfirmarSolicitud(){
 }
 
 
-generarPDFSolicitud(){
-	// console.log("aqui va el codigo de la firma de la solicitud");
+generarPDFSolicitud(valor:Array<any>){
+	let value = valor['solIdsolicitud'];
+	this.datosPdf = {
+		'Idsolicitud': value
+	};
 
-	// console.log("solicitud: "+this.detalleSolicitudRealizadas.DetsolIdsolicitud);
-
-	
-	this._solicitudService.generarpdfSolicitud().subscribe(
+	this._solicitudService.generapdfSolicitud(this.token,this.datosPdf).subscribe(
 		response => {
 			let info = response;
-			this.info9 = info;
-			// console.log(this.info9);
+			this.pdfmsg = info;
+			if(this.pdfmsg.status === "success"){
+				console.log(this.pdfmsg.msg);
+			}else{
+				console.log(this.pdfmsg.msg);
+
+			}
 		},error => {
 			this.errorMessage = <any>error;
 			if(this.errorMessage != null){
@@ -1223,6 +983,14 @@ generarPDFSolicitud(){
 			}
 		});
 }
+
+verPdfSolicitud(valor:Array<any>){
+	let value = valor['solIdsolicitud'];
+	this.pdfSrc = 'http://localhost/sistema_viaticos/back/web/pdfSol/'+value+'.pdf';
+	window.open(this.pdfSrc);
+}
+
+
 
 }
 

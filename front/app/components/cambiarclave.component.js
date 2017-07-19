@@ -151,19 +151,19 @@ var CambiarclaveComponent = (function () {
         // 	console.log("Por favor ingrese la contraseña antigua");
         // }
     };
-    CambiarclaveComponent = __decorate([
-        core_1.Component({
-            selector: 'cambiarclave',
-            templateUrl: 'app/view/cambiarclave.html',
-            providers: [login_service_1.LoginService, clave_service_1.ClaveService]
-        }),
-        __metadata("design:paramtypes", [login_service_1.LoginService,
-            clave_service_1.ClaveService,
-            app_component_1.AppComponent,
-            router_1.Router,
-            router_1.ActivatedRoute])
-    ], CambiarclaveComponent);
     return CambiarclaveComponent;
 }());
+CambiarclaveComponent = __decorate([
+    core_1.Component({
+        selector: 'cambiarclave',
+        templateUrl: 'app/view/cambiarclave.html',
+        providers: [login_service_1.LoginService, clave_service_1.ClaveService]
+    }),
+    __metadata("design:paramtypes", [login_service_1.LoginService,
+        clave_service_1.ClaveService,
+        app_component_1.AppComponent,
+        router_1.Router,
+        router_1.ActivatedRoute])
+], CambiarclaveComponent);
 exports.CambiarclaveComponent = CambiarclaveComponent;
 //# sourceMappingURL=cambiarclave.component.js.map

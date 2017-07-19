@@ -15,7 +15,6 @@ var router_1 = require("@angular/router");
 var login_service_1 = require("../services/login.service");
 var solicitud_service_1 = require("../services/solicitud.service");
 var SolicitudComponent = (function () {
-    // public solicitudInfolocal = new EventEmitter<string>();
     function SolicitudComponent(_loginService, _solicitudService, _router, _route) {
         this._loginService = _loginService;
         this._solicitudService = _solicitudService;
@@ -34,7 +33,6 @@ var SolicitudComponent = (function () {
         };
         this.OnVerDetalleSol();
         this.OnporFirmar();
-        // this.Onequisviaticos();
         this.detalleSolicitudRealizadas = {
             'DetsolIdsolicitud': ''
         };
@@ -136,15 +134,15 @@ var SolicitudComponent = (function () {
             'banperEstado': [],
             'banNombre': []
         };
+        this.datosPdf = {
+            'Idsolicitud': ''
+        };
     };
     SolicitudComponent.prototype.OnVerDetalleSol = function () {
-        // console.log("this.token:"+this.token);
-        // console.log("this.funcionario:"+JSON.stringify(this.funcionario));
         var _this = this;
         this._solicitudService.reporteSolicitud(this.token, this.funcionario).subscribe(function (response) {
             var info = response;
             _this.info = info;
-            // console.log("this.info:"+this.info);
             if (_this.info.length <= 0) {
                 _this.NoMostrar = "No existen solicitudes realizadas";
                 return _this.NoMostrar;
@@ -193,7 +191,6 @@ var SolicitudComponent = (function () {
                             };
                         }
                         _this.datoSolIteracion = JSON.stringify(_this.datoSolIteracion1);
-                        // console.log("this.datoSolIteracion:"+this.datoSolIteracion);
                         if (_this.datoSol == "") {
                             _this.datoSol = _this.datoSolIteracion;
                         }
@@ -205,7 +202,6 @@ var SolicitudComponent = (function () {
                 }
                 ;
                 _this.datoSolMostrar1 = JSON.parse("[" + _this.datoSol + "]");
-                // console.log("this.datoSolMostrar1:"+this.datoSolMostrar1);
                 var tamanodatos = _this.datoSolMostrar1.length;
                 _this.datociudadtodos = "";
                 for (var l = 0; l < tamanodatos; l++) {
@@ -219,7 +215,6 @@ var SolicitudComponent = (function () {
                     else {
                         _this.ciu1 = _this.ciu1 + "," + _this.ciuIteracion;
                     }
-                    // console.log(l+" this.datoSolMostrar1[l].solId:"+this.datoSolMostrar1[l].solId);
                     if (l > 0) {
                         if (_this.datoSolMostrar1[l].solId !== _this.datoSolMostrar1[anterior1].solId && itemsiguiente1 === tamanodatos) {
                             _this.datosciudad = {
@@ -241,7 +236,6 @@ var SolicitudComponent = (function () {
                         else {
                             for (var k = itemsiguiente1; k < tamanodatos; k++) {
                                 if (_this.datoSolMostrar1[l].solId === _this.datoSolMostrar1[k].solId) {
-                                    // console.log("igual al this.ciu1 de "+l+" :"+this.ciu1);
                                     _this.ciuIteracion = _this.datoSolMostrar1[k].solCiudades;
                                     if (_this.ciu1 == "") {
                                         _this.ciu1 = _this.ciuIteracion;
@@ -250,7 +244,6 @@ var SolicitudComponent = (function () {
                                         _this.ciu1 = _this.ciu1 + "," + _this.ciuIteracion;
                                     }
                                     l = k;
-                                    // console.log("l:"+l);
                                     if (k === tamanodatos - 1) {
                                         _this.datosciudad = {
                                             'solId': _this.datoSolMostrar1[l].solId,
@@ -285,7 +278,6 @@ var SolicitudComponent = (function () {
                                     else {
                                         _this.datociudadtodos = _this.datociudadtodos + "," + datociudad1;
                                     }
-                                    // console.log("en el else de desiguales this.datociudadtodos:"+this.datociudadtodos);
                                     _this.ciu1 = "";
                                     k = tamanodatos;
                                 }
@@ -313,7 +305,6 @@ var SolicitudComponent = (function () {
                 }
                 ;
                 _this.datoSolMostrar = JSON.parse("[" + _this.datociudadtodos + "]");
-                // console.log("this.datoSolMostrar:"+this.datoSolMostrar);
                 _this.datociudadtodos1 = "";
                 _this.datociudadtodos2 = "";
                 _this.datociudadtodos3 = "";
@@ -379,9 +370,6 @@ var SolicitudComponent = (function () {
                 _this.datoSolMostrara = JSON.parse("[" + _this.datociudadtodos1 + "]");
                 _this.datoSolMostrarp = JSON.parse("[" + _this.datociudadtodos2 + "]");
                 _this.datoSolMostrarc = JSON.parse("[" + _this.datociudadtodos3 + "]");
-                // console.log("this.datoSolMostrara:"+this.datoSolMostrara);
-                // console.log("this.datoSolMostrarp:"+this.datoSolMostrarp);
-                // console.log("this.datoSolMostrarc:"+this.datoSolMostrarc);
             }
         }, function (error) {
             _this.errorMessage = error;
@@ -584,7 +572,6 @@ var SolicitudComponent = (function () {
                 ;
                 _this.datoSolMostrara = JSON.parse("[" + _this.datociudadtodos1 + "]");
                 _this.datoSolMostrarp = JSON.parse("[" + _this.datociudadtodos2 + "]");
-                // console.log("this.datoSolMostrarp:"+JSON.stringify(this.datoSolMostrarp));
             }
         }, function (error) {
             _this.errorMessage = error;
@@ -604,201 +591,12 @@ var SolicitudComponent = (function () {
     };
     SolicitudComponent.prototype.OnMostrarDetalleSol = function (valor) {
         var value = valor['solId'];
-        // window.location.href='/solicitud';
-        // this.solicitudInfo = a;
-        // this.solicitudInfo.emit({a: a});
-        // console.log("a:"+JSON.stringify(a));
         this.solicitudInfo = value;
         this.equis_1 = this.equis;
         this._router.navigate(['/versolicitud', value]);
-        // console.log("this.equis_1:"+JSON.stringify(this.equis_1));
-        // console.log(value);
-        // 	this.solicitudInfolocal.emit(value);
-        // // [a] = "equis"
-        // 	// this.SolAJefe = {
-        // 	// 	'$solicitud':,
-        // 	// 	'$sendToFun2':
-        // 	// }
-        // 	console.log("this.solicitudInfolocal:"+JSON.stringify(this.solicitudInfolocal));
-        // 	console.log("this.solifecfun2:"+JSON.stringify(this.solifecfun2));
     };
     SolicitudComponent.prototype.OnListarFuncionariosComision = function () {
     };
-    // OnMostrarDetalle(DetalleSolMostrar){
-    // 	this.detalleSolicitudRealizadas = {
-    // 		'DetsolIdsolicitud': DetalleSolMostrar.solIdsolicitud
-    // 	};
-    // 	this._solicitudService.detallesolrealizadas(this.token,this.detalleSolicitudRealizadas).subscribe(
-    // 		response => {
-    // 			let info = response;
-    // 			this.info1 = JSON.stringify(info);
-    // 			this.info = JSON.parse("["+this.info1+"]"); 
-    // 			if(this.info.length <=0){
-    // 				this.NoMostrar = "No existen solicitudes realizadas";
-    // 				return this.NoMostrar;
-    // 			}else{ 	
-    // 				this.cargocotosol2 = {
-    // 					'carperId' : this.info[0].cargocotosol.carperId,
-    // 					'carperDesde' : this.info[0].cargocotosol.carperDesde,
-    // 					'carperHasta' : this.info[0].cargocotosol.carperHasta,
-    // 					'carperTipo' : this.info[0].cargocotosol.carperTipo,
-    // 					'carperEstado' : this.info[0].cargocotosol.carperEstado,
-    // 					'carNombre' : this.info[0].cargocotosol.car.carNombre,
-    // 					'depNombre' :this.info[0].cargocotosol.car.dep.depNombre,
-    // 					'depSiglas' : this.info[0].cargocotosol.car.dep.depSiglas,
-    // 					'depEstado' : this.info[0].cargocotosol.car.dep.depEstado,
-    // 					'rolNombre' : this.info[0].cargocotosol.car.rol.rolNombre,
-    // 					'rolEstado' : this.info[0].cargocotosol.car.rol.rolEstado,
-    // 					'perCorreoelectronico' : this.info[0].cargocotosol.per.perCorreoelectronico,
-    // 					'perNombrecompleto' : this.info[0].cargocotosol.per.perNombrecompleto
-    // 				};
-    // 				this.cargojefesol2 = {
-    // 					'carperId' : this.info[0].cargojefesol.carperId,
-    // 					'carperDesde' : this.info[0].cargojefesol.carperDesde,
-    // 					'carperHasta' : this.info[0].cargojefesol.carperHasta,
-    // 					'carperTipo' : this.info[0].cargojefesol.carperTipo,
-    // 					'carperEstado' : this.info[0].cargojefesol.carperEstado,
-    // 					'carNombre' : this.info[0].cargojefesol.car.carNombre,
-    // 					'depNombre' :this.info[0].cargojefesol.car.dep.depNombre,
-    // 					'depSiglas' : this.info[0].cargojefesol.car.dep.depSiglas,
-    // 					'depEstado' : this.info[0].cargojefesol.car.dep.depEstado,
-    // 					'rolNombre' : this.info[0].cargojefesol.car.rol.rolNombre,
-    // 					'rolEstado' : this.info[0].cargojefesol.car.rol.rolEstado,
-    // 					'perCorreoelectronico' : this.info[0].cargojefesol.per.perCorreoelectronico,
-    // 					'perNombrecompleto' : this.info[0].cargojefesol.per.perNombrecompleto
-    // 				};
-    // 				if(this.info[0].transportessol.length >0){
-    // 					this.transportessol = this.info[0].transportessol;
-    // 				}else if(this.info[0].transportessol.length == 0){
-    // 					this.transportessol = this.info[0].transportessol;
-    // 				}else{
-    // 					this.transportessol1 = JSON.stringify(this.info[0].transportessol);
-    // 					this.transportessol = JSON.parse("["+this.transportessol1+"]");
-    // 				}
-    // 				if(this.info[0].bancosol.banperTipocuenta == "A"){
-    // 					this.bancosol2 = {
-    // 						'banperId': this.info[0].bancosol.banperId,
-    // 						'banperTipocuenta': 'AHORROS',
-    // 						'banperNumerocuenta': this.info[0].bancosol.banperNumerocuenta,
-    // 						'banperEstado': this.info[0].bancosol.banperEstado,
-    // 						'banNombre': this.info[0].bancosol.ban.banNombre
-    // 					};
-    // 				}else{
-    // 					this.bancosol2 = {
-    // 						'banperId': this.info[0].bancosol.banperId,
-    // 						'banperTipocuenta': 'CORRIENTE',
-    // 						'banperNumerocuenta': this.info[0].bancosol.banperNumerocuenta,
-    // 						'banperEstado': this.info[0].bancosol.banperEstado,
-    // 						'banNombre': this.info[0].bancosol.ban.banNombre
-    // 					};
-    // 				}
-    // 				if(this.info[0].personasssol.length > 0){
-    // 					// console.log("personasssol.length no undefined");
-    // 					this.personasssol = this.info[0].personasssol;
-    // 					// console.log("this.personasssol[0]:"+JSON.stringify(this.personasssol[0]));
-    // 				}else if(this.info[0].personasssol.length == 0){
-    // 					// console.log("personasssol.length no undefined");
-    // 					this.personasssol = this.info[0].personasssol;
-    // 				}else{
-    // 					// console.log("personasssol.length == undefined");
-    // 					this.personasssol1 = JSON.stringify(this.info[0].personasssol);
-    // 					this.personasssol = JSON.parse("["+this.personasssol1+"]");
-    // 				}
-    // 				console.log("this.personasssol:"+JSON.stringify(this.personasssol));
-    // 				if(this.info[0].ciudadessol.length>0){
-    // 					// console.log("ciudadessol.length no undefined");
-    // 					this.ciudadessol = this.info[0].ciudadessol;
-    // 					// console.log("this.ciudadessol[0]:"+JSON.stringify(this.ciudadessol[0]));
-    // 				}else if(this.info[0].ciudadessol.length == 0){
-    // 					// console.log("ciudadessol.length no undefined");
-    // 					this.ciudadessol = this.info[0].ciudadessol;
-    // 				}else{
-    // 					// console.log("ciudadessol.length == undefined");
-    // 					this.ciudadessol1 = JSON.stringify(this.info[0].ciudadessol);
-    // 					this.ciudadessol = JSON.parse("["+this.ciudadessol1+"]");
-    // 				}
-    // 				if(this.info[0].estadosol.length>0){
-    // 					this.estadosol = this.info[0].estadosol;
-    // 					this.estsolActividades = this.estadosol[0].estsolActividades;
-    // 					if(JSON.stringify(this.estadosol[0].estsolFechasalida) === JSON.stringify(this.estadosol[0].estsolFechallegada) ){
-    // 						this.equis = {
-    // 							'viaticos': '',
-    // 							'movilizaciones':'X',
-    // 							'subsistencias':'X',
-    // 							'alimentacion':'X'
-    // 						};
-    // 					}else{
-    // 						this.equis = {
-    // 							'viaticos':'X',
-    // 							'movilizaciones':'X',
-    // 							'subsistencias':'X',
-    // 							'alimentacion':'X'
-    // 						};
-    // 					}
-    // 					// console.log("this.estadosol[0]:"+JSON.stringify(this.estadosol[0]));	
-    // 				}else if(this.info[0].estadosol.length == 0){
-    // 					// console.log("estadosol.length no undefined");
-    // 					this.estadosol = this.info[0].estadosol;
-    // 					// this.estsolActividades = (JSON.stringify(this.info[0].estadosol.estsolActividades).replace('"<p','<p')).replace('ul>"','ul>');
-    // 					// console.log("this.estadosol:"+JSON.stringify(this.estadosol));
-    // 				}else{
-    // 					// console.log("estadosol.length == undefined");
-    // 					this.estadosol1 = JSON.stringify(this.info[0].estadosol);
-    // 					this.estadosol = JSON.parse("["+this.estadosol1+"]");
-    // 					// this.estsolActividades = (JSON.stringify(this.info[0].estadosol.estsolActividades).replace('"<p','<p')).replace('ul>"','ul>');
-    // 					// console.log("this.estadosol:"+JSON.stringify(this.estadosol));
-    // 				}
-    // 				if(this.info[0].cardep.length >0){
-    // 					// console.log("cardep.length no undefined");
-    // 					this.cardep = this.info[0].cardep;
-    // 				}else if(this.info[0].cardep.length == 0){
-    // 					// console.log("cardep.length no undefined");
-    // 					this.cardep = this.info[0].cardep;
-    // 				}else{
-    // 					// console.log("cardep.length == undefined");
-    // 					this.cardep1 = JSON.stringify(this.info[0].cardep);
-    // 					this.cardep = JSON.parse("["+this.cardep1+"]");
-    // 					this.cardep2 = {
-    // 						'carId':this.info[0].cardep.carId,
-    // 						'carNombre':this.info[0].cardep.carNombre,
-    // 						'carJefe':this.info[0].cardep.carJefe,
-    // 						'depNombre':this.info[0].cardep.dep.depNombre,
-    // 						'depSiglas':this.info[0].cardep.dep.depSiglas,
-    // 						'depPadre':this.info[0].cardep.dep.depPadre,
-    // 						'depEstado':this.info[0].cardep.dep.depEstado,
-    // 						'rolNombre':this.info[0].cardep.rol.rolNombre,
-    // 						'rolEstado':this.info[0].cardep.rol.rolEstado
-    // 					};
-    // 					// console.log("this.cardep1:"+this.cardep1);
-    // 				}
-    // 				if(this.info[0].solifecfun.length>0){
-    // 					// console.log("solifecfun.length no undefined");
-    // 				}else if(this.info[0].solifecfun.length == 0){
-    // 					// console.log("solifecfun.length no undefined");
-    // 				}else{
-    // 					this.solifecfun2 = {
-    // 						'solSecuencial':this.info[0].solifecfun.solSecuencial,
-    // 						'solIdsolicitud':this.info[0].solifecfun.solIdsolicitud,
-    // 						'solFecharealizacion':this.info[0].solifecfun.solFecharealizacion,
-    // 						'solNumeroactualizacion':this.info[0].solifecfun.solNumeroactualizacion,
-    // 						'perIdentificacion': this.info[0].solifecfun.per.perIdentificacion,
-    // 						'perCorreoelectronico':this.info[0].solifecfun.per.perIdentificacion,
-    // 						'perCreado': this.info[0].solifecfun.per.perCreado,
-    // 						'perNombrecompleto':this.info[0].solifecfun.per.perNombrecompleto
-    // 					};
-    // 				}
-    // 			}
-    // 		},error => {
-    // 			this.errorMessage = <any>error;
-    // 			if(this.errorMessage != null){
-    // 				console.log(this.errorMessage);
-    // 				alert("Error en la peticion de solicitudes");
-    // 			}
-    // 		});
-    // this.detalle = {
-    // 	'DetsolIdsolicitud': DetalleSolMostrar.solIdsolicitud
-    // };
-    // }
     SolicitudComponent.prototype.OnbotonAtrasSolicitud = function () {
         this.detalleSol = false;
     };
@@ -1049,14 +847,21 @@ var SolicitudComponent = (function () {
             }
         });
     };
-    SolicitudComponent.prototype.generarPDFSolicitud = function () {
-        // console.log("aqui va el codigo de la firma de la solicitud");
+    SolicitudComponent.prototype.generarPDFSolicitud = function (valor) {
         var _this = this;
-        // console.log("solicitud: "+this.detalleSolicitudRealizadas.DetsolIdsolicitud);
-        this._solicitudService.generarpdfSolicitud().subscribe(function (response) {
+        var value = valor['solIdsolicitud'];
+        this.datosPdf = {
+            'Idsolicitud': value
+        };
+        this._solicitudService.generapdfSolicitud(this.token, this.datosPdf).subscribe(function (response) {
             var info = response;
-            _this.info9 = info;
-            // console.log(this.info9);
+            _this.pdfmsg = info;
+            if (_this.pdfmsg.status === "success") {
+                console.log(_this.pdfmsg.msg);
+            }
+            else {
+                console.log(_this.pdfmsg.msg);
+            }
         }, function (error) {
             _this.errorMessage = error;
             if (_this.errorMessage != null) {
@@ -1065,21 +870,26 @@ var SolicitudComponent = (function () {
             }
         });
     };
-    SolicitudComponent = __decorate([
-        core_1.Component({
-            selector: 'solicitud',
-            templateUrl: 'app/view/solicitud.html',
-            providers: [login_service_1.LoginService, solicitud_service_1.SolicitudService] /*,
-            outputs: ['solicitudInfolocal']*/
-        })
-        // @Directive({ selector: '[versolicitud]' })
-        ,
-        __metadata("design:paramtypes", [login_service_1.LoginService,
-            solicitud_service_1.SolicitudService,
-            router_1.Router,
-            router_1.ActivatedRoute])
-    ], SolicitudComponent);
+    SolicitudComponent.prototype.verPdfSolicitud = function (valor) {
+        var value = valor['solIdsolicitud'];
+        this.pdfSrc = 'http://localhost/sistema_viaticos/back/web/pdfSol/' + value + '.pdf';
+        window.open(this.pdfSrc);
+    };
     return SolicitudComponent;
 }());
+SolicitudComponent = __decorate([
+    core_1.Component({
+        selector: 'solicitud',
+        templateUrl: 'app/view/solicitud.html',
+        providers: [login_service_1.LoginService, solicitud_service_1.SolicitudService] /*,
+        outputs: ['solicitudInfolocal']*/
+    })
+    // @Directive({ selector: '[versolicitud]' })
+    ,
+    __metadata("design:paramtypes", [login_service_1.LoginService,
+        solicitud_service_1.SolicitudService,
+        router_1.Router,
+        router_1.ActivatedRoute])
+], SolicitudComponent);
 exports.SolicitudComponent = SolicitudComponent;
 //# sourceMappingURL=solicitud.component.js.map

@@ -32,47 +32,47 @@ var ng2_file_upload_1 = require("ng2-file-upload");
 var AppModule = (function () {
     function AppModule() {
     }
-    AppModule = __decorate([
-        core_1.NgModule({
-            imports: [
-                platform_browser_1.BrowserModule,
-                http_1.HttpModule,
-                forms_1.FormsModule,
-                app_routing_1.routing,
-                common_1.CommonModule,
-                primeng_1.PanelModule,
-                primeng_1.DataTableModule,
-                primeng_1.EditorModule,
-                primeng_1.SharedModule,
-                primeng_1.MultiSelectModule,
-                primeng_1.CalendarModule,
-                primeng_1.DropdownModule,
-                primeng_1.TabViewModule,
-                ng2_file_upload_1.FileUploadModule,
-                ng2_modal_1.ModalModule
-            ],
-            declarations: [
-                app_component_1.AppComponent,
-                login_component_1.LoginComponent,
-                principal_component_1.PrincipalComponent,
-                solicitud_component_1.SolicitudComponent,
-                informe_component_1.InformeComponent,
-                pasajes_component_1.PasajesComponent,
-                nuevasolicitud_component_1.NuevasolicitudComponent,
-                usuario_component_1.UsuarioComponent,
-                ng2_pdf_viewer_1.PdfViewerComponent,
-                imprimirsolicitud_component_1.ImprimirsolicitudComponent,
-                formatDate_pipe_1.DatePipe,
-                versolicitud_component_1.VersolicitudComponent,
-                configuracion_component_1.ConfiguracionComponent,
-                cambiarclave_component_1.CambiarclaveComponent
-            ],
-            providers: [app_routing_1.appRoutingProviders],
-            bootstrap: [app_component_1.AppComponent],
-            schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA]
-        })
-    ], AppModule);
     return AppModule;
 }());
+AppModule = __decorate([
+    core_1.NgModule({
+        imports: [
+            platform_browser_1.BrowserModule,
+            http_1.HttpModule,
+            forms_1.FormsModule,
+            app_routing_1.routing,
+            common_1.CommonModule,
+            primeng_1.PanelModule,
+            primeng_1.DataTableModule,
+            primeng_1.EditorModule,
+            primeng_1.SharedModule,
+            primeng_1.MultiSelectModule,
+            primeng_1.CalendarModule,
+            primeng_1.DropdownModule,
+            primeng_1.TabViewModule,
+            ng2_file_upload_1.FileUploadModule,
+            ng2_modal_1.ModalModule
+        ],
+        declarations: [
+            app_component_1.AppComponent,
+            login_component_1.LoginComponent,
+            principal_component_1.PrincipalComponent,
+            solicitud_component_1.SolicitudComponent,
+            informe_component_1.InformeComponent,
+            pasajes_component_1.PasajesComponent,
+            nuevasolicitud_component_1.NuevasolicitudComponent,
+            usuario_component_1.UsuarioComponent,
+            ng2_pdf_viewer_1.PdfViewerComponent,
+            imprimirsolicitud_component_1.ImprimirsolicitudComponent,
+            formatDate_pipe_1.DatePipe,
+            versolicitud_component_1.VersolicitudComponent,
+            configuracion_component_1.ConfiguracionComponent,
+            cambiarclave_component_1.CambiarclaveComponent
+        ],
+        providers: [app_routing_1.appRoutingProviders],
+        bootstrap: [app_component_1.AppComponent],
+        schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA]
+    })
+], AppModule);
 exports.AppModule = AppModule;
 //# sourceMappingURL=app.module.js.map

@@ -106,12 +106,12 @@ export class SolicitudService{
 
 	}
 
-	generarpdfSolicitud(){
-		
+	generapdfSolicitud(token,data){
+		let json = JSON.stringify(data);
+		let params = "json="+json+"&authorization="+token;
 		let headers = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
-		return this._http.post(this.url+"/solicitud/pdf", {headers: headers})
+		return this._http.post(this.url+"/solicitud/pdf", params, {headers: headers})
 		.map(res => res.json());
-
 	}
 
 

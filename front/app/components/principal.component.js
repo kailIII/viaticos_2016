@@ -234,18 +234,18 @@ var PrincipalComponent = (function () {
             }
         });
     };
-    PrincipalComponent = __decorate([
-        core_1.Component({
-            selector: "principal",
-            templateUrl: "app/view/principal.html",
-            providers: [login_service_1.LoginService, solicitud_service_1.SolicitudService]
-        }),
-        __metadata("design:paramtypes", [login_service_1.LoginService,
-            solicitud_service_1.SolicitudService,
-            router_1.Router,
-            router_1.ActivatedRoute])
-    ], PrincipalComponent);
     return PrincipalComponent;
 }());
+PrincipalComponent = __decorate([
+    core_1.Component({
+        selector: "principal",
+        templateUrl: "app/view/principal.html",
+        providers: [login_service_1.LoginService, solicitud_service_1.SolicitudService]
+    }),
+    __metadata("design:paramtypes", [login_service_1.LoginService,
+        solicitud_service_1.SolicitudService,
+        router_1.Router,
+        router_1.ActivatedRoute])
+], PrincipalComponent);
 exports.PrincipalComponent = PrincipalComponent;
 //# sourceMappingURL=principal.component.js.map

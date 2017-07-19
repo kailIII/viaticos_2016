@@ -68,28 +68,7 @@ var LoginComponent = (function () {
                                             localStorage.setItem('je', "N");
                                             // this.je="N";
                                         }
-                                        // this._loginService.forzarcambio(this.user).subscribe(
-                                        // 	response => {
-                                        // 		let cambio = response;
-                                        // 		this.cambio = cambio;
-                                        // 		// console.log(this.cambio.aperCambioclave);
-                                        // 		if(this.cambio.aperCambioclave === "A"){
                                         window.location.href = '/principal';
-                                        // 	}else{
-                                        // 		// this.paracambiar = "C"
-                                        // 		window.location.href='/principal';
-                                        // 		this._router.navigate(['/cambiarclave']);
-                                        // 	}
-                                        // 	// window.location.href='/principal';
-                                        // },
-                                        // error => {
-                                        // 	this.errorMessage = <any>error;
-                                        // 	if(this.errorMessage != null){
-                                        // 		console.log(this.errorMessage);
-                                        // 		alert("Error en al iniciar Apache");
-                                        // 	}
-                                        // }
-                                        // );
                                     }, function (error) {
                                         _this.errorMessage = error;
                                         if (_this.errorMessage != null) {
@@ -127,18 +106,18 @@ var LoginComponent = (function () {
     LoginComponent.prototype.corregirDatos = function () {
         this.errorMsg = false;
     };
-    LoginComponent = __decorate([
-        core_1.Component({
-            selector: "login",
-            templateUrl: "app/view/login.html",
-            providers: [login_service_1.LoginService, solicitud_service_1.SolicitudService]
-        }),
-        __metadata("design:paramtypes", [login_service_1.LoginService,
-            solicitud_service_1.SolicitudService,
-            router_1.Router,
-            router_1.ActivatedRoute])
-    ], LoginComponent);
     return LoginComponent;
 }());
+LoginComponent = __decorate([
+    core_1.Component({
+        selector: "login",
+        templateUrl: "app/view/login.html",
+        providers: [login_service_1.LoginService, solicitud_service_1.SolicitudService]
+    }),
+    __metadata("design:paramtypes", [login_service_1.LoginService,
+        solicitud_service_1.SolicitudService,
+        router_1.Router,
+        router_1.ActivatedRoute])
+], LoginComponent);
 exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map

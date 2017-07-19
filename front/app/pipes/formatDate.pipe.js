@@ -19,12 +19,12 @@ var DatePipe = (function () {
         // return d
         // return moment(d).format('d/M/YYYY HH:mm:ss')
     };
-    DatePipe = __decorate([
-        core_1.Pipe({
-            name: 'formatDate'
-        })
-    ], DatePipe);
     return DatePipe;
 }());
+DatePipe = __decorate([
+    core_1.Pipe({
+        name: 'formatDate'
+    })
+], DatePipe);
 exports.DatePipe = DatePipe;
 //# sourceMappingURL=formatDate.pipe.js.map

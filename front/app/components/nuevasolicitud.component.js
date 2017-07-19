@@ -741,19 +741,19 @@ var NuevasolicitudComponent = (function () {
             }
         }
     };
-    NuevasolicitudComponent = __decorate([
-        core_1.Component({
-            selector: 'nueva_solicitud',
-            templateUrl: 'app/view/nueva_solicitud.html',
-            providers: [transporte_service_1.TransporteService, solicitud_service_1.SolicitudService, login_service_1.LoginService]
-        }),
-        __metadata("design:paramtypes", [transporte_service_1.TransporteService,
-            solicitud_service_1.SolicitudService,
-            login_service_1.LoginService,
-            router_1.Router,
-            router_1.ActivatedRoute])
-    ], NuevasolicitudComponent);
     return NuevasolicitudComponent;
 }());
+NuevasolicitudComponent = __decorate([
+    core_1.Component({
+        selector: 'nueva_solicitud',
+        templateUrl: 'app/view/nueva_solicitud.html',
+        providers: [transporte_service_1.TransporteService, solicitud_service_1.SolicitudService, login_service_1.LoginService]
+    }),
+    __metadata("design:paramtypes", [transporte_service_1.TransporteService,
+        solicitud_service_1.SolicitudService,
+        login_service_1.LoginService,
+        router_1.Router,
+        router_1.ActivatedRoute])
+], NuevasolicitudComponent);
 exports.NuevasolicitudComponent = NuevasolicitudComponent;
 //# sourceMappingURL=nuevasolicitud.component.js.map
