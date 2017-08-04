@@ -56,6 +56,7 @@ class SolicitudController extends Controller {
 				$observacionsol = (isset($params->observacionsol)) ? $params->observacionsol : null;
 				$ciudades_sol = (isset($params->ciudades_sol)) ? $params->ciudades_sol : null;
 				$solotransporteSol = (isset($params->solotransporteSol)) ? $params->solotransporteSol : null;
+				
 				$fondovalor = (isset($params->fondovalor)) ? $params->fondovalor : null;
 				$fondoobservacion = (isset($params->fondoobservacion)) ? $params->fondoobservacion : null;
 				$anexotitulo = (isset($params->anexotitulo)) ? $params->anexotitulo : null;
@@ -76,8 +77,6 @@ class SolicitudController extends Controller {
 						"perEstado"=> "A"
 						)
 					);
-				// return $helpers->json($isset_funsol);
-
 				$existe_solicitud_comisionados = $em->createQuery('SELECT MAX(m.percomComision)+1 FROM BackBundle:PersonaComision m')->getSingleScalarResult();
 
 				if(count($existe_solicitud_comisionados) == 0){
@@ -141,9 +140,6 @@ class SolicitudController extends Controller {
 						->join('BackBundle:EstadoSolicitud', 'es')
 						->where('es.sol = s.solId')
 						->andWhere('(es.estsolFechasalida between :fechasalida AND :fechallegada) OR (es.estsolFechallegada between :fechasalida and :fechallegada)')
-												// ->andWhere('es.estsolFechallegada between :fechasalida and :fechallegada')
-												// ->andWhere('es.estsolFechasalida >= :fechasalida')
-												// ->andWhere('es.estsolFechallegada <= :fechallegada')
 						->andWhere('s.per = :per')
 						->setParameter('per', $isset_persona)
 						->setParameter('fechasalida', $FechaDesde_sol)
@@ -224,110 +220,6 @@ class SolicitudController extends Controller {
 										$ciudad_solicitud->setEstsol($estado_solicitud);
 										$em->persist($ciudad_solicitud);
 										$em->flush();
-
-										if($solotransporteSol != null){
-											$traruta_sol = Array();
-											$traruta_sol = explode(';', $solotransporteSol);
-											foreach ($traruta_sol as $existe_transporte) {
-												$isset_transporte = Array();
-												$isset_transporte = explode(',', $existe_transporte);
-												$Tiptramod = $isset_transporte[1];
-												$TrasolRutainicio = $isset_transporte[2];
-												$TrasolRutafin = $isset_transporte[3];
-												$TrasolFechasalida = $isset_transporte[4];
-												$TrasolHorasalida = $isset_transporte[5];
-												$TrasolFechallegada = $isset_transporte[6];
-												$TrasolHorallegada = $isset_transporte[7];
-
-												$tiptra = $em->getRepository('BackBundle:TipoTransporte')->findOneBy(
-													array(
-														"tiptraNombre" => $Tiptramod
-														)
-													);
-												$transporte_solicitud = new TransporteSolicitado();
-												$transporte_solicitud->setTrasolRutainicio($TrasolRutainicio);
-												$transporte_solicitud->setTrasolRutafin($TrasolRutafin);
-												$transporte_solicitud->setTrasolFechasalida($TrasolFechasalida);
-												$transporte_solicitud->setTrasolHorasalida($TrasolHorasalida);
-												$transporte_solicitud->setTrasolFechallegada($TrasolFechallegada);
-												$transporte_solicitud->setTrasolHorallegada($TrasolHorallegada);
-												$transporte_solicitud->setTiptra($tiptra);
-												$transporte_solicitud->setEstsol($estado_solicitud);
-												$em->persist($transporte_solicitud);
-												$em->flush();
-											}
-											if($fondovalor != null){
-
-												$isset_fondo = $em->getRepository('BackBundle:Fondo')->findOneBy(
-													array(
-														"sol" => $solicitud
-														)
-													);
-												if(count($isset_fondo)==0){
-													$fondo = new Fondo();
-													$fondo->setFonValor($fondovalor);
-													$fondo->setFonFecha(new \DateTime());
-													$fondo->setFonObservacion($fondoobservacion);
-													$fondo->setSol($solicitud);
-													$em->persist($fondo);
-													$em->flush();
-												}
-											}
-// Aqui va para enviar las solicitudes para las firmas
-					// if($isset_funsol->getPerNombrecompleto() === $isset_persona->getPerNombrecompleto()){
-											if($solicitud->getSolEstado() === "P" && $solicitud->getPer() === $isset_funsol->getPerId()){
-
-												$cargoPer = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
-													array(
-														"per" => $isset_persona,
-														"carperEstado"=> "A"
-														)
-													);
-												$cargoPer1 = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
-													array(
-														"car" => $cargoPer->getCar()->getCarJefe(),
-														"carperEstado"=> "A"
-														)
-													);
-												$isset_autorizacion = $em->getRepository('BackBundle:Autorizacion')->findOneBy(
-													array(
-														"per" => $cargoPer1->getPer(),
-														"autEstado" => "A"
-														)
-													);
-												$isset_solicitud_jefe = $em->getRepository('BackBundle:AutorizadoSolicitud')->findBy(
-													array(
-														"estsol" => $estado_solicitud,
-								// "per" => $isset_autorizacion->getPer(),
-														"aut" => $isset_autorizacion
-														)
-													);
-												if(count($isset_solicitud_jefe) == 0){
-													$envio_firma_jefe = new AutorizadoSolicitud();
-													$envio_firma_jefe->setEstsol($estado_solicitud);
-							// $envio_firma_jefe->setPer($isset_autorizacion->getPer());
-													$envio_firma_jefe->setAut($isset_autorizacion);
-													$em->persist($envio_firma_jefe);
-													$em->flush();
-												}else{
-													$data = array(
-														"status" => "error",
-														"code" => 400,
-														"msg" => "Ya se encuentra enviada esta solicitud para la firma"
-														);
-												}
-											}
-//Fin enviar las solicitudes para las firmas
-											$data["status"] = "success";
-											$data["code"] = $solicitud->getSolId();
-											$data["msg"] = "Solicitud creada satisfactoriamente";
-										}else {
-											$data = array(
-												"status" => "error",
-												"code" => 400,
-												"msg" => "Ya existe el transporte asignado a la solicitud"
-												);
-										}
 									}else {
 										$data = array(
 											"status" => "error",
@@ -343,7 +235,87 @@ class SolicitudController extends Controller {
 									"msg" => "Ya existe la o las ciudades asignadas a la solicitud"
 									);
 							}
+							if($solotransporteSol != null){
+								$traruta_sol = Array();
+								$traruta_sol = explode(';', $solotransporteSol);
+								foreach ($traruta_sol as $existe_transporte) {
+									$isset_transporte = Array();
+									$isset_transporte = explode(',', $existe_transporte);
+									$Tiptramod = $isset_transporte[1];
+									$TrasolRutainicio = $isset_transporte[2];
+									$TrasolRutafin = $isset_transporte[3];
+									$TrasolFechasalida = $isset_transporte[4];
+									$TrasolHorasalida = $isset_transporte[5];
+									$TrasolFechallegada = $isset_transporte[6];
+									$TrasolHorallegada = $isset_transporte[7];
 
+									$tiptra = $em->getRepository('BackBundle:TipoTransporte')->findOneBy(
+										array(
+											"tiptraNombre" => $Tiptramod
+											)
+										);
+									$transporte_solicitud = new TransporteSolicitado();
+									$transporte_solicitud->setTrasolRutainicio($TrasolRutainicio);
+									$transporte_solicitud->setTrasolRutafin($TrasolRutafin);
+									$transporte_solicitud->setTrasolFechasalida($TrasolFechasalida);
+									$transporte_solicitud->setTrasolHorasalida($TrasolHorasalida);
+									$transporte_solicitud->setTrasolFechallegada($TrasolFechallegada);
+									$transporte_solicitud->setTrasolHorallegada($TrasolHorallegada);
+									$transporte_solicitud->setTiptra($tiptra);
+									$transporte_solicitud->setEstsol($estado_solicitud);
+									$em->persist($transporte_solicitud);
+									$em->flush();
+								}
+								if($solicitud->getSolEstado() === "P" && $solicitud->getPer() === $isset_funsol->getPerId()){
+
+									$cargoPer = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
+										array(
+											"per" => $isset_persona,
+											"carperEstado"=> "A"
+											)
+										);
+									$cargoPer1 = $em->getRepository('BackBundle:CargoPersona')->findOneBy(
+										array(
+											"car" => $cargoPer->getCar()->getCarJefe(),
+											"carperEstado"=> "A"
+											)
+										);
+									$isset_autorizacion = $em->getRepository('BackBundle:Autorizacion')->findOneBy(
+										array(
+											"per" => $cargoPer1->getPer(),
+											"autEstado" => "A"
+											)
+										);
+									$isset_solicitud_jefe = $em->getRepository('BackBundle:AutorizadoSolicitud')->findBy(
+										array(
+											"estsol" => $estado_solicitud,
+											"aut" => $isset_autorizacion
+											)
+										);
+									if(count($isset_solicitud_jefe) == 0){
+										$envio_firma_jefe = new AutorizadoSolicitud();
+										$envio_firma_jefe->setEstsol($estado_solicitud);
+										$envio_firma_jefe->setAut($isset_autorizacion);
+										$em->persist($envio_firma_jefe);
+										$em->flush();
+									}else{
+										$data = array(
+											"status" => "error",
+											"code" => 400,
+											"msg" => "Ya se encuentra enviada esta solicitud para la firma"
+											);
+									}
+								}
+								$data["status"] = "success";
+								$data["code"] = $solicitud->getSolId();
+								$data["msg"] = "Solicitud creada satisfactoriamente";
+							}else {
+								$data = array(
+									"status" => "error",
+									"code" => 400,
+									"msg" => "Ya existe el transporte asignado a la solicitud"
+									);
+							}
 						}else {
 							$data = array(
 								"status" => "error",
@@ -985,11 +957,11 @@ class SolicitudController extends Controller {
 				$Idsolicitud = (isset($params->Idsolicitud)) ? $params->Idsolicitud : null;
 				// $FechaSolicitud = (isset($params->FechaSolicitud)) ? $params->FechaSolicitud : null;
 				// $SolCiudades = (isset($params->SolCiudades)) ? $params->SolCiudades : null;
-				
+
 
 				$em = $this->getDoctrine()->getManager();
 
-								$solicitud = $em->getRepository('BackBundle:Solicitud')->findOneBy(
+				$solicitud = $em->getRepository('BackBundle:Solicitud')->findOneBy(
 					array(
 						"solIdsolicitud" => $Idsolicitud
 						// "solIdsolicitud" => $DetsolIdsolicitud
@@ -1120,11 +1092,15 @@ class SolicitudController extends Controller {
 						)
 					);
 				try {
-				ob_start();
-					$html2pdf = new \Spipu\Html2Pdf\Html2Pdf('P', 'A4', 'es', true, 'UTF-8',array(1.5,2.5,1.5,2.5));
+					ob_start();
+					// $html2pdf = new \Spipu\Html2Pdf\Html2Pdf('P', 'A4', 'es', true, 'UTF-8',array(0, 0, 0, 0));
+					$html2pdf = new \Spipu\Html2Pdf\Html2Pdf('P', 'A4', 'es', 'UTF-8');
+
 					$html2pdf->pdf->SetAuthor('Vicepresidencia de la República del Ecuador');
 					$html2pdf->setDefaultFont('Arial');
+					// $html2pdf->pdf->SetDisplayMode('fullpage');
 					$html2pdf->pdf->SetDisplayMode('real');
+
 // 					$html2pdf->writeHTML("    <style>
 //     .centrarVerviatico h5{
 //     text-align: center;

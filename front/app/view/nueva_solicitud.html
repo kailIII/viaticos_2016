@@ -24,13 +24,10 @@
 						<div class="td2">
 							<td>Fecha Solicitud:</td>
 							<td>
-								<input type="date" id="Fecha_sol" [(ngModel)]="Fecha_sol" [ngModelOptions]="{standalone: true}">
+								<input type="date" id="Fecha_sol" step="1" min="" max="" [(ngModel)]="Fecha_sol" [ngModelOptions]="{standalone: true}">
 							</td>
 						</div>
-						<table id="mytable" class="table2">
-							<thead>
-								<p><ins>Lugares de Comisión 1</ins></p>
-							</thead>
+						<!-- <table id="mytable" class="table2">
 							<tbody>
 								<tr>
 									<td class="td2">Fecha Inicio:</td>
@@ -52,7 +49,7 @@
 									</td>
 								</tr>
 							</tbody>
-						</table>
+						</table> -->
 						<table id="mytable" class="table2">
 							<thead>
 								<p><ins>Lugares de Comisión</ins></p>
@@ -319,6 +316,7 @@
 		<div >
 			<ul class="pagination pull-CENTER">
 				<button class="btn btn-primary" type="button" pButton (click)="myModal.open();onGuardarSol()" label="GUARDAR Y ENVIAR"></button>
+				<button (click)="OnOrdernarTransporte1()">Ordenar Transporte</button>
 				<button (click)="OnCancelarSol()">NO GUARDAR Y SALIR</button>
 			</ul>
 		</div>

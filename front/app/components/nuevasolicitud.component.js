@@ -147,6 +147,7 @@ var NuevasolicitudComponent = (function () {
         // this.OnHoraFfinTra();
         // $('#seccion2').transition = false;
         $(function () { $('#seccion2').transition = false; });
+        this.bloquear_manana();
     };
     // openPdf() {
     // 	this.pdf = pdfMake;
@@ -155,6 +156,20 @@ var NuevasolicitudComponent = (function () {
     // 	// this.pdf.createPdf(buildPdf(this.item)).print();
     // 	this.pdf.createPdf(buildPdf(this.item)).download();
     // }
+    NuevasolicitudComponent.prototype.bloquear_manana = function () {
+        // var today1 = new Date();
+        // var dd = today1.getDate();
+        // var mm = today1.getMonth()+1;
+        // var yyyy = today1.getFullYear();
+        // if(dd<10){
+        // 	dd='0'+dd
+        // } 
+        // if(mm<10){
+        // 	mm='0'+mm
+        // } 
+        // today1 = yyyy+'-'+mm+'-'+dd;
+        // document.getElementById("Fecha_sol").setAttribute("max", today1);
+    };
     NuevasolicitudComponent.prototype.toggleTitle = function () {
         $('.title').slideToggle();
         // console.log(i);
@@ -324,7 +339,7 @@ var NuevasolicitudComponent = (function () {
         this.comision.solotransporteSol = (solotransporteSolConvert.replace(';"', ''));
         // console.log("this.comision.solotransporteSol:"+this.comision.solotransporteSol);
         // console.log(this.comision);
-        // console.log("this.comision:"+JSON.stringify(this.comision));
+        console.log("this.comision:" + JSON.stringify(this.comision));
         this.paso3 = true;
     };
     NuevasolicitudComponent.prototype.Onpaso5 = function () {
@@ -390,101 +405,212 @@ var NuevasolicitudComponent = (function () {
         this.OnAgregarRuta();
     };
     NuevasolicitudComponent.prototype.OnAgregarRuta = function () {
-        this.nuevahorainicio = moment(this.comision.FechaDesde_sol + " " + this.comision.HoraDesde_sol);
-        this.nuevafechainicio = (this.nuevahorainicio.add(1, "hour")).format('YYYY-MM-DD/HH:mm');
-        this.nuevafechainicio1 = (this.nuevafechainicio).split("/");
-        this.nuevahorafin = moment(this.FfinTrans + " " + this.HfinTrans);
-        this.nuevafechafin = (this.nuevahorafin.add(1, "hour")).format('YYYY-MM-DD/HH:mm');
-        // this.nuevafechafin = (this.nuevahorafin.subtract(1,"hour")).format('YYYY-MM-DD/HH:mm');
-        this.nuevafechafin1 = (this.nuevafechafin).split("/");
-        // alert(this.nuevafecha);
-        // console.log(this.nuevafechafin1[0]);
-        // console.log(this.nuevafechafin1[1]);
-        if (this.RinicioTrans === undefined || this.RinicioTrans == "") {
-            this.RinicioTrans = "Cuenca-Azuay";
-        }
-        var rurFin_trareq;
-        if (this.RfinTrans === undefined || this.RfinTrans == "") {
-            this.RfinTrans = "Cuenca-Azuay";
-        }
-        if (this.transporteSol.length == 0 && this.RinicioTrans === "Quito-Pichincha" && document.getElementById("combo_tiptra").value === "Aereo") {
-            this.transporteSol1 = {
-                'tratipo': document.getElementById("combo_tiptra").value,
-                'tramodelo': document.getElementById("combo_vehiculo").value,
-                'trarutaInicio': "Tababela-Pichincha",
-                'trarutaFin': this.RfinTrans,
-                // 'trafechaInicio': new Date(this.FinicioTrans).toLocaleDateString(),
-                // 'trahoraInicio': new Date(this.FinicioTrans).toLocaleTimeString(),
-                // 'trafechaFin': new Date(this.FfinTrans).toLocaleDateString(),
-                // 'trahoraFin': new Date(this.FfinTrans).toLocaleTimeString()
-                'trafechaInicio': this.FinicioTrans,
-                'trahoraInicio': this.HinicioTrans,
-                'trafechaFin': this.FfinTrans,
-                'trahoraFin': this.HfinTrans
-            };
-            this.transporteSolInicial = {
-                'tratipo': "Terrestre",
-                'tramodelo': "Institucional",
-                'trarutaInicio': "Quito-Pichincha",
-                'trarutaFin': "Tababela-Pichincha",
-                // 'trafechaInicio': this.comision.FechaDesde_sol,
-                // 'trahoraInicio': this.comision.HoraDesde_sol,
-                // 'trafechaFin': this.comision.FechaHasta_sol,
-                // 'trahoraFin': this.comision.HoraHasta_sol
-                'trafechaInicio': this.comision.FechaDesde_sol,
-                'trahoraInicio': this.comision.HoraDesde_sol,
-                'trafechaFin': this.nuevafechainicio1[0],
-                'trahoraFin': this.nuevafechainicio1[1]
-            };
-            this.transporteSol.push(this.transporteSolInicial);
-            this.transporteSol.push(this.transporteSol1);
-        }
-        else if (this.transporteSol.length > 0 && this.RfinTrans === "Quito-Pichincha" && document.getElementById("combo_tiptra").value === "Aereo") {
-            this.transporteSol1 = {
-                'tratipo': document.getElementById("combo_tiptra").value,
-                'tramodelo': document.getElementById("combo_vehiculo").value,
-                'trarutaInicio': this.RinicioTrans,
-                'trarutaFin': "Tababela-Pichincha",
-                // 'trafechaInicio': new Date(this.FinicioTrans).toLocaleDateString(),
-                // 'trahoraInicio': new Date(this.FinicioTrans).toLocaleTimeString(),
-                // 'trafechaFin': new Date(this.FfinTrans).toLocaleDateString(),
-                // 'trahoraFin': new Date(this.FfinTrans).toLocaleTimeString()
-                'trafechaInicio': this.FinicioTrans,
-                'trahoraInicio': this.HinicioTrans,
-                'trafechaFin': this.FfinTrans,
-                'trahoraFin': this.HfinTrans
-            };
-            this.transporteSolInicial = {
-                'tratipo': "Terrestre",
-                'tramodelo': "Institucional",
-                'trarutaInicio': "Tababela-Pichincha",
-                'trarutaFin': "Quito-Pichincha",
-                // 'trafechaInicio': this.comision.FechaDesde_sol,
-                // 'trahoraInicio': this.comision.HoraDesde_sol,
-                // 'trafechaFin': this.comision.FechaHasta_sol,
-                // 'trahoraFin': this.comision.HoraHasta_sol
-                'trafechaInicio': this.FfinTrans,
-                'trahoraInicio': this.HfinTrans,
-                'trafechaFin': this.nuevafechafin1[0],
-                'trahoraFin': this.nuevafechafin1[1]
-            };
-            this.transporteSol.push(this.transporteSol1);
-            this.transporteSol.push(this.transporteSolInicial);
-            this.comision.FechaHasta_sol = this.nuevafechafin1[0];
-            this.comision.HoraHasta_sol = this.nuevafechafin1[1];
+        if (this.transporteSol.length > 0) {
+            var filas = this.transporteSol.length;
+            // console.log("filas:"+filas);
+            // console.log("this.transporteSol:"+JSON.stringify(this.transporteSol[filas-1].trarutaFin));
+            if (this.transporteSol[filas - 1].trarutaFin === this.RinicioTrans) {
+                this.nuevahorainicio = moment(this.comision.FechaDesde_sol + " " + this.comision.HoraDesde_sol);
+                this.nuevafechainicio = (this.nuevahorainicio.add(1, "hour")).format('YYYY-MM-DD/HH:mm');
+                this.nuevafechamas = (this.nuevafechainicio).split("/");
+                this.nuevafechainicioanterior = moment(this.comision.FechaDesde_sol + " " + this.comision.HoraDesde_sol).subtract(60, "minutes").format('YYYY-MM-DD/HH:mm');
+                this.nuevahorafin = moment(this.FfinTrans + " " + this.HfinTrans);
+                this.nuevafechafin = (this.nuevahorafin.add(1, "hour")).format('YYYY-MM-DD/HH:mm');
+                this.nuevafechamenos = (this.nuevafechafin).split("/");
+                this.nuevafechafinanterior = (this.nuevahorafin.subtract(1, "hour")).format('YYYY-MM-DD/HH:mm');
+                this.nuevafechafinanterior1 = (this.nuevafechafinanterior).split("/");
+                var nuevafechainicio2 = void 0;
+                var FechaSolSalidaCompleta = moment(this.comision.FechaDesde_sol + " " + this.comision.HoraDesde_sol).format('YYYY-MM-DD/HH:mm');
+                var FechaSolLlegadaCompleta = moment(this.comision.FechaHasta_sol + " " + this.comision.HoraHasta_sol).format('YYYY-MM-DD/HH:mm');
+                var FechaTraSalidaCompleta = moment(this.FinicioTrans + " " + this.HinicioTrans).format('YYYY-MM-DD/HH:mm');
+                var FechaTraLlegadaCompleta = moment(this.FfinTrans + " " + this.HfinTrans).format('YYYY-MM-DD/HH:mm');
+                var FechaTraSalidaCompletaAnterior1 = moment(this.FinicioTrans + " " + this.HinicioTrans).subtract(30, "minutes").format('YYYY-MM-DD/HH:mm');
+                // let FechaTraLlegadaCompletaAnterior1 = moment(this.FfinTrans +" "+this.HfinTrans).subtract(30, "minutes").format('YYYY-MM-DD/HH:mm');
+                var FechaTraSalidaCompletaAnterior2 = moment(this.FinicioTrans + " " + this.HinicioTrans).subtract(90, "minutes").format('YYYY-MM-DD/HH:mm');
+                // let FechaTraLlegadaCompletaAnterior2 = moment(this.FfinTrans +" "+this.HfinTrans).subtract(90, "minutes").format('YYYY-MM-DD/HH:mm');
+                if (this.nuevafechainicio >= FechaTraSalidaCompletaAnterior1) {
+                    this.nuevafechainicio = FechaTraSalidaCompletaAnterior1;
+                    nuevafechainicio2 = (FechaTraSalidaCompletaAnterior2).split("/");
+                    this.comision.FechaDesde_sol = nuevafechainicio2[0];
+                    this.comision.HoraDesde_sol = nuevafechainicio2[1];
+                }
+                this.nuevafechainicio1 = (this.nuevafechainicio).split("/");
+                this.nuevafechafin1 = (this.nuevafechafin).split("/");
+                if (this.RinicioTrans === undefined || this.RinicioTrans == "") {
+                    this.RinicioTrans = "Cuenca-Azuay";
+                }
+                var rurFin_trareq = void 0;
+                if (this.RfinTrans === undefined || this.RfinTrans == "") {
+                    this.RfinTrans = "Cuenca-Azuay";
+                }
+                if (this.transporteSol.length == 0 && this.RinicioTrans === "Quito-Pichincha" && document.getElementById("combo_tiptra").value === "Aereo") {
+                    this.transporteSol1 = {
+                        'tratipo': document.getElementById("combo_tiptra").value,
+                        'tramodelo': document.getElementById("combo_vehiculo").value,
+                        'trarutaInicio': "Tababela-Pichincha",
+                        'trarutaFin': this.RfinTrans,
+                        'trafechaInicio': this.FinicioTrans,
+                        'trahoraInicio': this.HinicioTrans,
+                        'trafechaFin': this.FfinTrans,
+                        'trahoraFin': this.HfinTrans
+                    };
+                    this.transporteSolInicial = {
+                        'tratipo': "Terrestre",
+                        'tramodelo': "Institucional",
+                        'trarutaInicio': "Quito-Pichincha",
+                        'trarutaFin': "Tababela-Pichincha",
+                        'trafechaInicio': this.comision.FechaDesde_sol,
+                        'trahoraInicio': this.comision.HoraDesde_sol,
+                        'trafechaFin': this.nuevafechainicio1[0],
+                        'trahoraFin': this.nuevafechainicio1[1]
+                    };
+                    this.transporteSol.push(this.transporteSolInicial);
+                    this.transporteSol.push(this.transporteSol1);
+                }
+                else if (this.transporteSol.length > 0 && this.RfinTrans === "Quito-Pichincha" && document.getElementById("combo_tiptra").value === "Aereo") {
+                    this.transporteSol1 = {
+                        'tratipo': document.getElementById("combo_tiptra").value,
+                        'tramodelo': document.getElementById("combo_vehiculo").value,
+                        'trarutaInicio': this.RinicioTrans,
+                        'trarutaFin': "Tababela-Pichincha",
+                        'trafechaInicio': this.FinicioTrans,
+                        'trahoraInicio': this.HinicioTrans,
+                        'trafechaFin': this.FfinTrans,
+                        'trahoraFin': this.HfinTrans
+                    };
+                    this.transporteSolInicial = {
+                        'tratipo': "Terrestre",
+                        'tramodelo': "Institucional",
+                        'trarutaInicio': "Tababela-Pichincha",
+                        'trarutaFin': "Quito-Pichincha",
+                        'trafechaInicio': this.FfinTrans,
+                        'trahoraInicio': this.HfinTrans,
+                        'trafechaFin': this.nuevafechafin1[0],
+                        'trahoraFin': this.nuevafechafin1[1]
+                    };
+                    this.transporteSol.push(this.transporteSol1);
+                    this.transporteSol.push(this.transporteSolInicial);
+                    this.comision.FechaHasta_sol = this.nuevafechafin1[0];
+                    this.comision.HoraHasta_sol = this.nuevafechafin1[1];
+                }
+                else {
+                    this.transporteSol1 = {
+                        'tratipo': document.getElementById("combo_tiptra").value,
+                        'tramodelo': document.getElementById("combo_vehiculo").value,
+                        'trarutaInicio': this.RinicioTrans,
+                        'trarutaFin': this.RfinTrans,
+                        'trafechaInicio': this.FinicioTrans,
+                        'trahoraInicio': this.HinicioTrans,
+                        'trafechaFin': this.FfinTrans,
+                        'trahoraFin': this.HfinTrans
+                    };
+                    this.transporteSol.push(this.transporteSol1);
+                    this.comision.FechaHasta_sol = this.FfinTrans;
+                    this.comision.HoraHasta_sol = this.HfinTrans;
+                }
+            }
+            else {
+                alert("Existe un error en la ruta ingresada, por favor corrija la ruta de inicio debe ser igual que la ruta fin anterior");
+            }
         }
         else {
-            this.transporteSol1 = {
-                'tratipo': document.getElementById("combo_tiptra").value,
-                'tramodelo': document.getElementById("combo_vehiculo").value,
-                'trarutaInicio': this.RinicioTrans,
-                'trarutaFin': this.RfinTrans,
-                'trafechaInicio': this.FinicioTrans,
-                'trahoraInicio': this.HinicioTrans,
-                'trafechaFin': this.FfinTrans,
-                'trahoraFin': this.HfinTrans
-            };
-            this.transporteSol.push(this.transporteSol1);
+            this.nuevahorainicio = moment(this.comision.FechaDesde_sol + " " + this.comision.HoraDesde_sol);
+            this.nuevafechainicio = (this.nuevahorainicio.add(1, "hour")).format('YYYY-MM-DD/HH:mm');
+            this.nuevafechamas = (this.nuevafechainicio).split("/");
+            this.nuevafechainicioanterior = moment(this.comision.FechaDesde_sol + " " + this.comision.HoraDesde_sol).subtract(60, "minutes").format('YYYY-MM-DD/HH:mm');
+            this.nuevahorafin = moment(this.FfinTrans + " " + this.HfinTrans);
+            this.nuevafechafin = (this.nuevahorafin.add(1, "hour")).format('YYYY-MM-DD/HH:mm');
+            this.nuevafechamenos = (this.nuevafechafin).split("/");
+            this.nuevafechafinanterior = (this.nuevahorafin.subtract(1, "hour")).format('YYYY-MM-DD/HH:mm');
+            this.nuevafechafinanterior1 = (this.nuevafechafinanterior).split("/");
+            var nuevafechainicio2 = void 0;
+            var FechaSolSalidaCompleta = moment(this.comision.FechaDesde_sol + " " + this.comision.HoraDesde_sol).format('YYYY-MM-DD/HH:mm');
+            var FechaSolLlegadaCompleta = moment(this.comision.FechaHasta_sol + " " + this.comision.HoraHasta_sol).format('YYYY-MM-DD/HH:mm');
+            var FechaTraSalidaCompleta = moment(this.FinicioTrans + " " + this.HinicioTrans).format('YYYY-MM-DD/HH:mm');
+            var FechaTraLlegadaCompleta = moment(this.FfinTrans + " " + this.HfinTrans).format('YYYY-MM-DD/HH:mm');
+            var FechaTraSalidaCompletaAnterior1 = moment(this.FinicioTrans + " " + this.HinicioTrans).subtract(30, "minutes").format('YYYY-MM-DD/HH:mm');
+            var FechaTraSalidaCompletaAnterior2 = moment(this.FinicioTrans + " " + this.HinicioTrans).subtract(90, "minutes").format('YYYY-MM-DD/HH:mm');
+            // let FechaTraLlegadaCompletaAnterior2 = moment(this.FfinTrans +" "+this.HfinTrans).subtract(90, "minutes").format('YYYY-MM-DD/HH:mm');
+            if (this.nuevafechainicio >= FechaTraSalidaCompletaAnterior1) {
+                this.nuevafechainicio = FechaTraSalidaCompletaAnterior1;
+                nuevafechainicio2 = (FechaTraSalidaCompletaAnterior2).split("/");
+                this.comision.FechaDesde_sol = nuevafechainicio2[0];
+                this.comision.HoraDesde_sol = nuevafechainicio2[1];
+            }
+            this.nuevafechainicio1 = (this.nuevafechainicio).split("/");
+            this.nuevafechafin1 = (this.nuevafechafin).split("/");
+            if (this.RinicioTrans === undefined || this.RinicioTrans == "") {
+                this.RinicioTrans = "Cuenca-Azuay";
+            }
+            var rurFin_trareq = void 0;
+            if (this.RfinTrans === undefined || this.RfinTrans == "") {
+                this.RfinTrans = "Cuenca-Azuay";
+            }
+            if (this.transporteSol.length == 0 && this.RinicioTrans === "Quito-Pichincha" && document.getElementById("combo_tiptra").value === "Aereo") {
+                this.transporteSol1 = {
+                    'tratipo': document.getElementById("combo_tiptra").value,
+                    'tramodelo': document.getElementById("combo_vehiculo").value,
+                    'trarutaInicio': "Tababela-Pichincha",
+                    'trarutaFin': this.RfinTrans,
+                    'trafechaInicio': this.FinicioTrans,
+                    'trahoraInicio': this.HinicioTrans,
+                    'trafechaFin': this.FfinTrans,
+                    'trahoraFin': this.HfinTrans
+                };
+                this.transporteSolInicial = {
+                    'tratipo': "Terrestre",
+                    'tramodelo': "Institucional",
+                    'trarutaInicio': "Quito-Pichincha",
+                    'trarutaFin': "Tababela-Pichincha",
+                    'trafechaInicio': this.comision.FechaDesde_sol,
+                    'trahoraInicio': this.comision.HoraDesde_sol,
+                    'trafechaFin': this.nuevafechainicio1[0],
+                    'trahoraFin': this.nuevafechainicio1[1]
+                };
+                this.transporteSol.push(this.transporteSolInicial);
+                this.transporteSol.push(this.transporteSol1);
+            }
+            else if (this.transporteSol.length > 0 && this.RfinTrans === "Quito-Pichincha" && document.getElementById("combo_tiptra").value === "Aereo") {
+                this.transporteSol1 = {
+                    'tratipo': document.getElementById("combo_tiptra").value,
+                    'tramodelo': document.getElementById("combo_vehiculo").value,
+                    'trarutaInicio': this.RinicioTrans,
+                    'trarutaFin': "Tababela-Pichincha",
+                    'trafechaInicio': this.FinicioTrans,
+                    'trahoraInicio': this.HinicioTrans,
+                    'trafechaFin': this.FfinTrans,
+                    'trahoraFin': this.HfinTrans
+                };
+                this.transporteSolInicial = {
+                    'tratipo': "Terrestre",
+                    'tramodelo': "Institucional",
+                    'trarutaInicio': "Tababela-Pichincha",
+                    'trarutaFin': "Quito-Pichincha",
+                    'trafechaInicio': this.FfinTrans,
+                    'trahoraInicio': this.HfinTrans,
+                    'trafechaFin': this.nuevafechafin1[0],
+                    'trahoraFin': this.nuevafechafin1[1]
+                };
+                this.transporteSol.push(this.transporteSol1);
+                this.transporteSol.push(this.transporteSolInicial);
+                this.comision.FechaHasta_sol = this.nuevafechafin1[0];
+                this.comision.HoraHasta_sol = this.nuevafechafin1[1];
+            }
+            else {
+                this.transporteSol1 = {
+                    'tratipo': document.getElementById("combo_tiptra").value,
+                    'tramodelo': document.getElementById("combo_vehiculo").value,
+                    'trarutaInicio': this.RinicioTrans,
+                    'trarutaFin': this.RfinTrans,
+                    'trafechaInicio': this.FinicioTrans,
+                    'trahoraInicio': this.HinicioTrans,
+                    'trafechaFin': this.FfinTrans,
+                    'trahoraFin': this.HfinTrans
+                };
+                this.transporteSol.push(this.transporteSol1);
+                this.comision.FechaHasta_sol = this.FfinTrans;
+                this.comision.HoraHasta_sol = this.HfinTrans;
+            }
         }
     };
     NuevasolicitudComponent.prototype.OnEliminarTraReq = function () {
@@ -610,7 +736,97 @@ var NuevasolicitudComponent = (function () {
         // this._router.navigate(['/imprimir_solicitud']);
         // window.location.href='/principal';
     };
-    NuevasolicitudComponent.prototype.OnBloquearBotones = function () {
+    NuevasolicitudComponent.prototype.OnOrdernarTransporte1 = function () {
+        //     $("#tbody_trareq_dialog").dataTable({
+        //     order: [[2, "desc"], [3, "desc"], [4, "desc"], [5, "desc"], [6, "desc"], [7, "desc"]]
+        // });
+        var table, rows, switching, i, x, y, shouldSwitch, RutaFin, RutaIniSig;
+        var FechaHoraInicio, FechaHoraInicioSig;
+        table = document.getElementById("tbody_trareq_dialog");
+        switching = true;
+        /*Make a loop that will continue until
+        no switching has been done:*/
+        while (switching) {
+            //start by saying: no switching is done:
+            switching = false;
+            rows = table.getElementsByTagName("TR");
+            /*Loop through all table rows (except the
+            first, which contains table headers):*/
+            for (i = 1; i < (rows.length - 1); i++) {
+                //start by saying there should be no switching:
+                shouldSwitch = false;
+                /*Get the two elements you want to compare,
+                one from current row and one from the next:*/
+                // FechaRutaFin = rows[i].getElementsByTagName("TD")[3];
+                // HoraRutaFin = rows[i].getElementsByTagName("TD")[3];
+                // FechaRuta = rows[i].getElementsByTagName("TD")[3];
+                // HoraRuta = rows[i].getElementsByTagName("TD")[3];
+                FechaHoraInicio = (new Date((rows[i].getElementsByTagName("TD")[4]).innerText + "T" + (rows[i].getElementsByTagName("TD")[5]).innerText).getTime() / 1000);
+                FechaHoraInicioSig = (new Date((rows[i + 1].getElementsByTagName("TD")[4]).innerText + "T" + (rows[i + 1].getElementsByTagName("TD")[5]).innerText).getTime() / 1000);
+                // FechaRuta = new Date(FechaHoraInicio.split(' ').join('T'));
+                // FechaHoraInicioSig
+                // y = rows[i + 1].getElementsByTagName("TD")[2];
+                // RutaIniSig = rows[i + 1].getElementsByTagName("TD")[2];
+                //check if the two rows should switch place:
+                // console.log("FechaHoraInicio:"+FechaHoraInicio);
+                // console.log("FechaHoraInicio:"+(new Date(FechaHoraInicio)).getTime() / 1000);
+                // console.log("FechaHoraInicio:"+FechaHoraInicio.getTime());
+                // console.log("RutaIniSig.value:"+RutaIniSig.innerText);
+                if (FechaHoraInicio > FechaHoraInicioSig) {
+                    // if (RutaFin.innerText !== RutaIniSig.innerText) {
+                    // 	//if so, mark as a switch and break the loop:
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+            if (shouldSwitch) {
+                //     If a switch has been marked, make the switch
+                //     and mark that a switch has been done:
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
+        }
+    };
+    NuevasolicitudComponent.prototype.OnOrdenarTransporte = function () {
+        // this.Onpaso4();
+        // console.log("this.comision:"+JSON.stringify(this.comision));
+        // console.log("this.transporteSol:"+JSON.stringify(this.transporteSol));
+        var table, rows, switching, i, x, y, shouldSwitch, RutaFin, RutaIniSig;
+        table = document.getElementById("tbody_trareq_dialog");
+        switching = true;
+        /*Make a loop that will continue until
+        no switching has been done:*/
+        while (switching) {
+            //start by saying: no switching is done:
+            switching = false;
+            rows = table.getElementsByTagName("TR");
+            /*Loop through all table rows (except the
+            first, which contains table headers):*/
+            for (i = 1; i < (rows.length - 1); i++) {
+                //start by saying there should be no switching:
+                shouldSwitch = false;
+                /*Get the two elements you want to compare,
+                one from current row and one from the next:*/
+                RutaFin = rows[i].getElementsByTagName("TD")[3];
+                // y = rows[i + 1].getElementsByTagName("TD")[2];
+                RutaIniSig = rows[i + 1].getElementsByTagName("TD")[2];
+                //check if the two rows should switch place:
+                console.log("RutaFin.value:" + RutaFin.innerText);
+                console.log("RutaIniSig.value:" + RutaIniSig.innerText);
+                // if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                if (RutaFin.innerText !== RutaIniSig.innerText) {
+                    //if so, mark as a switch and break the loop:
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+            if (shouldSwitch) {
+                /*If a switch has been marked, make the switch
+                and mark that a switch has been done:*/
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
+        }
     };
     NuevasolicitudComponent.prototype.onEnviarSol = function () {
         var _this = this;
@@ -622,7 +838,8 @@ var NuevasolicitudComponent = (function () {
             _this.guardar = guardar;
             if (_this.guardar.status === "success") {
                 _this.datoscorreoAJefe.solicitud = _this.guardar.code;
-                _this.OnEnviarCorreoAfun(_this.comision.funcionarios_sol);
+                _this.mensajeGuardado = "true";
+                // this.OnEnviarCorreoAfun(this.comision.funcionarios_sol);
             }
             else {
                 alert(_this.guardar.msg);
@@ -721,17 +938,18 @@ var NuevasolicitudComponent = (function () {
     NuevasolicitudComponent.prototype.datosGenerales = function () {
         // $('#seccion2').transition = true;
         // $(function() { $('#seccion2').transition = true; })
-        if (this.FechaDesde_solicitud === undefined || this.FechaDesde_solicitud === "" || this.HoraDesde_sol === undefined || this.HoraDesde_sol === "" || this.FechaHasta_solicitud === undefined || this.FechaHasta_solicitud === "" || this.HoraHasta_sol === undefined || this.HoraHasta_sol === "" || this.ciudades_sol_ini === undefined || this.ciudades_sol_ini === "") {
+        // if(this.FechaDesde_solicitud === undefined || this.FechaDesde_solicitud === "" || this.HoraDesde_sol === undefined || this.HoraDesde_sol === "" || this.FechaHasta_solicitud === undefined || this.FechaHasta_solicitud === "" || this.HoraHasta_sol === undefined || this.HoraHasta_sol === "" || this.ciudades_sol_ini === undefined || this.ciudades_sol_ini === ""){
+        if (this.Fecha_sol === undefined || this.Fecha_sol === "" || this.ciudades_sol_ini === undefined || this.ciudades_sol_ini === "") {
             alert("Falta ingresar datos requeridos, por favor ingrese los campos de la Sección DATOS GENERALES");
             this.existenDatosGenerales = false;
         }
         else {
             this.existenDatosGenerales = true;
-            this.comision.Fecha_sol = this.Fecha_sol;
-            this.comision.FechaDesde_sol = this.FechaDesde_solicitud;
-            this.comision.HoraDesde_sol = this.HoraDesde_sol;
-            this.comision.FechaHasta_sol = this.FechaHasta_solicitud;
-            this.comision.HoraHasta_sol = this.HoraHasta_sol;
+            // this.comision.Fecha_sol = this.Fecha_sol;
+            // this.comision.FechaDesde_sol = this.FechaDesde_solicitud;
+            // this.comision.HoraDesde_sol = this.HoraDesde_sol;
+            // this.comision.FechaHasta_sol = this.FechaHasta_solicitud;
+            // this.comision.HoraHasta_sol = this.HoraHasta_sol;
             this.comision.correo = this._loginService.getIdentity().aperUsuario;
             if (this.funcionarios_sol_ini !== undefined) {
                 this.comision.funcionarios_sol = (((JSON.stringify(this.funcionarios_sol_ini).replace('["', '')).replace('"]', '')).replace('","', ',')).replace(/\"/g, '');
@@ -740,6 +958,7 @@ var NuevasolicitudComponent = (function () {
                 this.comision.ciudades_sol = (JSON.stringify(this.ciudades_sol_ini).replace('[', '')).replace(']', '');
             }
         }
+        // console.log("comision:"+JSON.stringify(this.comision));
     };
     return NuevasolicitudComponent;
 }());

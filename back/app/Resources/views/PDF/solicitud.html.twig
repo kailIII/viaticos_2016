@@ -1,292 +1,326 @@
 <style>
-.centrarVerviatico{
-         text-align: center;
-         font-size: 20px;
+     .titulo_referencial{
+         font-size: 6px;
+    }
+    .notas_referencial{
+         font-size: 6px;
+    }
+    li{
+     text-align: justify;
 }
-.enc_sol table{
-      width: 100vw;
-      padding-left: 2%;
-      padding-right: 2%;
- }
-.tablaVerviatico {
-     width : 100%;
-    height : 100%;
+.enc_sol{
+     width: 100%;
 }
-.titulo_referencial{
-    font-size: 8px;
-}
-.titulo_sol{
-     width: 80%;
-    font-size: 14px;
-    text-align: center;
-}
-.tabla-modal{
-    width: 100%;
-}
-.firmado{
-    font-style: italic;
-    color: #235794;
-    font-size: 12px;
-    font-weight: bold;
-}
-.notas_referencial{
-    font-size: 8px;
-}
-#cabecera{
+.cabecera{
+     margin-left: 5%;
      font-size: 10px;
-     padding-left: 2%;
+     text-align: left;
 }
-#pie{
+.pie{
      font-size: 10px;
+}
+.izquierda{
+     width: 50%;
+     text-align: left;
+     float: left;
+     background: green;
+}
+.derecha{
+     width: 49%;
      text-align: right;
-      padding-right: 2%;
-     /*margin-right: 1%;*/
+     float: left;
+     background: yellow;
 }
-</style>
-<page backtop="7mm" backbottom="7mm" backleft="10mm" backright="10mm">
-     <page_header>
-     <p id="cabecera">{{solifecfun.solIdsolicitud}}</p>
-     </page_header>
-     <page_footer>
-     <p id="pie">Página [[page_cu]] de [[page_nb]]</p>
-     </page_footer>
-     <!-- <h5>SOLICITUD DE AUTORIZACION PARA CUMPLIMIENTO DE SERVICIOS INSTITUCIONALES</h5> -->
-     <!-- <div> -->
-          <div class="centrarVerviatico">
-               <img src={{imagen}}  width="150" height="50" />
-          </div>
-          <div class="centrarVerviatico">
-               <h5>SOLICITUD DE AUTORIZACION PARA CUMPLIMIENTO DE SERVICIOS INSTITUCIONALES</h5>
-          </div>
-     <!-- </div> -->
-     <div class="enc_sol" style="width: 80%">
-          <table border="1" class="tablaVerviatico" >
-               <tr>
-                    <td style="width: 40%">
-                         <p class="titulo_referencial" >Nro.Solicitud de Autorización de servicios Institucionales</p>
-                         <p>{{solifecfun.solIdsolicitud}}</p>
-                    </td>
-                    <td style="width: 40%">
-                         <p class="titulo_referencial">Fecha de Solicitud (dd-mm-aaaa):</p>
-                         <p>{{solifecfun.solFecharealizacion}}</p>
-                    </td>
-               </tr>
-          </table>
-          <table border="1" class="tablaVerviatico">
-               <tr style="width: 80%">
-                    <td style="width: 20%"><p>VIATICOS</p></td>
-                    <td style="width: 5%"><p>X</p>
-                    </td> 
-                    <td style="width: 20%"><p>MOVILIZACIONES</p></td>
-                    <td style="width: 5%"><p></p>
-                    </td>
-                    <td style="width: 20%"><p>SUBSISTENCIAS</p></td>
-                    <td style="width: 5%"><p></p>
-                    </td>
-                    <td style="width: 20%"><p>ALIMENTACION</p></td>
-                    <td style="width: 5%"><p></p>
-                    </td>
-               </tr>
-          </table>
-          <br>
-          <div class="titulo_sol">DATOS GENERALES</div>
-          <table border="1" class="tablaVerviatico">
-               <tr>
-                    <td>
-                         <p class="titulo_referencial">NOMBRES COMPLETOS DE LA O EL SERVIDOR:</p>
-                         <p>{{solifecfun.per.perNombrecompleto}}</p>
-                         <p> {{solifecfun.per.perIdentificacion}}</p>
-                    </td>
-                    <td>
-                         <p class="titulo_referencial">PUESTO QUE OCUPA:</p>
-                         <p>{{cardep.carNombre}}</p>
+.centrarVerviatico{
+     text-align: center;
+     font-size: 20px;
+}
+.tituloVerviatico{
+     text-align: center;
+     font-size: 12px;
+     border: 1px solid #000;
+     background: #bfbfbf;
+     font-weight: bold;
+}
+.contenido{
+      font-size: 10px;
+}
+.contenidoTitulo{
+     text-align: center;
+     font-size: 10px;
+     border: 1px solid #000;
+     background: #bfbfbf;
+     font-weight: bold;
+}
+p {
+     margin: 1px auto;
+}
 
+</style>
+<!-- <page backtop="7mm" backbottom="7mm" backleft="7mm" backright="7mm"> -->
+<page backleft="12mm" backright="7mm">
+<!-- <page> -->
+    <!--  <page_header>
+     <div class="cabecera">
+          <p>Solicitud N°: {{solifecfun.solIdsolicitud}}</p>
+     </div>
+     </page_header> -->
+     <page_footer>
+     <!-- <div class="pie">
+     <div class="izquierda">
+      <p>Solicitud N°: {{solifecfun.solIdsolicitud}}</p>
+      </div>
+     <div class="derecha">
+          <p>Página [[page_cu]] de [[page_nb]]</p>
+     </div>
+     </div> -->
+     <table style="width: 100%" cellspacing="0px" cellpadding="0px" class="tablaVerviatico pie" >
+               <tr>
+                    <td style="width: 50%; text-align: left">
+                         <p>Solicitud N°: {{solifecfun.solIdsolicitud}}</p>
+                    </td>
+                    <td style="width: 50%; text-align: right">
+                         <p>Página [[page_cu]] de [[page_nb]]</p>
                     </td>
                </tr>
+          </table> 
+     </page_footer>
+     <div class="centrarVerviatico">
+          <img src={{imagen}} width="150" height="50" />
+     </div>
+     <div class="enc_sol">
+     <div class="tituloVerviatico">
+          <h5>SOLICITUD DE AUTORIZACION PARA CUMPLIMIENTO DE SERVICIOS INSTITUCIONALES</h5>
+     </div>
+          <table style="width: 100%" border="1px" cellspacing="0px" cellpadding="0px" class="tablaVerviatico" >
                <tr>
-                    <td>
-                         <p class="titulo_referencial">CIUDAD - PROVINCIA DEL SERVICIO INSTITUCIONAL:</p>
-                         {% for ciudadessolMostrar in ciudadessol %}
-                         <!-- <p *ngFor="let ciudadessolMostrar of ciudadessol"> -->
-                         <p>{{ciudadessolMostrar.ciu.ciuNombre}}-{{ciudadessolMostrar.ciu.prov.provNombre}}
-                         </p> 
-                         {% endfor %}       
+                    <td style="width: 50%">
+                         <p class="titulo_referencial">Nro.Solicitud de Autorización de servicios Institucionales</p>
+                         <p class="contenido">{{solifecfun.solIdsolicitud}}</p>
                     </td>
-                    <td>
-                         <p class="titulo_referencial">NOMBRE DE LA UNIDAD A LA QUE PERTENECE LA O EL SERVIDOR:</p>
-                         <p>{{cardep.dep.depNombre}}</p>
+                    <td style="width: 50%">
+                         <p class="titulo_referencial">Fecha de Solicitud (dd-mm-aaaa):</p>
+                         <p class="contenido">{{solifecfun.solFecharealizacion}}</p>
                     </td>
+               </tr>
+          </table> 
+          <table style="width: 100%" border="1px" cellspacing="0px" cellpadding="0px" class="tablaVerviatico">
+               <tr>
+                    <td class="contenido" style="width: 20%"><p>VIATICOS</p></td>
+                    <td class="contenido" style="width: 5%"><p>X</p></td> 
+                    <td class="contenido" style="width: 20%"><p>MOVILIZACIONES</p></td>
+                    <td class="contenido" style="width: 5%"><p></p></td>
+                    <td class="contenido" style="width: 20%"><p>SUBSISTENCIAS</p></td>
+                    <td class="contenido" style="width: 5%"><p></p></td>
+                    <td class="contenido" style="width: 20%"><p>ALIMENTACION</p></td>
+                    <td class="contenido" style="width: 5%"><p></p></td>
                </tr>
           </table>
-          <table border="1" class="tablaVerviatico">
-               <!-- <tr *ngFor="let estadosolMostrar of estadosol"> -->
-               {% for estadosolMostrar in estadosol %}
+          <!-- <br> -->
+          <div class="tituloVerviatico">DATOS GENERALES</div>
+         <table style="width: 100%" border="1px" cellspacing="0px" cellpadding="0px" class="tablaVerviatico">
+          <tr>
+               <td style="width: 50%">
+                    <p class="titulo_referencial">NOMBRES COMPLETOS DE LA O EL SERVIDOR:</p>
+                    <p class="contenido">{{solifecfun.per.perNombrecompleto}}</p>
+                    <p class="contenido"> {{solifecfun.per.perIdentificacion}}</p>
+               </td>
+               <td style="width: 50%">
+                    <p class="titulo_referencial">PUESTO QUE OCUPA:</p>
+                    <p class="contenido">{{cardep.carNombre}}</p>
+               </td>
+          </tr>
+          <tr>
+               <td style="width: 50%">
+                    <p class="titulo_referencial">CIUDAD - PROVINCIA DEL SERVICIO INSTITUCIONAL:</p>
+                    {% for ciudadessolMostrar in ciudadessol %}
+                    <p class="contenido">{{ciudadessolMostrar.ciu.ciuNombre}}-{{ciudadessolMostrar.ciu.prov.provNombre}}
+                    </p> 
+                    {% endfor %}       
+               </td>
+               <td style="width: 50%">
+                    <p class="titulo_referencial">NOMBRE DE LA UNIDAD A LA QUE PERTENECE LA O EL SERVIDOR:</p>
+                    <p class="contenido">{{cardep.dep.depNombre}}</p>
+               </td>
+          </tr>
+     </table>
+     <table style="width: 100%" border="1px" cellspacing="0px" cellpadding="0px" class="tablaVerviatico">
+          {% for estadosolMostrar in estadosol %}
+          <tr>
+               <td style="width: 25%">
+                    <p class="titulo_referencial">FECHA SALIDA (dd-mm-aa):</p>
+                    <p class="contenido">{{estadosolMostrar.estsolFechasalida}}</p>
+               </td>
+               <td style="width: 25%">
+                    <p class="titulo_referencial">HORA SALIDA (hh:mm):</p>
+                    <p class="contenido">{{estadosolMostrar.estsolHorasalida}}</p>
+               </td>
+               <td style="width: 25%">
+                    <p class="titulo_referencial">FECHA LLEGADA (dd-mm-aa):</p>
+                    <p class="contenido">{{estadosolMostrar.estsolFechallegada}}</p>
+               </td>
+               <td style="width: 25%">
+                    <p class="titulo_referencial">HORA LLEGADA (hh:mm):</p>
+                    <p class="contenido">{{estadosolMostrar.estsolHorallegada}}</p>
+               </td>
+          </tr>
+          {% endfor %}
+     </table>
+     <table style="width: 100%" border="1px" cellspacing="0px" cellpadding="0px" class="tablaVerviatico">
+          <tr>
+               <td style="width: 100%" >
+                    <p class="titulo_referencial">SERVIDORES QUE INTEGRAN LOS SERVICIOS INSTITUCIONALES:</p>
+                    {% for personasssolMostrar in personasssol %}
+                    <p class="contenido">{{personasssolMostrar.per.perNombrecompleto}}
+                    </p>
+                    {% endfor %}
+               </td>
+          </tr>
+     </table>
+     <table style="width: 100%" border="1px" cellspacing="0px" cellpadding="0px" class="tablaVerviatico">
+          <tr>
+               <td style="width: 100%" >
+                    <p class="titulo_referencial">DESCRIPCION DE LAS ACTIVIDADES A EJECUTARSE:</p>
+                    <div style="width: 100%" >
+                        <p style="width: 90%" class="contenido">{{estadosol[0].estsolActividades|raw}}</p>
+                    </div>
+               </td>
+          </tr>
+     </table>
+     <!-- <br> -->
+     <!-- <div> -->
+     <div class="tituloVerviatico">TRANSPORTE</div> 
+     <table style="width: 100%" border="1px" cellspacing="0px" cellpadding="0px" class="tablaVerviatico">
+          <thead>
                <tr>
-                    <td style="width: 20%">
-                         <p class="titulo_referencial">FECHA SALIDA (dd-mm-aa):</p>
-                         <p>{{estadosolMostrar.estsolFechasalida}}</p>
-                    </td>
-                    <td style="width: 20%">
-                         <p class="titulo_referencial">HORA SALIDA (hh:mm):</p>
-                         <p>{{estadosolMostrar.estsolHorasalida}}</p>
-                    </td>
-                    <td style="width: 20%">
-                         <p class="titulo_referencial">FECHA LLEGADA (dd-mm-aa):</p>
-                         <p>{{estadosolMostrar.estsolFechallegada}}</p>
-                    </td>
-                    <td style="width: 20%">
-                         <p class="titulo_referencial">HORA LLEGADA (hh:mm):</p>
-                         <p>{{estadosolMostrar.estsolHorallegada}}</p>
-                    </td>
+                    <th class="contenido" style="width: 10%" >Tipo de Transporte</th>
+                    <th class="contenido" style="width: 10%" >Nombre de Transporte</th>
+                    <th class="contenido" style="width: 20%" >Ruta inicio</th>
+                    <th class="contenido" style="width: 20%" >Ruta fin</th>
+                    <th class="contenido" style="width: 10%" >Fecha salida</th>
+                    <th class="contenido" style="width: 10%" >Hora salida</th>
+                    <th class="contenido" style="width: 10%" >Fecha llegada</th>
+                    <th class="contenido" style="width: 10%" >Hora llegada</th>
+               </tr>
+          </thead>
+          <tbody>
+               {% for transportessolMostrar in transportessol %}
+               <tr>
+                    <td class="contenido" style="width: 10%" >{{transportessolMostrar.tiptra.tiptraTipo}}</td>
+                    <td class="contenido" style="width: 10%" >{{transportessolMostrar.tiptra.tiptraNombre}}</td>
+                    <td class="contenido" style="width: 20%" >{{transportessolMostrar.trasolRutainicio}}</td>
+                    <td class="contenido" style="width: 20%" >{{transportessolMostrar.trasolRutafin}}</td>
+                    <td class="contenido" style="width: 10%" >{{transportessolMostrar.trasolFechasalida}}</td>
+                    <td class="contenido" style="width: 10%" >{{transportessolMostrar.trasolHorasalida}}</td>
+                    <td class="contenido" style="width: 10%" >{{transportessolMostrar.trasolFechallegada}}</td>
+                    <td class="contenido" style="width: 10%" >{{transportessolMostrar.trasolHorallegada}}</td>
                </tr>
                {% endfor %}
-          </table>
-          <table border="1" class="tablaVerviatico">
-               <tr>
-                    <td class="tablaVerviatico">
-                         <p class="titulo_referencial">SERVIDORES QUE INTEGRAN LOS SERVICIOS INSTITUCIONALES:</p>
-                         {% for personasssolMostrar in personasssol %}
-                         <p>{{personasssolMostrar.per.perNombrecompleto}}
-                         </p>
-                         {% endfor %}
-                    </td>
-               </tr>
-          </table>
-          <table border="1" class="tablaVerviatico">
-               <tr>
-                    <td class="tablaVerviatico">
-                         <p class="titulo_referencial">DESCRIPCION DE LAS ACTIVIDADES A EJECUTARSE:</p>
-                         <div>
-                              <span [innerHTML]="estsolActividades"></span>
-                         </div>
-                    </td>
-
-               </tr>
-          </table>
-          <br>
-          <div>
-               <div class="titulo_sol">TRANSPORTE</div> 
-               <table class="tabla-modal tablaVerviatico"  border="1">
-                    <thead>
-                         <tr>
-                              <th>Tipo</th>
-                              <th>Ruta inicio</th>
-                              <th>Ruta fin</th>
-                              <th>Fecha salida</th>
-                              <th>Hora salida</th>
-                              <th>Fecha llegada</th>
-                              <th>Hora llegada</th>
-                         </tr>
-                    </thead>
-                    <!-- <tbody *ngFor="let transportessolMostrar of transportessol"> -->
-                    <tbody>
-                         {% for transportessolMostrar in transportessol %}
-                         <tr>
-                              <td>{{transportessolMostrar.tiptra.tiptraNombre}}</td>
-                              <td>{{transportessolMostrar.trasolRutainicio}}</td>
-                              <td>{{transportessolMostrar.trasolRutafin}}</td>
-                              <td>{{transportessolMostrar.trasolFechasalida}}</td>
-                              <td>{{transportessolMostrar.trasolHorasalida}}</td>
-                              <td>{{transportessolMostrar.trasolFechallegada}}</td>
-                              <td>{{transportessolMostrar.trasolHorallegada}}</td>
-                         </tr>
-                         {% endfor %}
-                    </tbody>
-               </table>
-          </div>
-          <br>
-          <div class="titulo_sol">DATOS PARA TRANSFERENCIA</div> 
-          <table class="tabla-modal tablaVerviatico"  border="1" >
-               <tr>
-                    <td><p class="titulo_referencial">NOMBRE DEL BANCO:</p>
-                         <p>{{bancosol.ban.banNombre}}</p>
-                    </td>
-                    <td><p class="titulo_referencial">TIPO DE CUENTA:</p>
-                         <p>{{bancosol.banperTipocuenta}}</p>
-                    </td>
-                    <td><p class="titulo_referencial">N° DE CUENTA:</p>
-                         <p>{{bancosol.banperNumerocuenta}}</p>
-                    </td>
-               </tr>
-          </table>
-          <br>
-          <table class="tabla-modal"  border="1">
-               <tr>
-                    <td>
-                         Firma de la o Servidor Solicitante
-                    </td>
-                    <td>
-                         Firma de la o el responsable de la unidad solicitante
-                    </td>
-               </tr>
-               <tr style="height: 50px">
-                    <td >
-                    </td>
-                    <td>
-                    </td>
-               </tr>
-               <tr>
-                    <td>
-                         <p class="titulo_referencial">Nombre de la o el servidor</p>
-                         <p class="firmado">Firmado Electrónicamente</p>
-                         <p>{{solifecfun.per.perNombrecompleto}}</p>
-                         <p>{{cardep.carNombre}}</p>
-                    </td>
-                    <td>
-                         <p class="titulo_referencial">Nombre de la o el responsable de la unidad solicitante</p>
-                         <p class="firmado">Firmado Electrónicamente</p>
-                         <p>{{cargojefesol.per.perNombrecompleto}}</p>
-                         <p>{{cargojefesol.car.carNombre}}</p>
-                    </td>
-               </tr>
-               <tr>
-                    <td>
-                         <!-- <tr style="height: auto"> -->
-
-                         Firma de la Autoridad Nominadora o su delegado 
-                         <!-- </tr> -->
-                    </td>
-                    <td rowspan="3" style="width: 50%">
+          </tbody>
+     </table>
+     <!-- </div> -->
+     <!-- <br> -->
+     <div class="tituloVerviatico">DATOS PARA TRANSFERENCIA</div> 
+     <table  style="width: 100%" border="1px" cellspacing="0px" cellpadding="0px" class="tablaVerviatico">
+          <tr>
+               <td style="width: 34%">
+                    <p class="titulo_referencial">NOMBRE DEL BANCO:</p>
+                    <p class="contenido">{{bancosol.ban.banNombre}}</p>
+               </td>
+               <td style="width: 33%">
+                    <p class="titulo_referencial">TIPO DE CUENTA:</p>
+                    {% if bancosol.banperTipocuenta == "A" %}
+                    <p class="contenido">AHORROS</p>
+                    {% else %}
+                    <p class="contenido">CORRIENTE</p>
+                    {% endif %}
+               </td>
+               <td style="width: 33%">
+                    <p class="titulo_referencial">N° DE CUENTA:</p>
+                    <p class="contenido">{{bancosol.banperNumerocuenta}}</p>
+               </td>
+          </tr>
+     </table>
+     <!-- <br> -->
+     <table  style="width: 100%" border="1px" cellspacing="0px" cellpadding="0px" class="tablaVerviatico">
+          <tr>
+               <td class="contenidoTitulo">
+                    FIRMA DE LA O EL SERVIDOR SOLICITANTE
+               </td>
+               <td class="contenidoTitulo">
+                    FIRMA DE LA O EL RESPONSABLE DE LA UNIDAD SOLICITANTE
+               </td>
+          </tr>
+          <tr>
+               <td style="height: 7%">
+                    <!-- <p class="firmado">Firmado Electrónicamente</p> -->
+               </td>
+               <td style="height: 7%">
+                    <!-- <p class="firmado">Firmado Electrónicamente</p> -->
+               </td>
+          </tr>
+          <tr>
+               <td style="width: 50%">
+                    <p class="titulo_referencial">Nombre de la o el servidor</p>
+                    <p class="contenido" >{{solifecfun.per.perNombrecompleto}}</p>
+                    <p class="contenido">{{cardep.carNombre}}</p>
+               </td>
+               <td style="width: 50%">
+                    <p class="titulo_referencial">Nombre de la o el responsable de la unidad solicitante</p>
+                    <p class="contenido">{{cargojefesol.per.perNombrecompleto}}</p>
+                    <p class="contenido">{{cargojefesol.car.carNombre}}</p>
+               </td>
+          </tr>
+          <tr>
+               <td class="contenidoTitulo">
+                    FIRMA DE LA AUTORIDAD NOMINADORA O SU DELEGADO 
+               </td>
+               <td rowspan="3" style="width: 50%">
+                    <table style="width: 95%" cellspacing="2px" cellpadding="2px" >
+                    <tr>
+                         <td>
+                              
                          <p class="titulo_referencial">NOTAS:</p>
                          <ol class="notas_referencial">
-                              <li>
+                              <li style="margin-right: 50%">
                                    Esta solicitud deberá ser presentada para su Autoriación, dentro de los tres(3) días plazo previo a la salida programada, salvo los casos de que por necesidad institucionales la Autoridad Nominadora autorice
                               </li>
-                              <li>
+                              <li style="margin-right: 50%">
                                    Está prohibido conceder servicios institucionale durante los días de descanso obligatorio, con excepción de las Máximas Autoridades, o en casos excepcionales debidamente justificados por la Máxima Autoridad o su Delegado
                               </li>
-                              <li>
+                              <li style="margin-right: 50%">
                                    De no existir disponibilidad presupuestaria, tanto la solicitud como la autorización quedarán insubsistentes
                               </li>
                          </ol>
                          <p class="titulo_referencial">COMPROMISOS DEL SERVIDOR</p>
                          <ul class="notas_referencial">
-                              <li>
+                              <li style="margin-right: 50%">
                                    Por este medio, el servidor autoriza a que en los casos en que haya recibido anticipos en concepto viaticos y no haya liquidado una vez culminada la comisión de servicios, se le descuente de su próxima remuneración mensual unificada dichos valores.
                               </li>
-                              <li>
+                              <li style="margin-right: 50%">
                                    De igual modo, el servidor se obliga a restituir de forma inmediata los valores recibidos en concepto de anticipos de viáticos en los casos en que la comision haya sido suspendida; en caso de ho hacerlo, los valores acreditados en cuenta serán descontados de su próxima remuneración.
                               </li>
-                              <li>
+                              <li style="margin-right: 50%">
                                    El informe de Servicios Institucionales, conforme a la normativa vigente, deberá preentarlo dentro del término de cuatro(4) días posteriores a la finalización de la comisión de servicios.
                               </li>
                          </ul>
-                    </td>
-               </tr>
-               <tr style="height: 30%">
-                    <td>
-                    </td>
-               </tr>
-               <tr>
-                    <td>
-                         <!-- <tr> -->
-                         <p class="titulo_referencial">Nombre de la autoridad nominada o su delegado</p>
-                         <p class="firmado">Firmado Electrónicamente</p>
-                         <p>{{cargocotosol.per.perNombrecompleto}}</p>
-                         <p>{{cargocotosol.car.carNombre}}</p>
-                         <!-- </tr> -->
-                    </td>
-               </tr>
-          </table>
-     </div>
+                         </td>
+                    </tr>
+                    </table>
+               </td>
+          </tr>
+          <tr>
+               <td  style="height: 5%">
+                    <!-- <p class="firmado">Firmado Electrónicamente</p> -->
+               </td>
+          </tr>
+          <tr>
+               <td style="width: 50%">
+                    <p class="titulo_referencial">Nombre de la autoridad nominada o su delegado</p>
+                    <p class="contenido">{{cargocotosol.per.perNombrecompleto}}</p>
+                    <p class="contenido">{{cargocotosol.car.carNombre}}</p>
+               </td>
+          </tr>
+     </table>
+</div>
 </page>
