@@ -273,7 +273,7 @@
 										</th>
 										<th style="width: 7%">Hora Fin
 										</th>
-										<th style="width: 6%">Aceptar
+										<th style="width: 6%">Ingresar
 										</th>
 									</tr>
 								</thead>
@@ -327,8 +327,8 @@
 									</tr>
 								</tbody>
 							</table>
-							<div class="AdvertenciaRuta">
-					<table class="table table-striped">
+							<!-- <div class="AdvertenciaRuta"> -->
+					<!-- <table class="table table-striped">
 								<thead>
 									<tr>
 										<th style="width: 10%">Tipo
@@ -353,44 +353,36 @@
 								</thead>
 								<tbody id="tbody_trareq_warning">
 									<tr>
-										<!-- <td style="width: 11.25%">
+										<td style="width: 11.25%">
 											<select id="combo_tiptra" (change)="onSelect()">
-												<option [value]="0">Escoja uno</option>
 												<option *ngFor="let tipodetransporte of tipotra" [value]="tipodetransporte.val">
 													{{tipodetransporte.name}}
 												</option>
 											</select>
-										</td> -->
-										<td>
-											<input type="date" [(ngModel)]="AdvertenciaTipoTrans" [ngModelOptions]="{standalone: true}">
 										</td>
-										<!-- <td style="width: 11.25%">
+										
+										<td style="width: 11.25%">
 											<select id="combo_vehiculo" *ngIf="modeltrans == false" >
-												<option [value]="0">Escoja uno</option>
 											</select> 
 											<select id="combo_vehiculo" *ngIf="modeltrans == true" >
 												<option *ngFor="let modelotransporte of modeltra" [value]="modelotransporte.tiptraNombre">
 													{{modelotransporte.tiptraNombre}}
 												</option>
 											</select> 
-										</td> -->
-										<td>
-											<input type="date" [(ngModel)]="AdvertenciaModeloTrans" [ngModelOptions]="{standalone: true}">
 										</td>
-										<!-- <td style="width: 11.25%">
-											<p-dropdown id="RinicioTrans" [style]="{'width':'auto'}" [options]="ciudadtra" [(ngModel)]="RinicioTrans" [filter]="true" [ngModelOptions]="{standalone: true}">
+										
+										<td style="width: 11.25%">
+											<p-dropdown id="AdvertenciaRinicioTrans" [style]="{'width':'auto'}" [options]="ciudadtra" [(ngModel)]="AdvertenciaRinicioTrans" [filter]="true" [ngModelOptions]="{standalone: true}">
 											</p-dropdown>
-										</td> -->
-										<td>
-											<input type="date" [(ngModel)]="AdvertenciaRInicioTrans" [ngModelOptions]="{standalone: true}">
 										</td>
-										<!-- <td style="width: 11.25%">
-											<p-dropdown [style]="{'width':'auto'}" [options]="ciudadtra" [(ngModel)]="RfinTrans" [filter]="true" [ngModelOptions]="{standalone: true}">
+										
+										<td style="width: 11.25%">
+											<p-dropdown [style]="{'width':'auto'}" [options]="ciudadtra" [(ngModel)]="AdvertenciaRfinTrans" [filter]="true" [ngModelOptions]="{standalone: true}">
 												<div class="ui-helper-clearfix" style="position: relative;height: 12px;">
 													<div id="RfinTrans" style="font-size:10px;float:right;margin-top:1px">{{ciudadtra.label}}</div>
 												</div>
 											</p-dropdown>
-										</td> -->
+										</td>
 										<td>
 											<input type="date" [(ngModel)]="AdvertenciaRFinTrans" [ngModelOptions]="{standalone: true}">
 										</td>
@@ -407,14 +399,14 @@
 											<input type="time" [(ngModel)]="AdvertenciaHfinTrans" [ngModelOptions]="{standalone: true}">
 										</td>
 										<td  style="width: 10%">
-											<a class="btn btn-success btn-xs glyphicon glyphicon-plus" (click)="OnAgregarTraReq()">
+											<a class="btn btn-success btn-xs glyphicon glyphicon-plus" (click)="OnAgregarTraWar()">
 											</a>
 										</td>
 									</tr>
 								</tbody>
-							</table>
-				</div>
-				<br>
+							</table> -->
+				<!-- </div> -->
+				<!-- <br> -->
 							<div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none; text-align: right;">
 								<i class="fa fa-search" style="margin:4px 4px 0 0"></i>
 								<input #gb1 type="text" pInputText size="25" placeholder="Buscar">
@@ -435,7 +427,7 @@
 									</template>
 								</p-column>
 							</p-dataTable> -->
-							<p-dataTable id="tbody_trareq_dialog" [value]="transporteSol" [rows]="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [globalFilter]="gb1">
+							<p-dataTable id="tbody_trareq_dialog" [value]="transporteSol" [rows]="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [globalFilter]="gb1" [rowStyleClass]="mensajeTransporte">
 								<p-column [style]="{'width':'11.25%'}" field="tratipo" header="Tipo"></p-column>
 								<p-column [style]="{'width':'11.25%'}" field="tramodelo" dateformat="yyyy-MM-dd" header="Modelo"></p-column>
 								<p-column [style]="{'width':'11.25%'}" field="trarutaInicio" header="Ruta Inicio"></p-column>
@@ -445,9 +437,28 @@
 								<p-column [style]="{'width':'11.25%'}" field="trahoraInicio" header="Hora Inicio" ></p-column>
 								<p-column [style]="{'width':'11.25%'}" field="trafechaFin" header="Fecha Fin" ></p-column>
 								<p-column [style]="{'width':'11.25%'}" field="trahoraFin" header="Hora Fin" ></p-column>
-								<p-column [style]="{'width':'10%'}" styleClass="col-button" header="Eliminar">
+								<p-column [style]="{'width':'11.25%'}" field="estado" header="Estado" >
+									<!-- <template let-car="rowData" pTemplate="body">
+									<div *ngIf = "this.transporteSol.estado === 'ERROR'">
+										<img src="assets/images/ImgCritical.png"  width="16" height="16" />
+									</div>
+									<div *ngIf = "this.transporteSol.estado === 'BIEN'">
+										<img src="assets/images/ok.png"  width="16" height="16" />									
+									</div>
+									</template> -->
+								</p-column>
+								<p-column [style]="{'width':'10%'}" styleClass="col-button" header="Acciones">
 									<template let-car="rowData" pTemplate="body">
-										<button type="button" pButton (click)="delete(car)" icon="fa-trash" data-toggle="tooltip" data-placement="bottom" title="Eliminar"></button>
+									<!-- <div *ngIf = "OpcBien"> -->
+									<div *ngIf = "car.estado === 'BIEN'">
+										<button type="button" pButton (click)="borrarruta(car)" icon="fa-trash" data-toggle="tooltip" data-placement="bottom" title="Eliminar"></button>
+									</div>
+									<!-- <div *ngIf = "OpcWarning"> -->
+									<div *ngIf = "car.estado === 'ERROR'">
+										<button type="button" pButton (click)="myModalRutas.open()" icon="fa-check" data-toggle="tooltip" data-placement="bottom" title="Aceptar"></button>
+										<!-- <p>{{car.estado}}</p> -->
+										<button type="button" pButton (click)="editarruta(car)" icon="fa-pencil-square-o" data-toggle="tooltip" data-placement="bottom" title="Editar"></button>
+									</div>
 									</template>
 								</p-column>
 							</p-dataTable>
@@ -456,6 +467,20 @@
 				</div>
 			</div>
 		</div>
+		<modal #myModalRutas>
+	<modal-header>
+		<h5>INFORMACION DE LA RUTA</h5> <!-- <h2>{{detalleSolicitudRealizadas.DetsolIdsolicitud}}</h2> -->
+	</modal-header>
+	<modal-content>
+	<p>LA ruta se encuentra con errores, Si acepta se modificaran las horas, caso contrario presione CERRAR y edite las rutas</p>
+	</modal-content>
+	<modal-footer>
+		<button class="btn btn-primary" (click)="aceptarruta();myModalRutas.close()">Aceptar</button>
+		<button class="btn btn-primary" (click)="myModalRutas.close()">Cerrar</button>
+
+	</modal-footer>
+</modal>
+
 		<modal #myModal [hideCloseButton]="true" [closeOnEscape]="false" [closeOnOutsideClick]="false"  modalClass="modal-sm">
 			<modal-content>
 				<div *ngIf="mensajeGuardado == 'false'" class="cargarSol">
