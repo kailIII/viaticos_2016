@@ -1,0 +1,9 @@
+producto_nuevo:
+    path:   /nuevo
+    defaults: { _controller: "AppBundle:Producto:nuevo"}
+    methods:  POST
+    
+producto_ver:
+    path:   /ver
+    defaults: { _controller: "AppBundle:Producto:ver"}
+    methods:  POST

@@ -6,6 +6,10 @@ app_persona:
   resource: "@AppBundle/Resources/config/routing/persona.yml"
   prefix: /persona
 
+app_producto:
+  resource: "@AppBundle/Resources/config/routing/producto.yml"
+  prefix: /producto
+
 app_banco:
   resource: "@AppBundle/Resources/config/routing/banco.yml"
   prefix: /banco
